@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import io from 'socket.io-client'
 import Button from './Button'
 
+var ws = new WebSocket('wss://fathomless-ridge-74437.herokuapp.com/ws');
 
 export default class Counter extends Component {
 
@@ -13,9 +13,8 @@ export default class Counter extends Component {
 	componentDidMount(){
 		this.check();
 	}
-
+	
 	connect = () =>{
-		var ws = new WebSocket('wss://fathomless-ridge-74437.herokuapp.com/ws');
 		let that = this
 		var connectInterval;
 
@@ -69,7 +68,7 @@ export default class Counter extends Component {
      */
     check = () => {
         const { ws } = this.state;
-        if (!ws || ws.readyState == WebSocket.CLOSED) this.connect(); //check if websocket instance is closed, if so call `connect` function.
+        if (!ws || ws.readyState === WebSocket.CLOSED) this.connect(); //check if websocket instance is closed, if so call `connect` function.
     };
 
 	resetCounter = () => {
