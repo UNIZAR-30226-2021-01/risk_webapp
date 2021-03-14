@@ -74,7 +74,8 @@ export default class Counter extends Component {
 	resetCounter = () => {
 		const message = {Cosa: "reset"};
 		try {
-			const webS = this.state.ws;
+			const webS= this.state.ws;
+			if (!ws || ws.readyState === WebSocket.CLOSED) return
 			webS.send(JSON.stringify(message));
 		} catch (error) {
 			console.log(error)

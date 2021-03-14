@@ -9,10 +9,11 @@ export const Form2 = () => {
 
 	useEffect(() => {
 		const getData = async() =>{
-			const cosas = await fetchData('')
-			setText(cosas)
+			fetchData('')
 		}
+		console.log('Haciendo primera petición...')
 		getData()
+		console.log('Recibida')
 	}, [])
 
 	const fetchData = async(toWrite) =>{
@@ -43,7 +44,7 @@ export const Form2 = () => {
 			value={inputT} 
 			onChange={(e) => setIt(e.target.value)}/>
 
-		<Button color='red' text='Enviar' onClick = {(inputT) => fetchData(inputT)} ></Button>
+		<Button color='red' text='Enviar' onClick = { () => fetchData(inputT)} ></Button>
 		<h1> Valor obtenido: </h1>
 		<p>{text}</p>
 	</>
