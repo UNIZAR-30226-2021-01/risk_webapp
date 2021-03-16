@@ -32,7 +32,7 @@ export const Form2 = () => {
 		}
 		const res = await fetch(url, options);
 		const data = await res.json();
-		setText(data.Cadena);
+		setText('JSON Recibido: ' + inputT);
 	}
 
 	return (
