@@ -1,5 +1,7 @@
 import './App.css';
 import FormCuenta from './components/FormCuenta'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -7,7 +9,7 @@ function App() {
   let valuesNull = {usuario: "", correo: "", contrasenya: ""}
   return (
     <>
-    <h1 id="title-small">RISK</h1>
+    <Header />
     <div className="App">
       {/*<Form />
       <hr />
@@ -15,6 +17,7 @@ function App() {
       <FormCuenta defaults={valuesNull} submitText='Registrarse'/>
       <FormCuenta defaults={values} submitText='Actualizar'/>
     </div>
+    <Footer />
     </>
   );
 }
