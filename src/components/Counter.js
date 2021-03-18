@@ -88,7 +88,7 @@ export default class Counter extends Component {
 				<h1> Counter: </h1>
 				<h2> {this.state.counter} </h2>
 
-				<Button color='blue' text='reset' onClick={this.resetCounter} />
+				<Button color='blue' text='reset' onClick= {this.resetCounter} />
 			</div>
 		);
 	} 
