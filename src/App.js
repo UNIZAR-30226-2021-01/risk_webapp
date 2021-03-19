@@ -16,8 +16,8 @@ import Footer from "./components/Footer";
 //import FormCuenta from "./components/FormCuenta";
 import './assets/css/style.css'
 
-import AuthApi from "./components/AuthApi"
-import Registrar from "./components/Registrar"
+import AuthApi from "./components/sesion/AuthApi"
+import Registrar from "./components/sesion/Registrar"
 
 
 /**	

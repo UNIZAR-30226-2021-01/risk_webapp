@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/panelAmigos/ListaAmigos.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/panelAmigos/ListaAmigos.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import Amigo from './Amigo.js'
+import AnyadirAmigo from './AnyadirAmigo'
+import './listaAmigos.css';
 
+/**
+ * Muestra la lista de amigos recibida como parámetro y da la opción de
+ * añadir un amigo.
+ * @param {lista_de_usuarios} usuarios Amigos del usuario de la aplicación 
+ */
+export const listaAmigos = ({usuarios}) => {
+	return (
+	&lt;div className="listaAmigos">
+		&lt;AnyadirAmigo />
+  		{usuarios.map((usuario) => (
+			  &lt;Amigo datos={usuario}/>
+		))}  
+	&lt;/div>
+	)
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default listaAmigos;</code></pre>
+        </article>
+    </section>
 
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/panelAmigos/Amigo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,34 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/panelAmigos/Amigo.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
 
+/**
+ * Representación de un amigo en la lista de amigos, da la opción de eliminar
+ * el amigo.
+ * @param {usuario} datos Datos del amigo 
+ * @todo Eliminar amigo, con click derecho eliminar y popup de confirmación? 
+ */
+export const Amigo = ({datos}) => {
+    return (
+        &lt;div className="amigo">
+            &lt;h3> {datos.nombre} &lt;/h3>
+        &lt;/div>
+    )
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default Amigo;</code></pre>
+        </article>
+    </section>
 
 
 

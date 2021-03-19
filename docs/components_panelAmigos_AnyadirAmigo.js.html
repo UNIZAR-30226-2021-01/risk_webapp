@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/panelAmigos/AnyadirAmigo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,73 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/panelAmigos/AnyadirAmigo.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import { useForm } from "react-hook-form";
+import Popup from 'reactjs-popup';
 
+/**
+ * Implementa un pop-up para añadir un amigo, este pop-up contiene
+ * un formulario donde insertar el nombre del amigo.
+ * @todo Conexión con servidor, css...
+ */
+export const AnyadirAmigo = () => {
+	const { register, handleSubmit, errors } = useForm({nombre: ""})
 
-    <h3> </h3>
+	const submitAnyadirAmigo = (formData) => {
+		console.log(formData, "Añadidio")
+	}
 
+	return (
+	&lt;Popup trigger={&lt;button className="button"> Open Modal &lt;/button>} modal nested >
+		{close => (
+		&lt;div className="modal">
+			&lt;button className="close" onClick={close}>
+				&amp;times;
+			&lt;/button>
+			&lt;div className="header"> Añadir amigo &lt;/div>
+			&lt;div className="content">
+				&lt;div className="form-row">
+					&lt;form
+						id="registro"
+						onSubmit={handleSubmit((formData) => {
+							submitAnyadirAmigo(formData);
+						})}
+					>
+						&lt;label htmlFor="nombre"> Nombre de usuario de tu amigo&lt;/label>
+						&lt;input
+							type="text"
+							name="nombre"
+							id="nombre"
+							placeholder="Nombre de usuario"
+							ref={register({ required: "Este campo no se puede dejar vacío." })}
+						/>
+						{errors.nombre ? &lt;div> {errors.nombre}&lt;/div> : null}
 
+						&lt;button className="submit" type="submit" >
+							Enviar
+						&lt;/button>
+					&lt;/form>
+				&lt;/div>
+			&lt;/div>
+		&lt;/div>
+  		)}
+	&lt;/Popup> 
+	)
+}
 
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default AnyadirAmigo;
+</code></pre>
+        </article>
+    </section>
 
 
 

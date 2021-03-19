@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import "../assets/css/style.css";
+import "../../assets/css/style.css";
 
 /**
  * Representa un formulario de registro de la cuenta, si algún valor es incorrecto

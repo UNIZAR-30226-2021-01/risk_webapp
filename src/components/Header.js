@@ -1,6 +1,5 @@
 import React, {useContext} from 'react'
-import AuthApi from "./AuthApi"
-import PropTypes from 'prop-types'
+import AuthApi from "./sesion/AuthApi"
 import constants from './../constants.js'
 import Cookies from 'js-cookie'
 

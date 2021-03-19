@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import FormCuenta from './FormCuenta.js'
-import constants from './../constants.js';
+import constants from './../../constants.js';
 import AuthApi from "./AuthApi"
 import Cookies from 'js-cookie'
 
