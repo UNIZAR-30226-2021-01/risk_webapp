@@ -35,12 +35,4 @@ export const Header = () => {
 	)
 }
 
-Header.defaultProps ={
-	title: 'Task tracker'
-}
-
-Header.propTypes = {
-	title: PropTypes.string.isRequired,
-}
-
 export default Header
