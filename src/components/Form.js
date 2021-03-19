@@ -3,6 +3,9 @@ import Button from './Button'
 import { useState, useEffect } from 'react'
 import qs from 'qs'
 
+/**
+ * Form2 es un ejemplo de formulario con petición a un servidor.
+ */
 export const Form2 = () => {
 	const [inputT, setIt] = useState('');
 	const [text, setText] = useState('');
