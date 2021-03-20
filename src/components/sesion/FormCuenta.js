@@ -17,10 +17,10 @@ import "../../assets/css/style.css";
 export const FormCuenta = ({ defaults, submitText, handleOnSubmit }) => {
 	const { register, handleSubmit, errors } = useForm({
 		defaultValues: {
-			usuario: defaults.usuario ? defaults.usuario : "",
+			nombre: defaults.nombre ? defaults.nombre : "",
 			correo: defaults.correo ? defaults.correo : "",
-			contrasenya: defaults.contrasenya ? defaults.contrasenya : "",
-			recibirCorreo: defaults.recibirCorreo ? defaults.recibirCorreo : false,
+			clave: defaults.clave ? defaults.clave : "",
+			recibeCorreos: defaults.recibeCorreos ? defaults.recibeCorreos : false,
 		},
 	});
 
@@ -33,15 +33,15 @@ export const FormCuenta = ({ defaults, submitText, handleOnSubmit }) => {
 				})}
 			>
 				<div className="form-row">
-					<label htmlFor="usuario"> Nombre de usuario</label>
+					<label htmlFor="nombre"> Nombre de usuario</label>
 					<input
 						type="text"
-						name="usuario"
-						id="usuario"
-						placeholder="Nombre de Usuario"
+						name="nombre"
+						id="nombre"
+						placeholder="Nombre de usuario"
 						ref={register({ required: "Este campo no se puede dejar vacío." })}
 					/>
-					{errors.usuario ? <div> {errors.usuario.message}</div> : null}
+					{errors.nombre ? <div> {errors.nombre.message}</div> : null}
 				</div>
 
 				<div className="form-row">
@@ -60,14 +60,14 @@ export const FormCuenta = ({ defaults, submitText, handleOnSubmit }) => {
 					<label htmlFor="contrasenya"> Contraseña</label>
 					<input
 						type="password"
-						name="contrasenya"
-						id="contrasenya"
+						name="clave"
+						id="clave"
 						placeholder="Contraseña"
 						ref={register({
-							required: "required",
+							required: "Este campo no se puede dejar vacío.",
 							minLength: {
 								value: 8,
-								message: "Tiene que haber mínimo 8 caracteres",
+								message: "Tiene que haber mínimo 8 caracteres.",
 							},
 							validate: (value) => {
 								return (
@@ -79,37 +79,23 @@ export const FormCuenta = ({ defaults, submitText, handleOnSubmit }) => {
 							},
 						})}
 					/>
-					{errors.contrasenya ? <div> {errors.contrasenya.message}</div> : null}
+					{errors.clave ? <div> {errors.clave.message}</div> : null}
 				</div>
 
-				{/* 
-			<div>
-				<label htmlFor="contrasenyaConf"> Quiero recibir notificaciones por correo: </label>
-				<input type="password" name="contrasenyaConf" id="contrasenyaConf" placeholder="Confirmar contraseña" ref={register({
-					required: "required",
-					validate: (value) => {
-						console.log(register.contrasenya)
-						return value === register.contrasenya || "Las contraseñas deben coincidir."
-					}
-					})}/>
-				{errors.passwor ? <div> {errors.name.message}</div> : null}
-			</div>
-			*/}
-
 				<div className="form-row">
-					<label htmlFor="recibirCorreo"> Quiero recibir correo: </label>
+					<label htmlFor="recibeCorreos"> Quiero recibir correo: </label>
 					<input
 						type="checkbox"
-						name="recibirCorreo"
-						id="recibirCorreo"
+						name="recibeCorreos"
+						id="recibeCorreos"
 						ref={register()}
 					/>
 				</div>
-				<div class="nav-buttons">
-					<div class="btn btn-nav">
+				<div className="nav-buttons">
+					<div className="btn btn-nav">
 						<button type="button">Atrás</button>
 					</div>
-					<div class="btn btn-nav">
+					<div className="btn btn-nav">
 						<button type="submit">{submitText}</button>
 					</div>
 				</div>

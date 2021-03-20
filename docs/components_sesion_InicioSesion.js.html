@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/Form.js</title>
+    <title>JSDoc: Source: components/sesion/InicioSesion.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/Form.js</h1>
+    <h1 class="page-title">Source: components/sesion/InicioSesion.js</h1>
 
     
 
@@ -26,63 +26,29 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import Button from './Button'
-import { useState, useEffect } from 'react'
-import qs from 'qs'
+            <pre class="prettyprint source linenums"><code>import React, {useContext} from 'react'
+import AuthApi from "./AuthApi"
+import {
+	Link 
+} from "react-router-dom"
 
 /**
- * Form2 es un ejemplo de formulario con petición a un servidor.
+ * 
+ * @todo Todo
  */
-export const Form2 = () => {
-	const [inputT, setIt] = useState('');
-	const [text, setText] = useState('');
+export const InicioSesion = () => {
+	const Auth = useContext(AuthApi)
 
-	useEffect(() => {
-		const getData = async() =>{
-			fetchData('')
-		}
-		console.log('Haciendo primera petición...')
-		getData()
-		console.log('Recibida')
-	}, [])
-
-	const fetchData = async(toWrite) =>{
-		console.log('?');
-		const dataH = {
-			"dato": toWrite
-		};
-		console.log(toWrite);
-		const url = 'https://fathomless-ridge-74437.herokuapp.com/pruebaPost';
-		const options = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: qs.stringify(dataH)
-		}
-		const res = await fetch(url, options);
-		const data = await res.json();
-		setText('JSON Recibido: ' + inputT);
-	}
-
-	return (
-		&lt;>
-		&lt;h1> Valor enviado: &lt;/h1>
-		&lt;input 
-			type='text'
-			placeholder='Algo de texto' 
-			value={inputT} 
-			onChange={(e) => setIt(e.target.value)}/>
-
-		&lt;Button color='red' text='Enviar' onClick = { () => fetchData(inputT)} >&lt;/Button>
-		&lt;h1> Valor obtenido: &lt;/h1>
-		&lt;p>{text}&lt;/p>
-	&lt;/>
-	);
+    return (
+        &lt;div>
+            &lt;h2> Iniciar sesión&lt;/h2>
+           &lt;Link to='/registro'> Volver al registro &lt;/Link>
+        &lt;/div>
+    )
 }
 
-export default Form2</code></pre>
+export default InicioSesion;
+</code></pre>
         </article>
     </section>
 

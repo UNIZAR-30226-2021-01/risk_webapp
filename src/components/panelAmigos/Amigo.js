@@ -1,4 +1,5 @@
 import React from 'react'
+import './amigo.css'
 
 /**
  * Representación de un amigo en la lista de amigos, da la opción de eliminar

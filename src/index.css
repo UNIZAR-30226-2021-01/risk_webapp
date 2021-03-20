@@ -42,12 +42,10 @@ code {
 
 /* Empuja el footer al fondo de la página */
 .wrapper {
-  min-height: calc(100vh - 116px);
+  min-height: calc(100vh - 100px);
 }
 
 .footer{
-  margin-top: 1rem;
-  padding: 1rem;
   background-color: #444;
   position: static;
   bottom: 0;

@@ -8,16 +8,17 @@ import {
 	Switch, 
 	Redirect, 
 	//Link 
-} from "react-router-dom";
+} from "react-router-dom"
 
-//import Head from "./components/Head";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Head from "./components/Head"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
 //import FormCuenta from "./components/FormCuenta";
 import './assets/css/style.css'
 
 import AuthApi from "./components/sesion/AuthApi"
 import Registrar from "./components/sesion/Registrar"
+import InicioSesion from "./components/sesion/InicioSesion"
 
 
 /**	
@@ -30,6 +31,10 @@ function App() {
 
 	const [auth, setAuth] = useState(constants.NULL_VALUES)
 
+	/**
+	 * Lee las cookies de usuario, y si las hay establece al usuario como
+	 * loggeado.
+	 */
 	const readCookie = () =>{
 		const user = Cookies.get(constants.COOKIE_USER);
 		if (user){
@@ -44,6 +49,7 @@ function App() {
 
   return (
 	<div>
+		<Head />
 		<AuthApi.Provider value={{auth,setAuth}}>
   <Router>
 		<div className="wrapper">
@@ -78,7 +84,8 @@ const Routes = () =>{
 	const Auth = useContext(AuthApi)
 	return(
 		<Switch>
-			<ProtectedLogin path="/login" auth={Auth.auth.logged} component={Registrar} />
+			<ProtectedLogin path="/registro" auth={Auth.auth.logged} component={Registrar} />
+			<ProtectedLogin path="/inicioSesion" auth={Auth.auth.logged} component={InicioSesion} />
 			<ProtectedRoute path="/dashboard" auth={Auth.auth.logged}  component={Dashboard} />
 			<ProtectedRoute path="/" auth={Auth.auth.logged}  component={Dashboard} />
 		</Switch>
@@ -97,7 +104,7 @@ const ProtectedRoute = ({auth, component:Component, ...rest}) =>{
 			<Component/>
 		):
 		(
-			<Redirect to="/login"/>
+			<Redirect to="/registro"/>
 		)
 	}
 		/>

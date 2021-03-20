@@ -11,11 +11,11 @@ export const AnyadirAmigo = () => {
 	const { register, handleSubmit, errors } = useForm({nombre: ""})
 
 	const submitAnyadirAmigo = (formData) => {
-		console.log(formData, "Añadidio")
+		console.log(formData, "Añadido")
 	}
 
 	return (
-	<Popup trigger={<button className="button"> Open Modal </button>} modal nested >
+	<Popup trigger={<button className="btn"> Añadir amigo </button>} modal nested >
 		{close => (
 		<div className="modal">
 			<button className="close" onClick={close}>

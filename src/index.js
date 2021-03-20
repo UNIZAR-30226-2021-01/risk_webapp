@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+//import ListaAmigos from './components/panelAmigos/ListaAmigos';
 import reportWebVitals from './reportWebVitals';
 import './assets/css/style.css'
 
@@ -13,6 +14,7 @@ import './assets/css/style.css'
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    {/*<ListaAmigos usuarios={amigos}/>*/}
   </React.StrictMode>,
   document.getElementById('root')
 );
