@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
 //import ListaAmigos from './components/panelAmigos/ListaAmigos';
-import reportWebVitals from "./reportWebVitals";
-//import './assets/css/style.css'
+import reportWebVitals from './reportWebVitals';
+import './assets/css/style.css'
 
 //const amigos = [{nombre: "Jose"}, {nombre: "Pepe"}] //Variable de prueba
 /**
@@ -16,7 +16,7 @@ ReactDOM.render(
     <App />
     {/*<ListaAmigos usuarios={amigos}/>*/}
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
