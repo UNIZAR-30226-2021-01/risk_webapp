@@ -27,7 +27,7 @@ const Registrar = () =>{
 	 */
 	const registrarServer = async(formData) =>{
 		console.log(formData)
-		const url = `{constants.BASE_URL}registrar`
+		const url = `${constants.BASE_URL}registrar`
 		const options = {
 			method: 'POST',
 			headers: {
