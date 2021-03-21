@@ -23,7 +23,7 @@ export const Header = () => {
 				</a>
 				{Auth.auth.logged && 
 				<div className="dropdown">
-					<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{Auth.auth.nombre}</button>
+					<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{Auth.auth.usuario.nombre}</button>
 					<div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 						<button className="dropdown-item" onClick={logOut}>Cerrar sesión</button>
 					</div>

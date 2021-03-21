@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import FormCuenta from './FormCuenta.js'
+import FormCuenta from './FormRegistro.js'
 import constants from './../../constants.js';
 import AuthApi from "./AuthApi"
 import Cookies from 'js-cookie'
@@ -27,7 +27,7 @@ const Registrar = () =>{
 	 */
 	const registrarServer = async(formData) =>{
 		console.log(formData)
-		const url = `{constants.BASE_URL}registrar`
+		const url = `${constants.BASE_SERVER_URL}registrar`
 		const options = {
 			method: 'POST',
 			headers: {
@@ -56,7 +56,7 @@ const Registrar = () =>{
 	return(
 		<div>
 			<h2> Crear cuenta</h2>
-            <FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' makePetition={registrarse}/>
+            <FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' makePetition={registrarServer} siValido={registrarse}/>
 			<p> ¿Ya tienes cuenta? <Link to="/inicioSesion">Inicia sesión</Link></p>
 		</div>
 	)

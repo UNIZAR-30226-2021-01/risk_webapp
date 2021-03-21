@@ -2,11 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-//import ListaAmigos from './components/panelAmigos/ListaAmigos';
-import reportWebVitals from "./reportWebVitals";
-//import './assets/css/style.css'
 
-//const amigos = [{nombre: "Jose"}, {nombre: "Pepe"}] //Variable de prueba
 /**
  * Renderiza la aplicación
  * @requires App.js
@@ -14,7 +10,6 @@ import reportWebVitals from "./reportWebVitals";
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    {/*<ListaAmigos usuarios={amigos}/>*/}
   </React.StrictMode>,
   document.getElementById("root")
 );
