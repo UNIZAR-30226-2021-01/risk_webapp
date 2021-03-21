@@ -12,9 +12,9 @@ import "../../assets/css/style.css";
  * 		dígito y carácter especial.
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario 
- * @param {función} handleOnSubmit Función ejecutada al enviar el formulario
+ * @param {función} makePetition Función ejecutada al enviar el formulario
  */
-export const FormCuenta = ({ defaults, submitText, handleOnSubmit }) => {
+export const FormCuenta = ({ defaults, submitText, makePetition }) => {
 	const { register, handleSubmit, errors } = useForm({
 		defaultValues: {
 			nombre: defaults.nombre ? defaults.nombre : "",
@@ -24,12 +24,25 @@ export const FormCuenta = ({ defaults, submitText, handleOnSubmit }) => {
 		},
 	});
 
+	// Si se está enviando un formulario
+	const [submitting, setSubmitting] = useState(false)
+	// Array de strings
+	const [serverErrors, setServerErrors] = useState([])
+
 	return (
 		<div className="container cont-reg">
 			<form
 				id="registro"
-				onSubmit={handleSubmit((formData) => {
-					handleOnSubmit(formData);
+				onSubmit={handleSubmit(async (formData) => {
+					if (submitting){
+						return false
+					}
+					setSubmitting(true)
+					const data = await makePetition(formData)
+
+					console.log(data)
+					
+					setSubmitting(false)
 				})}
 			>
 				<div className="form-row">
@@ -96,7 +109,7 @@ export const FormCuenta = ({ defaults, submitText, handleOnSubmit }) => {
 						<button type="button">Atrás</button>
 					</div>
 					<div className="btn btn-nav">
-						<button type="submit">{submitText}</button>
+						<button type="submit" disabled={submitting}>{submitText}</button>
 					</div>
 				</div>
 			</form>

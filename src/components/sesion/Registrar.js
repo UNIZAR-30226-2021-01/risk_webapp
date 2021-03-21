@@ -56,7 +56,7 @@ const Registrar = () =>{
 	return(
 		<div>
 			<h2> Crear cuenta</h2>
-            <FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' handleOnSubmit={registrarse}/>
+            <FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' makePetition={registrarse}/>
 			<p> ¿Ya tienes cuenta? <Link to="/inicioSesion">Inicia sesión</Link></p>
 		</div>
 	)
