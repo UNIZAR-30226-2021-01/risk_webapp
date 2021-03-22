@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/Head.js</title>
+    <title>JSDoc: Source: components/sesion/entradasFormulario/EntradaCambioClave.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/Head.js</h1>
+    <h1 class="page-title">Source: components/sesion/entradasFormulario/EntradaCambioClave.js</h1>
 
     
 
@@ -29,22 +29,26 @@
             <pre class="prettyprint source linenums"><code>import React from 'react'
 
 /**
- * Contiene la cabecera html (&lt;head>) de la aplicación, incluye
- * estilos y título de la aplicación.
- * @param {string} titulo Título de la web que aparecerá en la pestaña.
+ * EntradaCambioClave es un campo de formulario para decir que quieres
+ * cambiar la clave
+ * @param {string} titulo Etiqueta para el cambio
+ * @param {form} register Formulario al que pertenece
+ * @param {errors_form} errors Errores del registro 
  */
-export const Head = ({titulo}) => {
-	return (
-		&lt;head>
-			&lt;meta charSet="UTF-8" />
-			&lt;meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-			&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" />
-			&lt;title>{titulo}&lt;/title>
-		&lt;/head>
-	)
+export const EntradaCambioClave = ({titulo, register, errors}) => {
+    return (
+        &lt;div className="form-row">
+        	&lt;label htmlFor="cambioClave"> {titulo}&lt;/label>
+        	&lt;input
+        	  type="checkbox"
+        	  name="cambioClave"
+        	  id="cambioClave"
+        	  ref={register()}
+        	/>
+        	{errors.cambioClave ? &lt;div> {errors.cambioClave.message}&lt;/div> : null}
+        &lt;/div>  
+    )
 }
-
-export default Head;
 </code></pre>
         </article>
     </section>

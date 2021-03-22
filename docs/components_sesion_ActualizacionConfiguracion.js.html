@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/Registrar.js</title>
+    <title>JSDoc: Source: components/sesion/ActualizacionConfiguracion.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/Registrar.js</h1>
+    <h1 class="page-title">Source: components/sesion/ActualizacionConfiguracion.js</h1>
 
     
 
@@ -26,24 +26,65 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, {useContext} from 'react';
-import FormCuenta from './FormRegistro.js'
-import constants from './../../constants.js';
+            <pre class="prettyprint source linenums"><code>import React, {useContext, useState} from 'react'
+import FormActualizar from './FormActualizar.js'
+import constants from './../../constants.js'
 import AuthApi from "./AuthApi"
 import Cookies from 'js-cookie'
 import qs from 'qs'
-import {
-	Link 
-} from "react-router-dom"
 
 /**
- * Registrar, si el loggeo es correcto añade las cookies de sesión
+ * ActualizacionConfiguracion, si la actualización es correcta actualiza las cookies de sesión
  * al cliente y en el contexto de la aplicación
- * @requires FormRegistro
- * @todo Testeo completo, hash a la contraseña
+ * @requires FormActualizar
+ * @todo Testeo final exhaustivo de todo, hash a la contraseña
  */
-const Registrar = () =>{
+const ActualizacionConfiguracion = () =>{
 	const Auth = useContext(AuthApi)
+
+	const [values, setValues] = useState(Auth.auth.usuario)
+
+	/**
+	 * Intenta cambiar el parámetro campo si se ha modificado
+	 * @param {datos_de_sesion} oldValues Valores antiguos de sesion
+	 * @param {string} campo Valor a consultar y modificar
+	 * @param {nuevos_datos} formData Valores recogidos en el formulario  
+	 */
+	const actualizarCampo = async(oldValues, campo, formData) => {
+		const url = `${constants.BASE_SERVER_URL}personalizarUsuario` // Actualizar
+		const nuevoValor = formData[campo]
+		let options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+		}
+		let cuerpo = {
+			idUsuario: oldValues.usuario.id,
+			clave: oldValues.usuario.clave,
+		}
+		console.log(oldValues.usuario[campo], "=?", nuevoValor)
+		if (oldValues.usuario[campo] !== nuevoValor){
+			cuerpo.nuevoDato = nuevoValor
+			cuerpo.tipo = campo
+			options.body= qs.stringify(cuerpo)
+			console.log("Peticion de cambio de: ", campo, ":", 
+				oldValues.usuario[campo], "=>", nuevoValor)
+			const res = await fetch(url, options)
+			const data = await res.json()
+			if (data.code !== 0) {
+				return data
+			} else {
+				oldValues.usuario[campo] = nuevoValor
+				Auth.setAuth(oldValues)
+				setValues(oldValues.usuario)
+				Cookies.set(constants.COOKIE_USER, oldValues, constants.OPTIONS_COOKIE)
+			}
+			return data
+		} else {
+			return {code: 0}
+		}
+	}
 
 	/**
 	 * Hace una petición al server de registro con los datos recibidos como parámetro
@@ -52,44 +93,34 @@ const Registrar = () =>{
 	 * @returns Respuesta recibida a la petición de registro en JSON
 	 * @todo testear
 	 */
-	const registrarServer = async(formData) =>{
-		console.log(formData)
-		const url = `${constants.BASE_SERVER_URL}registrar`
-		const options = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: qs.stringify(formData)
+	const actualizarServer = async(formData) =>{
+		let oldValues = Auth.auth
+
+		let data = await actualizarCampo(oldValues, "nombre", formData)
+		if (data.code !== 0) {return data}
+
+		data = await actualizarCampo(oldValues, "correo", formData)
+		if (data.code !== 0) {return data}
+		
+		data = await actualizarCampo(oldValues, "recibeCorreos", formData)
+		if (data.code !== 0) {return data}
+
+		if (formData.cambioClave){
+			data = await actualizarCampo(oldValues, "clave", formData)
+			if (data.code !== 0) {return data}
 		}
-		const res = await fetch(url, options)
-		const data = await res.json()
-		console.log(data, "JSON recibido de registrar")
 		return data
 	}
-
-	/**
-	 * Realiza la petición al server y en función de los valores obtenidos lo establece
-	 * en el contexto y las cookies o muestra un mensaje de error.
-	 * @param {datos_usuario} formData Contiene los datos necesarios para el registro
-	 * de un usuario en el servidor 
-	 */
-	const registrarse = (formData) =>{
-		formData.logged=true
-		Auth.setAuth(formData)
-		Cookies.set(constants.COOKIE_USER, formData, constants.OPTIONS_COOKIE)
-	}
-
+	
 	return(
 		&lt;div>
-			&lt;h2> Crear cuenta&lt;/h2>
-            &lt;FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' makePetition={registrarServer} siValido={registrarse}/>
-			&lt;p> ¿Ya tienes cuenta? &lt;Link to="/inicioSesion">Inicia sesión&lt;/Link>&lt;/p>
+			&lt;h2> Actualizar configuración &lt;/h2>
+			&lt;FormActualizar defaults={values} submitText='Actualizar' submitData={actualizarServer}/>
 		&lt;/div>
 	)
 }
 
-export default Registrar;</code></pre>
+export default ActualizacionConfiguracion;</code></pre>
         </article>
     </section>
 

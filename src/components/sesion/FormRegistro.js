@@ -56,7 +56,7 @@ export const FormRegistro = ({ defaults, submitText, makePetition, siValido }) =
 				})}
 			>
 				{(serverErrors !== '') && <div className="server-error">
-					<p> {serverErrors}</p>
+					<p> Error del servidor: {serverErrors}</p>
 				</div>}
 				
 				<EntradaNombre register={register} errors={errors}/>

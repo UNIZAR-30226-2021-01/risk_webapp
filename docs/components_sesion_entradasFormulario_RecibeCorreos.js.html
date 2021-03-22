@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/Head.js</title>
+    <title>JSDoc: Source: components/sesion/entradasFormulario/RecibeCorreos.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/Head.js</h1>
+    <h1 class="page-title">Source: components/sesion/entradasFormulario/RecibeCorreos.js</h1>
 
     
 
@@ -27,24 +27,24 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react'
-
 /**
- * Contiene la cabecera html (&lt;head>) de la aplicación, incluye
- * estilos y título de la aplicación.
- * @param {string} titulo Título de la web que aparecerá en la pestaña.
+ * RecibeCorreos es un campo de formulario para la recepción de correos
+ * @param {form} register Formulario al que pertenece
+ * @param {errors_form} errors Errores del registro 
  */
-export const Head = ({titulo}) => {
-	return (
-		&lt;head>
-			&lt;meta charSet="UTF-8" />
-			&lt;meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-			&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" />
-			&lt;title>{titulo}&lt;/title>
-		&lt;/head>
-	)
+export const RecibeCorreos = ({register, errors}) => {
+    return (
+		&lt;div className="form-row">
+			&lt;label htmlFor="recibeCorreos"> Quiero recibir correo: &lt;/label>
+			&lt;input
+				type="checkbox"
+				name="recibeCorreos"
+				id="recibeCorreos"
+				ref={register()}
+			/>
+		&lt;/div>
+    )
 }
-
-export default Head;
 </code></pre>
         </article>
     </section>

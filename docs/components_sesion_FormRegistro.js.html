@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/sesion/FormRegistro.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/sesion/FormRegistro.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { EntradaNombre } from "./entradasFormulario/EntradaNombre";
+import { EntradaCorreo } from "./entradasFormulario/EntradaCorreo";
+import { EntradaClave } from "./entradasFormulario/EntradaClave";
+import { RecibeCorreos } from "./entradasFormulario/RecibeCorreos";
+import "./formCuenta.css";
+
+/**
+ * Representa un formulario de registro de la cuenta, si algún valor es incorrecto
+ * no permite enviarlo.
+ * Requisitos:
+ * - Nombre de usuario no vacío
+ * - Correo con formato de correo
+ * - Contraseña de mínimo 8 caracteres, con al menos una mayúscula, minúscula,
+ * 		dígito y carácter especial.
+ * @param {ObjectSesion} defaults Valores por defecto del formulario
+ * @param {string} submitText Texto del botón de enviar formulario 
+ * @param {función} makePetition Función ejecutada al enviar el formulario
+ * @param {función} siValido Función ejecutada si la comunicación con el server es válida
+ */
+export const FormRegistro = ({ defaults, submitText, makePetition, siValido }) => {
+	const { register, handleSubmit, errors } = useForm({
+		defaultValues: {
+			nombre: defaults.nombre ? defaults.nombre : "",
+			correo: defaults.correo ? defaults.correo : "",
+			clave: defaults.clave ? defaults.clave : "",
+			recibeCorreos: defaults.recibeCorreos ? defaults.recibeCorreos : false,
+		},
+	});
+
+	// Si se está enviando un formulario
+	const [submitting, setSubmitting] = useState(false)
+	// Array de strings
+	const [serverErrors, setServerErrors] = useState('')
+
+	return (
+		&lt;div className="container cont-reg">
+			&lt;form
+				id="registro"
+				onSubmit={
+					handleSubmit(async (formData) => {
+						if (submitting){
+							return false
+						}
+						setSubmitting(true)
+						const data = await makePetition(formData)
+
+						if (data.err){
+							setServerErrors(data.err)
+						} else {
+							setServerErrors('')
+							siValido(data)
+						}
+						setSubmitting(false)
+				})}
+			>
+				{(serverErrors !== '') &amp;&amp; &lt;div className="server-error">
+					&lt;p> Error del servidor: {serverErrors}&lt;/p>
+				&lt;/div>}
+				
+				&lt;EntradaNombre register={register} errors={errors}/>
+
+				&lt;EntradaCorreo register={register} errors={errors}/>
+
+				&lt;EntradaClave titulo={'Contraseña'} register={register} errors={errors}/>
+        		
+				&lt;RecibeCorreos register={register} errors={errors}/>
+				
+				&lt;div className="nav-buttons">
+					&lt;div className="btn btn-nav">
+						&lt;button type="button">Atrás&lt;/button>
+					&lt;/div>
+					&lt;div className="btn btn-nav">
+						&lt;button type="submit" disabled={submitting}>{submitText}&lt;/button>
+					&lt;/div>
+				&lt;/div>
+			&lt;/form>
+		&lt;/div>
+	);
+};
+
+export default FormRegistro;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Form2">Form2</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#listaAmigos">listaAmigos</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Mar 22 2021 13:59:55 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

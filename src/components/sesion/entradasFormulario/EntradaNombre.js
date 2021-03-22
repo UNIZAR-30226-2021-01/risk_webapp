@@ -14,7 +14,17 @@ export const EntradaNombre = ({register, errors}) => {
 				name="nombre"
 				id="nombre"
 				placeholder="Nombre de usuario"
-				ref={register()}
+				ref={register({
+				required: "Este campo no se puede dejar vacío."	,
+				validate: (value) => {
+        	      return (
+        	        [/[^@]/].every((pattern) =>
+        	          pattern.test(value)
+        	        ) ||
+        	        "El nombre de usuario no puede contener @"
+        	      );
+				}
+        	    })}
 			/>
 			{errors.nombre ? <div> {errors.nombre.message}</div> : null}
 		</div>

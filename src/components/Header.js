@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import AuthApi from "./sesion/AuthApi"
-import constants from './../constants.js'
-import Cookies from 'js-cookie'
+//import constants from './../constants.js'
+//import Cookies from 'js-cookie'
 import "./header.css"
 import MenuOpts from "./MenuOpts"
 
@@ -12,10 +12,10 @@ import MenuOpts from "./MenuOpts"
  */
 export const Header = () => {
 	const Auth = useContext(AuthApi)
-	const logOut = ()=>{
+	/*const logOut = ()=>{
 		Auth.setAuth(constants.NULL_VALUES)
 		Cookies.remove(constants.COOKIE_USER)
-	}
+	}*/
 
 	return (
 		<nav className="nav-header">
@@ -24,6 +24,9 @@ export const Header = () => {
 					<strong>RISK</strong>
 				</a>
 
+				{Auth.auth.logged &&
+					<MenuOpts />
+				}
 				{/*Auth.auth.logged && 
 				<div className="dropdown">
 					<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{Auth.auth.usuario.nombre}</button>

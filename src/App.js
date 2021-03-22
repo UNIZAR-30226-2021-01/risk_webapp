@@ -47,8 +47,8 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <Head />
+    <>
+      <Head titulo="Risk"/>
       <AuthApi.Provider value={{ auth, setAuth }}>
         <Router>
           <div className="wrapper">
@@ -71,7 +71,7 @@ function App() {
           <Footer />
         </Router>
       </AuthApi.Provider>
-    </div>
+    </>
   );
 }
 

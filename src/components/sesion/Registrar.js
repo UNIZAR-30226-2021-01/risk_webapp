@@ -12,8 +12,7 @@ import {
  * Registrar, si el loggeo es correcto añade las cookies de sesión
  * al cliente y en el contexto de la aplicación
  * @requires FormRegistro
- * @todo Conexión con servidor y errores del servidor
- * @todo Comprobar si realmente es necesario añadirlo al contexto de la aplicación
+ * @todo Testeo completo, hash a la contraseña
  */
 const Registrar = () =>{
 	const Auth = useContext(AuthApi)

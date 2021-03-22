@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { EntradaNombre } from "./entradasFormulario/EntradaNombre";
 import { EntradaCorreo } from "./entradasFormulario/EntradaCorreo";
 import { EntradaClave } from "./entradasFormulario/EntradaClave";
+import { EntradaCambioClave } from "./entradasFormulario/EntradaCambioClave";
 import { RecibeCorreos } from "./entradasFormulario/RecibeCorreos";
 import "./formCuenta.css";
 
@@ -40,18 +41,14 @@ export const FormActualizar = ({ defaults, submitText, submitData}) => {
 			<form
 				id="registro"
 				onSubmit={
-					handleSubmit(async (formData) => {
-						if (submitting){
-							return false
-						}
-						setSubmitting(true)
-						const data = await submitData(formData)
-                        if (data.code != 0) {
-                            setServerErrors(data.err)
-                        } else{
-                            setServerErrors('')
-                        }
-						setSubmitting(false)
+				handleSubmit(async (formData) => {
+					if (submitting){
+						return false
+					}
+					setSubmitting(true)
+					const data = await submitData(formData)
+					setServerErrors(data.err)
+					setSubmitting(false)
 				})}
 			>
 				{(serverErrors !== '') && <div className="server-error">
@@ -78,5 +75,5 @@ export const FormActualizar = ({ defaults, submitText, submitData}) => {
 	);
 };
 
-export default FormCuenta;
+export default FormActualizar;
 
