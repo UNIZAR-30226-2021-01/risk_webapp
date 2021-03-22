@@ -7,26 +7,29 @@ import React from 'react'
  */
 export const EntradaNombre = ({register, errors}) => {
     return (
-        <div className="form-row">
-			<label htmlFor="nombre"> Nombre de usuario</label>
-			<input
-				type="text"
-				name="nombre"
-				id="nombre"
-				placeholder="Nombre de usuario"
-				ref={register({
-				required: "Este campo no se puede dejar vacío."	,
-				validate: (value) => {
-        	      return (
-        	        [/[^@]/].every((pattern) =>
-        	          pattern.test(value)
-        	        ) ||
-        	        "El nombre de usuario no puede contener @"
-        	      );
-				}
-        	    })}
-			/>
-			{errors.nombre ? <div> {errors.nombre.message}</div> : null}
-		</div>
+		<React.Fragment>
+			<div className="form-row">
+				<label htmlFor="nombre"> Nombre de usuario</label>
+				<input
+					type="text"
+					name="nombre"
+					id="nombre"
+					placeholder="Nombre de usuario"
+					ref={register({
+					required: "Este campo no se puede dejar vacío."	,
+					validate: (value) => {
+					return (
+						[/[^@]/].every((pattern) =>
+						pattern.test(value)
+						) ||
+						"El nombre de usuario no puede contener @"
+					);
+					}
+					})}
+				/>
+				
+			</div>
+			{errors.nombre ? <div className="error"> {errors.nombre.message}</div> : null}
+		</React.Fragment>
     )
 }
