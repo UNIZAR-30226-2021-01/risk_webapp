@@ -2,6 +2,7 @@ import React from 'react'
 
 export const EntradaClave = ({titulo, register, errors}) => {
     return (
+		<React.Fragment>
         <div className="form-row">
         	<label htmlFor="clave"> {titulo}</label>
         	<input
@@ -25,7 +26,8 @@ export const EntradaClave = ({titulo, register, errors}) => {
         	    },
         	  })}
         	/>
-        	{errors.clave ? <div> {errors.clave.message}</div> : null}
         </div>  
+		{errors.clave ? <div className="error"> {errors.clave.message}</div> : null}
+		</React.Fragment>
     )
 }

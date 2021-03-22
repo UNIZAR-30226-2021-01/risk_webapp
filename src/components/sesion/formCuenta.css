@@ -24,6 +24,12 @@
     min-height: 450px;
 }
 
+.container.cont-ini {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 350px;
+}
+
 /* Botones navegacion*/
 .nav-buttons {
     display: flex;
@@ -115,4 +121,21 @@ form input::placeholder {
 form input[type=checkbox] {
     height: 30px;
     padding-left: 90%;
+}
+
+/* Error en los datos introducidos en los input */
+.error {
+    color: whitesmoke;
+    margin: 0px;
+    margin-left: 33%;
+    margin-bottom: 5px;
+    width: 70%;
+}
+
+/* Error devuelto por el servidor */
+.server-error {
+    color: whitesmoke;
+    margin-bottom: 30px;
+    font-size: 25px;
+    padding: 0px;
 }
