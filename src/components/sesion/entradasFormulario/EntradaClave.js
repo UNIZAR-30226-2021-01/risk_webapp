@@ -1,5 +1,11 @@
 import React from 'react'
 
+/**
+ * EntradaClave es un campo de formulario para la clave
+ * @param {string} titulo Etiqueta para la clave
+ * @param {form} register Formulario al que pertenece
+ * @param {errors_form} errors Errores del registro 
+ */
 export const EntradaClave = ({titulo, register, errors}) => {
     return (
         <div className="form-row">
@@ -11,6 +17,7 @@ export const EntradaClave = ({titulo, register, errors}) => {
         	  placeholder="Contraseña"
         	  ref={register({
         	    required: "Este campo no se puede dejar vacío.",
+				/*
         	    minLength: {
         	      value: 8,
         	      message: "Tiene que haber mínimo 8 caracteres.",
@@ -23,6 +30,7 @@ export const EntradaClave = ({titulo, register, errors}) => {
         	        "La contraseña debe incluir al menos una mayúscula, minúscula, un número y un carácter especial."
         	      );
         	    },
+				*/
         	  })}
         	/>
         	{errors.clave ? <div> {errors.clave.message}</div> : null}

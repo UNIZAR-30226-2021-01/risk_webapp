@@ -11,7 +11,7 @@ import {
 /**
  * Registrar, si el loggeo es correcto añade las cookies de sesión
  * al cliente y en el contexto de la aplicación
- * @requires FormCuenta
+ * @requires FormRegistro
  * @todo Conexión con servidor y errores del servidor
  * @todo Comprobar si realmente es necesario añadirlo al contexto de la aplicación
  */
@@ -50,9 +50,9 @@ const Registrar = () =>{
 	const registrarse = (formData) =>{
 		formData.logged=true
 		Auth.setAuth(formData)
-		Cookies.set(constants.COOKIE_USER, formData, { expires: 7, sameSite: "lax"})
+		Cookies.set(constants.COOKIE_USER, formData, constants.OPTIONS_COOKIE)
 	}
-	
+
 	return(
 		<div>
 			<h2> Crear cuenta</h2>

@@ -13,6 +13,7 @@ import {
 import Head from "./components/Head";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MenuPrincipal from './components/MenuPrincipal';
 //import FormCuenta from "./components/FormCuenta";
 //import './assets/css/style.css'
 
@@ -93,11 +94,11 @@ const Routes = () => {
         component={InicioSesion}
       />
       <ProtectedRoute
-        path="/dashboard"
+        path="/menuPrincipal"
         auth={Auth.auth.logged}
-        component={Dashboard}
+        component={MenuPrincipal}
       />
-      <ProtectedRoute path="/" auth={Auth.auth.logged} component={Dashboard} />
+      <ProtectedRoute path="/" auth={Auth.auth.logged} component={MenuPrincipal} />
     </Switch>
   );
 };
@@ -123,26 +124,8 @@ const ProtectedLogin = ({ auth, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() => (!auth ? <Component /> : <Redirect to="/dashboard" />)}
+      render={() => (!auth ? <Component /> : <Redirect to="/menuPrincipal" />)}
     />
-  );
-};
-
-/**
- * Dashboard es una prueba de deslogeo, realmente no es necesario,
- * corresponderá al menú principal una vez loggeado
- */
-const Dashboard = () => {
-  const Auth = useContext(AuthApi);
-  const handleOnClick = () => {
-    Auth.setAuth(constants.NULL_VALUES);
-    Cookies.remove(constants.COOKIE_USER);
-  };
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <button onClick={handleOnClick}>logout</button>
-    </div>
   );
 };
 

@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * EntradaCorreo es un campo de formulario para el correo
+ * @param {form} register Formulario al que pertenece
+ * @param {errors_form} errors Errores del registro 
+ */
 export const EntradaCorreo = ({register, errors}) => {
 	return (
 		<div className="form-row">

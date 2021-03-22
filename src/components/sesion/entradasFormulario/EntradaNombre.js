@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * EntradaNombre es un campo de formulario para el nombre de usuario
+ * @param {form} register Formulario al que pertenece
+ * @param {errors_form} errors Errores del registro 
+ */
 export const EntradaNombre = ({register, errors}) => {
     return (
         <div className="form-row">

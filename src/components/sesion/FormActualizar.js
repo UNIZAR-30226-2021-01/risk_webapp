@@ -8,18 +8,18 @@ import "./formCuenta.css";
 
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
- * no permite enviarlo.
+ * no permite enviarlo. Solo envía los cambios de los valores modificados. La clave
  * Requisitos:
  * - Nombre de usuario no vacío
  * - Correo con formato de correo
  * - Contraseña de mínimo 8 caracteres, con al menos una mayúscula, minúscula,
  * 		dígito y carácter especial.
+ * 
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario 
- * @param {función} makePetition Función ejecutada al enviar el formulario
- * @param {función} siValido Función ejecutada si la comunicación con el server es válida
+ * @param {función} submitData Función ejecutada al enviar el formulario
  */
-export const FormActualizar = ({ defaults, submitText, makePetition, siValido }) => {
+export const FormActualizar = ({ defaults, submitText, submitData}) => {
 	const { register, handleSubmit, errors } = useForm({
 		defaultValues: {
 			nombre: defaults.nombre ? defaults.nombre : "",
@@ -45,14 +45,12 @@ export const FormActualizar = ({ defaults, submitText, makePetition, siValido })
 							return false
 						}
 						setSubmitting(true)
-						const data = await makePetition(formData)
-
-						if (data.err){
-							setServerErrors(data.err)
-						} else {
-							setServerErrors('')
-							siValido(data)
-						}
+						const data = await submitData(formData)
+                        if (data.code != 0) {
+                            setServerErrors(data.err)
+                        } else{
+                            setServerErrors('')
+                        }
 						setSubmitting(false)
 				})}
 			>
