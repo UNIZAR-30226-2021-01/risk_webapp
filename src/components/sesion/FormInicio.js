@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { EntradaUsuario } from "./entradasFormulario/EntradaUsuario";
 import { EntradaClave } from "./entradasFormulario/EntradaClave";
+import hash from 'js-sha256'
 import "./formCuenta.css";
 
 /**
@@ -39,7 +40,9 @@ export const FormInicio = ({ defaults, submitText, makePetition, siValido }) => 
 							return false
 						}
 						setSubmitting(true)
-						const data = await makePetition(formData)
+						let hashedForm = formData
+						hashedForm.clave = hash.sha256(formData.clave)
+						const data = await makePetition(hashedForm)
 
 						if (data.err){
 							setServerErrors(data.err)

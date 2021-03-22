@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { EntradaNombre } from "./entradasFormulario/EntradaNombre";
-import { EntradaCorreo } from "./entradasFormulario/EntradaCorreo";
-import { EntradaClave } from "./entradasFormulario/EntradaClave";
-import { EntradaCambioClave } from "./entradasFormulario/EntradaCambioClave";
-import { RecibeCorreos } from "./entradasFormulario/RecibeCorreos";
-import "./formCuenta.css";
-
+import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+import { EntradaNombre } from "./entradasFormulario/EntradaNombre"
+import { EntradaCorreo } from "./entradasFormulario/EntradaCorreo"
+import { EntradaClave } from "./entradasFormulario/EntradaClave"
+import { EntradaCambioClave } from "./entradasFormulario/EntradaCambioClave"
+import { RecibeCorreos } from "./entradasFormulario/RecibeCorreos"
+import hash from "js-sha256"
+import "./formCuenta.css"
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
  * no permite enviarlo. Solo envía los cambios de los valores modificados. La clave
@@ -46,7 +46,9 @@ export const FormActualizar = ({ defaults, submitText, submitData}) => {
 						return false
 					}
 					setSubmitting(true)
-					const data = await submitData(formData)
+					let hashedForm = formData
+					hashedForm.clave = hash.sha256(formData.clave)
+					const data = await submitData(hashedForm)
 					setServerErrors(data.err)
 					setSubmitting(false)
 				})}
