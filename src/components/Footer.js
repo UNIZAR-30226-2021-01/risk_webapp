@@ -1,19 +1,28 @@
 //import { Link } from 'react-router-dom'
-
+import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
 /**
  * Pie de página de la aplicación, muestra el copyright y el
  * nombre del grupo. 
  */
 const Footer = () => {
 	return (
-		<div className="footer">
-				<p> Copyright &copy; 2021</p>
-				<p> Grupo 1: Grace Hopper. Risk multiplataforma.</p>    
-				{/*<Link to='/about'></Link> */}
-				{/*<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-				<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>*/}
+		<MDBFooter color="blue" className="font-small pt-4 mt-4">
+		<MDBContainer fluid className="text-center text-md-left">
+			<MDBRow>
+			<MDBCol md="6">
+				<h5 className="title">Proyecto software - Risk multiplataforma</h5>
+				<p>
+
+				</p>
+			</MDBCol>
+			</MDBRow>
+		</MDBContainer>
+		<div className="footer-copyright text-center py-3">
+			<MDBContainer fluid>
+			&copy; {new Date().getFullYear()} Copyright: <a href="https://github.com/UNIZAR-30226-2021-01"> Grupo 1: Grace Hopper </a>
+			</MDBContainer>
 		</div>
+		</MDBFooter>
 	)
 }
 

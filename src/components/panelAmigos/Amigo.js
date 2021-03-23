@@ -1,5 +1,6 @@
 import React from 'react'
 import './amigo.css'
+import {MDBListGroupItem} from 'mdbreact';
 
 /**
  * Representación de un amigo en la lista de amigos, da la opción de eliminar
@@ -9,9 +10,9 @@ import './amigo.css'
  */
 export const Amigo = ({datos}) => {
     return (
-        <div className="amigo">
-            <h3> {datos.nombre} </h3>
-        </div>
+        <MDBListGroupItem>
+            {datos.nombre}
+        </MDBListGroupItem>
     )
 }
 
