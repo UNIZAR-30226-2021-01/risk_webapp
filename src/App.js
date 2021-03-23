@@ -23,6 +23,7 @@ import InicioSesion from "./components/sesion/InicioSesion";
 
 import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbreact/dist/css/mdb.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 /**
  * App contiene el router y el header/footer de la aplicación,
  * previene al usuario de entrar a las páginas en las que se requiere
