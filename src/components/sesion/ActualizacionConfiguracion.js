@@ -4,6 +4,7 @@ import constants from './../../constants.js'
 import AuthApi from "./AuthApi"
 import Cookies from 'js-cookie'
 import qs from 'qs'
+import {MDBContainer} from 'mdbreact';
 
 /**
  * ActualizacionConfiguracion, si la actualización es correcta actualiza las cookies de sesión
@@ -85,10 +86,10 @@ const ActualizacionConfiguracion = () =>{
 	}
 	
 	return(
-		<div>
+		<MDBContainer className="d-flex align-items-center flex-column">
 			<h2> Actualizar configuración </h2>
 			<FormActualizar defaults={values} submitText='Actualizar' submitData={actualizarServer}/>
-		</div>
+		</MDBContainer>
 	)
 }
 

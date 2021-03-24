@@ -9,18 +9,17 @@ import React from 'react'
  */
 export const EntradaCambioClave = ({titulo, register, errors}) => {
     return (
-		<React.Fragment>
-			<div className="form-row">
-				<label htmlFor="cambioClave"> {titulo}</label>
-				<input
-				type="checkbox"
-				name="cambioClave"
-				id="cambioClave"
-				ref={register()}
-				/>
-				
-			</div>  
-			{errors.cambioClave ? <div className="error"> {errors.cambioClave.message}</div> : null}
-		</React.Fragment>
+		<>
+			<label htmlFor="cambioClave" className="grey-text"> {titulo}</label>
+			<input
+			type="checkbox"
+			name="cambioClave"
+			id="cambioClave"
+			className="form-control"
+			ref={register()}
+			/>
+			
+			{errors.cambioClave ? <div className="alert alert-danger"> {errors.cambioClave.message}</div> : null}
+		</>
     )
 }

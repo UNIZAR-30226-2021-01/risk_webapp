@@ -7,6 +7,7 @@ import qs from 'qs';
 import {
 	Link 
 } from "react-router-dom"
+import { MDBContainer } from "mdbreact"
 
 /**
  * Inicio de sesion, si el loggeo es correcto añade las cookies de sesión
@@ -55,11 +56,11 @@ const InicioSesion = () => {
 
 
     return (
-        <div>
+        <MDBContainer className="d-flex align-items-center flex-column">
             <h2> Iniciar sesión</h2>
             <FormInicio defaults={constants.NULL_VALUES} submitText='Aceptar' makePetition={iniciarServer} siValido={iniciar} />
             <p>¿No tienes cuenta?<Link to='/registro'> Regístrate </Link></p>
-        </div>
+        </MDBContainer>
     )
 }
 

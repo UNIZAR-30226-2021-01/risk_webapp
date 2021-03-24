@@ -1,6 +1,6 @@
-import React from 'react'
-import { useForm } from "react-hook-form";
-import Popup from 'reactjs-popup';
+import React, {useState} from 'react'
+import { MDBModal, MDBModalHeader, MDBModalBody, MDBContainer, MDBCol, MDBBtn} from "mdbreact"
+import { FormAnyadirAmigo } from './FormAnyadirAmigo';
 
 /**
  * Implementa un pop-up para añadir un amigo, este pop-up contiene
@@ -8,47 +8,26 @@ import Popup from 'reactjs-popup';
  * @todo Conexión con servidor, css...
  */
 export const AnyadirAmigo = () => {
-	const { register, handleSubmit, errors } = useForm({nombre: ""})
+	const [isOpen, setOpen] = useState(false);
 
-	const submitAnyadirAmigo = (formData) => {
-		console.log(formData, "Añadido")
+	const toggle = () =>{
+		setOpen(!isOpen)
 	}
 
 	return (
-	<Popup trigger={<button className="btn"> Añadir amigo </button>} modal nested >
-		{close => (
-		<div className="modal">
-			<button className="close" onClick={close}>
-				&times;
-			</button>
-			<div className="header"> Añadir amigo </div>
-			<div className="content">
-				<div className="form-row">
-					<form
-						id="registro"
-						onSubmit={handleSubmit((formData) => {
-							submitAnyadirAmigo(formData);
-						})}
-					>
-						<label htmlFor="nombre"> Nombre de usuario de tu amigo</label>
-						<input
-							type="text"
-							name="nombre"
-							id="nombre"
-							placeholder="Nombre de usuario"
-							ref={register({ required: "Este campo no se puede dejar vacío." })}
-						/>
-						{errors.nombre ? <div> {errors.nombre}</div> : null}
 
-						<button className="submit" type="submit" >
-							Enviar
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
-  		)}
-	</Popup> 
+	<MDBContainer>
+		<MDBBtn color="primary" onClick={() => {toggle()}}>Añadir amigo</MDBBtn>	
+		<MDBModal isOpen={isOpen} toggle={() => {toggle()}}>
+			<MDBModalHeader toggle={() => {toggle()}}>Añadir amigo</MDBModalHeader>
+			<MDBCol middle='true'>
+			<MDBModalBody>
+				<FormAnyadirAmigo />
+			</MDBModalBody>
+			</MDBCol>
+		</MDBModal>	
+	</MDBContainer>
+
 	)
 }
 

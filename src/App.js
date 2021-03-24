@@ -16,11 +16,18 @@ import Footer from "./components/Footer";
 import MenuPrincipal from './components/MenuPrincipal';
 //import FormCuenta from "./components/FormCuenta";
 //import './assets/css/style.css'
+import './assets/css/bootstrapCustom.css'
 
 import AuthApi from "./components/sesion/AuthApi";
 import Registrar from "./components/sesion/Registrar";
 import InicioSesion from "./components/sesion/InicioSesion";
+import ActualizacionConfiguracion from "./components/sesion/ActualizacionConfiguracion";
 
+import Reglas from "./components/Reglas/Reglas";
+
+import 'bootstrap-css-only/css/bootstrap.min.css'
+import 'mdbreact/dist/css/mdb.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 /**
  * App contiene el router y el header/footer de la aplicación,
  * previene al usuario de entrar a las páginas en las que se requiere
@@ -83,6 +90,10 @@ const Routes = () => {
   const Auth = useContext(AuthApi);
   return (
     <Switch>
+			<Route
+      	path="/reglas">
+					<Reglas />
+      </Route>
       <ProtectedLogin
         path="/registro"
         auth={Auth.auth.logged}
@@ -97,6 +108,11 @@ const Routes = () => {
         path="/menuPrincipal"
         auth={Auth.auth.logged}
         component={MenuPrincipal}
+      />
+      <ProtectedRoute
+        path="/actualizarCuenta"
+        auth={Auth.auth.logged}
+        component={ActualizacionConfiguracion}
       />
       <ProtectedRoute path="/" auth={Auth.auth.logged} component={MenuPrincipal} />
     </Switch>

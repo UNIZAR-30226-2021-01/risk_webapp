@@ -1,4 +1,4 @@
-
+/*
 * {
     margin: 0px auto;
     padding: 0px;
@@ -31,6 +31,7 @@
 }
 
 /* Botones navegacion*/
+/*
 .nav-buttons {
     display: flex;
     justify-content: space-between;
@@ -60,14 +61,18 @@
 }
 
 .btn.btn-nav {
+    padding: 0px;
+    background: #ccc;
     margin: 0px;
     margin-top: 10px;
+    border-radius: 15px;
     width: 40%;
     height: 55px;
     line-height: 55px;
 }
 /* Fin botones navegacion */
 /* Formulario */
+/*
 form {
     width: 100%;
     display: flex;
@@ -79,7 +84,7 @@ form {
 .form-row {
     width: 70%;
     height: 70px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -124,18 +129,20 @@ form input[type=checkbox] {
 }
 
 /* Error en los datos introducidos en los input */
+/*
 .error {
     color: whitesmoke;
     margin: 0px;
     margin-left: 33%;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     width: 70%;
 }
 
 /* Error devuelto por el servidor */
+/*
 .server-error {
     color: whitesmoke;
     margin-bottom: 30px;
     font-size: 25px;
     padding: 0px;
-}
+}*/

@@ -1,4 +1,5 @@
 import React from 'react'
+import ErroresCampo from './ErroresCampo'
 
 /**
  * EntradaCorreo es un campo de formulario para el correo
@@ -7,19 +8,18 @@ import React from 'react'
  */
 export const EntradaCorreo = ({register, errors}) => {
 	return (
-		<React.Fragment>
-			<div className="form-row">
-			<label htmlFor="correo"> Correo electrónico</label>
+		<>
+			<label htmlFor="correo" className="grey-text"> Correo electrónico</label>
 			<input
 				type="email"
 				name="correo"
 				id="correo"
+				className="form-control"
 				placeholder="Correo"
 				ref={register({ required: "Este campo no se puede dejar vacío." })}
 			/>
 			
-			</div>
-			{errors.correo ? <div className="error"> {errors.correo.message}</div> : null}
-		</React.Fragment>
+			<ErroresCampo error={errors.correo} />
+		</>
 	)
 }

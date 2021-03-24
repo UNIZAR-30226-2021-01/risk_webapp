@@ -1,6 +1,7 @@
 import React from 'react'
 import Amigo from './Amigo.js'
 import AnyadirAmigo from './AnyadirAmigo'
+import {MDBContainer, MDBListGroup} from 'mdbreact';
 import './listaAmigos.css';
 
 /**
@@ -10,12 +11,15 @@ import './listaAmigos.css';
  */
 export const listaAmigos = ({usuarios}) => {
 	return (
-	<div className="listaAmigos">
-		<AnyadirAmigo />
+	<MDBContainer>
+		<h2> Lista de amigos</h2>
+		<MDBListGroup style={{ width: "22rem" }}>
   		{usuarios.map((usuario) => (
 			  <Amigo datos={usuario}/>
-		))}  
-	</div>
+		))}
+		<AnyadirAmigo /> 
+		</MDBListGroup>
+	</MDBContainer>
 	)
 }
 

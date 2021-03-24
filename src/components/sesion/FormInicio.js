@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { EntradaUsuario } from "./entradasFormulario/EntradaUsuario";
 import { EntradaClave } from "./entradasFormulario/EntradaClave";
+import { ErroresServer } from "./entradasFormulario/ErroresServer"
 import hash from 'js-sha256'
-import "./formCuenta.css";
+//import "./formCuenta.css";
+import { MDBContainer, MDBCol, MDBRow, MDBBtn} from "mdbreact"
 
 /**
  * Representa un formulario de inicio de sesión de la cuenta, si algún valor es incorrecto
@@ -31,46 +33,43 @@ export const FormInicio = ({ defaults, submitText, makePetition, siValido }) => 
 	const [serverErrors, setServerErrors] = useState('')
 
 	return (
-		<div className="container cont-ini">
-			<form
-				id="inicio"
-				onSubmit={
-					handleSubmit(async (formData) => {
-						if (submitting){
-							return false
-						}
-						setSubmitting(true)
-						let hashedForm = formData
-						hashedForm.clave = hash.sha256(formData.clave)
-						const data = await makePetition(hashedForm)
+		<MDBContainer>
+			<MDBRow className="d-flex align-items-center flex-column">
+				<MDBCol md="6">
+					<form
+						id="inicio"
+						onSubmit={
+							handleSubmit(async (formData) => {
+								if (submitting){
+									return false
+								}
+								setSubmitting(true)
+								let hashedForm = formData
+								hashedForm.clave = hash.sha256(formData.clave)
+								const data = await makePetition(hashedForm)
 
-						if (data.err){
-							setServerErrors(data.err)
-						} else {
-							setServerErrors('')
-							siValido(data)
-						}
-						setSubmitting(false)
-				})}
-			>
-				{(serverErrors !== '') && <div className="server-error">
-					<p> ERROR-{serverErrors}</p>
-				</div>}
-				
-				<EntradaUsuario register={register} errors={errors}/>
+								if (data.err){
+									setServerErrors(data.err)
+								} else {
+									setServerErrors('')
+									siValido(data)
+								}
+								setSubmitting(false)
+						})}
+					>
+						<ErroresServer serverErrors={serverErrors} />
+						
+						<EntradaUsuario register={register} errors={errors}/>
 
-				<EntradaClave titulo={'Contraseña'} register={register} errors={errors}/>
-				
-				<div className="nav-buttons">
-					<div className="btn btn-nav">
-						<button type="button">Atrás</button>
-					</div>
-					<div className="btn btn-nav">
-						<button type="submit" disabled={submitting}>{submitText}</button>
-					</div>
-				</div>
-			</form>
-		</div>
+						<EntradaClave titulo={'Contraseña'} register={register} errors={errors}/>
+						
+						<div className="text-center mt-4">
+							<MDBBtn color="indigo" type="submit" disabled={submitting}>{submitText}</MDBBtn>
+						</div>
+					</form>
+				</MDBCol>
+			</MDBRow>
+		</MDBContainer>
 	);
 };
 
