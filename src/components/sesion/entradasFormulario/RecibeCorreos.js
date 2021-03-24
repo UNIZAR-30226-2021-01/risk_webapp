@@ -6,14 +6,15 @@ import React from 'react'
  */
 export const RecibeCorreos = ({register, errors}) => {
     return (
-		<div className="form-row">
-			<label htmlFor="recibeCorreos"> Quiero recibir correo: </label>
+		<>
+			<label htmlFor="recibeCorreos" className="grey-text"> Quiero recibir correo: </label>
 			<input
 				type="checkbox"
 				name="recibeCorreos"
 				id="recibeCorreos"
+				className="form-control"
 				ref={register()}
 			/>
-		</div>
+		</>
     )
 }

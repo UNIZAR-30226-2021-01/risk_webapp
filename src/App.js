@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import MenuPrincipal from './components/MenuPrincipal';
 //import FormCuenta from "./components/FormCuenta";
 //import './assets/css/style.css'
+import './assets/css/bootstrapCustom.css'
 
 import AuthApi from "./components/sesion/AuthApi";
 import Registrar from "./components/sesion/Registrar";

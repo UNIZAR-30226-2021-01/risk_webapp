@@ -8,15 +8,15 @@ import React from 'react'
  */
 export const EntradaClave = ({titulo, register, errors}) => {
     return (
-		<React.Fragment>
-        <div className="form-row">
-        	<label htmlFor="clave"> {titulo}</label>
+		<>
+        	<label htmlFor="clave" className="grey-text"> {titulo}</label>
         	<input
-        	  type="password"
-        	  name="clave"
-        	  id="clave"
-        	  placeholder="Contraseña"
-        	  ref={register({
+        		type="password"
+        		name="clave"
+        		id="clave"
+				className="form-control"
+        		placeholder="Contraseña"
+        		ref={register({
         	    required: "Este campo no se puede dejar vacío.",
 				/*
         	    minLength: {
@@ -32,10 +32,9 @@ export const EntradaClave = ({titulo, register, errors}) => {
         	      );
         	    },
 				*/
-        	  })}
+        		})}
         	/>
-        </div>  
-		{errors.clave ? <div className="error"> {errors.clave.message}</div> : null}
-		</React.Fragment>
+		{errors.clave ? <div className="alert alert-danger"> {errors.clave.message}</div> : null}
+		</>
     )
 }

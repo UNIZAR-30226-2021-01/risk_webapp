@@ -85,10 +85,10 @@ const ActualizacionConfiguracion = () =>{
 	}
 	
 	return(
-		<div>
+		<>
 			<h2> Actualizar configuración </h2>
 			<FormActualizar defaults={values} submitText='Actualizar' submitData={actualizarServer}/>
-		</div>
+		</>
 	)
 }
 
