@@ -21,6 +21,8 @@ import AuthApi from "./components/sesion/AuthApi";
 import Registrar from "./components/sesion/Registrar";
 import InicioSesion from "./components/sesion/InicioSesion";
 
+import Reglas from "./components/Reglas/Reglas";
+
 import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbreact/dist/css/mdb.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
@@ -86,6 +88,10 @@ const Routes = () => {
   const Auth = useContext(AuthApi);
   return (
     <Switch>
+			<Route
+      	path="/reglas">
+					<Reglas />
+      </Route>
       <ProtectedLogin
         path="/registro"
         auth={Auth.auth.logged}
