@@ -7,7 +7,7 @@ import { FormAnyadirAmigo } from './FormAnyadirAmigo';
  * un formulario donde insertar el nombre del amigo.
  * @todo Conexión con servidor, css...
  */
-export const AnyadirAmigo = () => {
+export const AnyadirAmigo = ({callback}) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const toggle = () =>{
@@ -15,7 +15,6 @@ export const AnyadirAmigo = () => {
 	}
 
 	return (
-
 	<MDBContainer>
 		<MDBBtn color="primary" onClick={() => {toggle()}}>Añadir amigo</MDBBtn>	
 		<MDBModal isOpen={isOpen} toggle={() => {toggle()}}>

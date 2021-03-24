@@ -42,5 +42,5 @@ code {
 
 /* Empuja el footer al fondo de la página, mantener */
 .wrapper {
-  min-height: calc(100vh - 142px);
+  min-height: calc(100vh - 134px);
 }

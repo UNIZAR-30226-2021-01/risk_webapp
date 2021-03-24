@@ -1,6 +1,7 @@
 import React from 'react'
 import './amigo.css'
-import {MDBListGroupItem} from 'mdbreact';
+import {EliminarAmigo} from './EliminarAmigo'
+import {MDBListGroupItem, MDBIcon, MDBRow, MDBCol} from 'mdbreact'
 
 /**
  * Representación de un amigo en la lista de amigos, da la opción de eliminar
@@ -11,7 +12,14 @@ import {MDBListGroupItem} from 'mdbreact';
 export const Amigo = ({datos}) => {
     return (
         <MDBListGroupItem>
-            {datos.nombre}
+			<MDBRow>
+				<MDBCol>
+            		{datos.nombre}
+				</MDBCol>
+				<MDBCol>
+					<EliminarAmigo amigo={datos} />
+				</MDBCol>
+			</MDBRow>
         </MDBListGroupItem>
     )
 }

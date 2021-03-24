@@ -11,8 +11,7 @@ import './listaAmigos.css';
  */
 export const listaAmigos = ({usuarios}) => {
 	return (
-	<MDBContainer>
-		<h2> Lista de amigos</h2>
+	<MDBContainer className="mt-9" >
 		<MDBListGroup style={{ width: "22rem" }}>
   		{usuarios.map((usuario) => (
 			  <Amigo datos={usuario}/>
