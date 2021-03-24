@@ -39,8 +39,8 @@ export const FormRegistro = ({ defaults, submitText, makePetition, siValido }) =
 
 	return (
 		<MDBContainer>
-			<MDBRow>
-				<MDBCol md="6">
+			<MDBRow className="d-flex align-items-center flex-column">
+				<MDBCol md="6" >
 					<form
 						id="registro"
 						onSubmit={

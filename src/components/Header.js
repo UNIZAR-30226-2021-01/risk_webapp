@@ -5,7 +5,6 @@ import Cookies from 'js-cookie'
 import "./header.css"
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 	MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact"
-import { MDBDropdownLink } from 'mdb-react-ui-kit';
 import { Link } from "react-router-dom";
 /**
  * Header contiene el encabezado de la aplicación, si está loggeado

@@ -1,6 +1,5 @@
 import React from 'react'
 import ErroresCampo from './ErroresCampo'
-
 /**
  * EntradaNombre es un campo de formulario para el nombre de usuario
  * @param {form} register Formulario al que pertenece

@@ -54,7 +54,7 @@ const Registrar = () =>{
 	}
 
 	return(
-		<MDBContainer>
+		<MDBContainer className="d-flex align-items-center flex-column">
 			<h2> Crear cuenta</h2>
             <FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' makePetition={registrarServer} siValido={registrarse}/>
 			<p> ¿Ya tienes cuenta? <Link to="/inicioSesion">Inicia sesión</Link></p>
