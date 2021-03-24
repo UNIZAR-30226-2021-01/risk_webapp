@@ -1,3 +1,12 @@
 .fa{
 	margin-right: 5px;
 }
+
+strong.white-text{
+	font-size: 50px;
+}
+
+#head-user,
+.navbar .show.dropdown-menu {
+	font-size: 2rem;
+}

@@ -43,7 +43,7 @@ export const Header = () => {
 					<MDBDropdown >
 						<MDBDropdownToggle nav caret>
 							<MDBIcon icon="user" />
-							<div className="d-none d-md-inline">{Auth.auth.usuario.nombre}</div>
+							<div className="d-none d-md-inline" id='head-user'>{Auth.auth.usuario.nombre}</div>
 						</MDBDropdownToggle>
 						<MDBDropdownMenu className="dropdown-default">
 								<Link className="dropdown-item"  to="/actualizarCuenta">Ajustes de usuario</Link>

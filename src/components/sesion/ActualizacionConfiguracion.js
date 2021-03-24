@@ -5,6 +5,7 @@ import AuthApi from "./AuthApi"
 import Cookies from 'js-cookie'
 import qs from 'qs'
 import {MDBContainer} from 'mdbreact';
+import './formCuenta.css'
 
 /**
  * ActualizacionConfiguracion, si la actualización es correcta actualiza las cookies de sesión
