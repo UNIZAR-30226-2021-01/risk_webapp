@@ -1,4 +1,5 @@
 import React from 'react'
+import ErroresCampo from './ErroresCampo'
 
 /**
  * EntradaCorreo es un campo de formulario para el correo
@@ -18,7 +19,7 @@ export const EntradaCorreo = ({register, errors}) => {
 				ref={register({ required: "Este campo no se puede dejar vacío." })}
 			/>
 			
-			{errors.correo ? <div className="alert alert-danger"> {errors.correo.message}</div> : null}
+			<ErroresCampo error={errors.correo} />
 		</>
 	)
 }

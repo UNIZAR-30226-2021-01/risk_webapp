@@ -1,4 +1,5 @@
 import React from 'react'
+import ErroresCampo from './ErroresCampo'
 
 export const EntradaUsuario = ({register, errors}) => {
     return (
@@ -13,7 +14,7 @@ export const EntradaUsuario = ({register, errors}) => {
 				ref={register()}
 			/>
 
-			{errors.usuario ? <div className="alert alert-danger" style={{paddingTop: "5px"}}> <hr />{errors.usuario.message}</div> : null}
+			<ErroresCampo error={errors.usuario} />
 		</>
     )
 }

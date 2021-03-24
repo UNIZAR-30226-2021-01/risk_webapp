@@ -1,4 +1,5 @@
 import React from 'react'
+import ErroresCampo from './ErroresCampo'
 
 /**
  * EntradaClave es un campo de formulario para la clave
@@ -34,7 +35,7 @@ export const EntradaClave = ({titulo, register, errors}) => {
 				*/
         		})}
         	/>
-		{errors.clave ? <div className="alert alert-danger"> {errors.clave.message}</div> : null}
+			<ErroresCampo error={errors.clave} />
 		</>
     )
 }

@@ -5,7 +5,8 @@ import Cookies from 'js-cookie'
 import "./header.css"
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavbarToggler, MDBCollapse, MDBDropdown,
 	MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon } from "mdbreact"
-
+import { MDBDropdownLink } from 'mdb-react-ui-kit';
+import { Link } from "react-router-dom";
 /**
  * Header contiene el encabezado de la aplicación, si está loggeado
  * da la oportunidad de desloggearse del sistema.
@@ -30,20 +31,23 @@ export const Header = () => {
 	return (
 	<MDBNavbar color="default-color" dark expand="md">
 		<MDBNavbarBrand>
-			<strong className="white-text">RISK</strong>
+			<Link to="/">
+				<strong className="white-text">RISK</strong>
+			</Link>
 		</MDBNavbarBrand>
 		<MDBNavbarToggler onClick={toggleCollapse} />
 		<MDBCollapse id="navbarCollapse3" isOpen={state.isOpen} navbar>	
 			<MDBNavbarNav left> </MDBNavbarNav>
 			<MDBNavbarNav right>
 				{Auth.auth.logged &&
-				<MDBNavItem>
-					<MDBDropdown>
+				<MDBNavItem style={{marginRight: '30px'}}>
+					<MDBDropdown >
 						<MDBDropdownToggle nav caret>
 							<MDBIcon icon="user" />
-							<div className="d-none d-md-inline">     {Auth.auth.usuario.nombre}</div>
+							<div className="d-none d-md-inline">{Auth.auth.usuario.nombre}</div>
 						</MDBDropdownToggle>
 						<MDBDropdownMenu className="dropdown-default">
+								<Link className="dropdown-item"  to="/actualizarCuenta">Ajustes de usuario</Link>
 							<MDBDropdownItem onClick={() => {logOut()}} href="#">Cerrar sesión</MDBDropdownItem>
 						</MDBDropdownMenu>
 					</MDBDropdown>

@@ -1,4 +1,5 @@
 import React from 'react'
+import ErroresCampo from './ErroresCampo'
 
 /**
  * EntradaNombre es un campo de formulario para el nombre de usuario
@@ -28,7 +29,7 @@ export const EntradaNombre = ({register, errors}) => {
 					})}
 				/>
 				
-			{errors.nombre ? <div className="alert alert-danger"> {errors.nombre.message}</div> : null}
+			<ErroresCampo error={errors.nombre} />
 		</>
     )
 }

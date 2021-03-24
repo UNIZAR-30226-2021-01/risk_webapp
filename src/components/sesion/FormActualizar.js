@@ -7,7 +7,6 @@ import { EntradaCambioClave } from "./entradasFormulario/EntradaCambioClave"
 import { RecibeCorreos } from "./entradasFormulario/RecibeCorreos"
 import { ErroresServer } from "./entradasFormulario/ErroresServer"
 import hash from "js-sha256"
-//import "./formCuenta.css"
 import { MDBContainer, MDBCol, MDBRow, MDBBtn} from "mdbreact"
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto

@@ -21,6 +21,7 @@ import './assets/css/bootstrapCustom.css'
 import AuthApi from "./components/sesion/AuthApi";
 import Registrar from "./components/sesion/Registrar";
 import InicioSesion from "./components/sesion/InicioSesion";
+import ActualizacionConfiguracion from "./components/sesion/ActualizacionConfiguracion";
 
 import Reglas from "./components/Reglas/Reglas";
 
@@ -107,6 +108,11 @@ const Routes = () => {
         path="/menuPrincipal"
         auth={Auth.auth.logged}
         component={MenuPrincipal}
+      />
+      <ProtectedRoute
+        path="/actualizarCuenta"
+        auth={Auth.auth.logged}
+        component={ActualizacionConfiguracion}
       />
       <ProtectedRoute path="/" auth={Auth.auth.logged} component={MenuPrincipal} />
     </Switch>
