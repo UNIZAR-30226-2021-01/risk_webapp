@@ -39,7 +39,7 @@ export const Header = () => {
 			<MDBNavbarNav left> </MDBNavbarNav>
 			<MDBNavbarNav right>
 				{Auth.auth.logged &&
-				<MDBNavItem style={{marginRight: '30px'}}>
+				<MDBNavItem style={{marginRight: '3rem'}}>
 					<MDBDropdown >
 						<MDBDropdownToggle nav caret>
 							<MDBIcon icon="user" />

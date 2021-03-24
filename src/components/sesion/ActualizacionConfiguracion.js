@@ -86,7 +86,7 @@ const ActualizacionConfiguracion = () =>{
 	}
 	
 	return(
-		<MDBContainer>
+		<MDBContainer className="d-flex align-items-center flex-column">
 			<h2> Actualizar configuración </h2>
 			<FormActualizar defaults={values} submitText='Actualizar' submitData={actualizarServer}/>
 		</MDBContainer>

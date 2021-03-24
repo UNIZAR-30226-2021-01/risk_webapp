@@ -34,7 +34,7 @@ export const FormInicio = ({ defaults, submitText, makePetition, siValido }) => 
 
 	return (
 		<MDBContainer>
-			<MDBRow>
+			<MDBRow className="d-flex align-items-center flex-column">
 				<MDBCol md="6">
 					<form
 						id="inicio"
