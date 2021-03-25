@@ -1,7 +1,6 @@
 import React from 'react'
 import './amigo.css'
-import {EliminarAmigo} from './EliminarAmigo'
-import {MDBListGroupItem, MDBIcon, MDBRow, MDBCol} from 'mdbreact'
+import {MDBListGroupItem, MDBRow, MDBCol} from 'mdbreact'
 
 /**
  * Representación de un amigo en la lista de amigos, da la opción de eliminar
@@ -9,16 +8,36 @@ import {MDBListGroupItem, MDBIcon, MDBRow, MDBCol} from 'mdbreact'
  * @param {usuario} datos Datos del amigo 
  * @todo Eliminar amigo, con click derecho eliminar y popup de confirmación? 
  */
-export const Amigo = ({datos}) => {
+export const Amigo = ({datos, elemento}) => {
     return (
         <MDBListGroupItem>
 			<MDBRow>
-				<MDBCol>
+				<MDBCol md="10">
             		{datos.nombre}
 				</MDBCol>
+				<MDBCol md="1">
+					{React.cloneElement(elemento, {amigo: datos})}
+					{/*
+					<MDBDropdown>
+						<MDBDropdownToggle>
+							<MDBIcon icon="ellipsis-h" />
+						</MDBDropdownToggle>
+						<MDBDropdownMenu>
+							<MDBDropdownItem>
+								{React.cloneElement(elemento, {amigo: datos})}
+							</MDBDropdownItem>
+							<MDBDropdownItem>
+								<EliminarAmigo amigo={datos} />
+							</MDBDropdownItem>
+						</MDBDropdownMenu>
+					</MDBDropdown>
+					*/}
+				</MDBCol>
+				{/*
 				<MDBCol>
 					<EliminarAmigo amigo={datos} />
 				</MDBCol>
+				*/}
 			</MDBRow>
         </MDBListGroupItem>
     )

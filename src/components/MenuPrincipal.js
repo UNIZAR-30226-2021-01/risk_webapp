@@ -3,7 +3,7 @@ import "./../index.css"
 
 import MenuSalas from './salas/MenuSalas'
 import TabAmigosNotificaciones from './menuPrincipal/TabAmigosNotificaciones'
-import { MDBContainer, MDBCol, MDBRow, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink} from "mdbreact"
+import { MDBContainer, MDBCol, MDBRow } from "mdbreact"
 
 export const MenuPrincipal = () => {
 

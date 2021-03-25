@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
+import EliminarAmigo from './../panelAmigos/EliminarAmigo'
 import Reglas from './../Reglas/Reglas'
 import { MDBContainer, MDBCol, MDBRow, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBBadge} from "mdbreact"
 
@@ -48,7 +49,7 @@ export const TabAmigosNotificaciones = () => {
 			</MDBNav>
 			<MDBTabContent activeItem={active.justified}>
 				<MDBTabPane tabId="1">
-					<ListaAmigos usuarios={amigos} />
+					<ListaAmigos usuarios={amigos} elemento={<EliminarAmigo />} />
 				</MDBTabPane>
 				<MDBTabPane tabId="2">
 					Inserte aquí el panel de notificaciones

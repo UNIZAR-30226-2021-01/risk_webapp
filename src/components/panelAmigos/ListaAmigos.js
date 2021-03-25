@@ -9,12 +9,12 @@ import './listaAmigos.css';
  * añadir un amigo.
  * @param {lista_de_usuarios} usuarios Amigos del usuario de la aplicación 
  */
-export const listaAmigos = ({usuarios}) => {
+export const listaAmigos = ({usuarios, elemento}) => {
 	return (
 	<MDBContainer className="mt-9" >
 		<MDBListGroup style={{ width: "22rem" }}>
   		{usuarios.map((usuario) => (
-			  <Amigo datos={usuario}/>
+			  <Amigo datos={usuario} elemento={elemento}/>
 		))}
 		<AnyadirAmigo /> 
 		</MDBListGroup>

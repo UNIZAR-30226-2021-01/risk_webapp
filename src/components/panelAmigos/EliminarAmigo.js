@@ -17,20 +17,18 @@ export const EliminarAmigo = ({amigo}) => {
 	}
 
 	return (
-
 	<>
-		<MDBIcon far icon="times" onClick={() => {toggle()}} />	
-		<MDBModal isOpen={isOpen} toggle={() => {toggle()}}>
+		<MDBBtn onClick={() => {toggle()}} color="danger"> Eliminar </MDBBtn>
+		<MDBModal isOpen={isOpen} toggle={() => {toggle()}} >
 			<MDBModalHeader toggle={() => {toggle()}}>¿Estás seguro de que quieres eliminar a {amigo.nombre}?</MDBModalHeader>
 			<MDBCol middle='true'>
-			<MDBModalBody>
-				<MDBBtn color="primary" onClick={() =>{toggle()}}> Cancelar</MDBBtn>
-				<MDBBtn color="danger" onClick={eliminarAmigo(amigo)}>Eliminar</MDBBtn>
-			</MDBModalBody>
+				<MDBModalBody>
+					<MDBBtn color="primary" onClick={() =>{toggle()}}> Cancelar</MDBBtn>
+					<MDBBtn color="danger" onClick={eliminarAmigo(amigo)}>Eliminar</MDBBtn>
+				</MDBModalBody>
 			</MDBCol>
 		</MDBModal>	
 	</>
-
 	)
 }
 

@@ -1,5 +1,5 @@
 //import { Link } from 'react-router-dom'
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { MDBContainer, MDBFooter } from "mdbreact";
 /**
  * Pie de página de la aplicación, muestra el copyright y el
  * nombre del grupo. 
