@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import AuthApi from "./../sesion/AuthApi"
 import Amigo from './Amigo.js'
 import AnyadirAmigo from './AnyadirAmigo'
-import {MDBContainer, MDBListGroup} from 'mdbreact';
+import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact';
 import './listaAmigos.css';
 
 /**
@@ -15,10 +15,12 @@ export const ListaAmigos = ({usuarios, elemento}) => {
 	return (
 	<MDBContainer className="mt-9" >
 		<MDBListGroup style={{ width: "18.5rem" }}>
-  		{usuarios.map((usuario) => (
-			  <Amigo datos={usuario} elemento={elemento}/>
-		))}
-		<AnyadirAmigo usuario={Auth.auth.usuario}/> 
+			{usuarios.map((usuario) => (
+				<MDBListGroupItem key={usuario.id.toString()}>
+					<Amigo datos={usuario} elemento={elemento}/>
+				</MDBListGroupItem>
+			))}
+			<AnyadirAmigo usuario={Auth.auth.usuario}/> 
 		</MDBListGroup>
 	</MDBContainer>
 	)

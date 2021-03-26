@@ -1,6 +1,6 @@
 import React from 'react'
 import './amigo.css'
-import {MDBListGroupItem, MDBRow, MDBCol} from 'mdbreact'
+import { MDBRow, MDBCol } from 'mdbreact'
 
 /**
  * Representación de un amigo en la lista de amigos, da la opción de eliminar
@@ -10,16 +10,14 @@ import {MDBListGroupItem, MDBRow, MDBCol} from 'mdbreact'
  */
 export const Amigo = ({datos, elemento}) => {
     return (
-        <MDBListGroupItem>
 			<MDBRow>
 				<MDBCol md="8">
-            		{datos.nombre}
+					{datos.nombre}
 				</MDBCol>
 				<MDBCol md="4">
 					{React.cloneElement(elemento, {amigo: datos})}
 				</MDBCol>
 			</MDBRow>
-        </MDBListGroupItem>
     )
 }
 

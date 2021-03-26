@@ -1,19 +1,47 @@
-import React, {useState} from 'react'
-import { MDBModal, MDBModalHeader, MDBModalBody, MDBContainer, MDBCol, MDBBtn, MDBIcon} from "mdbreact"
-import { FormAnyadirAmigo } from './FormAnyadirAmigo';
+import React, { useState, useContext } from 'react'
+import { MDBModal, MDBModalHeader, MDBModalBody, MDBContainer, MDBCol, MDBBtn, MDBIcon, MDBRow} from "mdbreact"
+import { FormAnyadirAmigo } from './FormAnyadirAmigo'
+import AuthApi from './../sesion/AuthApi'
+import constants from './../../constants'
+import qs from 'qs'
+import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 
 export const EliminarAmigo = ({amigo}) => {
-	const [isOpen, setOpen] = useState(false);
+	const [isOpen, setOpen] = useState(false)
+	const [serverErrors, setServerErrors] = useState('')
+	const Auth = useContext(AuthApi)
 
 	const toggle = () =>{
 		setOpen(!isOpen)
 	}
 
-	const eliminarAmigo = (amigo) => e => {
-		e.preventDefault()
+	const eliminarAmigo = e => async() => {
+		setServerErrors('')
+		//console.log(amigo)
+		const formData = {
+			idUsuario: Auth.auth.usuario.id,
+			idAmigo: amigo.id,
+			decision: "Borrar",
+			clave: Auth.auth.usuario.clave,
+		}
+		//console.log(formData)
 
-		console.log(amigo, "Eliminado")
-		toggle()
+		const url = `${constants.BASE_SERVER_URL}gestionAmistad`
+		const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: qs.stringify(formData)
+		}
+		const res = await fetch(url, options)
+		const data = await res.json()
+		//console.log(data, "JSON recibido de registrar")
+		if (data.code === 0) {
+			toggle()
+		} else {
+			setServerErrors(data.err)
+		}
 	}
 
 	return (
@@ -23,8 +51,13 @@ export const EliminarAmigo = ({amigo}) => {
 			<MDBModalHeader toggle={() => {toggle()}}>¿Estás seguro de que quieres eliminar a {amigo.nombre}?</MDBModalHeader>
 			<MDBCol middle='true'>
 				<MDBModalBody className="d-flex justify-content-between">
-					<MDBBtn color="primary" onClick={() =>{toggle()}}> Cancelar</MDBBtn>
-					<MDBBtn color="danger" onClick={eliminarAmigo(amigo)}>Eliminar</MDBBtn>
+					<MDBRow>
+						<ErroresServer serverErrors={serverErrors} />
+					</MDBRow>
+					<MDBRow>
+						<MDBBtn color="primary" onClick={() =>{toggle()}}> Cancelar</MDBBtn>
+						<MDBBtn color="danger" onClick={eliminarAmigo(amigo)}>Eliminar</MDBBtn>
+					</MDBRow>
 				</MDBModalBody>
 			</MDBCol>
 		</MDBModal>	

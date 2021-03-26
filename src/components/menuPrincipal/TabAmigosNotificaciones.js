@@ -6,7 +6,7 @@ import { MDBContainer, MDBCol, MDBRow, MDBTabPane, MDBTabContent, MDBNav, MDBNav
 
 export const TabAmigosNotificaciones = () => {
 
-	let amigos = [{nombre: 'Óscar'},{nombre: 'Pepe'}]
+	let amigos = [{nombre: 'Óscar', id: 1},{nombre: 'Pepe', id: 2}]
 
 	// Panel activo
 	const [active, setActive] = useState({justified: "1"})

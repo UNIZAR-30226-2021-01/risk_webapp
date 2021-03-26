@@ -1,33 +1,34 @@
-import React, { useState, useContext } from "react";
-import Cookies from "js-cookie";
-import "./index.css";
-import constants from "./constants.js";
+import React, { useState, useContext } from "react"
+import Cookies from "js-cookie"
+import "./index.css"
+import constants from "./constants.js"
 import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-  //Link
-} from "react-router-dom";
+	Route,
+	BrowserRouter as Router,
+	Switch,
+	Redirect,
+	//Link
+} from "react-router-dom"
 
-import Head from "./components/Head";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import MenuPrincipal from './components/MenuPrincipal';
+import Head from "./components/Head"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import MenuPrincipal from './components/MenuPrincipal'
 //import FormCuenta from "./components/FormCuenta";
 //import './assets/css/style.css'
 import './assets/css/bootstrapCustom.css'
 
-import AuthApi from "./components/sesion/AuthApi";
-import Registrar from "./components/sesion/Registrar";
-import InicioSesion from "./components/sesion/InicioSesion";
-import ActualizacionConfiguracion from "./components/sesion/ActualizacionConfiguracion";
+import AuthApi from "./components/sesion/AuthApi"
+import Registrar from "./components/sesion/Registrar"
+import InicioSesion from "./components/sesion/InicioSesion"
+import ActualizacionConfiguracion from "./components/sesion/ActualizacionConfiguracion"
 
-import Reglas from "./components/Reglas/Reglas";
+import Reglas from "./components/Reglas/Reglas"
 
 import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbreact/dist/css/mdb.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
+
 /**
  * App contiene el router y el header/footer de la aplicación,
  * previene al usuario de entrar a las páginas en las que se requiere
@@ -35,51 +36,39 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
  * @todo Darle bien estilo a todo.
  */
 function App() {
-  const [auth, setAuth] = useState(constants.NULL_VALUES);
+	const [auth, setAuth] = useState(constants.NULL_VALUES);
 
-  /**
-   * Lee las cookies de usuario, y si las hay establece al usuario como
-   * loggeado.
-   */
-  const readCookie = () => {
-    const user = Cookies.get(constants.COOKIE_USER);
-    if (user) {
-      let data = JSON.parse(user);
-      data.logged = true;
-      setAuth(data);
-    }
-  };
-  React.useEffect(() => {
-    readCookie();
-  }, []);
+	/**
+	 * Lee las cookies de usuario, y si las hay establece al usuario como
+	 * loggeado.
+	 */
+	const readCookie = () => {
+		const user = Cookies.get(constants.COOKIE_USER);
+		if (user) {
+			let data = JSON.parse(user);
+			data.logged = true;
+			setAuth(data);
+		}
+	};
+	React.useEffect(() => {
+		readCookie();
+	}, []);
 
-  return (
-    <>
-      <Head titulo="Risk"/>
-      <AuthApi.Provider value={{ auth, setAuth }}>
-        <Router>
-          <div className="wrapper">
-            <Header />
-            <hr />
-            <Routes />
-            {/*
-		<Switch>
-			<Route exact path="/" component={Header} />
-			<Route exact path="/init" component={Header} />
-			{/*<Route path="/users" component=
-			ejemplos...
-			<Route path="/users" component={Users} />
-
-			<Route component={Notfound} />
-
-		</Switch>
-			*/}
-          </div>
-          <Footer />
-        </Router>
-      </AuthApi.Provider>
-    </>
-  );
+	return (
+		<>
+			<Head />
+			<AuthApi.Provider value={{ auth, setAuth }}>
+				<Router>
+					<div className="wrapper">
+						<Header />
+						<hr />
+						<Routes />
+					</div>
+					<Footer />
+				</Router>
+			</AuthApi.Provider>
+		</>
+	);
 }
 
 /**
@@ -87,36 +76,36 @@ function App() {
  * se ha de renderizar de manera segura.
  */
 const Routes = () => {
-  const Auth = useContext(AuthApi);
-  return (
-    <Switch>
+	const Auth = useContext(AuthApi);
+	return (
+		<Switch>
 			<Route
-      	path="/reglas">
+				path="/reglas">
 					<Reglas />
-      </Route>
-      <ProtectedLogin
-        path="/registro"
-        auth={Auth.auth.logged}
-        component={Registrar}
-      />
-      <ProtectedLogin
-        path="/inicioSesion"
-        auth={Auth.auth.logged}
-        component={InicioSesion}
-      />
-      <ProtectedRoute
-        path="/menuPrincipal"
-        auth={Auth.auth.logged}
-        component={MenuPrincipal}
-      />
-      <ProtectedRoute
-        path="/actualizarCuenta"
-        auth={Auth.auth.logged}
-        component={ActualizacionConfiguracion}
-      />
-      <ProtectedRoute path="/" auth={Auth.auth.logged} component={MenuPrincipal} />
-    </Switch>
-  );
+			</Route>
+			<ProtectedLogin
+				path="/registro"
+				auth={Auth.auth.logged}
+				component={Registrar}
+			/>
+			<ProtectedLogin
+				path="/inicioSesion"
+				auth={Auth.auth.logged}
+				component={InicioSesion}
+			/>
+			<ProtectedRoute
+				path="/menuPrincipal"
+				auth={Auth.auth.logged}
+				component={MenuPrincipal}
+			/>
+			<ProtectedRoute
+				path="/actualizarCuenta"
+				auth={Auth.auth.logged}
+				component={ActualizacionConfiguracion}
+			/>
+			<ProtectedRoute path="/" auth={Auth.auth.logged} component={MenuPrincipal} />
+		</Switch>
+	);
 };
 
 /**
@@ -124,12 +113,12 @@ const Routes = () => {
  * se está loggeado en el sistema.
  */
 const ProtectedRoute = ({ auth, component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={() => (auth ? <Component /> : <Redirect to="/registro" />)}
-    />
-  );
+	return (
+		<Route
+			{...rest}
+			render={() => (auth ? <Component /> : <Redirect to="/registro" />)}
+		/>
+	);
 };
 
 /**
@@ -137,12 +126,12 @@ const ProtectedRoute = ({ auth, component: Component, ...rest }) => {
  * se está loggeado en el sistema.
  */
 const ProtectedLogin = ({ auth, component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={() => (!auth ? <Component /> : <Redirect to="/menuPrincipal" />)}
-    />
-  );
+	return (
+		<Route
+			{...rest}
+			render={() => (!auth ? <Component /> : <Redirect to="/menuPrincipal" />)}
+		/>
+	);
 };
 
 export default App;
