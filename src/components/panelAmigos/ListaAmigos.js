@@ -12,6 +12,7 @@ import './listaAmigos.css';
  */
 export const ListaAmigos = ({usuarios, elemento}) => {
 	const Auth = useContext(AuthApi)
+
 	return (
 	<MDBContainer className="mt-9" >
 		<MDBListGroup style={{ width: "18.5rem" }}>

@@ -34,17 +34,25 @@ export const inicioSesion = async(formData) => {
  * @todo testear
  */
 export const registrarse = async(formData) => {
-	const data = peticionQForm('registrar', formData)
+	const data = await peticionQForm('registrar', formData)
 	return data
 }
 
-export const enviarSolicitudAmistad = async (formData) =>{
-	const data = peticionQForm('enviarSolicitudAmistad', formData)
+export const solicitudAmistad = async (formData) =>{
+	const data = await peticionQForm('enviarSolicitudAmistad', formData)
 	return data
 }
 
 export const eliminarAmigo = async(formData)  => {
 	formData.decision = "Borrar"
-	const data = peticionQForm('gestionAmistad', formData)
+	const data = await peticionQForm('gestionAmistad', formData)
+	return data
+}
+
+export const obtenerAmigos = async(datos) => {
+	const data = await peticionQForm('amigos', datos)
+	if (data.amigos === null) {
+		data.amigos = []
+	}
 	return data
 }

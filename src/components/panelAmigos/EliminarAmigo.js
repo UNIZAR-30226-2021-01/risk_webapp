@@ -4,6 +4,7 @@ import AuthApi from "./../../utils/AuthApi"
 import constants from '../../utils/constants'
 import qs from 'qs'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
+import { eliminarAmigo } from './../../utils/restAPI'
 
 export const EliminarAmigo = ({amigo}) => {
 	const [isOpen, setOpen] = useState(false)
@@ -14,28 +15,16 @@ export const EliminarAmigo = ({amigo}) => {
 		setOpen(!isOpen)
 	}
 
-	const eliminarAmigo = e => async() => {
+	const eliminarAmigoInterno = e => async(amigo) => {
 		setServerErrors('')
-		//console.log(amigo)
 		const formData = {
 			idUsuario: Auth.auth.usuario.id,
 			idAmigo: amigo.id,
-			decision: "Borrar",
 			clave: Auth.auth.usuario.clave,
 		}
-		//console.log(formData)
 
-		const url = `${constants.BASE_SERVER_URL}gestionAmistad`
-		const options = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: qs.stringify(formData)
-		}
-		const res = await fetch(url, options)
-		const data = await res.json()
-		//console.log(data, "JSON recibido de registrar")
+		const data = await eliminarAmigo(formData)
+
 		if (data.code === 0) {
 			toggle()
 		} else {
@@ -55,7 +44,7 @@ export const EliminarAmigo = ({amigo}) => {
 					</MDBRow>
 					<MDBRow>
 						<MDBBtn color="primary" onClick={() =>{toggle()}}> Cancelar</MDBBtn>
-						<MDBBtn color="danger" onClick={eliminarAmigo(amigo)}>Eliminar</MDBBtn>
+						<MDBBtn color="danger" onClick={eliminarAmigoInterno(amigo)}>Eliminar</MDBBtn>
 					</MDBRow>
 				</MDBModalBody>
 			</MDBCol>

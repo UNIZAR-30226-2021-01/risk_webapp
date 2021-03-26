@@ -1,5 +1,5 @@
 import React from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 /**
  * Contiene la cabecera html (<head>) de la aplicación, incluye
@@ -8,15 +8,17 @@ import { Helmet } from 'react-helmet'
  */
 export const Head = () => {
 	return (
-		<Helmet>
-			<meta charSet="UTF-8" />
-			<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<HelmetProvider>
+			<Helmet>
+				<meta charSet="UTF-8" />
+				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-			<title>Risk</title>
-			<meta name="keywords" content="HTML,CSS,JavaScript,Risk" />
-			<meta name="description" content="Juego risk online multiplataforma" />
-		</Helmet>
+				<title>Risk</title>
+				<meta name="keywords" content="HTML,CSS,JavaScript,Risk" />
+				<meta name="description" content="Juego risk online multiplataforma" />
+			</Helmet>
+		</HelmetProvider>
 	)
 }
 

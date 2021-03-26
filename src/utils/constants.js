@@ -7,6 +7,7 @@ const constants = {
     COOKIE_USER: "user",
     OPTIONS_COOKIE: {expires: 7, sameSite: "lax"},
     BASE_SERVER_URL: "https://risk-servidor.herokuapp.com/",
+    REFRESH_TIME: 2500,
 }
 
 export default constants;
