@@ -17,27 +17,7 @@ export const Amigo = ({datos, elemento}) => {
 				</MDBCol>
 				<MDBCol md="1">
 					{React.cloneElement(elemento, {amigo: datos})}
-					{/*
-					<MDBDropdown>
-						<MDBDropdownToggle>
-							<MDBIcon icon="ellipsis-h" />
-						</MDBDropdownToggle>
-						<MDBDropdownMenu>
-							<MDBDropdownItem>
-								{React.cloneElement(elemento, {amigo: datos})}
-							</MDBDropdownItem>
-							<MDBDropdownItem>
-								<EliminarAmigo amigo={datos} />
-							</MDBDropdownItem>
-						</MDBDropdownMenu>
-					</MDBDropdown>
-					*/}
 				</MDBCol>
-				{/*
-				<MDBCol>
-					<EliminarAmigo amigo={datos} />
-				</MDBCol>
-				*/}
 			</MDBRow>
         </MDBListGroupItem>
     )
