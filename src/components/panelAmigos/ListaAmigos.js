@@ -12,7 +12,7 @@ import './listaAmigos.css';
 export const listaAmigos = ({usuarios, elemento}) => {
 	return (
 	<MDBContainer className="mt-9" >
-		<MDBListGroup style={{ width: "22rem" }}>
+		<MDBListGroup style={{ width: "18.5rem" }}>
   		{usuarios.map((usuario) => (
 			  <Amigo datos={usuario} elemento={elemento}/>
 		))}

@@ -41,15 +41,15 @@ code {
 */
 
 @font-face {
-  font-family: 'Pixel';
-  src: local('Pixel'), url(./fonts/exepixelperfect.medium.ttf) format('truetype');
+	font-family: 'Pixel';
+	src: local('Pixel'), url(./fonts/exepixelperfect.medium.ttf) format('truetype');
 }
 
 * {
-  font-family: 'Pixel';
+	font-family: 'Pixel';
 }
 
 /* Empuja el footer al fondo de la página, mantener */
 .wrapper {
-  min-height: calc(100vh - 134px);
+	min-height: calc(100vh - 158px);
 }

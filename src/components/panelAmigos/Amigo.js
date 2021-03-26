@@ -12,10 +12,10 @@ export const Amigo = ({datos, elemento}) => {
     return (
         <MDBListGroupItem>
 			<MDBRow>
-				<MDBCol md="10">
+				<MDBCol md="8">
             		{datos.nombre}
 				</MDBCol>
-				<MDBCol md="1">
+				<MDBCol md="4">
 					{React.cloneElement(elemento, {amigo: datos})}
 					{/*
 					<MDBDropdown>

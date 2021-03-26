@@ -11,3 +11,30 @@
   align-items: center;
   justify-content: space-between;
 }*/
+
+* {
+  font-size: 1.325rem;
+}
+
+.btn-default.btn.Ripple-parent.btn-borrar {
+  background-color: rgb(224, 57, 57)!important;
+  padding: .6rem;
+  padding-top: .2rem;
+  padding-bottom: .2rem;
+  font-size: .95rem;
+}
+
+.btn-primary.btn.Ripple-parent.btn-addfriend {
+  font-size: 1.2rem;
+  padding: .1rem .5rem;
+  margin: .75rem;
+  margin-left: 0rem;
+}
+
+.nav-link.Ripple-parent {
+  font-size: 1.29rem;
+}
+
+.nav-link.Ripple-parent.active {
+  padding: .2rem;
+}

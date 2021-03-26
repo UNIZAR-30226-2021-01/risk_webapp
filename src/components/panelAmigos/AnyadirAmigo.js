@@ -15,8 +15,8 @@ export const AnyadirAmigo = ({callback}) => {
 	}
 
 	return (
-	<MDBContainer>
-		<MDBBtn color="primary" onClick={() => {toggle()}}>Añadir amigo</MDBBtn>	
+	<MDBContainer >
+		<MDBBtn color="primary" className='btn-addfriend' onClick={() => {toggle()}}>Añadir amigo</MDBBtn>	
 		<MDBModal isOpen={isOpen} toggle={() => {toggle()}}>
 			<MDBModalHeader toggle={() => {toggle()}}>Añadir amigo</MDBModalHeader>
 			<MDBCol middle='true'>

@@ -11,10 +11,10 @@ export const MenuPrincipal = () => {
 		<MDBContainer>
 			<MDBRow>
 				{/*<ActualizacionConfiguracion />*/}
-				<MDBCol>
+				<MDBCol md='7'>
 					<MenuSalas />
 				</MDBCol>
-				<MDBCol>
+				<MDBCol md='5'>
 				<TabAmigosNotificaciones />
 				</MDBCol>
 				{/* Panel de notificaciones y lista de amigos */}
