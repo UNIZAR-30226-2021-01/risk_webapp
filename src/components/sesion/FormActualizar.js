@@ -49,10 +49,14 @@ export const FormActualizar = ({ defaults, submitText, submitData}) => {
 								return false
 							}
 							setSubmitting(true)
+							setServerErrors('')
 							let hashedForm = formData
 							hashedForm.clave = hash.sha256(formData.clave)
 							const data = await submitData(hashedForm)
-							setServerErrors(data.err)
+							console.log(data)
+							if (data.code !== 0) {
+								setServerErrors(data.err)
+							}
 							setSubmitting(false)
 						})}
 					>

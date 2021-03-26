@@ -1,5 +1,5 @@
 import React from 'react'
-import {MDBBox, MDBContainer, MDBRow} from 'mdbreact';
+import { MDBContainer, MDBRow } from 'mdbreact';
 
 /**
  * Muestra la lista de amigos recibida como parámetro y da la opción de

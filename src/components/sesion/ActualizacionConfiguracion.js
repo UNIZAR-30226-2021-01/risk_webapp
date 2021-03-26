@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react'
 import FormActualizar from './FormActualizar.js'
-import constants from './../../constants.js'
-import AuthApi from "./AuthApi"
+import constants from './../../utils/constants.js'
+import AuthApi from "./../../utils/AuthApi"
 import Cookies from 'js-cookie'
 import qs from 'qs'
 import {MDBContainer} from 'mdbreact';
@@ -46,6 +46,7 @@ const ActualizacionConfiguracion = () =>{
 				oldValues.usuario[campo], "=>", nuevoValor)
 			const res = await fetch(url, options)
 			const data = await res.json()
+			console.log(data)
 			if (data.code !== 0) {
 				return data
 			} else {

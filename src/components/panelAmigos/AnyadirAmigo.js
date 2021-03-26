@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { MDBModal, MDBModalHeader, MDBModalBody, MDBContainer, MDBCol, MDBBtn} from "mdbreact"
 import { FormAnyadirAmigo } from './FormAnyadirAmigo';
 import qs from 'qs'
-import constants from './../../constants.js';
+import constants from './../../utils/constants.js';
 
 /**
  * Implementa un pop-up para añadir un amigo, este pop-up contiene

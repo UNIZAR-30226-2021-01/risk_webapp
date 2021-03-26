@@ -4,7 +4,7 @@ import {MDBAlert} from 'mdbreact'
 export const ErroresServer = ({serverErrors}) => {
 	return (
 		<>
-		{(serverErrors !== '') && 
+		{(serverErrors !== "") && 
 		<MDBAlert color="danger">
 			<p> Error del servidor: {serverErrors}</p>
 		</MDBAlert>}

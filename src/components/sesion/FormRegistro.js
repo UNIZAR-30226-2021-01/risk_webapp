@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { useForm } from "react-hook-form"
 import { EntradaNombre } from "./entradasFormulario/EntradaNombre"
 import { EntradaCorreo } from "./entradasFormulario/EntradaCorreo"
@@ -8,6 +8,7 @@ import { ErroresServer } from "./entradasFormulario/ErroresServer"
 import hash from "js-sha256"
 //import "./formCuenta.css"
 import { MDBContainer, MDBCol, MDBRow, MDBBtn} from "mdbreact"
+import AuthApi from "../../utils/AuthApi"
 
 /**
  * Representa un formulario de registro de la cuenta, si algún valor es incorrecto
@@ -23,6 +24,7 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn} from "mdbreact"
  * @param {función} siValido Función ejecutada si la comunicación con el server es válida
  */
 export const FormRegistro = ({ defaults, submitText, makePetition, siValido }) => {
+	const Auth = useContext(AuthApi)
 	const { register, handleSubmit, errors } = useForm({
 		defaultValues: {
 			nombre: defaults.nombre ? defaults.nombre : "",
@@ -57,7 +59,7 @@ export const FormRegistro = ({ defaults, submitText, makePetition, siValido }) =
 									setServerErrors(data.err)
 								} else {
 									setServerErrors('')
-									siValido(data)
+									siValido(Auth, data)
 								}
 								setSubmitting(false)
 						})}
