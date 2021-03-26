@@ -1,6 +1,6 @@
 import React, { useState, useContext} from 'react'
-import AuthApi from "./sesion/AuthApi"
-import constants from './../constants.js'
+import AuthApi, { logOut } from "./../utils/AuthApi"
+import constants from './../utils/constants.js'
 import Cookies from 'js-cookie'
 import "./header.css"
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavbarToggler, MDBCollapse, MDBDropdown,
@@ -19,13 +19,6 @@ export const Header = () => {
 	}
 
 	const Auth = useContext(AuthApi)
-
-	const logOut = ()=>{
-		console.log("XD")
-		Auth.setAuth(constants.NULL_VALUES)
-		Cookies.remove(constants.COOKIE_USER)
-		return false
-	}
 
 	return (
 	<MDBNavbar color="default-color" dark expand="md">
@@ -47,7 +40,7 @@ export const Header = () => {
 						</MDBDropdownToggle>
 						<MDBDropdownMenu className="dropdown-default">
 								<Link className="dropdown-item"  to="/actualizarCuenta">Ajustes de usuario</Link>
-							<MDBDropdownItem onClick={() => {logOut()}} href="#">Cerrar sesión</MDBDropdownItem>
+							<MDBDropdownItem onClick={() => {logOut(Auth)}} href="#">Cerrar sesión</MDBDropdownItem>
 						</MDBDropdownMenu>
 					</MDBDropdown>
 				</MDBNavItem>

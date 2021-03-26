@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react'
-import { MDBModal, MDBModalHeader, MDBModalBody, MDBContainer, MDBCol, MDBBtn, MDBIcon, MDBRow} from "mdbreact"
-import { FormAnyadirAmigo } from './FormAnyadirAmigo'
-import AuthApi from './../sesion/AuthApi'
-import constants from './../../constants'
+import { MDBModal, MDBModalHeader, MDBModalBody, MDBCol, MDBBtn, MDBRow} from "mdbreact"
+import AuthApi from "./../../utils/AuthApi"
+import constants from '../../utils/constants'
 import qs from 'qs'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 

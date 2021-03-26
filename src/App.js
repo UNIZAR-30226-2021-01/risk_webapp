@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 import Cookies from "js-cookie"
 import "./index.css"
-import constants from "./constants.js"
+import constants from "./utils/constants.js"
 import {
 	Route,
 	BrowserRouter as Router,
@@ -18,7 +18,7 @@ import MenuPrincipal from './components/MenuPrincipal'
 //import './assets/css/style.css'
 import './assets/css/bootstrapCustom.css'
 
-import AuthApi from "./components/sesion/AuthApi"
+import AuthApi from "./utils/AuthApi"
 import Registrar from "./components/sesion/Registrar"
 import InicioSesion from "./components/sesion/InicioSesion"
 import ActualizacionConfiguracion from "./components/sesion/ActualizacionConfiguracion"
@@ -48,8 +48,11 @@ function App() {
 			let data = JSON.parse(user);
 			data.logged = true;
 			setAuth(data);
+		} else{
+			setAuth(constants.NULL_VALUES)
 		}
 	};
+
 	React.useEffect(() => {
 		readCookie();
 	}, []);

@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import EliminarAmigo from './../panelAmigos/EliminarAmigo'
-import Reglas from './../Reglas/Reglas'
-import { MDBContainer, MDBCol, MDBRow, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBBadge} from "mdbreact"
+import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBBadge} from "mdbreact"
 
 export const TabAmigosNotificaciones = () => {
 
