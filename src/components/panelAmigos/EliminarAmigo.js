@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { MDBModal, MDBModalHeader, MDBModalBody, MDBCol, MDBBtn, MDBRow} from "mdbreact"
+import { MDBModal, MDBModalHeader, MDBModalBody, MDBCol, MDBBtn, MDBRow, MDBFooter} from "mdbreact"
 import AuthApi from "./../../utils/AuthApi"
 import constants from '../../utils/constants'
 import qs from 'qs'
@@ -15,14 +15,13 @@ export const EliminarAmigo = ({amigo}) => {
 		setOpen(!isOpen)
 	}
 
-	const eliminarAmigoInterno = e => async(amigo) => {
+	const eliminarAmigoInterno = (amigo) => async() => {
 		setServerErrors('')
 		const formData = {
 			idUsuario: Auth.auth.usuario.id,
 			idAmigo: amigo.id,
 			clave: Auth.auth.usuario.clave,
 		}
-
 		const data = await eliminarAmigo(formData)
 
 		if (data.code === 0) {
@@ -37,17 +36,13 @@ export const EliminarAmigo = ({amigo}) => {
 		<MDBBtn onClick={() => {toggle()}} className='btn-borrar'> Eliminar </MDBBtn>
 		<MDBModal isOpen={isOpen} toggle={() => {toggle()}} >
 			<MDBModalHeader toggle={() => {toggle()}}>¿Estás seguro de que quieres eliminar a {amigo.nombre}?</MDBModalHeader>
-			<MDBCol middle='true'>
-				<MDBModalBody className="d-flex justify-content-between">
-					<MDBRow>
-						<ErroresServer serverErrors={serverErrors} />
-					</MDBRow>
-					<MDBRow>
-						<MDBBtn color="primary" onClick={() =>{toggle()}}> Cancelar</MDBBtn>
-						<MDBBtn color="danger" onClick={eliminarAmigoInterno(amigo)}>Eliminar</MDBBtn>
-					</MDBRow>
-				</MDBModalBody>
-			</MDBCol>
+			<MDBModalBody className="d-flex justify-content-between">
+					<ErroresServer serverErrors={serverErrors} />		
+			</MDBModalBody>
+			<MDBFooter className="d-flex justify-content-around">
+				<MDBBtn color="primary" onClick={() =>{toggle()}}> Cancelar</MDBBtn>
+				<MDBBtn color="danger" onClick={eliminarAmigoInterno(amigo)}>Eliminar</MDBBtn>
+			</MDBFooter>
 		</MDBModal>	
 	</>
 	)

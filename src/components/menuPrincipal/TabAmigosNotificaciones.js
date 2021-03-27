@@ -25,7 +25,12 @@ export const TabAmigosNotificaciones = () => {
 		const nuestraInfo = {idUsuario: Auth.auth.usuario.id, clave: Auth.auth.usuario.clave}
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		console.log(dataAmigos)
-		setAmigos(amigos)
+		if(dataAmigos.amigos != null){
+			setAmigos(dataAmigos.amigos)
+		}else{
+			setAmigos([])
+		}
+		
 	}
 
 	const fetchNotis = async() =>{
@@ -42,6 +47,8 @@ export const TabAmigosNotificaciones = () => {
 		setNotis(notisPrueba)*/
 		if(dataNotis.notificaciones != null) {
 			setNotis(dataNotis.notificaciones)
+		}else{
+			setNotis([])
 		}
 	}
 
