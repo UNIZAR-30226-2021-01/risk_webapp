@@ -56,3 +56,16 @@ export const obtenerAmigos = async(datos) => {
 	}
 	return data
 }
+
+export const obtenerNotificaciones = async(datos) => {
+	const data = await peticionQForm('notificaciones', datos)
+	if (data.notificaciones === null) {
+		data.notificaciones = []
+	}
+	return data
+}
+
+export const decisionPeticion = async(formData)  => {
+	const data = await peticionQForm('gestionAmistad', formData)
+	return data
+}

@@ -1,0 +1,9 @@
+.container.border.mt-4.contenedor-pills{
+	max-height: 25rem;
+}
+
+.container.border.mt-4.contenedor-pills .container.mt-9{
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 20rem;
+}

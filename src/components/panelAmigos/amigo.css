@@ -33,8 +33,5 @@
 
 .nav-link.Ripple-parent {
   font-size: 1.29rem;
-}
-
-.nav-link.Ripple-parent.active {
   padding: .2rem;
 }

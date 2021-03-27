@@ -1,0 +1,49 @@
+/*.amigo {
+  background: #f4f4f4;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.amigo h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}*/
+
+* {
+  font-size: 1.325rem;
+}
+
+.nav-link.Ripple-parent {
+  font-size: 1.29rem;
+}
+
+.nav-link.Ripple-parent.active {
+  padding: .2rem;
+}
+
+.btn-danger.btn.Ripple-parent.btn-notis,
+.btn-success.btn.Ripple-parent.btn-notis {
+  height: 2.2rem;
+  width: 2.2rem;
+  padding: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2.2rem;
+}
+
+
+
+.btn-danger.btn.Ripple-parent.btn-notis i,
+.btn-success.btn.Ripple-parent.btn-notis i {
+  margin-left: .5rem;
+  margin-top: .1rem;
+}
+
+.btn-primary.btn.Ripple-parent.btn-modal {
+  font-size: 1.15rem;
+  padding: .3rem 1.2rem;
+}

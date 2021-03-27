@@ -2,8 +2,10 @@ import React, { useState, useEffect, useContext } from 'react'
 import AuthApi from "./../../utils/AuthApi"
 import constants from "./../../utils/constants"
 import ListaAmigos from './../panelAmigos/ListaAmigos'
+import ListaNotificaciones from './../panelNotificaciones/ListaNotificaciones'
 import EliminarAmigo from './../panelAmigos/EliminarAmigo'
-import { obtenerAmigos } from './../../utils/restAPI'
+import { obtenerAmigos, obtenerNotificaciones } from './../../utils/restAPI'
+import './tabAmigosNotificaciones.css'
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBBadge} from "mdbreact"
 
 export const TabAmigosNotificaciones = () => {
@@ -26,10 +28,27 @@ export const TabAmigosNotificaciones = () => {
 		setAmigos(amigos)
 	}
 
+	const fetchNotis = async() =>{
+		console.log('Petición de notificaciones')
+		const nuestraInfo = {idUsuario: Auth.auth.usuario.id, clave: Auth.auth.usuario.clave}
+		const dataNotis = await obtenerNotificaciones(nuestraInfo)
+		console.log(dataNotis)
+
+		// DATOS DE PRUEBA
+		/*let notisPrueba = [{infoExtra: 'PacoGamer', idEnvio: 69}, 
+		{infoExtra: 'Raulito69HD', idEnvio: 15},
+		{infoExtra: 'Raulito69XX', idEnvio: 12},
+		{infoExtra: 'Raulito69', idEnvio: 144}]
+		setNotis(notisPrueba)*/
+		if(dataNotis.notificaciones != null) {
+			setNotis(dataNotis.notificaciones)
+		}
+	}
+
 	useEffect(() => {
 		const interval = setInterval( async() => {
 			fetchAmigos()
-			//Añadir petición de notificaciones
+			fetchNotis()
 
 		}, constants.REFRESH_TIME)
 		return () => clearInterval(interval); //Elimina la ejecución periódica al desmontar
@@ -45,7 +64,7 @@ export const TabAmigosNotificaciones = () => {
 	}
 
 	return (
-		<MDBContainer className="border mt-4">
+		<MDBContainer className="border mt-4 contenedor-pills">
 			<MDBNav className="nav-pills nav-justified ">
 				<MDBNavItem className="my-2">
 					<MDBNavLink
@@ -64,7 +83,7 @@ export const TabAmigosNotificaciones = () => {
 						active={active.justified === "2"}
 						onClick={togglePills("justified", "2")}
 					>
-						Notificaciones	{ notis.length > 0 && <MDBBadge color="primary" pill> {notis.length} </MDBBadge>}
+						Notificaciones	{ notis.length > 0 && <MDBBadge color="danger" pill> {notis.length} </MDBBadge>}
 					</MDBNavLink>
 				</MDBNavItem>
 			</MDBNav>
@@ -73,7 +92,7 @@ export const TabAmigosNotificaciones = () => {
 					<ListaAmigos usuarios={amigos} elemento={<EliminarAmigo />} />
 				</MDBTabPane>
 				<MDBTabPane tabId="2">
-					Inserte aquí el panel de notificaciones
+					<ListaNotificaciones notificaciones={notis}/>
 				</MDBTabPane>
 			</MDBTabContent>
 		</MDBContainer>
