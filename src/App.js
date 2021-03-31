@@ -48,7 +48,7 @@ function App() {
 			let data = JSON.parse(user);
 			data.logged = true;
 			setAuth(data);
-		} else{
+		} else {
 			setAuth(constants.NULL_VALUES)
 		}
 	};

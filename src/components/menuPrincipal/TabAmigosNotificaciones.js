@@ -20,20 +20,15 @@ export const TabAmigosNotificaciones = () => {
 	// Número de notificaciones, se actualizará conforme lleguen y se borren
 	const [notis, setNotis] = useState([])
 
-	const fetchAmigos = async() =>{
+	const fetchAmigos = async() => {
 		console.log('Petición de amigos')
 		const nuestraInfo = {idUsuario: Auth.auth.usuario.id, clave: Auth.auth.usuario.clave}
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		console.log(dataAmigos)
-		if(dataAmigos.amigos != null){
-			setAmigos(dataAmigos.amigos)
-		}else{
-			setAmigos([])
-		}
-		
+		setAmigos(dataAmigos.amigos)
 	}
 
-	const fetchNotis = async() =>{
+	const fetchNotis = async() => {
 		console.log('Petición de notificaciones')
 		const nuestraInfo = {idUsuario: Auth.auth.usuario.id, clave: Auth.auth.usuario.clave}
 		const dataNotis = await obtenerNotificaciones(nuestraInfo)
@@ -45,9 +40,9 @@ export const TabAmigosNotificaciones = () => {
 		{infoExtra: 'Raulito69XX', idEnvio: 12},
 		{infoExtra: 'Raulito69', idEnvio: 144}]
 		setNotis(notisPrueba)*/
-		if(dataNotis.notificaciones != null) {
+		if (dataNotis.notificaciones != null) {
 			setNotis(dataNotis.notificaciones)
-		}else{
+		} else {
 			setNotis([])
 		}
 	}
