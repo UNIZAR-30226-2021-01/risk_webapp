@@ -1,10 +1,13 @@
 import React from 'react'
 import ErroresCampo from './ErroresCampo'
 
-export const EntradaUsuario = ({register, errors}) => {
-    return (
+export const EntradaUsuario = ({ register, errors }) => {
+	return (
 		<>
-			<label htmlFor="usuario" className="grey-text"> Correo o usuario</label>
+			<label htmlFor="usuario" className="grey-text">
+				{' '}
+				Correo o usuario
+			</label>
 			<input
 				type="text"
 				name="usuario"
@@ -16,5 +19,5 @@ export const EntradaUsuario = ({register, errors}) => {
 
 			<ErroresCampo error={errors.usuario} />
 		</>
-    )
+	)
 }

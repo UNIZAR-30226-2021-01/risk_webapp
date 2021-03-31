@@ -1,8 +1,8 @@
-export const ruta = 'src/assets/fotosPerfil/' 
-export const extension = '.png' 
+export const ruta = 'src/assets/fotosPerfil/'
+export const extension = '.png'
 
 const obtenerDir = (disponibles, actual, dir) => {
-	return ""
+	return ''
 }
 
 export const obtenerPrevio = (disponibles, actual) => {
