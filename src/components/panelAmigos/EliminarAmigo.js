@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { MDBModal, MDBModalHeader, MDBModalBody, MDBCol, MDBBtn, MDBRow, MDBFooter} from "mdbreact"
+import { MDBModal, MDBModalHeader, MDBModalBody, MDBIcon, MDBBtn, MDBRow, MDBFooter} from "mdbreact"
 import AuthApi from "./../../utils/AuthApi"
 import constants from '../../utils/constants'
 import qs from 'qs'
@@ -33,7 +33,13 @@ export const EliminarAmigo = ({amigo}) => {
 
 	return (
 	<>
-		<MDBBtn onClick={() => {toggle()}} className='btn-borrar'> Eliminar </MDBBtn>
+		{
+			//<MDBBtn onClick={() => {toggle()}} className='btn-borrar'> Eliminar </MDBBtn>
+		}
+		<MDBBtn className="btn-borrar" onClick={() => toggle()}>
+			<MDBIcon far icon="trash-alt" />
+		</MDBBtn>
+		
 		<MDBModal isOpen={isOpen} toggle={() => {toggle()}} >
 			<MDBModalHeader toggle={() => {toggle()}}>¿Estás seguro de que quieres eliminar a {amigo.nombre}?</MDBModalHeader>
 			<MDBModalBody className="d-flex justify-content-between">

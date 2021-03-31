@@ -40,11 +40,8 @@ export const TabAmigosNotificaciones = () => {
 		{infoExtra: 'Raulito69XX', idEnvio: 12},
 		{infoExtra: 'Raulito69', idEnvio: 144}]
 		setNotis(notisPrueba)*/
-		if (dataNotis.notificaciones != null) {
-			setNotis(dataNotis.notificaciones)
-		} else {
-			setNotis([])
-		}
+		setNotis(dataNotis.notificaciones)
+
 	}
 
 	useEffect(() => {
