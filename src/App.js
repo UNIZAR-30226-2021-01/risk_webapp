@@ -14,6 +14,7 @@ import Head from './components/Head'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import MenuPrincipal from './components/MenuPrincipal'
+import Tienda from './components/tienda/Tienda'
 //import FormCuenta from "./components/FormCuenta";
 //import './assets/css/style.css'
 import './assets/css/bootstrapCustom.css'
@@ -85,6 +86,12 @@ const Routes = () => {
 			<Route path="/reglas">
 				<Reglas />
 			</Route>
+
+			{/* Convertir en protected */}
+			<Route path="/tienda">
+				<Tienda></Tienda>
+			</Route>
+
 			<ProtectedLogin
 				path="/registro"
 				auth={Auth.auth.logged}
