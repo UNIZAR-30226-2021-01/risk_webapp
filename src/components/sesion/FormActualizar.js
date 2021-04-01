@@ -3,11 +3,16 @@ import { useForm } from 'react-hook-form'
 import { EntradaNombre } from './entradasFormulario/EntradaNombre'
 import { EntradaCorreo } from './entradasFormulario/EntradaCorreo'
 import { EntradaClave } from './entradasFormulario/EntradaClave'
+import { EntradaImg } from './entradasFormulario/EntradaImg'
 import { EntradaCambioClave } from './entradasFormulario/EntradaCambioClave'
 import { RecibeCorreos } from './entradasFormulario/RecibeCorreos'
 import { ErroresServer } from './entradasFormulario/ErroresServer'
 import hash from 'js-sha256'
 import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
+import { obtenerRutaAspecto, obtenerRutaIcono } from 'utils/fotoPerfil'
+
+import './formActualizar.css'
+
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
  * no permite enviarlo. Solo envía los cambios de los valores modificados. La clave
@@ -21,10 +26,18 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
  * @param {string} submitText Texto del botón de enviar formulario
  * @param {función} submitData Función ejecutada al enviar el formulario
  */
-export const FormActualizar = ({ defaults, submitText, submitData }) => {
+export const FormActualizar = ({
+	defaults,
+	submitText,
+	submitData,
+	iconos,
+	aspectos,
+}) => {
 	const { register, handleSubmit, errors } = useForm({
 		defaultValues: {
 			nombre: defaults.nombre ? defaults.nombre : '',
+			icono: defaults.icono ? defaults.icono : 1,
+			aspecto: defaults.aspecto ? defaults.aspecto : 1,
 			correo: defaults.correo ? defaults.correo : '',
 			clave: defaults.clave ? defaults.clave : '',
 			recibeCorreos: defaults.recibeCorreos ? defaults.recibeCorreos : false,
@@ -60,6 +73,24 @@ export const FormActualizar = ({ defaults, submitText, submitData }) => {
 						})}
 					>
 						<ErroresServer serverErrors={serverErrors} />
+
+						<EntradaImg
+							register={register}
+							errors={errors}
+							tag="icono"
+							disponibles={iconos}
+							inicial={defaults.icono}
+							obtImg={obtenerRutaIcono}
+						/>
+
+						<EntradaImg
+							register={register}
+							errors={errors}
+							tag="aspecto"
+							disponibles={aspectos}
+							inicial={defaults.aspecto}
+							obtImg={obtenerRutaAspecto}
+						/>
 
 						<EntradaNombre register={register} errors={errors} />
 

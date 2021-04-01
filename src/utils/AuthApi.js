@@ -15,6 +15,7 @@ export const AuthApi = React.createContext()
  * de un usuario en el servidor
  */
 export const registrarseLocal = (Auth, data) => {
+	console.log(data)
 	data.logged = true
 	Auth.setAuth(data)
 	Cookies.set(constants.COOKIE_USER, data, constants.OPTIONS_COOKIE)
