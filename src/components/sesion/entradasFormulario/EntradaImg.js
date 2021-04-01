@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { obtenerPrevio, obtenerSiguiente } from 'utils/fotoPerfil'
+import { MDBCol } from 'mdbreact'
 import ErroresCampo from './ErroresCampo'
 
 export const EntradaImg = ({
@@ -35,7 +36,7 @@ export const EntradaImg = ({
 
 	return (
 		<>
-			<div className="selector-avatar">
+			<MDBCol className="selector-avatar">
 				<img
 					className="flecha prev"
 					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.fastly.picmonkey.com%2Fcontent4%2Fpreviews%2Fmain%2Farrows%2Farrow_01_550.png&f=1&nofb=1"
@@ -53,7 +54,7 @@ export const EntradaImg = ({
 					alt="Flecha siguiente"
 					onClick={avanzarSiguiente}
 				/>
-			</div>
+			</MDBCol>
 			<input
 				type="hidden"
 				name={tag}

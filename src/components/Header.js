@@ -50,6 +50,11 @@ export const Header = () => {
 							</MDBNavItem>
 						</>
 					)}
+					<MDBNavItem style={{ marginRight: '3rem' }}>
+						<Link className="dropdown-item" to="/Reglas">
+							Reglas
+						</Link>
+					</MDBNavItem>
 				</MDBNavbarNav>
 
 				<MDBNavbarNav right>
