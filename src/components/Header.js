@@ -40,7 +40,17 @@ export const Header = () => {
 			</MDBNavbarBrand>
 			<MDBNavbarToggler onClick={toggleCollapse} />
 			<MDBCollapse id="navbarCollapse3" isOpen={state.isOpen} navbar>
-				<MDBNavbarNav left> </MDBNavbarNav>
+				<MDBNavbarNav left>
+					{Auth.auth.logged && (
+						<>
+							<MDBNavItem style={{ marginRight: '3rem' }}>
+								<Link className="dropdown-item" to="/tienda">
+									Tienda
+								</Link>
+							</MDBNavItem>
+						</>
+					)}
+				</MDBNavbarNav>
 
 				<MDBNavbarNav right>
 					{Auth.auth.logged && (

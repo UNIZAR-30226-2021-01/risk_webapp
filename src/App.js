@@ -86,12 +86,6 @@ const Routes = () => {
 			<Route path="/reglas">
 				<Reglas />
 			</Route>
-
-			{/* Convertir en protected */}
-			<Route path="/tienda">
-				<Tienda></Tienda>
-			</Route>
-
 			<ProtectedLogin
 				path="/registro"
 				auth={Auth.auth.logged}
@@ -111,6 +105,11 @@ const Routes = () => {
 				path="/actualizarCuenta"
 				auth={Auth.auth.logged}
 				component={ActualizacionConfiguracion}
+			/>
+			<ProtectedRoute
+				path="/tienda"
+				auth={Auth.auth.logged}
+				component={Tienda}
 			/>
 			<ProtectedRoute
 				path="/"
