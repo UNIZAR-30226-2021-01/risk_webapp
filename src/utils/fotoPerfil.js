@@ -9,6 +9,10 @@ const obtenerDir = (disponibles, actual, dir) => {
 		}
 	})
 	i = (i + dir) % disponibles.length
+	if (i < 0) {
+		i = disponibles.length - 1
+	}
+	console.log(i)
 	return disponibles[i].id
 }
 

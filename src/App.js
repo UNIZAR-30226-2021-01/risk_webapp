@@ -38,6 +38,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
  */
 function App() {
 	const [auth, setAuth] = useState(constants.NULL_VALUES)
+	const [recargando, setRecargando] = useState(true)
 
 	/**
 	 * Lee las cookies de usuario, y si las hay establece al usuario como
@@ -55,22 +56,28 @@ function App() {
 	}
 
 	React.useEffect(() => {
+		setRecargando(true)
 		readCookie()
+		setRecargando(false)
 	}, [])
 
 	return (
 		<>
-			<Head />
-			<AuthApi.Provider value={{ auth, setAuth }}>
-				<Router>
-					<div className="wrapper">
-						<Header />
-						<hr />
-						<Routes />
-					</div>
-					<Footer />
-				</Router>
-			</AuthApi.Provider>
+			{!recargando && (
+				<>
+					<Head />
+					<AuthApi.Provider value={{ auth, setAuth }}>
+						<Router>
+							<div className="wrapper">
+								<Header />
+								<hr />
+								<Routes />
+							</div>
+							<Footer />
+						</Router>
+					</AuthApi.Provider>{' '}
+				</>
+			)}
 		</>
 	)
 }
@@ -97,11 +104,6 @@ const Routes = () => {
 				component={InicioSesion}
 			/>
 			<ProtectedRoute
-				path="/menuPrincipal"
-				auth={Auth.auth.logged}
-				component={MenuPrincipal}
-			/>
-			<ProtectedRoute
 				path="/actualizarCuenta"
 				auth={Auth.auth.logged}
 				component={ActualizacionConfiguracion}
@@ -110,6 +112,11 @@ const Routes = () => {
 				path="/tienda"
 				auth={Auth.auth.logged}
 				component={Tienda}
+			/>
+			<ProtectedRoute
+				path="/menuPrincipal"
+				auth={Auth.auth.logged}
+				component={MenuPrincipal}
 			/>
 			<ProtectedRoute
 				path="/"

@@ -12,6 +12,8 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
 import { obtenerRutaAspecto, obtenerRutaIcono } from 'utils/fotoPerfil'
 
 import './formActualizar.css'
+import iconosJS from 'assets/iconos/iconos'
+import aspectosJS from 'assets/aspectos/aspectos'
 
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
@@ -80,7 +82,7 @@ export const FormActualizar = ({
 							tag="icono"
 							disponibles={iconos}
 							inicial={defaults.icono}
-							obtImg={obtenerRutaIcono}
+							imagenes={iconosJS}
 						/>
 
 						<EntradaImg
@@ -89,7 +91,7 @@ export const FormActualizar = ({
 							tag="aspecto"
 							disponibles={aspectos}
 							inicial={defaults.aspecto}
-							obtImg={obtenerRutaAspecto}
+							imagenes={aspectosJS}
 						/>
 
 						<EntradaNombre register={register} errors={errors} />

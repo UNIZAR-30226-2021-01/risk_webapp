@@ -10,7 +10,7 @@ import {
 import AuthApi from './../../utils/AuthApi'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import { comprarObjeto } from 'utils/restAPI'
-import iconos from '../../assets/images/iconos'
+import iconos from 'assets/iconos/iconos'
 
 const ElementoTienda = ({ datos, tipo }) => {
 	const Auth = useContext(AuthApi)

@@ -18,6 +18,16 @@ const ActualizacionConfiguracion = () => {
 
 	const [values, setValues] = useState(Auth.auth.usuario)
 
+	let iconosPrueba = [
+		{
+			id: 0,
+			precio: 5,
+		},
+		{
+			id: 1,
+			precio: 5,
+		},
+	]
 	/**
 	 * Intenta cambiar el parámetro campo si se ha modificado
 	 * @param {datos_de_sesion} oldValues Valores antiguos de sesion
@@ -108,8 +118,10 @@ const ActualizacionConfiguracion = () => {
 				defaults={values}
 				submitText="Actualizar"
 				submitData={actualizarServer}
-				iconos={Auth.auth.iconos}
-				aspectos={Auth.auth.aspectos}
+				iconos={iconosPrueba}
+				aspectos={iconosPrueba}
+				//iconos={Auth.auth.iconos}
+				//aspectos={Auth.auth.aspectos}
 			/>
 		</MDBContainer>
 	)
