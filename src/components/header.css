@@ -1,15 +1,26 @@
-.fa{
-	margin-right: .45rem;
+.fa {
+	margin-right: 0.45rem;
 }
 
-strong.white-text{
+strong.white-text {
 	font-size: 2.75rem;
 }
 
-#head-user{
+#head-user {
 	font-size: 1.75rem;
 }
 
-.dropdown.show .show.dropdown-menu.dropdown-default a{
+.dropdown.show .show.dropdown-menu.dropdown-default a {
 	font-size: 1.4rem;
+}
+
+.riskos-head {
+	color: #fff;
+	display: flex;
+	align-items: center;
+	padding: 0.5rem;
+}
+
+#riskos-num {
+	font-size: 1.75rem;
 }
