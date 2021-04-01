@@ -39,7 +39,6 @@ export const inicioSesion = async (formData) => {
  * @param {datos_usuario} formData Contiene los datos necesarios para el registro
  * de un usuario en el servidor
  * @returns Respuesta recibida a la petición de registro en JSON
- * @todo testear
  */
 export const registrarse = async (formData) => {
 	const data = await peticionQForm('registrar', formData)

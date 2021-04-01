@@ -108,6 +108,8 @@ const ActualizacionConfiguracion = () => {
 				defaults={values}
 				submitText="Actualizar"
 				submitData={actualizarServer}
+				iconos={Auth.auth.iconos}
+				aspectos={Auth.auth.aspectos}
 			/>
 		</MDBContainer>
 	)

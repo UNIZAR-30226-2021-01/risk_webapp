@@ -18,8 +18,8 @@ import {
 
 export const TabAmigosNotificaciones = () => {
 	const Auth = useContext(AuthApi)
+
 	const [amigos, setAmigos] = useState([])
-	//[{nombre: 'Óscar', id: 1},{nombre: 'Pepe', id: 2}]
 
 	// Panel activo
 	const [active, setActive] = useState({ justified: '1' })
