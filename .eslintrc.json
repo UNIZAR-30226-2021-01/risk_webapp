@@ -15,7 +15,9 @@
   "plugins": ["prettier", "react"],
   "extends": ["prettier", "eslint:recommended", "plugin:react/recommended"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+	"react/prop-types": 0,
+	"no-unused-vars": 1
   },
   "settings": {
     "react": {

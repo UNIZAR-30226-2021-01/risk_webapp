@@ -20,7 +20,6 @@
     "reactjs-popup": "^2.0.4",
     "web-vitals": "^1.0.1"
   },
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -28,21 +27,18 @@
     "eject": "react-scripts eject",
     "format": "prettier-eslint --write \"{,!(node_modules)/**/}*.{js,jsx}\""
   },
-
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
   },
-
   "husky": {
     "hooks": {
-	  "pre-push": "yarn run format",
+      "pre-push": "yarn run format",
       "...": "..."
     }
   },
-
   "browserslist": {
     "production": [
       ">0.2%",
@@ -55,7 +51,6 @@
       "last 1 safari version"
     ]
   },
-
   "devDependencies": {
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
