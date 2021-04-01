@@ -1,49 +1,36 @@
 import React, { useState, useEffect, useContext } from 'react'
-import AuthApi from './../../utils/AuthApi'
-import constants from './../../utils/constants'
+import AuthApi from "./../../utils/AuthApi"
+import constants from "./../../utils/constants"
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import ListaNotificaciones from './../panelNotificaciones/ListaNotificaciones'
 import EliminarAmigo from './../panelAmigos/EliminarAmigo'
 import { obtenerAmigos, obtenerNotificaciones } from './../../utils/restAPI'
 import './tabAmigosNotificaciones.css'
-import {
-	MDBContainer,
-	MDBTabPane,
-	MDBTabContent,
-	MDBNav,
-	MDBNavItem,
-	MDBNavLink,
-	MDBBadge,
-} from 'mdbreact'
+import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink, MDBBadge} from "mdbreact"
 
 export const TabAmigosNotificaciones = () => {
+
 	const Auth = useContext(AuthApi)
 	const [amigos, setAmigos] = useState([])
 	//[{nombre: 'Óscar', id: 1},{nombre: 'Pepe', id: 2}]
 
 	// Panel activo
-	const [active, setActive] = useState({ justified: '1' })
+	const [active, setActive] = useState({justified: "1"})
 
 	// Número de notificaciones, se actualizará conforme lleguen y se borren
 	const [notis, setNotis] = useState([])
 
-	const fetchAmigos = async () => {
+	const fetchAmigos = async() => {
 		console.log('Petición de amigos')
-		const nuestraInfo = {
-			idUsuario: Auth.auth.usuario.id,
-			clave: Auth.auth.usuario.clave,
-		}
+		const nuestraInfo = {idUsuario: Auth.auth.usuario.id, clave: Auth.auth.usuario.clave}
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		console.log(dataAmigos)
 		setAmigos(dataAmigos.amigos)
 	}
 
-	const fetchNotis = async () => {
+	const fetchNotis = async() => {
 		console.log('Petición de notificaciones')
-		const nuestraInfo = {
-			idUsuario: Auth.auth.usuario.id,
-			clave: Auth.auth.usuario.clave,
-		}
+		const nuestraInfo = {idUsuario: Auth.auth.usuario.id, clave: Auth.auth.usuario.clave}
 		const dataNotis = await obtenerNotificaciones(nuestraInfo)
 		console.log(dataNotis)
 
@@ -53,25 +40,23 @@ export const TabAmigosNotificaciones = () => {
 		{infoExtra: 'Raulito69XX', idEnvio: 12},
 		{infoExtra: 'Raulito69', idEnvio: 144}]
 		setNotis(notisPrueba)*/
-		if (dataNotis.notificaciones != null) {
-			setNotis(dataNotis.notificaciones)
-		} else {
-			setNotis([])
-		}
+		setNotis(dataNotis.notificaciones)
+
 	}
 
 	useEffect(() => {
-		const interval = setInterval(async () => {
+		const interval = setInterval( async() => {
 			fetchAmigos()
 			fetchNotis()
+
 		}, constants.REFRESH_TIME)
-		return () => clearInterval(interval) //Elimina la ejecución periódica al desmontar
+		return () => clearInterval(interval); //Elimina la ejecución periódica al desmontar
 	}, [])
 
-	const togglePills = (type, tab) => (e) => {
-		e.preventDefault()
-		if (active.justified !== tab) {
-			let items = { ...active }
+	const togglePills = (type, tab) => e => {
+		e.preventDefault();
+		if (active.justified !== tab){
+			let items = {...active}
 			items[type] = tab
 			setActive(items)
 		}
@@ -83,9 +68,9 @@ export const TabAmigosNotificaciones = () => {
 				<MDBNavItem className="my-2">
 					<MDBNavLink
 						link
-						to="#"
-						active={active.justified === '1'}
-						onClick={togglePills('justified', '1')}
+						to="#" 
+						active={active.justified === "1"}
+						onClick={togglePills("justified", "1")}
 					>
 						Lista de amigos
 					</MDBNavLink>
@@ -93,17 +78,11 @@ export const TabAmigosNotificaciones = () => {
 				<MDBNavItem className="my-2">
 					<MDBNavLink
 						link
-						to="#"
-						active={active.justified === '2'}
-						onClick={togglePills('justified', '2')}
+						to="#" 
+						active={active.justified === "2"}
+						onClick={togglePills("justified", "2")}
 					>
-						Notificaciones{' '}
-						{notis.length > 0 && (
-							<MDBBadge color="danger" pill>
-								{' '}
-								{notis.length}{' '}
-							</MDBBadge>
-						)}
+						Notificaciones	{ notis.length > 0 && <MDBBadge color="danger" pill> {notis.length} </MDBBadge>}
 					</MDBNavLink>
 				</MDBNavItem>
 			</MDBNav>
@@ -112,7 +91,7 @@ export const TabAmigosNotificaciones = () => {
 					<ListaAmigos usuarios={amigos} elemento={<EliminarAmigo />} />
 				</MDBTabPane>
 				<MDBTabPane tabId="2">
-					<ListaNotificaciones notificaciones={notis} />
+					<ListaNotificaciones notificaciones={notis}/>
 				</MDBTabPane>
 			</MDBTabContent>
 		</MDBContainer>
