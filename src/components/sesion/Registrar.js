@@ -1,13 +1,11 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react'
 import FormCuenta from './FormRegistro.js'
 import constants from './../../utils/constants.js'
-import AuthApi, { registrarseLocal } from "../../utils/AuthApi"
+import AuthApi, { registrarseLocal } from '../../utils/AuthApi'
 import { registrarse } from './../../utils/restAPI.js'
 import qs from 'qs'
-import {
-	Link 
-} from "react-router-dom"
-import { MDBContainer } from "mdbreact"
+import { Link } from 'react-router-dom'
+import { MDBContainer } from 'mdbreact'
 
 /**
  * Registrar, si el loggeo es correcto añade las cookies de sesión
@@ -15,15 +13,22 @@ import { MDBContainer } from "mdbreact"
  * @requires FormRegistro
  * @todo Testeo completo, hash a la contraseña
  */
-const Registrar = () =>{
-
-	return(
+const Registrar = () => {
+	return (
 		<MDBContainer className="d-flex align-items-center flex-column">
 			<h2> Crear cuenta</h2>
-            <FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' makePetition={registrarse} siValido={registrarseLocal}/>
-			<p> ¿Ya tienes cuenta? <Link to="/inicioSesion">Inicia sesión</Link></p>
+			<FormCuenta
+				defaults={constants.NULL_VALUES}
+				submitText="Registrarse"
+				makePetition={registrarse}
+				siValido={registrarseLocal}
+			/>
+			<p>
+				{' '}
+				¿Ya tienes cuenta? <Link to="/inicioSesion">Inicia sesión</Link>
+			</p>
 		</MDBContainer>
 	)
 }
 
-export default Registrar;
+export default Registrar

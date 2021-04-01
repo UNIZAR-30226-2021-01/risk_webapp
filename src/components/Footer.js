@@ -1,8 +1,9 @@
+import React from 'react'
 //import { Link } from 'react-router-dom'
-import { MDBContainer, MDBFooter } from "mdbreact";
+import { MDBContainer, MDBFooter } from 'mdbreact'
 /**
  * Pie de página de la aplicación, muestra el copyright y el
- * nombre del grupo. 
+ * nombre del grupo.
  */
 const Footer = () => {
 	return (
@@ -12,7 +13,11 @@ const Footer = () => {
 			</MDBContainer>
 			<div className="footer-copyright text-center py-2">
 				<MDBContainer fluid>
-				&copy; {new Date().getFullYear()} Copyright: <a href="https://github.com/UNIZAR-30226-2021-01"> Grupo 1: Grace Hopper </a>
+					&copy; {new Date().getFullYear()} Copyright:{' '}
+					<a href="https://github.com/UNIZAR-30226-2021-01">
+						{' '}
+						Grupo 1: Grace Hopper{' '}
+					</a>
 				</MDBContainer>
 			</div>
 		</MDBFooter>

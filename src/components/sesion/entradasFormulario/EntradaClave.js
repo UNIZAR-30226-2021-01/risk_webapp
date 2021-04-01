@@ -5,21 +5,24 @@ import ErroresCampo from './ErroresCampo'
  * EntradaClave es un campo de formulario para la clave
  * @param {string} titulo Etiqueta para la clave
  * @param {form} register Formulario al que pertenece
- * @param {errors_form} errors Errores del registro 
+ * @param {errors_form} errors Errores del registro
  */
-export const EntradaClave = ({titulo, register, errors}) => {
-    return (
+export const EntradaClave = ({ titulo, register, errors }) => {
+	return (
 		<>
-        	<label htmlFor="clave" className="grey-text"> {titulo}</label>
-        	<input
-        		type="password"
-        		name="clave"
-        		id="clave"
+			<label htmlFor="clave" className="grey-text">
+				{' '}
+				{titulo}
+			</label>
+			<input
+				type="password"
+				name="clave"
+				id="clave"
 				className="form-control"
-        		placeholder="Contraseña"
-        		ref={register({
-        	    required: "Este campo no se puede dejar vacío.",
-				/*
+				placeholder="Contraseña"
+				ref={register({
+					required: 'Este campo no se puede dejar vacío.',
+					/*
         	    minLength: {
         	      value: 8,
         	      message: "Tiene que haber mínimo 8 caracteres.",
@@ -33,9 +36,9 @@ export const EntradaClave = ({titulo, register, errors}) => {
         	      );
         	    },
 				*/
-        		})}
-        	/>
+				})}
+			/>
 			<ErroresCampo error={errors.clave} />
 		</>
-    )
+	)
 }
