@@ -1,11 +1,8 @@
-import React, { useContext } from 'react'
-import AuthApi from './../../utils/AuthApi'
+import React from 'react'
 import ElementoTienda from './ElementoTienda'
-import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
+import { MDBContainer } from 'mdbreact'
 
 const ListaElementos = ({ objetos, tipo }) => {
-	const Auth = useContext(AuthApi)
-
 	return (
 		<MDBContainer className="mt-9">
 			{objetos.map((objeto) => (

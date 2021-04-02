@@ -8,8 +8,6 @@ import {
 	MDBBtn,
 } from 'mdbreact'
 import { FormAnyadirAmigo } from './FormAnyadirAmigo'
-import qs from 'qs'
-import constants from 'utils/constants'
 import { solicitudAmistad } from 'utils/restAPI'
 
 /**
@@ -26,13 +24,7 @@ export const AnyadirAmigo = ({ usuario }) => {
 
 	return (
 		<MDBContainer>
-			<MDBBtn
-				color="primary"
-				className="btn-addfriend"
-				onClick={() => {
-					toggle()
-				}}
-			>
+			<MDBBtn color="primary" className="btn-addfriend" onClick={toggle}>
 				Añadir amigo
 			</MDBBtn>
 			<MDBModal
@@ -41,13 +33,7 @@ export const AnyadirAmigo = ({ usuario }) => {
 					toggle()
 				}}
 			>
-				<MDBModalHeader
-					toggle={() => {
-						toggle()
-					}}
-				>
-					Añadir amigo
-				</MDBModalHeader>
+				<MDBModalHeader toggle={toggle}>Añadir amigo</MDBModalHeader>
 				<MDBCol middle="true">
 					<MDBModalBody>
 						<FormAnyadirAmigo

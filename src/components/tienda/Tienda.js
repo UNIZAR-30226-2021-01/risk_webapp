@@ -8,26 +8,23 @@ import {
 	MDBNavItem,
 	MDBNavLink,
 } from 'mdbreact'
-import ElementoTienda from './ElementoTienda'
 import ListaElementos from './ListaElementos'
 
 import './Tienda.css'
+import { obtenerIconosTienda, obtenerAspectosTienda } from 'utils/usuarioVO'
 
 const Tienda = () => {
 	const Auth = useContext(AuthApi)
 
 	const [active, setActive] = useState({ justified: '1' })
 
-	const [iconos, setIconos] = useState([])
-	const [aspectos, setAspectos] = useState([])
-
-	var iconosSinComprar = Auth.auth.tiendaIconos.filter(function (obj) {
+	let iconosSinComprar = obtenerIconosTienda(Auth).filter(function (obj) {
 		return !Auth.auth.iconos.some(function (obj2) {
 			return obj.id == obj2.id
 		})
 	})
 
-	var aspectosSinComprar = Auth.auth.tiendaAspectos.filter(function (obj) {
+	let aspectosSinComprar = obtenerAspectosTienda(Auth).filter(function (obj) {
 		return !Auth.auth.aspectos.some(function (obj2) {
 			return obj.id == obj2.id
 		})

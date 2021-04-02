@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react'
-import AuthApi from './../../utils/AuthApi'
-import constants from './../../utils/constants'
+import AuthApi from 'utils/AuthApi'
+import constants from 'utils/constants'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import ListaNotificaciones from './../panelNotificaciones/ListaNotificaciones'
 import EliminarAmigo from './../panelAmigos/EliminarAmigo'
-import { obtenerAmigos, obtenerNotificaciones } from './../../utils/restAPI'
+import { obtenerAmigos, obtenerNotificaciones } from 'utils/restAPI'
+import { obtenerCredenciales } from 'utils/usuarioVO'
 import './tabAmigosNotificaciones.css'
 import {
 	MDBContainer,
@@ -29,10 +30,7 @@ export const TabAmigosNotificaciones = () => {
 
 	const fetchAmigos = async () => {
 		//console.log('Petición de amigos')
-		const nuestraInfo = {
-			idUsuario: Auth.auth.usuario.id,
-			clave: Auth.auth.usuario.clave,
-		}
+		const nuestraInfo = obtenerCredenciales(Auth)
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		//console.log(dataAmigos)
 		setAmigos(dataAmigos.amigos)
@@ -40,10 +38,7 @@ export const TabAmigosNotificaciones = () => {
 
 	const fetchNotis = async () => {
 		//console.log('Petición de notificaciones')
-		const nuestraInfo = {
-			idUsuario: Auth.auth.usuario.id,
-			clave: Auth.auth.usuario.clave,
-		}
+		const nuestraInfo = obtenerCredenciales(Auth)
 		const dataNotis = await obtenerNotificaciones(nuestraInfo)
 		//console.log(dataNotis)
 

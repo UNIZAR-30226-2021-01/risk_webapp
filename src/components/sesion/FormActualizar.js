@@ -9,7 +9,6 @@ import { RecibeCorreos } from './entradasFormulario/RecibeCorreos'
 import { ErroresServer } from './entradasFormulario/ErroresServer'
 import hash from 'js-sha256'
 import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
-import { obtenerRutaAspecto, obtenerRutaIcono } from 'utils/fotoPerfil'
 
 import './formActualizar.css'
 import iconosJS from 'assets/iconos/iconos'

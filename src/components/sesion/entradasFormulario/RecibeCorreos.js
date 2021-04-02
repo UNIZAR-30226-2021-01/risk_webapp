@@ -4,7 +4,7 @@ import React from 'react'
  * @param {form} register Formulario al que pertenece
  * @param {errors_form} errors Errores del registro
  */
-export const RecibeCorreos = ({ register, errors }) => {
+export const RecibeCorreos = ({ register }) => {
 	return (
 		<>
 			<label htmlFor="recibeCorreos" className="grey-text">

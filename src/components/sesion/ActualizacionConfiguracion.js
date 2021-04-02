@@ -5,6 +5,8 @@ import AuthApi from 'utils/AuthApi'
 import Cookies from 'js-cookie'
 import qs from 'qs'
 import { MDBContainer } from 'mdbreact'
+import { obtenerCredenciales } from 'utils/usuarioVO'
+import { recargarUsuarioServer } from 'utils/AuthServer'
 import './formCuenta.css'
 
 /**
@@ -16,17 +18,6 @@ const ActualizacionConfiguracion = () => {
 	const Auth = useContext(AuthApi)
 
 	const [values, setValues] = useState(Auth.auth.usuario)
-
-	let iconosPrueba = [
-		{
-			id: 0,
-			precio: 5,
-		},
-		{
-			id: 1,
-			precio: 5,
-		},
-	]
 
 	function ucFirst(str) {
 		if (!str) return str
@@ -49,14 +40,11 @@ const ActualizacionConfiguracion = () => {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		}
-		let cuerpo = {
-			idUsuario: oldValues.usuario.id,
-			clave: oldValues.usuario.clave,
-		}
+		let cuerpo = obtenerCredenciales(Auth)
+		cuerpo.nuevoDato = nuevoValor
+		cuerpo.tipo = ucFirst(campo)
 		console.log(oldValues.usuario[campo], '=?', nuevoValor)
 		if (oldValues.usuario[campo] !== nuevoValor) {
-			cuerpo.nuevoDato = nuevoValor
-			cuerpo.tipo = ucFirst(campo)
 			options.body = qs.stringify(cuerpo)
 			console.log(
 				'Peticion de cambio de:',
@@ -110,6 +98,8 @@ const ActualizacionConfiguracion = () => {
 				return data
 			}
 		}
+
+		recargarUsuarioServer(Auth)
 		return { code: 0, err: '' }
 	}
 
@@ -120,8 +110,8 @@ const ActualizacionConfiguracion = () => {
 				defaults={values}
 				submitText="Actualizar"
 				submitData={actualizarServer}
-				iconos={iconosPrueba}
-				aspectos={iconosPrueba}
+				iconos={Auth.auth.iconos}
+				aspectos={Auth.auth.aspectos}
 				//iconos={Auth.auth.iconos}
 				//aspectos={Auth.auth.aspectos}
 			/>

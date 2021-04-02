@@ -1,7 +1,5 @@
 import React, { useState, useContext } from 'react'
 import AuthApi, { logOut } from './../utils/AuthApi'
-import constants from './../utils/constants.js'
-import Cookies from 'js-cookie'
 import './header.css'
 import {
 	MDBNavbar,

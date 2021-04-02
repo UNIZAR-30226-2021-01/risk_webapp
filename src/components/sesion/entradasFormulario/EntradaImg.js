@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { obtenerPrevio, obtenerSiguiente } from 'utils/fotoPerfil'
 import { MDBCol } from 'mdbreact'
 import ErroresCampo from './ErroresCampo'

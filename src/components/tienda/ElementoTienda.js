@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import {
 	MDBBtn,
-	MDBIcon,
 	MDBModal,
 	MDBModalHeader,
 	MDBModalBody,
@@ -12,6 +11,7 @@ import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import { comprarObjeto } from 'utils/restAPI'
 import iconos from 'assets/iconos/iconos'
 import aspectos from 'assets/aspectos/aspectos'
+import { recargarUsuarioServer } from 'utils/AuthServer'
 
 const ElementoTienda = ({ datos, tipo }) => {
 	const Auth = useContext(AuthApi)
@@ -37,6 +37,7 @@ const ElementoTienda = ({ datos, tipo }) => {
 		const data = await comprarObjeto(formData)
 
 		if (data.code === 0) {
+			recargarUsuarioServer(Auth)
 			toggle()
 		} else {
 			setServerErrors(data.err)

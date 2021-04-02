@@ -22,8 +22,8 @@ export const FormAnyadirAmigo = ({ usuario, enviarSolicitud }) => {
 				id="registro"
 				onSubmit={handleSubmit(async (formData) => {
 					setSubmitting(true)
-					//setServerErrors('')
-					//setServerOk('')
+					setServerErrors('')
+					setServerOk('')
 					console.log(formData, 'amigo')
 					const data = await enviarSolicitud(formData)
 					console.log(data, '?¿?¿?¿?¿?¿')

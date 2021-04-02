@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import FormInicio from './FormInicio'
 import constants from './../../utils/constants.js'
 import { inicioSesion } from './../../utils/restAPI.js'
