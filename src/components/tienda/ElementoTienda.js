@@ -11,17 +11,20 @@ import AuthApi from './../../utils/AuthApi'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import { comprarObjeto } from 'utils/restAPI'
 import iconos from 'assets/iconos/iconos'
+import aspectos from 'assets/aspectos/aspectos'
 
 const ElementoTienda = ({ datos, tipo }) => {
 	const Auth = useContext(AuthApi)
 	const [serverErrors, setServerErrors] = useState('')
 	const [isOpen, setOpen] = useState(false)
+	var imagen
+
+	if (tipo === 'Icono') imagen = iconos[datos.id].img
+	else imagen = aspectos[datos.id].img
 
 	const toggle = () => {
 		setOpen(!isOpen)
 	}
-
-	console.log(iconos)
 
 	const comprarObjetoInterno = () => async () => {
 		setServerErrors('')
@@ -44,7 +47,7 @@ const ElementoTienda = ({ datos, tipo }) => {
 		<>
 			<div className="item-tienda">
 				<div className="imagenPrueba">
-					<img src={iconos[datos.id].img} />
+					<img src={imagen} />
 				</div>
 				<MDBBtn color="primary" onClick={() => toggle()}>
 					{datos.precio}

@@ -5,7 +5,6 @@ import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 
 const ListaElementos = ({ objetos, tipo }) => {
 	const Auth = useContext(AuthApi)
-	console.log(objetos)
 
 	return (
 		<MDBContainer className="mt-9">

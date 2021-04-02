@@ -21,6 +21,18 @@ const Tienda = () => {
 	const [iconos, setIconos] = useState([])
 	const [aspectos, setAspectos] = useState([])
 
+	var iconosSinComprar = Auth.auth.tiendaIconos.filter(function (obj) {
+		return !Auth.auth.iconos.some(function (obj2) {
+			return obj.id == obj2.id
+		})
+	})
+
+	var aspectosSinComprar = Auth.auth.tiendaAspectos.filter(function (obj) {
+		return !Auth.auth.aspectos.some(function (obj2) {
+			return obj.id == obj2.id
+		})
+	})
+
 	const togglePills = (type, tab) => (e) => {
 		e.preventDefault()
 		if (active.justified !== tab) {
@@ -30,21 +42,6 @@ const Tienda = () => {
 		}
 	}
 
-	const objetosPrueba = [
-		{ id: 0, precio: 1000 },
-		{ id: 1, precio: 1000 },
-		{ id: 2, precio: 2000 },
-		{ id: 3, precio: 1000 },
-		{ id: 4, precio: 2000 },
-		{ id: 5, precio: 1000 },
-		{ id: 6, precio: 2000 },
-		{ id: 7, precio: 1000 },
-		{ id: 8, precio: 2000 },
-		{ id: 9, precio: 1000 },
-		{ id: 10, precio: 2000 },
-		{ id: 11, precio: 1000 },
-		{ id: 12, precio: 2000 },
-	]
 	return (
 		<MDBContainer className="border mt-4 contenedor-pills">
 			<MDBNav className="nav-pills nav-justified ">
@@ -71,10 +68,10 @@ const Tienda = () => {
 			</MDBNav>
 			<MDBTabContent activeItem={active.justified}>
 				<MDBTabPane tabId="1">
-					<ListaElementos objetos={objetosPrueba} tipo="Icono" />
+					<ListaElementos objetos={iconosSinComprar} tipo="Icono" />
 				</MDBTabPane>
 				<MDBTabPane tabId="2">
-					<ListaElementos objetos={objetosPrueba} tipo="Aspecto" />
+					<ListaElementos objetos={aspectosSinComprar} tipo="Aspecto" />
 				</MDBTabPane>
 			</MDBTabContent>
 		</MDBContainer>
