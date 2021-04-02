@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/entradasFormulario/EntradaCorreo.js</title>
+    <title>JSDoc: Source: components/panelNotificaciones/NotificacionAmistad.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/entradasFormulario/EntradaCorreo.js</h1>
+    <h1 class="page-title">Source: components/panelNotificaciones/NotificacionAmistad.js</h1>
 
     
 
@@ -26,34 +26,128 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import ErroresCampo from './ErroresCampo'
+            <pre class="prettyprint source linenums"><code>import React, { useState, useContext } from 'react'
+import './notificacion.css'
+import {
+	MDBRow,
+	MDBCol,
+	MDBBtn,
+	MDBIcon,
+	MDBModal,
+	MDBModalHeader,
+	MDBModalBody,
+	MDBModalFooter,
+} from 'mdbreact'
+import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
+import AuthApi from './../../utils/AuthApi'
+import { decisionPeticion } from '../../utils/restAPI'
 
 /**
- * EntradaCorreo es un campo de formulario para el correo
- * @param {form} register Formulario al que pertenece
- * @param {errors_form} errors Errores del registro
+ * Representación de una notificación en la lista de notificaciones
+ * @param {notificacion} datos Datos de la notificación
  */
-export const EntradaCorreo = ({ register, errors }) => {
+export const NotificacionAmistad = ({ datos }) => {
+	const [isOpen, setOpen] = useState(false)
+	const [serverErrors, setServerErrors] = useState('')
+	const Auth = useContext(AuthApi)
+
+	const toggle = () => {
+		setOpen(!isOpen)
+	}
+
+	const decisionAmistad = (datos, decision) => async () => {
+		setServerErrors('')
+		const formData = {
+			idUsuario: Auth.auth.usuario.id,
+			idAmigo: datos.idEnvio,
+			decision: decision,
+			clave: Auth.auth.usuario.clave,
+		}
+
+		const data = await decisionPeticion(formData)
+
+		if (data.code === 0) {
+			console.log(
+				'Amigo con id y nombre: ' +
+					datos.idEnvio +
+					' ' +
+					datos.infoExtra +
+					' has elegido ' +
+					decision
+			)
+		} else {
+			setServerErrors(data.err)
+			toggle()
+		}
+	}
+
 	return (
 		&lt;>
-			&lt;label htmlFor="correo" className="grey-text">
-				{' '}
-				Correo electrónico
-			&lt;/label>
-			&lt;input
-				type="email"
-				name="correo"
-				id="correo"
-				className="form-control"
-				placeholder="Correo"
-				ref={register({ required: 'Este campo no se puede dejar vacío.' })}
-			/>
-
-			&lt;ErroresCampo error={errors.correo} />
+			&lt;MDBRow>
+				&lt;MDBCol md="8">
+					&lt;p>
+						Solicitud de amistad de &lt;strong>{datos.infoExtra}&lt;/strong>
+					&lt;/p>
+				&lt;/MDBCol>
+				&lt;MDBCol md="4">
+					&lt;MDBRow className="mr-1">
+						&lt;MDBCol md="6">
+							&lt;MDBBtn
+								color="success"
+								className="btn-notis"
+								onClick={decisionAmistad(datos, 'Aceptar')}
+							>
+								&lt;MDBIcon icon="check" />
+							&lt;/MDBBtn>
+						&lt;/MDBCol>
+						&lt;MDBCol md="6">
+							&lt;MDBBtn
+								color="danger"
+								className="btn-notis"
+								onClick={decisionAmistad(datos, 'Rechazar')}
+							>
+								&lt;MDBIcon icon="times" />
+							&lt;/MDBBtn>
+						&lt;/MDBCol>
+					&lt;/MDBRow>
+				&lt;/MDBCol>
+			&lt;/MDBRow>
+			&lt;MDBModal
+				isOpen={isOpen}
+				toggle={() => {
+					toggle()
+				}}
+			>
+				&lt;MDBModalHeader
+					toggle={() => {
+						toggle()
+					}}
+				>
+					Se ha producido un error:
+				&lt;/MDBModalHeader>
+				&lt;MDBModalBody>
+					&lt;ErroresServer serverErrors={serverErrors} />
+				&lt;/MDBModalBody>
+				&lt;MDBModalFooter className="d-flex justify-content-around">
+					&lt;MDBRow>
+						&lt;MDBBtn
+							color="primary"
+							className="btn-modal"
+							onClick={() => {
+								toggle()
+							}}
+						>
+							{' '}
+							Aceptar
+						&lt;/MDBBtn>
+					&lt;/MDBRow>
+				&lt;/MDBModalFooter>
+			&lt;/MDBModal>
 		&lt;/>
 	)
 }
+
+export default NotificacionAmistad
 </code></pre>
         </article>
     </section>

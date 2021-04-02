@@ -26,28 +26,39 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useState, useContext } from "react";
-import Cookies from "js-cookie";
-import "./index.css";
-import constants from "./constants.js";
+            <pre class="prettyprint source linenums"><code>import React, { useState, useContext } from 'react'
+import Cookies from 'js-cookie'
+import './index.css'
+import constants from './utils/constants.js'
 import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-  //Link
-} from "react-router-dom";
+	Route,
+	BrowserRouter as Router,
+	Switch,
+	Redirect,
+	//Link
+} from 'react-router-dom'
 
-import Head from "./components/Head";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import MenuPrincipal from './components/MenuPrincipal';
+import Head from './components/Head'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import MenuPrincipal from './components/MenuPrincipal'
+import Tienda from './components/tienda/Tienda'
 //import FormCuenta from "./components/FormCuenta";
 //import './assets/css/style.css'
+import './assets/css/bootstrapCustom.css'
 
-import AuthApi from "./components/sesion/AuthApi";
-import Registrar from "./components/sesion/Registrar";
-import InicioSesion from "./components/sesion/InicioSesion";
+import AuthApi from './utils/AuthApi'
+import Registrar from './components/sesion/Registrar'
+import InicioSesion from './components/sesion/InicioSesion'
+import ActualizacionConfiguracion from './components/sesion/ActualizacionConfiguracion'
+
+import Reglas from './components/Reglas/Reglas'
+
+import 'bootstrap-css-only/css/bootstrap.min.css'
+import 'mdbreact/dist/css/mdb.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
+import { recargarUsuario } from 'utils/restAPI'
 
 /**
  * App contiene el router y el header/footer de la aplicación,
@@ -56,51 +67,62 @@ import InicioSesion from "./components/sesion/InicioSesion";
  * @todo Darle bien estilo a todo.
  */
 function App() {
-  const [auth, setAuth] = useState(constants.NULL_VALUES);
+	const [auth, setAuth] = useState(constants.NULL_VALUES)
+	const [recargando, setRecargando] = useState(true)
 
-  /**
-   * Lee las cookies de usuario, y si las hay establece al usuario como
-   * loggeado.
-   */
-  const readCookie = () => {
-    const user = Cookies.get(constants.COOKIE_USER);
-    if (user) {
-      let data = JSON.parse(user);
-      data.logged = true;
-      setAuth(data);
-    }
-  };
-  React.useEffect(() => {
-    readCookie();
-  }, []);
+	/**
+	 * Lee las cookies de usuario, y si las hay establece al usuario como
+	 * loggeado.
+	 */
+	const readCookie = async () => {
+		setRecargando(true)
+		const user = Cookies.get(constants.COOKIE_USER)
+		if (user) {
+			let data = JSON.parse(user)
+			data.logged = true
+			setAuth(data)
+			const nuestraInfo = {
+				idUsuario: data.usuario.id,
+				clave: data.usuario.clave,
+			}
+			const dataServer = await recargarUsuario(nuestraInfo)
+			console.log(dataServer, 'dataServer')
+			if ('err' in dataServer) {
+				console.log('hayError')
+				setAuth(constants.NULL_VALUES)
+			} else {
+				dataServer.logged = true
+				setAuth(dataServer)
+			}
+		} else {
+			setAuth(constants.NULL_VALUES)
+		}
+		setRecargando(false)
+	}
 
-  return (
-    &lt;>
-      &lt;Head titulo="Risk"/>
-      &lt;AuthApi.Provider value={{ auth, setAuth }}>
-        &lt;Router>
-          &lt;div className="wrapper">
-            &lt;Header />
-            &lt;hr />
-            &lt;Routes />
-            {/*
-		&lt;Switch>
-			&lt;Route exact path="/" component={Header} />
-			&lt;Route exact path="/init" component={Header} />
-			{/*&lt;Route path="/users" component=
-			ejemplos...
-			&lt;Route path="/users" component={Users} />
+	React.useEffect(() => {
+		readCookie()
+	}, [])
 
-			&lt;Route component={Notfound} />
-
-		&lt;/Switch>
-			*/}
-          &lt;/div>
-          &lt;Footer />
-        &lt;/Router>
-      &lt;/AuthApi.Provider>
-    &lt;/>
-  );
+	return (
+		&lt;>
+			{!recargando &amp;&amp; (
+				&lt;>
+					&lt;Head />
+					&lt;AuthApi.Provider value={{ auth, setAuth }}>
+						&lt;Router>
+							&lt;div className="wrapper">
+								&lt;Header />
+								&lt;hr />
+								&lt;Routes />
+							&lt;/div>
+							&lt;Footer />
+						&lt;/Router>
+					&lt;/AuthApi.Provider>{' '}
+				&lt;/>
+			)}
+		&lt;/>
+	)
 }
 
 /**
@@ -108,56 +130,73 @@ function App() {
  * se ha de renderizar de manera segura.
  */
 const Routes = () => {
-  const Auth = useContext(AuthApi);
-  return (
-    &lt;Switch>
-      &lt;ProtectedLogin
-        path="/registro"
-        auth={Auth.auth.logged}
-        component={Registrar}
-      />
-      &lt;ProtectedLogin
-        path="/inicioSesion"
-        auth={Auth.auth.logged}
-        component={InicioSesion}
-      />
-      &lt;ProtectedRoute
-        path="/menuPrincipal"
-        auth={Auth.auth.logged}
-        component={MenuPrincipal}
-      />
-      &lt;ProtectedRoute path="/" auth={Auth.auth.logged} component={MenuPrincipal} />
-    &lt;/Switch>
-  );
-};
+	const Auth = useContext(AuthApi)
+	return (
+		&lt;Switch>
+			&lt;Route path="/reglas">
+				&lt;Reglas />
+			&lt;/Route>
+			&lt;ProtectedLogin
+				path="/registro"
+				auth={Auth.auth.logged}
+				component={Registrar}
+			/>
+			&lt;ProtectedLogin
+				path="/inicioSesion"
+				auth={Auth.auth.logged}
+				component={InicioSesion}
+			/>
+			&lt;ProtectedRoute
+				path="/actualizarCuenta"
+				auth={Auth.auth.logged}
+				component={ActualizacionConfiguracion}
+			/>
+			&lt;ProtectedRoute
+				path="/tienda"
+				auth={Auth.auth.logged}
+				component={Tienda}
+			/>
+			&lt;ProtectedRoute
+				path="/menuPrincipal"
+				auth={Auth.auth.logged}
+				component={MenuPrincipal}
+			/>
+			&lt;ProtectedRoute
+				path="/"
+				auth={Auth.auth.logged}
+				component={MenuPrincipal}
+			/>
+		&lt;/Switch>
+	)
+}
 
 /**
  * ProtectedRoute protege a una ruta de tratar de entrar si no
  * se está loggeado en el sistema.
  */
 const ProtectedRoute = ({ auth, component: Component, ...rest }) => {
-  return (
-    &lt;Route
-      {...rest}
-      render={() => (auth ? &lt;Component /> : &lt;Redirect to="/registro" />)}
-    />
-  );
-};
+	return (
+		&lt;Route
+			{...rest}
+			render={() => (auth ? &lt;Component /> : &lt;Redirect to="/registro" />)}
+		/>
+	)
+}
 
 /**
  * ProtectedLogin protege a una ruta de tratar de entrar si
  * se está loggeado en el sistema.
  */
 const ProtectedLogin = ({ auth, component: Component, ...rest }) => {
-  return (
-    &lt;Route
-      {...rest}
-      render={() => (!auth ? &lt;Component /> : &lt;Redirect to="/menuPrincipal" />)}
-    />
-  );
-};
+	return (
+		&lt;Route
+			{...rest}
+			render={() => (!auth ? &lt;Component /> : &lt;Redirect to="/menuPrincipal" />)}
+		/>
+	)
+}
 
-export default App;
+export default App
 </code></pre>
         </article>
     </section>
@@ -168,13 +207,13 @@ export default App;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Form2">Form2</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#listaAmigos">listaAmigos</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaAmigo">EntradaAmigo</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaImg">EntradaImg</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#EntradaOcultaHash">EntradaOcultaHash</a></li><li><a href="global.html#EntradaOcultaId">EntradaOcultaId</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#inicioSesion">inicioSesion</a></li><li><a href="global.html#ListaAmigos">ListaAmigos</a></li><li><a href="global.html#ListaNotificaciones">ListaNotificaciones</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#NotificacionAmistad">NotificacionAmistad</a></li><li><a href="global.html#peticionQForm">peticionQForm</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#registrarse">registrarse</a></li><li><a href="global.html#registrarseLocal">registrarseLocal</a></li><li><a href="global.html#Reglas">Reglas</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Mar 22 2021 13:59:55 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 02 2021 20:36:46 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

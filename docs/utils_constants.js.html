@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/entradasFormulario/EntradaCorreo.js</title>
+    <title>JSDoc: Source: utils/constants.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/entradasFormulario/EntradaCorreo.js</h1>
+    <h1 class="page-title">Source: utils/constants.js</h1>
 
     
 
@@ -26,34 +26,28 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import ErroresCampo from './ErroresCampo'
-
-/**
- * EntradaCorreo es un campo de formulario para el correo
- * @param {form} register Formulario al que pertenece
- * @param {errors_form} errors Errores del registro
+            <pre class="prettyprint source linenums"><code>/**
+ * Clase con las constantes que se usan en la aplicación
  */
-export const EntradaCorreo = ({ register, errors }) => {
-	return (
-		&lt;>
-			&lt;label htmlFor="correo" className="grey-text">
-				{' '}
-				Correo electrónico
-			&lt;/label>
-			&lt;input
-				type="email"
-				name="correo"
-				id="correo"
-				className="form-control"
-				placeholder="Correo"
-				ref={register({ required: 'Este campo no se puede dejar vacío.' })}
-			/>
-
-			&lt;ErroresCampo error={errors.correo} />
-		&lt;/>
-	)
+const constants = {
+	VALUES: {
+		nombre: 'Óscar',
+		correo: '780378@unizar.es',
+		clave: '@#idfa98sfd9',
+		logged: true,
+		recibeCorreos: true,
+	},
+	NULL_VALUES: {
+		usuario: { nombre: '', correo: '', clave: '', recibeCorreos: true },
+		logged: false,
+	},
+	COOKIE_USER: 'user',
+	OPTIONS_COOKIE: { expires: 7, sameSite: 'lax' },
+	BASE_SERVER_URL: 'https://risk-servidor.herokuapp.com/',
+	REFRESH_TIME: 2500,
 }
+
+export default constants
 </code></pre>
         </article>
     </section>

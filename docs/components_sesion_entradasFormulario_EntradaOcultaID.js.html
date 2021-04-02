@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/entradasFormulario/EntradaCorreo.js</title>
+    <title>JSDoc: Source: components/sesion/entradasFormulario/EntradaOcultaID.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/entradasFormulario/EntradaCorreo.js</h1>
+    <h1 class="page-title">Source: components/sesion/entradasFormulario/EntradaOcultaID.js</h1>
 
     
 
@@ -27,30 +27,22 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react'
-import ErroresCampo from './ErroresCampo'
 
 /**
- * EntradaCorreo es un campo de formulario para el correo
+ * EntradaOcultaHash es un campo de formulario para el nombre de usuario
  * @param {form} register Formulario al que pertenece
- * @param {errors_form} errors Errores del registro
+ * @param {int} value Id del usuario
  */
-export const EntradaCorreo = ({ register, errors }) => {
+export const EntradaOcultaId = ({ register, value }) => {
 	return (
 		&lt;>
-			&lt;label htmlFor="correo" className="grey-text">
-				{' '}
-				Correo electrónico
-			&lt;/label>
 			&lt;input
-				type="email"
-				name="correo"
-				id="correo"
-				className="form-control"
-				placeholder="Correo"
-				ref={register({ required: 'Este campo no se puede dejar vacío.' })}
+				type="hidden"
+				name="idUsuario"
+				id="idUsuario"
+				value={value}
+				ref={register()}
 			/>
-
-			&lt;ErroresCampo error={errors.correo} />
 		&lt;/>
 	)
 }

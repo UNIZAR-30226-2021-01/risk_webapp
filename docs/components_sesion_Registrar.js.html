@@ -26,15 +26,13 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, {useContext} from 'react';
+            <pre class="prettyprint source linenums"><code>import React from 'react'
 import FormCuenta from './FormRegistro.js'
-import constants from './../../constants.js';
-import AuthApi from "./AuthApi"
-import Cookies from 'js-cookie'
-import qs from 'qs'
-import {
-	Link 
-} from "react-router-dom"
+import constants from './../../utils/constants.js'
+import { registrarseLocal } from '../../utils/AuthApi'
+import { registrarse } from './../../utils/restAPI.js'
+import { Link } from 'react-router-dom'
+import { MDBContainer } from 'mdbreact'
 
 /**
  * Registrar, si el loggeo es correcto añade las cookies de sesión
@@ -42,54 +40,26 @@ import {
  * @requires FormRegistro
  * @todo Testeo completo, hash a la contraseña
  */
-const Registrar = () =>{
-	const Auth = useContext(AuthApi)
-
-	/**
-	 * Hace una petición al server de registro con los datos recibidos como parámetro
-	 * @param {datos_usuario} formData Contiene los datos necesarios para el registro
-	 * de un usuario en el servidor 
-	 * @returns Respuesta recibida a la petición de registro en JSON
-	 * @todo testear
-	 */
-	const registrarServer = async(formData) =>{
-		console.log(formData)
-		const url = `${constants.BASE_SERVER_URL}registrar`
-		const options = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			},
-			body: qs.stringify(formData)
-		}
-		const res = await fetch(url, options)
-		const data = await res.json()
-		console.log(data, "JSON recibido de registrar")
-		return data
-	}
-
-	/**
-	 * Realiza la petición al server y en función de los valores obtenidos lo establece
-	 * en el contexto y las cookies o muestra un mensaje de error.
-	 * @param {datos_usuario} formData Contiene los datos necesarios para el registro
-	 * de un usuario en el servidor 
-	 */
-	const registrarse = (formData) =>{
-		formData.logged=true
-		Auth.setAuth(formData)
-		Cookies.set(constants.COOKIE_USER, formData, constants.OPTIONS_COOKIE)
-	}
-
-	return(
-		&lt;div>
+const Registrar = () => {
+	return (
+		&lt;MDBContainer className="d-flex align-items-center flex-column">
 			&lt;h2> Crear cuenta&lt;/h2>
-            &lt;FormCuenta defaults={constants.NULL_VALUES} submitText='Registrarse' makePetition={registrarServer} siValido={registrarse}/>
-			&lt;p> ¿Ya tienes cuenta? &lt;Link to="/inicioSesion">Inicia sesión&lt;/Link>&lt;/p>
-		&lt;/div>
+			&lt;FormCuenta
+				defaults={constants.NULL_VALUES}
+				submitText="Registrarse"
+				makePetition={registrarse}
+				siValido={registrarseLocal}
+			/>
+			&lt;p>
+				{' '}
+				¿Ya tienes cuenta? &lt;Link to="/inicioSesion">Inicia sesión&lt;/Link>
+			&lt;/p>
+		&lt;/MDBContainer>
 	)
 }
 
-export default Registrar;</code></pre>
+export default Registrar
+</code></pre>
         </article>
     </section>
 
@@ -99,13 +69,13 @@ export default Registrar;</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Form2">Form2</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#listaAmigos">listaAmigos</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaAmigo">EntradaAmigo</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaImg">EntradaImg</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#EntradaOcultaHash">EntradaOcultaHash</a></li><li><a href="global.html#EntradaOcultaId">EntradaOcultaId</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#inicioSesion">inicioSesion</a></li><li><a href="global.html#ListaAmigos">ListaAmigos</a></li><li><a href="global.html#ListaNotificaciones">ListaNotificaciones</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#NotificacionAmistad">NotificacionAmistad</a></li><li><a href="global.html#peticionQForm">peticionQForm</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#registrarse">registrarse</a></li><li><a href="global.html#registrarseLocal">registrarseLocal</a></li><li><a href="global.html#Reglas">Reglas</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Mar 22 2021 13:59:55 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 02 2021 20:36:46 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

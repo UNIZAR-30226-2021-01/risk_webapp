@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/entradasFormulario/EntradaCorreo.js</title>
+    <title>JSDoc: Source: components/panelNotificaciones/ListaNotificaciones.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/entradasFormulario/EntradaCorreo.js</h1>
+    <h1 class="page-title">Source: components/panelNotificaciones/ListaNotificaciones.js</h1>
 
     
 
@@ -27,33 +27,29 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react'
-import ErroresCampo from './ErroresCampo'
+import NotificacionAmistad from './NotificacionAmistad.js'
+import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 
 /**
- * EntradaCorreo es un campo de formulario para el correo
- * @param {form} register Formulario al que pertenece
- * @param {errors_form} errors Errores del registro
+ * Muestra la lista de notificaciones recibida como parámetro
+ * Se debera instanciar cuando el tipo de la petición sea "Peticion de amistad"
+ * @param {lista_de_notificaciones} notificaciones Notificaciones del usuario de la aplicación
  */
-export const EntradaCorreo = ({ register, errors }) => {
+const ListaNotificaciones = ({ notificaciones }) => {
 	return (
-		&lt;>
-			&lt;label htmlFor="correo" className="grey-text">
-				{' '}
-				Correo electrónico
-			&lt;/label>
-			&lt;input
-				type="email"
-				name="correo"
-				id="correo"
-				className="form-control"
-				placeholder="Correo"
-				ref={register({ required: 'Este campo no se puede dejar vacío.' })}
-			/>
-
-			&lt;ErroresCampo error={errors.correo} />
-		&lt;/>
+		&lt;MDBContainer className="mt-9">
+			&lt;MDBListGroup style={{ width: '18.5rem' }}>
+				{notificaciones.map((notificacion) => (
+					&lt;MDBListGroupItem key={notificacion.idEnvio.toString()}>
+						&lt;NotificacionAmistad datos={notificacion} />
+					&lt;/MDBListGroupItem>
+				))}
+			&lt;/MDBListGroup>
+		&lt;/MDBContainer>
 	)
 }
+
+export default ListaNotificaciones
 </code></pre>
         </article>
     </section>
