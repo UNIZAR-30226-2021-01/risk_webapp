@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import FormActualizar from './FormActualizar.js'
-import constants from './../../utils/constants.js'
-import AuthApi from './../../utils/AuthApi'
+import constants from 'utils/constants.js'
+import AuthApi from 'utils/AuthApi'
 import Cookies from 'js-cookie'
 import qs from 'qs'
 import { MDBContainer } from 'mdbreact'
@@ -28,6 +28,13 @@ const ActualizacionConfiguracion = () => {
 			precio: 5,
 		},
 	]
+
+	function ucFirst(str) {
+		if (!str) return str
+
+		return str[0].toUpperCase() + str.slice(1)
+	}
+
 	/**
 	 * Intenta cambiar el parámetro campo si se ha modificado
 	 * @param {datos_de_sesion} oldValues Valores antiguos de sesion
@@ -50,10 +57,10 @@ const ActualizacionConfiguracion = () => {
 		console.log(oldValues.usuario[campo], '=?', nuevoValor)
 		if (oldValues.usuario[campo] !== nuevoValor) {
 			cuerpo.nuevoDato = nuevoValor
-			cuerpo.tipo = campo
+			cuerpo.tipo = ucFirst(campo)
 			options.body = qs.stringify(cuerpo)
 			console.log(
-				'Peticion de cambio de: ',
+				'Peticion de cambio de:',
 				campo,
 				':',
 				oldValues.usuario[campo],
@@ -86,29 +93,25 @@ const ActualizacionConfiguracion = () => {
 	 */
 	const actualizarServer = async (formData) => {
 		let oldValues = Auth.auth
+		console.log(formData)
+		const tags = ['nombre', 'correo', 'recibeCorreos', 'icono', 'aspecto']
+		formData.icono = parseInt(formData.icono)
+		formData.aspecto = parseInt(formData.aspecto)
 
-		let data = await actualizarCampo(oldValues, 'nombre', formData)
-		if (data.code !== 0) {
-			return data
-		}
-
-		data = await actualizarCampo(oldValues, 'correo', formData)
-		if (data.code !== 0) {
-			return data
-		}
-
-		data = await actualizarCampo(oldValues, 'recibeCorreos', formData)
-		if (data.code !== 0) {
-			return data
-		}
-
-		if (formData.cambioClave) {
-			data = await actualizarCampo(oldValues, 'clave', formData)
+		for (let i = 0; i < tags.length; i++) {
+			let data = await actualizarCampo(oldValues, tags[i], formData)
 			if (data.code !== 0) {
 				return data
 			}
 		}
-		return data
+
+		if (formData.cambioClave) {
+			let data = await actualizarCampo(oldValues, 'clave', formData)
+			if (data.code !== 0) {
+				return data
+			}
+		}
+		return { code: 0, err: '' }
 	}
 
 	return (

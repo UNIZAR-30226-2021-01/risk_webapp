@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { obtenerPrevio, obtenerSiguiente } from 'utils/fotoPerfil'
 import { MDBCol } from 'mdbreact'
 import ErroresCampo from './ErroresCampo'
+import FlechaIzquierda from 'assets/UI/flecha_izquierda.png'
+import FlechaDerecha from 'assets/UI/flecha_derecha.png'
 
 export const EntradaImg = ({
 	register,
@@ -38,8 +40,8 @@ export const EntradaImg = ({
 		<>
 			<MDBCol className="selector-avatar">
 				<img
-					className="flecha prev"
-					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.fastly.picmonkey.com%2Fcontent4%2Fpreviews%2Fmain%2Farrows%2Farrow_01_550.png&f=1&nofb=1"
+					className="flecha sig"
+					src={FlechaIzquierda}
 					alt="Flecha anterior"
 					onClick={avanzarPrevio}
 				/>
@@ -50,7 +52,7 @@ export const EntradaImg = ({
 				/>
 				<img
 					className="flecha sig"
-					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.fastly.picmonkey.com%2Fcontent4%2Fpreviews%2Fmain%2Farrows%2Farrow_01_550.png&f=1&nofb=1"
+					src={FlechaDerecha}
 					alt="Flecha siguiente"
 					onClick={avanzarSiguiente}
 				/>
