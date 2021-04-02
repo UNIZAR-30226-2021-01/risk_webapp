@@ -10,6 +10,6 @@
 
 
 jsdoc src -r -d docs
-#npx styleguidist build
+npx styleguidist build
 
 

@@ -8,8 +8,7 @@ import {
 	MDBBtn,
 } from 'mdbreact'
 import { FormAnyadirAmigo } from './FormAnyadirAmigo'
-import qs from 'qs'
-import constants from './../../utils/constants.js'
+import { solicitudAmistad } from 'utils/restAPI'
 
 /**
  * Implementa un pop-up para añadir un amigo, este pop-up contiene
@@ -23,31 +22,9 @@ export const AnyadirAmigo = ({ usuario }) => {
 		setOpen(!isOpen)
 	}
 
-	const enviarSolicitud = async (formData) => {
-		console.log(formData)
-		const url = `${constants.BASE_SERVER_URL}enviarSolicitudAmistad`
-		const options = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: qs.stringify(formData),
-		}
-		const res = await fetch(url, options)
-		const data = await res.json()
-		console.log(data, 'JSON recibido de registrar')
-		return data
-	}
-
 	return (
 		<MDBContainer>
-			<MDBBtn
-				color="primary"
-				className="btn-addfriend"
-				onClick={() => {
-					toggle()
-				}}
-			>
+			<MDBBtn color="primary" className="btn-addfriend" onClick={toggle}>
 				Añadir amigo
 			</MDBBtn>
 			<MDBModal
@@ -56,18 +33,12 @@ export const AnyadirAmigo = ({ usuario }) => {
 					toggle()
 				}}
 			>
-				<MDBModalHeader
-					toggle={() => {
-						toggle()
-					}}
-				>
-					Añadir amigo
-				</MDBModalHeader>
+				<MDBModalHeader toggle={toggle}>Añadir amigo</MDBModalHeader>
 				<MDBCol middle="true">
 					<MDBModalBody>
 						<FormAnyadirAmigo
 							usuario={usuario}
-							enviarSolicitud={enviarSolicitud}
+							enviarSolicitud={solicitudAmistad}
 						/>
 					</MDBModalBody>
 				</MDBCol>

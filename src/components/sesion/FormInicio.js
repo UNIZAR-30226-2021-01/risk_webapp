@@ -50,13 +50,13 @@ export const FormInicio = ({ defaults, submitText, makePetition }) => {
 							hashedForm.clave = hash.sha256(formData.clave)
 							const data = await makePetition(hashedForm)
 
+							setSubmitting(false)
 							if (data.err) {
 								setServerErrors(data.err)
 							} else {
 								setServerErrors('')
 								registrarseLocal(Auth, data)
 							}
-							setSubmitting(false)
 						})}
 					>
 						<ErroresServer serverErrors={serverErrors} />

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/sesion/entradasFormulario/EntradaImg.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/sesion/entradasFormulario/EntradaImg.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react'
+import { obtenerPrevio, obtenerSiguiente } from 'utils/fotoPerfil'
+import { MDBCol } from 'mdbreact'
+import ErroresCampo from './ErroresCampo'
+import FlechaIzquierda from 'assets/UI/flecha_izquierda.png'
+import FlechaDerecha from 'assets/UI/flecha_derecha.png'
+
+/**
+ * EntradaImg es un selector de imagen entre una serie de disponibles
+ * @param {formulario} register Formulario al que se adhiere
+ * @param {errores_formulario} errors Errores del formulario
+ * @param {string} tag Nombre del campo
+ * @param {array_int} disponibles Imagenes disponibles
+ * @param {int} inicial Valor inicial del formulario
+ * @param {array_int} imagenes Imagenes correspondientes y su precio
+ * @returns Campo de entrada
+ */
+export const EntradaImg = ({
+	register,
+	errors,
+	tag,
+	disponibles,
+	inicial,
+	imagenes,
+}) => {
+	const [imagenActual, setImagenActual] = useState(inicial)
+	const [avanzando, setAvanzando] = useState(false)
+
+	const avanzarPrevio = () => {
+		if (avanzando) {
+			return
+		}
+		setAvanzando(true)
+		const next = obtenerPrevio(disponibles, imagenActual)
+		setImagenActual(next)
+		setAvanzando(false)
+	}
+
+	const avanzarSiguiente = () => {
+		if (avanzando) {
+			return
+		}
+		setAvanzando(true)
+		const next = obtenerSiguiente(disponibles, imagenActual)
+		setImagenActual(next)
+		setAvanzando(false)
+	}
+
+	return (
+		&lt;>
+			&lt;MDBCol className="selector-avatar">
+				&lt;img
+					className="flecha sig"
+					src={FlechaIzquierda}
+					alt="Flecha anterior"
+					onClick={avanzarPrevio}
+				/>
+				&lt;img
+					id="avatar-ajustes"
+					src={imagenes[imagenActual].img}
+					alt="Avatar"
+				/>
+				&lt;img
+					className="flecha sig"
+					src={FlechaDerecha}
+					alt="Flecha siguiente"
+					onClick={avanzarSiguiente}
+				/>
+			&lt;/MDBCol>
+			&lt;input
+				type="hidden"
+				name={tag}
+				id={tag}
+				value={imagenActual}
+				className="form-control"
+				ref={register()}
+			/>
+
+			&lt;ErroresCampo error={errors[tag]} />
+		&lt;/>
+	)
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaAmigo">EntradaAmigo</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaImg">EntradaImg</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#EntradaOcultaHash">EntradaOcultaHash</a></li><li><a href="global.html#EntradaOcultaId">EntradaOcultaId</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#inicioSesion">inicioSesion</a></li><li><a href="global.html#ListaAmigos">ListaAmigos</a></li><li><a href="global.html#ListaNotificaciones">ListaNotificaciones</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#NotificacionAmistad">NotificacionAmistad</a></li><li><a href="global.html#peticionQForm">peticionQForm</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#registrarse">registrarse</a></li><li><a href="global.html#registrarseLocal">registrarseLocal</a></li><li><a href="global.html#Reglas">Reglas</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 02 2021 20:36:46 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

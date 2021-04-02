@@ -1,3 +1,4 @@
+import React from 'react'
 import './MenuOpts.css'
 
 /* Opciones del usuario para la cabecera, habrá que gestionar

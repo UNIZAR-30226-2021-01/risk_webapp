@@ -3,12 +3,16 @@ export const rutaAspecto = 'assets/aspectos/'
 export const extension = '.png'
 
 const obtenerDir = (disponibles, actual, dir) => {
-	let i = disponibles.findIndex((element, index) => {
+	let i = disponibles.findIndex((element) => {
 		if (element.id === actual) {
 			return true
 		}
 	})
 	i = (i + dir) % disponibles.length
+	if (i < 0) {
+		i = disponibles.length - 1
+	}
+	console.log(i)
 	return disponibles[i].id
 }
 

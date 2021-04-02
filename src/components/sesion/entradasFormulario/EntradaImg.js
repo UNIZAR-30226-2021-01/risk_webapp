@@ -1,45 +1,72 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { obtenerPrevio, obtenerSiguiente } from 'utils/fotoPerfil'
+import { MDBCol } from 'mdbreact'
 import ErroresCampo from './ErroresCampo'
+import FlechaIzquierda from 'assets/UI/flecha_izquierda.png'
+import FlechaDerecha from 'assets/UI/flecha_derecha.png'
 
+/**
+ * EntradaImg es un selector de imagen entre una serie de disponibles
+ * @param {formulario} register Formulario al que se adhiere
+ * @param {errores_formulario} errors Errores del formulario
+ * @param {string} tag Nombre del campo
+ * @param {array_int} disponibles Imagenes disponibles
+ * @param {int} inicial Valor inicial del formulario
+ * @param {array_int} imagenes Imagenes correspondientes y su precio
+ * @returns Campo de entrada
+ */
 export const EntradaImg = ({
 	register,
 	errors,
 	tag,
 	disponibles,
 	inicial,
-	obtImg,
+	imagenes,
 }) => {
 	const [imagenActual, setImagenActual] = useState(inicial)
+	const [avanzando, setAvanzando] = useState(false)
 
 	const avanzarPrevio = () => {
+		if (avanzando) {
+			return
+		}
+		setAvanzando(true)
 		const next = obtenerPrevio(disponibles, imagenActual)
 		setImagenActual(next)
+		setAvanzando(false)
 	}
 
 	const avanzarSiguiente = () => {
+		if (avanzando) {
+			return
+		}
+		setAvanzando(true)
 		const next = obtenerSiguiente(disponibles, imagenActual)
 		setImagenActual(next)
+		setAvanzando(false)
 	}
 
 	return (
 		<>
-			<div className="selector-avatar">
-				<img
-					className="flecha prev"
-					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.fastly.picmonkey.com%2Fcontent4%2Fpreviews%2Fmain%2Farrows%2Farrow_01_550.png&f=1&nofb=1"
-					alt="Flecha anterior"
-				/>
-				<div className="avatar-container">
-					<img id="avatar-ajustes" src={obtImg(imagenActual)} alt="Avatar" />
-				</div>
+			<MDBCol className="selector-avatar">
 				<img
 					className="flecha sig"
-					src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.fastly.picmonkey.com%2Fcontent4%2Fpreviews%2Fmain%2Farrows%2Farrow_01_550.png&f=1&nofb=1"
+					src={FlechaIzquierda}
+					alt="Flecha anterior"
+					onClick={avanzarPrevio}
+				/>
+				<img
+					id="avatar-ajustes"
+					src={imagenes[imagenActual].img}
+					alt="Avatar"
+				/>
+				<img
+					className="flecha sig"
+					src={FlechaDerecha}
 					alt="Flecha siguiente"
 					onClick={avanzarSiguiente}
 				/>
-			</div>
+			</MDBCol>
 			<input
 				type="hidden"
 				name={tag}

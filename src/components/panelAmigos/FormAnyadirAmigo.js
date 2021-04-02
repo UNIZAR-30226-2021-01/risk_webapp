@@ -16,21 +16,6 @@ export const FormAnyadirAmigo = ({ usuario, enviarSolicitud }) => {
 	// SetOk
 	const [serverOk, setServerOk] = useState('')
 
-	const submitAnyadirAmigo = (e) => async (formData) => {
-		e.preventDefault()
-		setSubmitting(true)
-		setServerErrors('')
-		setServerOk('')
-		const data = await enviarSolicitud(formData)
-		console.log(data, '?¿?¿?¿?¿?¿')
-		if (data.code === 0) {
-			setServerOk('Solicitud enviada correctamente.')
-		} else {
-			setServerErrors(data.err)
-		}
-		setSubmitting(false)
-	}
-
 	return (
 		<MDBContainer>
 			<form
@@ -39,14 +24,15 @@ export const FormAnyadirAmigo = ({ usuario, enviarSolicitud }) => {
 					setSubmitting(true)
 					setServerErrors('')
 					setServerOk('')
+					console.log(formData, 'amigo')
 					const data = await enviarSolicitud(formData)
 					console.log(data, '?¿?¿?¿?¿?¿')
+					setSubmitting(false)
 					if (data.code === 0) {
 						setServerOk('Solicitud enviada correctamente.')
 					} else {
 						setServerErrors(data.err)
 					}
-					setSubmitting(false)
 				})}
 			>
 				<ErroresServer serverErrors={serverErrors} />

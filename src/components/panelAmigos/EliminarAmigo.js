@@ -5,14 +5,12 @@ import {
 	MDBModalBody,
 	MDBIcon,
 	MDBBtn,
-	MDBRow,
 	MDBFooter,
 } from 'mdbreact'
-import AuthApi from './../../utils/AuthApi'
-import constants from '../../utils/constants'
-import qs from 'qs'
+import AuthApi from 'utils/AuthApi'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
-import { eliminarAmigo } from './../../utils/restAPI'
+import { eliminarAmigo } from 'utils/restAPI'
+import { obtenerCredenciales } from 'utils/usuarioVO'
 
 export const EliminarAmigo = ({ amigo }) => {
 	const [isOpen, setOpen] = useState(false)
@@ -25,11 +23,8 @@ export const EliminarAmigo = ({ amigo }) => {
 
 	const eliminarAmigoInterno = (amigo) => async () => {
 		setServerErrors('')
-		const formData = {
-			idUsuario: Auth.auth.usuario.id,
-			idAmigo: amigo.id,
-			clave: Auth.auth.usuario.clave,
-		}
+		let formData = obtenerCredenciales(Auth)
+		formData.idAmigo = amigo.id
 		const data = await eliminarAmigo(formData)
 
 		if (data.code === 0) {

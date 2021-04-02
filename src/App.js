@@ -14,6 +14,7 @@ import Head from './components/Head'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import MenuPrincipal from './components/MenuPrincipal'
+import Tienda from './components/tienda/Tienda'
 //import FormCuenta from "./components/FormCuenta";
 //import './assets/css/style.css'
 import './assets/css/bootstrapCustom.css'
@@ -29,6 +30,8 @@ import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbreact/dist/css/mdb.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
+import { recargarUsuario } from 'utils/restAPI'
+
 /**
  * App contiene el router y el header/footer de la aplicación,
  * previene al usuario de entrar a las páginas en las que se requiere
@@ -37,20 +40,36 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
  */
 function App() {
 	const [auth, setAuth] = useState(constants.NULL_VALUES)
+	const [recargando, setRecargando] = useState(true)
 
 	/**
 	 * Lee las cookies de usuario, y si las hay establece al usuario como
 	 * loggeado.
 	 */
-	const readCookie = () => {
+	const readCookie = async () => {
+		setRecargando(true)
 		const user = Cookies.get(constants.COOKIE_USER)
 		if (user) {
 			let data = JSON.parse(user)
 			data.logged = true
 			setAuth(data)
+			const nuestraInfo = {
+				idUsuario: data.usuario.id,
+				clave: data.usuario.clave,
+			}
+			const dataServer = await recargarUsuario(nuestraInfo)
+			console.log(dataServer, 'dataServer')
+			if ('err' in dataServer) {
+				console.log('hayError')
+				setAuth(constants.NULL_VALUES)
+			} else {
+				dataServer.logged = true
+				setAuth(dataServer)
+			}
 		} else {
 			setAuth(constants.NULL_VALUES)
 		}
+		setRecargando(false)
 	}
 
 	React.useEffect(() => {
@@ -59,17 +78,21 @@ function App() {
 
 	return (
 		<>
-			<Head />
-			<AuthApi.Provider value={{ auth, setAuth }}>
-				<Router>
-					<div className="wrapper">
-						<Header />
-						<hr />
-						<Routes />
-					</div>
-					<Footer />
-				</Router>
-			</AuthApi.Provider>
+			{!recargando && (
+				<>
+					<Head />
+					<AuthApi.Provider value={{ auth, setAuth }}>
+						<Router>
+							<div className="wrapper">
+								<Header />
+								<hr />
+								<Routes />
+							</div>
+							<Footer />
+						</Router>
+					</AuthApi.Provider>{' '}
+				</>
+			)}
 		</>
 	)
 }
@@ -96,14 +119,19 @@ const Routes = () => {
 				component={InicioSesion}
 			/>
 			<ProtectedRoute
-				path="/menuPrincipal"
-				auth={Auth.auth.logged}
-				component={MenuPrincipal}
-			/>
-			<ProtectedRoute
 				path="/actualizarCuenta"
 				auth={Auth.auth.logged}
 				component={ActualizacionConfiguracion}
+			/>
+			<ProtectedRoute
+				path="/tienda"
+				auth={Auth.auth.logged}
+				component={Tienda}
+			/>
+			<ProtectedRoute
+				path="/menuPrincipal"
+				auth={Auth.auth.logged}
+				component={MenuPrincipal}
 			/>
 			<ProtectedRoute
 				path="/"

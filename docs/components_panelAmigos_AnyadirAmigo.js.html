@@ -26,61 +26,56 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import { useForm } from "react-hook-form";
-import Popup from 'reactjs-popup';
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react'
+import {
+	MDBModal,
+	MDBModalHeader,
+	MDBModalBody,
+	MDBContainer,
+	MDBCol,
+	MDBBtn,
+} from 'mdbreact'
+import { FormAnyadirAmigo } from './FormAnyadirAmigo'
+import { solicitudAmistad } from 'utils/restAPI'
 
 /**
  * Implementa un pop-up para añadir un amigo, este pop-up contiene
  * un formulario donde insertar el nombre del amigo.
  * @todo Conexión con servidor, css...
  */
-export const AnyadirAmigo = () => {
-	const { register, handleSubmit, errors } = useForm({nombre: ""})
+export const AnyadirAmigo = ({ usuario }) => {
+	const [isOpen, setOpen] = useState(false)
 
-	const submitAnyadirAmigo = (formData) => {
-		console.log(formData, "Añadido")
+	const toggle = () => {
+		setOpen(!isOpen)
 	}
 
 	return (
-	&lt;Popup trigger={&lt;button className="btn"> Añadir amigo &lt;/button>} modal nested >
-		{close => (
-		&lt;div className="modal">
-			&lt;button className="close" onClick={close}>
-				&amp;times;
-			&lt;/button>
-			&lt;div className="header"> Añadir amigo &lt;/div>
-			&lt;div className="content">
-				&lt;div className="form-row">
-					&lt;form
-						id="registro"
-						onSubmit={handleSubmit((formData) => {
-							submitAnyadirAmigo(formData);
-						})}
-					>
-						&lt;label htmlFor="nombre"> Nombre de usuario de tu amigo&lt;/label>
-						&lt;input
-							type="text"
-							name="nombre"
-							id="nombre"
-							placeholder="Nombre de usuario"
-							ref={register({ required: "Este campo no se puede dejar vacío." })}
+		&lt;MDBContainer>
+			&lt;MDBBtn color="primary" className="btn-addfriend" onClick={toggle}>
+				Añadir amigo
+			&lt;/MDBBtn>
+			&lt;MDBModal
+				isOpen={isOpen}
+				toggle={() => {
+					toggle()
+				}}
+			>
+				&lt;MDBModalHeader toggle={toggle}>Añadir amigo&lt;/MDBModalHeader>
+				&lt;MDBCol middle="true">
+					&lt;MDBModalBody>
+						&lt;FormAnyadirAmigo
+							usuario={usuario}
+							enviarSolicitud={solicitudAmistad}
 						/>
-						{errors.nombre ? &lt;div> {errors.nombre}&lt;/div> : null}
-
-						&lt;button className="submit" type="submit" >
-							Enviar
-						&lt;/button>
-					&lt;/form>
-				&lt;/div>
-			&lt;/div>
-		&lt;/div>
-  		)}
-	&lt;/Popup> 
+					&lt;/MDBModalBody>
+				&lt;/MDBCol>
+			&lt;/MDBModal>
+		&lt;/MDBContainer>
 	)
 }
 
-export default AnyadirAmigo;
+export default AnyadirAmigo
 </code></pre>
         </article>
     </section>
@@ -91,13 +86,13 @@ export default AnyadirAmigo;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Form2">Form2</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#listaAmigos">listaAmigos</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#EntradaAmigo">EntradaAmigo</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaImg">EntradaImg</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#EntradaOcultaHash">EntradaOcultaHash</a></li><li><a href="global.html#EntradaOcultaId">EntradaOcultaId</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#inicioSesion">inicioSesion</a></li><li><a href="global.html#ListaAmigos">ListaAmigos</a></li><li><a href="global.html#ListaNotificaciones">ListaNotificaciones</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#NotificacionAmistad">NotificacionAmistad</a></li><li><a href="global.html#peticionQForm">peticionQForm</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#registrarse">registrarse</a></li><li><a href="global.html#registrarseLocal">registrarseLocal</a></li><li><a href="global.html#Reglas">Reglas</a></li><li><a href="global.html#Routes">Routes</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Mar 22 2021 13:59:55 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Apr 02 2021 20:36:46 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

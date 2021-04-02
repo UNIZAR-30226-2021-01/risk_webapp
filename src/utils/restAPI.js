@@ -1,6 +1,14 @@
 import constants from './constants'
 import qs from 'qs'
 
+/**
+ * Envía una petición al server mediante el método POST con los datos recibidos como parámetro
+ * @param {datos_adicionales} formData Contiene los datos necesarios para la función solicitada
+ * por el usuario.
+ * @param {ruta_servidor} route Es la ruta dentro del servidor a la que se envía la petición.
+ * Cada ruta espera unaa configuración distinta de parámetros que se le pasarán mediante formData
+ * @returns Respuesta recibida del servidor en formato JSON
+ */
 export const peticionQForm = async (route, formData) => {
 	const url = `${constants.BASE_SERVER_URL}${route}`
 	const options = {
@@ -34,6 +42,12 @@ export const inicioSesion = async (formData) => {
  */
 export const registrarse = async (formData) => {
 	const data = await peticionQForm('registrar', formData)
+	return data
+}
+
+export const recargarUsuario = async (formData) => {
+	const data = await peticionQForm('recargarUsuario', formData)
+	console.log(data)
 	return data
 }
 
@@ -71,5 +85,11 @@ export const decisionPeticion = async (formData) => {
 
 export const obtenerPartidas = async (formData) => {
 	const data = await peticionQForm('partidas', formData)
+  return data
+}
+
+/* Funciones de la tienda */
+export const comprarObjeto = async (formData) => {
+	const data = await peticionQForm('comprar', formData)
 	return data
 }

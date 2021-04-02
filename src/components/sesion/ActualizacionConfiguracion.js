@@ -1,22 +1,29 @@
 import React, { useContext, useState } from 'react'
 import FormActualizar from './FormActualizar.js'
-import constants from './../../utils/constants.js'
-import AuthApi from './../../utils/AuthApi'
+import constants from 'utils/constants.js'
+import AuthApi from 'utils/AuthApi'
 import Cookies from 'js-cookie'
 import qs from 'qs'
 import { MDBContainer } from 'mdbreact'
+import { obtenerCredenciales } from 'utils/usuarioVO'
+import { recargarUsuarioServer } from 'utils/AuthServer'
 import './formCuenta.css'
 
 /**
  * ActualizacionConfiguracion, si la actualización es correcta actualiza las cookies de sesión
  * al cliente y en el contexto de la aplicación
  * @requires FormActualizar
- * @todo Testeo final exhaustivo de todo, hash a la contraseña
  */
 const ActualizacionConfiguracion = () => {
 	const Auth = useContext(AuthApi)
 
 	const [values, setValues] = useState(Auth.auth.usuario)
+
+	function ucFirst(str) {
+		if (!str) return str
+
+		return str[0].toUpperCase() + str.slice(1)
+	}
 
 	/**
 	 * Intenta cambiar el parámetro campo si se ha modificado
@@ -33,17 +40,14 @@ const ActualizacionConfiguracion = () => {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
 		}
-		let cuerpo = {
-			idUsuario: oldValues.usuario.id,
-			clave: oldValues.usuario.clave,
-		}
+		let cuerpo = obtenerCredenciales(Auth)
+		cuerpo.nuevoDato = nuevoValor
+		cuerpo.tipo = ucFirst(campo)
 		console.log(oldValues.usuario[campo], '=?', nuevoValor)
 		if (oldValues.usuario[campo] !== nuevoValor) {
-			cuerpo.nuevoDato = nuevoValor
-			cuerpo.tipo = campo
 			options.body = qs.stringify(cuerpo)
 			console.log(
-				'Peticion de cambio de: ',
+				'Peticion de cambio de:',
 				campo,
 				':',
 				oldValues.usuario[campo],
@@ -76,29 +80,27 @@ const ActualizacionConfiguracion = () => {
 	 */
 	const actualizarServer = async (formData) => {
 		let oldValues = Auth.auth
+		console.log(formData)
+		const tags = ['nombre', 'correo', 'recibeCorreos', 'icono', 'aspecto']
+		formData.icono = parseInt(formData.icono)
+		formData.aspecto = parseInt(formData.aspecto)
 
-		let data = await actualizarCampo(oldValues, 'nombre', formData)
-		if (data.code !== 0) {
-			return data
-		}
-
-		data = await actualizarCampo(oldValues, 'correo', formData)
-		if (data.code !== 0) {
-			return data
-		}
-
-		data = await actualizarCampo(oldValues, 'recibeCorreos', formData)
-		if (data.code !== 0) {
-			return data
-		}
-
-		if (formData.cambioClave) {
-			data = await actualizarCampo(oldValues, 'clave', formData)
+		for (let i = 0; i < tags.length; i++) {
+			let data = await actualizarCampo(oldValues, tags[i], formData)
 			if (data.code !== 0) {
 				return data
 			}
 		}
-		return data
+
+		if (formData.cambioClave) {
+			let data = await actualizarCampo(oldValues, 'clave', formData)
+			if (data.code !== 0) {
+				return data
+			}
+		}
+
+		recargarUsuarioServer(Auth)
+		return { code: 0, err: '' }
 	}
 
 	return (
@@ -110,6 +112,8 @@ const ActualizacionConfiguracion = () => {
 				submitData={actualizarServer}
 				iconos={Auth.auth.iconos}
 				aspectos={Auth.auth.aspectos}
+				//iconos={Auth.auth.iconos}
+				//aspectos={Auth.auth.aspectos}
 			/>
 		</MDBContainer>
 	)

@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import FormCuenta from './FormRegistro.js'
 import constants from './../../utils/constants.js'
-import AuthApi, { registrarseLocal } from '../../utils/AuthApi'
-import { registrarse } from 'utils/restAPI.js'
-import qs from 'qs'
+import { registrarseLocal } from '../../utils/AuthApi'
+import { registrarse } from './../../utils/restAPI.js'
 import { Link } from 'react-router-dom'
 import { MDBContainer } from 'mdbreact'
 
