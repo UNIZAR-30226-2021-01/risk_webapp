@@ -62,16 +62,16 @@ export const eliminarAmigo = async (formData) => {
 	return data
 }
 
-export const obtenerAmigos = async (datos) => {
-	const data = await peticionQForm('amigos', datos)
+export const obtenerAmigos = async (formData) => {
+	const data = await peticionQForm('amigos', formData)
 	if (data.amigos === null) {
 		data.amigos = []
 	}
 	return data
 }
 
-export const obtenerNotificaciones = async (datos) => {
-	const data = await peticionQForm('notificaciones', datos)
+export const obtenerNotificaciones = async (formData) => {
+	const data = await peticionQForm('notificaciones', formData)
 	if (data.notificaciones === null) {
 		data.notificaciones = []
 	}
@@ -81,6 +81,11 @@ export const obtenerNotificaciones = async (datos) => {
 export const decisionPeticion = async (formData) => {
 	const data = await peticionQForm('gestionAmistad', formData)
 	return data
+}
+
+export const obtenerPartidas = async (formData) => {
+	const data = await peticionQForm('partidas', formData)
+  return data
 }
 
 /* Funciones de la tienda */

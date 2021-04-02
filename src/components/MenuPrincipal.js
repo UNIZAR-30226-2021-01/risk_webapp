@@ -1,7 +1,7 @@
 import React from 'react'
 import './../index.css'
 
-import MenuSalas from './salas/MenuSalas'
+import MenuPartidas from './panelPartidas/MenuPartidas'
 import TabAmigosNotificaciones from './menuPrincipal/TabAmigosNotificaciones'
 import { MDBContainer, MDBCol, MDBRow } from 'mdbreact'
 
@@ -11,7 +11,7 @@ export const MenuPrincipal = () => {
 			<MDBRow>
 				{/*<ActualizacionConfiguracion />*/}
 				<MDBCol md="7">
-					<MenuSalas />
+					<MenuPartidas />
 				</MDBCol>
 				<MDBCol md="5">
 					<TabAmigosNotificaciones />

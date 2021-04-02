@@ -31,4 +31,11 @@ export const logOut = (Auth) => {
 	return false
 }
 
+export const credenciales = (Auth) => {
+	return {
+		idUsuario: Auth.auth.usuario.id,
+		clave: Auth.auth.usuario.clave,
+	}
+}
+
 export default AuthApi
