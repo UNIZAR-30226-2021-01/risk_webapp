@@ -28,24 +28,24 @@ export const TabAmigosNotificaciones = () => {
 	const [notis, setNotis] = useState([])
 
 	const fetchAmigos = async () => {
-		console.log('Petición de amigos')
+		//console.log('Petición de amigos')
 		const nuestraInfo = {
 			idUsuario: Auth.auth.usuario.id,
 			clave: Auth.auth.usuario.clave,
 		}
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
-		console.log(dataAmigos)
+		//console.log(dataAmigos)
 		setAmigos(dataAmigos.amigos)
 	}
 
 	const fetchNotis = async () => {
-		console.log('Petición de notificaciones')
+		//console.log('Petición de notificaciones')
 		const nuestraInfo = {
 			idUsuario: Auth.auth.usuario.id,
 			clave: Auth.auth.usuario.clave,
 		}
 		const dataNotis = await obtenerNotificaciones(nuestraInfo)
-		console.log(dataNotis)
+		//console.log(dataNotis)
 
 		// DATOS DE PRUEBA
 		/*let notisPrueba = [{infoExtra: 'PacoGamer', idEnvio: 69}, 

@@ -30,4 +30,5 @@ export const logOut = (Auth) => {
 	Cookies.remove(constants.COOKIE_USER)
 	return false
 }
+
 export default AuthApi

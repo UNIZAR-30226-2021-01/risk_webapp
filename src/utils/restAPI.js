@@ -45,6 +45,12 @@ export const registrarse = async (formData) => {
 	return data
 }
 
+export const recargarUsuario = async (formData) => {
+	const data = await peticionQForm('recargarUsuario', formData)
+	console.log(data)
+	return data
+}
+
 export const solicitudAmistad = async (formData) => {
 	const data = await peticionQForm('enviarSolicitudAmistad', formData)
 	return data

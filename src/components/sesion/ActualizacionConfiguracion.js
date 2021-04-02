@@ -11,7 +11,6 @@ import './formCuenta.css'
  * ActualizacionConfiguracion, si la actualización es correcta actualiza las cookies de sesión
  * al cliente y en el contexto de la aplicación
  * @requires FormActualizar
- * @todo Testeo final exhaustivo de todo, hash a la contraseña
  */
 const ActualizacionConfiguracion = () => {
 	const Auth = useContext(AuthApi)

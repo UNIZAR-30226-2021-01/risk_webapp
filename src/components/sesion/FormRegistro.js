@@ -59,13 +59,13 @@ export const FormRegistro = ({
 							hashedForm.clave = hash.sha256(formData.clave)
 							const data = await makePetition(hashedForm)
 
+							setSubmitting(false)
 							if (data.err) {
 								setServerErrors(data.err)
 							} else {
 								setServerErrors('')
 								siValido(Auth, data)
 							}
-							setSubmitting(false)
 						})}
 					>
 						<ErroresServer serverErrors={serverErrors} />

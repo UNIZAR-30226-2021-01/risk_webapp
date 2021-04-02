@@ -30,6 +30,9 @@ import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbreact/dist/css/mdb.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
+import { logOut } from 'utils/AuthApi'
+import { recargarUsuario } from 'utils/restAPI'
+
 /**
  * App contiene el router y el header/footer de la aplicación,
  * previene al usuario de entrar a las páginas en las que se requiere
@@ -44,21 +47,34 @@ function App() {
 	 * Lee las cookies de usuario, y si las hay establece al usuario como
 	 * loggeado.
 	 */
-	const readCookie = () => {
+	const readCookie = async () => {
+		setRecargando(true)
 		const user = Cookies.get(constants.COOKIE_USER)
 		if (user) {
 			let data = JSON.parse(user)
 			data.logged = true
 			setAuth(data)
+			const nuestraInfo = {
+				idUsuario: data.usuario.id,
+				clave: data.usuario.clave,
+			}
+			const dataServer = await recargarUsuario(nuestraInfo)
+			console.log(dataServer, 'dataServer')
+			if ('err' in dataServer) {
+				console.log('hayError')
+				setAuth(constants.NULL_VALUES)
+			} else {
+				dataServer.logged = true
+				setAuth(dataServer)
+			}
 		} else {
 			setAuth(constants.NULL_VALUES)
 		}
+		setRecargando(false)
 	}
 
 	React.useEffect(() => {
-		setRecargando(true)
 		readCookie()
-		setRecargando(false)
 	}, [])
 
 	return (
