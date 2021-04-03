@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/InicioSesion.js</title>
+    <title>JSDoc: Source: components/panelPartidas/ListaPartidas.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/InicioSesion.js</h1>
+    <h1 class="page-title">Source: components/panelPartidas/ListaPartidas.js</h1>
 
     
 
@@ -26,37 +26,32 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import FormInicio from './FormInicio'
-import constants from './../../utils/constants.js'
-import { inicioSesion } from './../../utils/restAPI.js'
-import { Link } from 'react-router-dom'
-import { MDBContainer } from 'mdbreact'
+            <pre class="prettyprint source linenums"><code>import React, { useContext } from 'react'
+import PartidaMini from './PartidaMini'
+import CrearSala from './CrearSala'
+import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 
 /**
- * Inicio de sesion, si el loggeo es correcto añade las cookies de sesión
- * al cliente y en el contexto de la aplicación
- * @requires FormInicio
- * @todo Gestión de los posibles errores del servidor
- * @todo Comprobar si realmente es necesario añadirlo al contexto de la aplicación
+ * Muestra la lista de amigos recibida como parámetro y da la opción de
+ * añadir un amigo.
+ * @param {lista_de_usuarios} partidas Amigos del usuario de la aplicación
  */
-const InicioSesion = () => {
+export const ListaPartidas = ({ partidas }) => {
 	return (
-		&lt;MDBContainer className="d-flex align-items-center flex-column">
-			&lt;h2> Iniciar sesión&lt;/h2>
-			&lt;FormInicio
-				defaults={constants.NULL_VALUES}
-				submitText="Aceptar"
-				makePetition={inicioSesion}
-			/>
-			&lt;p>
-				¿No tienes cuenta?&lt;Link to="/registro"> Regístrate &lt;/Link>
-			&lt;/p>
+		&lt;MDBContainer className="mt-9">
+			&lt;MDBListGroup style={{ width: '18.5rem' }}>
+				&lt;CrearSala />
+				{partidas.map((partida) => (
+					&lt;MDBListGroupItem key={partida.id.toString()}>
+						&lt;PartidaMini datosPartida={partida} />
+					&lt;/MDBListGroupItem>
+				))}
+			&lt;/MDBListGroup>
 		&lt;/MDBContainer>
 	)
 }
 
-export default InicioSesion
+export default ListaPartidas
 </code></pre>
         </article>
     </section>

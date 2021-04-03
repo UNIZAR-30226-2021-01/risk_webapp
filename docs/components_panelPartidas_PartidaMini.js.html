@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/InicioSesion.js</title>
+    <title>JSDoc: Source: components/panelPartidas/PartidaMini.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/InicioSesion.js</h1>
+    <h1 class="page-title">Source: components/panelPartidas/PartidaMini.js</h1>
 
     
 
@@ -26,37 +26,47 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import FormInicio from './FormInicio'
-import constants from './../../utils/constants.js'
-import { inicioSesion } from './../../utils/restAPI.js'
-import { Link } from 'react-router-dom'
-import { MDBContainer } from 'mdbreact'
+            <pre class="prettyprint source linenums"><code>import React, { useContext } from 'react'
+import { MDBAlert, MDBBtn, MDBContainer, MDBRow, MDBCol } from 'mdbreact'
+import AuthApi from 'utils/AuthApi'
 
 /**
- * Inicio de sesion, si el loggeo es correcto añade las cookies de sesión
- * al cliente y en el contexto de la aplicación
- * @requires FormInicio
- * @todo Gestión de los posibles errores del servidor
- * @todo Comprobar si realmente es necesario añadirlo al contexto de la aplicación
+ * Representación de un amigo en la lista de amigos, da la opción de eliminar
+ * el amigo.
+ * @param {usuario} datosPartida Datos del amigo
  */
-const InicioSesion = () => {
-	return (
-		&lt;MDBContainer className="d-flex align-items-center flex-column">
-			&lt;h2> Iniciar sesión&lt;/h2>
-			&lt;FormInicio
-				defaults={constants.NULL_VALUES}
-				submitText="Aceptar"
-				makePetition={inicioSesion}
-			/>
+export const PartidaMini = ({ datosPartida }) => {
+	const Auth = useContext(AuthApi)
+
+	let turnoDisplay
+	if (Auth.auth.usuario.nombre === datosPartida.nombreTurnoActual) {
+		turnoDisplay = &lt;MDBAlert color="success"> Tu turno &lt;/MDBAlert>
+	} else {
+		turnoDisplay = (
 			&lt;p>
-				¿No tienes cuenta?&lt;Link to="/registro"> Regístrate &lt;/Link>
+				{' '}
+				Turno de &lt;strong>{datosPartida.nombreTurnoActual}&lt;/strong>
 			&lt;/p>
+		)
+	}
+
+	return (
+		&lt;MDBContainer>
+			&lt;MDBRow>
+				&lt;MDBCol>
+					&lt;h4>{datosPartida.nombre}&lt;/h4>
+				&lt;/MDBCol>
+				&lt;MDBCol>
+					&lt;MDBBtn color="default">Unirse&lt;/MDBBtn>
+				&lt;/MDBCol>
+			&lt;/MDBRow>
+			&lt;hr />
+			&lt;MDBRow>{turnoDisplay}&lt;/MDBRow>
 		&lt;/MDBContainer>
 	)
 }
 
-export default InicioSesion
+export default PartidaMini
 </code></pre>
         </article>
     </section>

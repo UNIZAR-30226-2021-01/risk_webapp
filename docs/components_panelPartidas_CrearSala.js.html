@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/InicioSesion.js</title>
+    <title>JSDoc: Source: components/panelPartidas/CrearSala.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/InicioSesion.js</h1>
+    <h1 class="page-title">Source: components/panelPartidas/CrearSala.js</h1>
 
     
 
@@ -26,37 +26,57 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import FormInicio from './FormInicio'
-import constants from './../../utils/constants.js'
-import { inicioSesion } from './../../utils/restAPI.js'
-import { Link } from 'react-router-dom'
-import { MDBContainer } from 'mdbreact'
+            <pre class="prettyprint source linenums"><code>import React, { useState, useContext } from 'react'
+import {
+	MDBModal,
+	MDBModalHeader,
+	MDBModalBody,
+	MDBContainer,
+	MDBCol,
+	MDBBtn,
+} from 'mdbreact'
+import AuthApi from 'utils/AuthApi'
+import { crearSala } from 'utils/restAPI'
+import { FormCrearSala } from './FormCrearSala'
 
 /**
- * Inicio de sesion, si el loggeo es correcto añade las cookies de sesión
- * al cliente y en el contexto de la aplicación
- * @requires FormInicio
- * @todo Gestión de los posibles errores del servidor
- * @todo Comprobar si realmente es necesario añadirlo al contexto de la aplicación
+ * Implementa un pop-up para añadir un amigo, este pop-up contiene
+ * un formulario donde insertar el nombre del amigo.
  */
-const InicioSesion = () => {
+export const CrearSala = () => {
+	const Auth = useContext(AuthApi)
+	const [isOpen, setOpen] = useState(false)
+
+	const toggle = () => {
+		setOpen(!isOpen)
+	}
+
+	const redirigirSala = () => {
+		console.log('todo')
+	}
+
 	return (
-		&lt;MDBContainer className="d-flex align-items-center flex-column">
-			&lt;h2> Iniciar sesión&lt;/h2>
-			&lt;FormInicio
-				defaults={constants.NULL_VALUES}
-				submitText="Aceptar"
-				makePetition={inicioSesion}
-			/>
-			&lt;p>
-				¿No tienes cuenta?&lt;Link to="/registro"> Regístrate &lt;/Link>
-			&lt;/p>
+		&lt;MDBContainer>
+			&lt;MDBBtn color="primary" className="btn-addfriend" onClick={toggle}>
+				Crear sala
+			&lt;/MDBBtn>
+			&lt;MDBModal isOpen={isOpen} toggle={toggle}>
+				&lt;MDBModalHeader toggle={toggle}>Crear sala&lt;/MDBModalHeader>
+				&lt;MDBCol middle="true">
+					&lt;MDBModalBody>
+						&lt;FormCrearSala
+							usuario={Auth.auth.usuario}
+							enviarSolicitud={crearSala}
+							siValido={redirigirSala}
+						/>
+					&lt;/MDBModalBody>
+				&lt;/MDBCol>
+			&lt;/MDBModal>
 		&lt;/MDBContainer>
 	)
 }
 
-export default InicioSesion
+export default CrearSala
 </code></pre>
         </article>
     </section>
