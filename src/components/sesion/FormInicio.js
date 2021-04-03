@@ -11,14 +11,12 @@ import AuthApi, { registrarseLocal } from './../../utils/AuthApi.js'
 /**
  * Representa un formulario de inicio de sesión de la cuenta, si algún valor es incorrecto
  * no permite enviarlo.
- * Requisitos:
+ * ## Requisitos:
  * - @todo Campo de correo o nombre de usuario no vacío
- * - Contraseña de mínimo 8 caracteres, con al menos una mayúscula, minúscula,
- * 		dígito y carácter especial.
+ * - Contraseña no vacía
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario
  * @param {función} makePetition Función ejecutada al enviar el formulario
- * @param {función} siValido Función ejecutada si la comunicación con el server es válida
  */
 export const FormInicio = ({ defaults, submitText, makePetition }) => {
 	const Auth = useContext(AuthApi)
@@ -32,7 +30,7 @@ export const FormInicio = ({ defaults, submitText, makePetition }) => {
 
 	// Si se está enviando un formulario
 	const [submitting, setSubmitting] = useState(false)
-	// Array de strings
+	// Errores del servidor
 	const [serverErrors, setServerErrors] = useState('')
 
 	return (

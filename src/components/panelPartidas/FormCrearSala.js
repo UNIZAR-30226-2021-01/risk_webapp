@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { MDBContainer, MDBBtn } from 'mdbreact'
-import { EntradaAmigo } from 'components/sesion/entradasFormulario/EntradaAmigo'
+import { MDBBtn } from 'mdbreact'
 import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
 import { OkServer } from 'components/sesion/entradasFormulario/OkServer'
 import { EntradaNombre } from 'components/sesion/entradasFormulario/EntradaNombre'

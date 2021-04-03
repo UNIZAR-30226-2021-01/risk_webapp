@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: App.js</title>
+    <title>JSDoc: Source: components/MenuOpts.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: App.js</h1>
+    <h1 class="page-title">Source: components/MenuOpts.js</h1>
 
     
 
@@ -26,177 +26,36 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useState, useContext } from 'react'
-import Cookies from 'js-cookie'
-import './index.css'
-import constants from './utils/constants.js'
-import {
-	Route,
-	BrowserRouter as Router,
-	Switch,
-	Redirect,
-	//Link
-} from 'react-router-dom'
-
-import Head from './components/Head'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import MenuPrincipal from './components/MenuPrincipal'
-import Tienda from './components/tienda/Tienda'
-//import FormCuenta from "./components/FormCuenta";
-//import './assets/css/style.css'
-import './assets/css/bootstrapCustom.css'
-
-import AuthApi from './utils/AuthApi'
-import Registrar from './components/sesion/Registrar'
-import InicioSesion from './components/sesion/InicioSesion'
-import ActualizacionConfiguracion from './components/sesion/ActualizacionConfiguracion'
-
-import Reglas from './components/Reglas/Reglas'
-
-import 'bootstrap-css-only/css/bootstrap.min.css'
-import 'mdbreact/dist/css/mdb.css'
-import '@fortawesome/fontawesome-free/css/all.min.css'
-
-import { recargarUsuario } from 'utils/restAPI'
+            <pre class="prettyprint source linenums"><code>import React from 'react'
+import './MenuOpts.css'
 
 /**
- * App contiene el router y el header/footer de la aplicación,
- * previene al usuario de entrar a las páginas en las que se requiere
- * estar loggeado si no lo está y viceversa.
- * @todo Darle bien estilo a todo.
+ * Opciones del usuario para la cabecera
+ * @deprecated
  */
-function App() {
-	const [auth, setAuth] = useState(constants.NULL_VALUES)
-	const [recargando, setRecargando] = useState(true)
-
-	/**
-	 * Lee las cookies de usuario, y si las hay establece al usuario como
-	 * loggeado.
-	 */
-	const readCookie = async () => {
-		setRecargando(true)
-		const user = Cookies.get(constants.COOKIE_USER)
-		if (user) {
-			let data = JSON.parse(user)
-			data.logged = true
-			setAuth(data)
-			const nuestraInfo = {
-				idUsuario: data.usuario.id,
-				clave: data.usuario.clave,
-			}
-			const dataServer = await recargarUsuario(nuestraInfo)
-			console.log(dataServer, 'dataServer')
-			if ('err' in dataServer) {
-				console.log('hayError')
-				setAuth(constants.NULL_VALUES)
-			} else {
-				dataServer.logged = true
-				setAuth(dataServer)
-			}
-		} else {
-			setAuth(constants.NULL_VALUES)
-		}
-		setRecargando(false)
-	}
-
-	React.useEffect(() => {
-		readCookie()
-	}, [])
-
+export const MenuOpts = () => {
 	return (
-		&lt;>
-			{!recargando &amp;&amp; (
-				&lt;>
-					&lt;Head />
-					&lt;AuthApi.Provider value={{ auth, setAuth }}>
-						&lt;Router>
-							&lt;div className="wrapper">
-								&lt;Header />
-								&lt;hr />
-								&lt;Routes />
-							&lt;/div>
-							&lt;Footer />
-						&lt;/Router>
-					&lt;/AuthApi.Provider>{' '}
-				&lt;/>
-			)}
-		&lt;/>
+		&lt;div id="optbar">
+			&lt;div id="opc-ajustes" className="optbar-item">
+				&lt;img src="https://img.icons8.com/color/452/avatar.png" alt="avatar" />
+			&lt;/div>
+			&lt;div id="opc-notificaciones" className="optbar-item">
+				&lt;img
+					src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-bell-512.png"
+					alt="Icono notificaciones"
+				/>
+			&lt;/div>
+			&lt;div id="opc-amigos" className="optbar-item">
+				&lt;img
+					src="https://cdn0.iconfinder.com/data/icons/facebook-ui-glyph/48/Sed-02-512.png"
+					alt="Icono amigos"
+				/>
+			&lt;/div>
+		&lt;/div>
 	)
 }
 
-/**
- * Routes contiene todas las direcciones de la aplicación y qué componente
- * se ha de renderizar de manera segura.
- */
-const Routes = () => {
-	const Auth = useContext(AuthApi)
-	return (
-		&lt;Switch>
-			&lt;Route path="/reglas">
-				&lt;Reglas />
-			&lt;/Route>
-			&lt;ProtectedLogin
-				path="/registro"
-				auth={Auth.auth.logged}
-				component={Registrar}
-			/>
-			&lt;ProtectedLogin
-				path="/inicioSesion"
-				auth={Auth.auth.logged}
-				component={InicioSesion}
-			/>
-			&lt;ProtectedRoute
-				path="/actualizarCuenta"
-				auth={Auth.auth.logged}
-				component={ActualizacionConfiguracion}
-			/>
-			&lt;ProtectedRoute
-				path="/tienda"
-				auth={Auth.auth.logged}
-				component={Tienda}
-			/>
-			&lt;ProtectedRoute
-				path="/menuPrincipal"
-				auth={Auth.auth.logged}
-				component={MenuPrincipal}
-			/>
-			&lt;ProtectedRoute
-				path="/"
-				auth={Auth.auth.logged}
-				component={MenuPrincipal}
-			/>
-		&lt;/Switch>
-	)
-}
-
-/**
- * ProtectedRoute protege a una ruta de tratar de entrar si no
- * se está loggeado en el sistema.
- */
-const ProtectedRoute = ({ auth, component: Component, ...rest }) => {
-	return (
-		&lt;Route
-			{...rest}
-			render={() => (auth ? &lt;Component /> : &lt;Redirect to="/registro" />)}
-		/>
-	)
-}
-
-/**
- * ProtectedLogin protege a una ruta de tratar de entrar si
- * se está loggeado en el sistema.
- */
-const ProtectedLogin = ({ auth, component: Component, ...rest }) => {
-	return (
-		&lt;Route
-			{...rest}
-			render={() => (!auth ? &lt;Component /> : &lt;Redirect to="/menuPrincipal" />)}
-		/>
-	)
-}
-
-export default App
+export default MenuOpts
 </code></pre>
         </article>
     </section>

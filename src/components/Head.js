@@ -2,9 +2,8 @@ import React from 'react'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 /**
- * Contiene la cabecera html (<head>) de la aplicación, incluye
- * estilos y título de la aplicación.
- * @param {string} titulo Título de la web que aparecerá en la pestaña.
+ * Contiene lo correspondiente a la cabecera html de la aplicación, incluye
+ * el título de la aplicación y otros metadatos.
  */
 export const Head = () => {
 	return (

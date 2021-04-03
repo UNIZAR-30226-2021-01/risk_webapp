@@ -9,7 +9,6 @@ export const EntradaAmigo = ({ register, errors }) => {
 	return (
 		<>
 			<label htmlFor="nombre" className="grey-text">
-				{' '}
 				Nombre de usuario
 			</label>
 			<input

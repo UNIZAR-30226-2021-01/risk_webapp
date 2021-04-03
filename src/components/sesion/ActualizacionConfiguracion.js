@@ -10,8 +10,8 @@ import { recargarUsuarioServer } from 'utils/AuthServer'
 import './formCuenta.css'
 
 /**
- * ActualizacionConfiguracion, si la actualización es correcta actualiza las cookies de sesión
- * al cliente y en el contexto de la aplicación
+ * ActualizacionConfiguracion, si la actualización es correcta actualiza las
+ * cookies de sesión al cliente y el contexto de la aplicación
  * @requires FormActualizar
  */
 const ActualizacionConfiguracion = () => {

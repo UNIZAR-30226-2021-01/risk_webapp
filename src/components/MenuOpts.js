@@ -1,9 +1,9 @@
 import React from 'react'
 import './MenuOpts.css'
 
-/* Opciones del usuario para la cabecera, habrá que gestionar
- * las rutas de los enlaces y añadir posibles opciones de
- * finalizar sesión
+/**
+ * Opciones del usuario para la cabecera
+ * @deprecated
  */
 export const MenuOpts = () => {
 	return (

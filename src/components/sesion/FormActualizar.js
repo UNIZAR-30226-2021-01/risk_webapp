@@ -17,15 +17,16 @@ import aspectosJS from 'assets/aspectos/aspectos'
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
  * no permite enviarlo. Solo envía los cambios de los valores modificados. La clave
- * Requisitos:
+ * ## Requisitos:
  * - Nombre de usuario no vacío
  * - Correo con formato de correo
- * - Contraseña de mínimo 8 caracteres, con al menos una mayúscula, minúscula,
- * 		dígito y carácter especial.
+ * - Contraseña no vacía
  *
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario
  * @param {función} submitData Función ejecutada al enviar el formulario
+ * @param {array_objeto} iconos Lista de iconos disponibles del usuario
+ * @param {array_objeto} aspectos Lista de aspectos disponibles del usuario
  */
 export const FormActualizar = ({
 	defaults,

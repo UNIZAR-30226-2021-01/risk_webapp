@@ -9,10 +9,10 @@ import constants from './constants.js'
 export const AuthApi = React.createContext()
 
 /**
- * Realiza la petición al server y en función de los valores obtenidos lo establece
- * en el contexto y las cookies o muestra un mensaje de error.
- * @param {datos_usuario} formData Contiene los datos necesarios para el registro
- * de un usuario en el servidor
+ * Registra el usuario localmente, insertándolo en el
+ * contexto y añadiéndolo como cookies al usuario.
+ * @param {contexto} Auth Contexto de la aplicación
+ * @param data Datos a registrar localmente
  */
 export const registrarseLocal = (Auth, data) => {
 	console.log(data)
@@ -23,6 +23,7 @@ export const registrarseLocal = (Auth, data) => {
 
 /**
  * Función de deslogeo local
+ * @param {contexto} Auth Contexto de la aplicación
  * @returns false
  */
 export const logOut = (Auth) => {
@@ -31,6 +32,12 @@ export const logOut = (Auth) => {
 	return false
 }
 
+/**
+ * Devuelve las credenciales del usuario registrado
+ * @deprecated
+ * @param {contexto} Auth Contexto de la aplicación
+ * @returns Objeto con (idUsuario, clave) del usuario
+ */
 export const credenciales = (Auth) => {
 	return {
 		idUsuario: Auth.auth.usuario.id,

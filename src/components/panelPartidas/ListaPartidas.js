@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PartidaMini from './PartidaMini'
 import CrearSala from './CrearSala'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'

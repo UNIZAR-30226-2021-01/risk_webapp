@@ -9,8 +9,6 @@ import { MDBContainer } from 'mdbreact'
  * Inicio de sesion, si el loggeo es correcto añade las cookies de sesión
  * al cliente y en el contexto de la aplicación
  * @requires FormInicio
- * @todo Gestión de los posibles errores del servidor
- * @todo Comprobar si realmente es necesario añadirlo al contexto de la aplicación
  */
 const InicioSesion = () => {
 	return (

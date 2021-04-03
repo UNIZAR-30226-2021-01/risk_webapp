@@ -1,9 +1,9 @@
 import React from 'react'
-//import { Link } from 'react-router-dom'
 import { MDBContainer, MDBFooter } from 'mdbreact'
+
 /**
- * Pie de página de la aplicación, muestra el copyright y el
- * nombre del grupo.
+ * Pie de página de la aplicación, muestra el copyright, el
+ * nombre del grupo y un enlace a el github de la organización.
  */
 const Footer = () => {
 	return (

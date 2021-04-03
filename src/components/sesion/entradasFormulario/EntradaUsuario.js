@@ -1,6 +1,11 @@
 import React from 'react'
 import ErroresCampo from './ErroresCampo'
 
+/**
+ * Campo de formulario para nombre de usuario o correo
+ * @param {form} register Formulario al que pertenece
+ * @param {errors_form} errors Errores del registro
+ */
 export const EntradaUsuario = ({ register, errors }) => {
 	return (
 		<>

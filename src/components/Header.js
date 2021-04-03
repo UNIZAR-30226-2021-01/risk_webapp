@@ -15,10 +15,15 @@ import {
 	MDBIcon,
 } from 'mdbreact'
 import { Link } from 'react-router-dom'
+
 /**
- * Header contiene el encabezado de la aplicación, si está loggeado
- * da la oportunidad de desloggearse del sistema.
- * @requires AuthApi.js
+ * Header contiene el encabezado de la aplicación y permite consultar
+ * las reglas.
+ * Si se está loggeado, permite:
+ * - Visitar la tienda
+ * - Consultar tus riskos
+ * - Actualizar tu perfil
+ * - Desloggearte
  */
 export const Header = () => {
 	const [state, setState] = useState({ isOpen: true })

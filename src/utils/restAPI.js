@@ -47,7 +47,6 @@ export const registrarse = async (formData) => {
 
 export const recargarUsuario = async (formData) => {
 	const data = await peticionQForm('recargarUsuario', formData)
-	console.log(data)
 	return data
 }
 
