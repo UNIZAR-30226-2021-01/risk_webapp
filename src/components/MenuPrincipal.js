@@ -9,8 +9,9 @@ export const MenuPrincipal = () => {
 	return (
 		<MDBContainer>
 			<MDBRow>
-				{/*<ActualizacionConfiguracion />*/}
-				<MDBCol md="7">{/*<MenuPartidas />*/}</MDBCol>
+				<MDBCol md="7">
+					<MenuPartidas />
+				</MDBCol>
 				<MDBCol md="5">
 					<TabAmigosNotificaciones />
 				</MDBCol>
