@@ -27,12 +27,7 @@ export const AnyadirAmigo = ({ usuario }) => {
 			<MDBBtn color="primary" className="btn-addfriend" onClick={toggle}>
 				Añadir amigo
 			</MDBBtn>
-			<MDBModal
-				isOpen={isOpen}
-				toggle={() => {
-					toggle()
-				}}
-			>
+			<MDBModal isOpen={isOpen}>
 				<MDBModalHeader toggle={toggle}>Añadir amigo</MDBModalHeader>
 				<MDBCol middle="true">
 					<MDBModalBody>

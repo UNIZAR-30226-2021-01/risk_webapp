@@ -10,7 +10,6 @@ export const EntradaNombre = ({ register, errors }) => {
 	return (
 		<>
 			<label htmlFor="nombre" className="grey-text">
-				{' '}
 				Nombre de usuario
 			</label>
 			<input
@@ -18,13 +17,13 @@ export const EntradaNombre = ({ register, errors }) => {
 				name="nombre"
 				id="nombre"
 				className="form-control"
-				placeholder="Nombre de usuario"
+				placeholder="Nombre"
 				ref={register({
 					required: 'Este campo no se puede dejar vacío.',
 					validate: (value) => {
 						return (
 							[/[^@]/].every((pattern) => pattern.test(value)) ||
-							'El nombre de usuario no puede contener @'
+							'El nombre no puede contener @'
 						)
 					},
 				})}

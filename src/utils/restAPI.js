@@ -85,11 +85,16 @@ export const decisionPeticion = async (formData) => {
 
 export const obtenerPartidas = async (formData) => {
 	const data = await peticionQForm('partidas', formData)
-  return data
+	return data
 }
 
 /* Funciones de la tienda */
 export const comprarObjeto = async (formData) => {
 	const data = await peticionQForm('comprar', formData)
+	return data
+}
+
+export const crearSala = async (formData) => {
+	const data = await peticionQForm('crearSala', formData)
 	return data
 }

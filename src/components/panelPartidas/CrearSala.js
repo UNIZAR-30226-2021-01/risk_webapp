@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import {
 	MDBModal,
 	MDBModalHeader,
@@ -7,17 +7,43 @@ import {
 	MDBCol,
 	MDBBtn,
 } from 'mdbreact'
-import qs from 'qs'
-import constants from 'utils/constants.js'
+import AuthApi from 'utils/AuthApi'
+import { crearSala } from 'utils/restAPI'
+import { FormCrearSala } from './FormCrearSala'
 
 /**
  * Implementa un pop-up para añadir un amigo, este pop-up contiene
  * un formulario donde insertar el nombre del amigo.
  */
 export const CrearSala = () => {
+	const Auth = useContext(AuthApi)
+	const [isOpen, setOpen] = useState(false)
+
+	const toggle = () => {
+		setOpen(!isOpen)
+	}
+
+	const redirigirSala = () => {
+		console.log('todo')
+	}
+
 	return (
 		<MDBContainer>
-			<p> Work in progress...</p>
+			<MDBBtn color="primary" className="btn-addfriend" onClick={toggle}>
+				Crear sala
+			</MDBBtn>
+			<MDBModal isOpen={isOpen} toggle={toggle}>
+				<MDBModalHeader toggle={toggle}>Crear sala</MDBModalHeader>
+				<MDBCol middle="true">
+					<MDBModalBody>
+						<FormCrearSala
+							usuario={Auth.auth.usuario}
+							enviarSolicitud={crearSala}
+							siValido={redirigirSala}
+						/>
+					</MDBModalBody>
+				</MDBCol>
+			</MDBModal>
 		</MDBContainer>
 	)
 }

@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import { MDBContainer } from 'mdbreact'
 import { ListaPartidas } from './ListaPartidas'
 //import { obtenerPartidas } from 'utils/restAPI'
-import AuthApi, { credenciales } from 'utils/AuthApi'
+import AuthApi from 'utils/AuthApi'
+import { obtenerCredenciales } from 'utils/usuarioVO'
 
 export const MenuSalas = () => {
 	const Auth = useContext(AuthApi)
@@ -10,7 +11,7 @@ export const MenuSalas = () => {
 	const [partidas, setPartidas] = useState([])
 
 	useEffect(async () => {
-		const formData = credenciales(Auth)
+		const formData = obtenerCredenciales(Auth)
 		//const dataPartidas = await obtenerPartidas(formData)
 		setPartidas([
 			{
