@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import AuthApi from './../../utils/AuthApi'
+import AuthApi from 'utils/AuthApi'
 import Amigo from './Amigo.js'
 import AnyadirAmigo from './AnyadirAmigo'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'

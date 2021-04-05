@@ -18,7 +18,7 @@ import {
 } from 'mdbreact'
 
 /**
- * 
+ *
  * @returns Componente que representa una tabla en la que el usuario podrá
  * consultar tanto la lista de sus amigos como las notificaciones que haya
  * recibido
