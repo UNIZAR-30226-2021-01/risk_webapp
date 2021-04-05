@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 /**
  * Botón simple de la aplicación
- * @todo darle bien estilo
  */
 const Button = ({ color, text, onClick }) => {
 	return (

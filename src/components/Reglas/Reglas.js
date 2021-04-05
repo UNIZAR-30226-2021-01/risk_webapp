@@ -2,9 +2,12 @@ import React from 'react'
 import { MDBContainer, MDBRow } from 'mdbreact'
 
 /**
- * Muestra la lista de amigos recibida como parámetro y da la opción de
- * añadir un amigo.
- * @param {lista_de_usuarios} usuarios Amigos del usuario de la aplicación
+ * Componente estático que muestra las reglas de juego
+ * @returns Contenedor en el que se muestran las reglas del juego
+ * estructuradas en parrafos. Las reglas están basadas en las
+ * del juego de mesa "Risk" y han sido adaptadas al formato que
+ * se pretende diseñar de forma que faciliten la jugabilidad
+ * en un entorno virtual (web y movil).
  */
 export const Reglas = () => {
 	return (

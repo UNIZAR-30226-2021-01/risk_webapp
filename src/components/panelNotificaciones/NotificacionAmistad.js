@@ -15,8 +15,10 @@ import AuthApi from './../../utils/AuthApi'
 import { decisionPeticion } from '../../utils/restAPI'
 
 /**
- * Representación de una notificación en la lista de notificaciones
- * @param {notificacion} datos Datos de la notificación
+ * Representación de una notificación de petición de amistad en la
+ * lista de notificaciones
+ * @param {notificacion} datos Datos de la notificación obtenidos
+ * a través de la API del servidor de juego.
  */
 export const NotificacionAmistad = ({ datos }) => {
 	const [isOpen, setOpen] = useState(false)

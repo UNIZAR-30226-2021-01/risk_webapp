@@ -12,6 +12,13 @@ import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import { eliminarAmigo } from 'utils/restAPI'
 import { obtenerCredenciales } from 'utils/usuarioVO'
 
+/**
+ * Botón que se utilizará en la lista de amigos junto al componente
+ * "Amigo" y que permitirá la eliminación del mismo haciendo uso
+ * de la API del servidor de juego
+ * @param {usuario} amigo datos del amigo a eliminar
+ * @returns 
+ */
 export const EliminarAmigo = ({ amigo }) => {
 	const [isOpen, setOpen] = useState(false)
 	const [serverErrors, setServerErrors] = useState('')

@@ -13,7 +13,6 @@ import { solicitudAmistad } from 'utils/restAPI'
 /**
  * Implementa un pop-up para añadir un amigo, este pop-up contiene
  * un formulario donde insertar el nombre del amigo.
- * @todo Conexión con servidor, css...
  */
 export const AnyadirAmigo = ({ usuario }) => {
 	const [isOpen, setOpen] = useState(false)
