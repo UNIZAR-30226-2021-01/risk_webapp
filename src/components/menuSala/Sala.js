@@ -3,15 +3,24 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { ListaAmigosSala } from './ListaAmigosSala'
+import ListaAmigos from './../panelAmigos/ListaAmigos'
+import { MDBContainer} from 'mdbreact'
 
+/**
+ * 
+ * @todo websocket si close llama a onclose?
+ * @returns 
+ */
 export const Sala = () => {
 	const [ws, setWs] = useState(null)
 
 	// Jugadores ya conectados
 	// const [jugadores, setJugadores] = useState([])
 
+	const [amigos, setAmigos] = useState([])
+
 	useEffect(() => {
+		fetchAmigos()
 		this.check()
 		return () => {
 			if (!WebSocket.CLOSED) {
@@ -19,6 +28,12 @@ export const Sala = () => {
 			}
 		}
 	}, [])
+
+	const fetchAmigos = async () => {
+		const nuestraInfo = obtenerCredenciales(Auth)
+		const dataAmigos = await obtenerAmigos(nuestraInfo)
+		setAmigos(dataAmigos.amigos)
+	}
 
 	const connect = () => {
 		let that = this
@@ -80,7 +95,7 @@ export const Sala = () => {
 				<MDBCol md="8">{/* Jugadores invitados*/}</MDBCol>
 				{/* Esto solo si eres el host, y el botón de aceptar también*/}
 				<MDBCol md="5">
-					<ListaAmigosSala />
+					<ListaAmigos usuarios={amigos} elemento={<InvitarAmigo />} />
 				</MDBCol>
 			</MDBRow>
 		</MDBContainer>
