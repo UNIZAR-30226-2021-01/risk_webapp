@@ -103,3 +103,5 @@ export const Sala = () => {
 		</MDBContainer>
 	)
 }
+
+export default Sala
