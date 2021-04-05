@@ -1,6 +1,7 @@
 import React from 'react'
 import NotificacionAmistad from './NotificacionAmistad.js'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
+import NotificacionSala from './NotificacionSala.js'
 
 /**
  * Muestra la lista de notificaciones recibida como parámetro.
@@ -12,11 +13,20 @@ const ListaNotificaciones = ({ notificaciones }) => {
 	return (
 		<MDBContainer className="mt-9">
 			<MDBListGroup style={{ width: '18.5rem' }}>
-				{notificaciones.map((notificacion) => (
-					<MDBListGroupItem key={notificacion.idEnvio.toString()}>
-						<NotificacionAmistad datos={notificacion} />
-					</MDBListGroupItem>
-				))}
+				{
+					//Los tipos son "Invitacion" y "Peticion de amistad"
+				}
+				{notificaciones.map((notificacion) => {
+					return (
+						<MDBListGroupItem key={notificacion.idEnvio.toString()}>
+							{notificacion.tipo === 'Peticion de amistad' ? (
+								<NotificacionAmistad datos={notificacion} />
+							) : (
+								<NotificacionSala datos={notificacion} />
+							)}
+						</MDBListGroupItem>
+					)
+				})}
 			</MDBListGroup>
 		</MDBContainer>
 	)

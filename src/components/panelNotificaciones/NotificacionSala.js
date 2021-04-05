@@ -1,31 +1,16 @@
 import React, { useState, useContext } from 'react'
 import './notificacion.css'
-import {
-	MDBRow,
-	MDBCol,
-	MDBBtn,
-	MDBIcon,
-	MDBModal,
-	MDBModalHeader,
-	MDBModalBody,
-	MDBModalFooter,
-} from 'mdbreact'
+import { MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import AuthApi from './../../utils/AuthApi'
-
 
 export const NotificacionSala = ({ datos }) => {
 	const Auth = useContext(AuthApi)
 
 	const decisionSala = (datos) => async () => {
-        setServerErrors('')
-		const formData =
-            {tipo: "aceptar",
-			idSala: datos.idEnvio,}    
-        /*
-        * usar los params https://medium.com/@kate.pavlova/how-to-set-or-get-query-parameters-in-react-router-7d6e2440ede8
-        */
-		
+		console.log('DECIDIENDODECIDIENDOOOO')
+		/*setServerErrors('')
+		const formData = { tipo: 'aceptar', idSala: datos.idEnvio }*/
 	}
 
 	return (
@@ -42,7 +27,7 @@ export const NotificacionSala = ({ datos }) => {
 							<MDBBtn
 								color="success"
 								className="btn-notis"
-								onClick={}
+								onClick={decisionSala(datos)}
 							>
 								<MDBIcon icon="check" />
 							</MDBBtn>
@@ -51,7 +36,7 @@ export const NotificacionSala = ({ datos }) => {
 							<MDBBtn
 								color="danger"
 								className="btn-notis"
-								onClick={}
+								onClick={decisionSala(datos)}
 							>
 								<MDBIcon icon="times" />
 							</MDBBtn>
@@ -59,7 +44,6 @@ export const NotificacionSala = ({ datos }) => {
 					</MDBRow>
 				</MDBCol>
 			</MDBRow>
-			
 		</>
 	)
 }

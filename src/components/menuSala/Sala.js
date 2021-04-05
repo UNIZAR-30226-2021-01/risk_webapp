@@ -1,3 +1,5 @@
+import React from 'react'
+import { useParams } from 'react-router-dom'
 /**
  * @todo link en el router
  */

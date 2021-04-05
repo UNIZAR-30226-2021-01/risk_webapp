@@ -23,6 +23,7 @@ import AuthApi from './utils/AuthApi'
 import Registrar from './components/sesion/Registrar'
 import InicioSesion from './components/sesion/InicioSesion'
 import ActualizacionConfiguracion from './components/sesion/ActualizacionConfiguracion'
+import Sala from './components/menuSala/Sala'
 
 import Reglas from './components/Reglas/Reglas'
 
@@ -118,6 +119,7 @@ const Routes = () => {
 				auth={Auth.auth.logged}
 				component={InicioSesion}
 			/>
+			<Route path="/sala/:id/:type" component={Sala} />
 			<ProtectedRoute
 				path="/actualizarCuenta"
 				auth={Auth.auth.logged}
