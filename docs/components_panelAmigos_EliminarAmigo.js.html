@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/FormInicio.js</title>
+    <title>JSDoc: Source: components/panelAmigos/EliminarAmigo.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/FormInicio.js</h1>
+    <h1 class="page-title">Source: components/panelAmigos/EliminarAmigo.js</h1>
 
     
 
@@ -26,88 +26,76 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useContext, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { EntradaUsuario } from './entradasFormulario/EntradaUsuario'
-import { EntradaClave } from './entradasFormulario/EntradaClave'
-import { ErroresServer } from './entradasFormulario/ErroresServer'
-import hash from 'js-sha256'
-//import "./formCuenta.css";
-import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
-import AuthApi, { registrarseLocal } from './../../utils/AuthApi.js'
+            <pre class="prettyprint source linenums"><code>import React, { useState, useContext } from 'react'
+import {
+	MDBModal,
+	MDBModalHeader,
+	MDBModalBody,
+	MDBIcon,
+	MDBBtn,
+	MDBFooter,
+} from 'mdbreact'
+import AuthApi from 'utils/AuthApi'
+import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
+import { eliminarAmigo } from 'utils/restAPI'
+import { obtenerCredenciales } from 'utils/usuarioVO'
 
 /**
- * Representa un formulario de inicio de sesión de la cuenta, si algún valor es incorrecto
- * no permite enviarlo.
- * ## Requisitos:
- * - @todo Campo de correo o nombre de usuario no vacío
- * - Contraseña no vacía
- * @param {ObjectSesion} defaults Valores por defecto del formulario
- * @param {string} submitText Texto del botón de enviar formulario
- * @param {función} makePetition Función ejecutada al enviar el formulario
+ * Botón que se utilizará en la lista de amigos junto al componente
+ * "Amigo" y que permitirá la eliminación del mismo haciendo uso
+ * de la API del servidor de juego
+ * @param {usuario} amigo datos del amigo a eliminar
  */
-export const FormInicio = ({ defaults, submitText, makePetition }) => {
+export const EliminarAmigo = ({ amigo }) => {
+	const [isOpen, setOpen] = useState(false)
+	const [serverErrors, setServerErrors] = useState('')
 	const Auth = useContext(AuthApi)
 
-	const { register, handleSubmit, errors } = useForm({
-		defaultValues: {
-			usuario: defaults.usuario ? defaults.usuario : '',
-			clave: defaults.clave ? defaults.clave : '',
-		},
-	})
+	const toggle = () => {
+		setOpen(!isOpen)
+	}
 
-	// Si se está enviando un formulario
-	const [submitting, setSubmitting] = useState(false)
-	// Errores del servidor
-	const [serverErrors, setServerErrors] = useState('')
+	const eliminarAmigoInterno = (amigo) => async () => {
+		setServerErrors('')
+		let formData = obtenerCredenciales(Auth)
+		formData.idAmigo = amigo.id
+		const data = await eliminarAmigo(formData)
+
+		if (data.code === 0) {
+			toggle()
+		} else {
+			setServerErrors(data.err)
+		}
+	}
 
 	return (
-		&lt;MDBContainer>
-			&lt;MDBRow className="d-flex align-items-center flex-column">
-				&lt;MDBCol md="6">
-					&lt;form
-						id="inicio"
-						onSubmit={handleSubmit(async (formData) => {
-							if (submitting) {
-								return false
-							}
-							setSubmitting(true)
-							let hashedForm = formData
-							hashedForm.clave = hash.sha256(formData.clave)
-							const data = await makePetition(hashedForm)
+		&lt;>
+			&lt;MDBBtn className="btn-borrar" onClick={toggle}>
+				&lt;MDBIcon far icon="trash-alt" />
+			&lt;/MDBBtn>
 
-							setSubmitting(false)
-							if (data.err) {
-								setServerErrors(data.err)
-							} else {
-								setServerErrors('')
-								registrarseLocal(Auth, data)
-							}
-						})}
-					>
-						&lt;ErroresServer serverErrors={serverErrors} />
-
-						&lt;EntradaUsuario register={register} errors={errors} />
-
-						&lt;EntradaClave
-							titulo={'Contraseña'}
-							register={register}
-							errors={errors}
-						/>
-
-						&lt;div className="text-center mt-4">
-							&lt;MDBBtn color="indigo" type="submit" disabled={submitting}>
-								{submitText}
-							&lt;/MDBBtn>
-						&lt;/div>
-					&lt;/form>
-				&lt;/MDBCol>
-			&lt;/MDBRow>
-		&lt;/MDBContainer>
+			&lt;MDBModal isOpen={isOpen} toggle={toggle}>
+				&lt;MDBModalHeader toggle={toggle}>
+					¿Estás seguro de que quieres eliminar a {amigo.nombre}?
+				&lt;/MDBModalHeader>
+				&lt;MDBModalBody className="d-flex justify-content-between">
+					&lt;ErroresServer serverErrors={serverErrors} />
+				&lt;/MDBModalBody>
+				&lt;MDBFooter className="d-flex justify-content-around">
+					&lt;MDBBtn color="primary" onClick={toggle}>
+						{' '}
+						Cancelar
+					&lt;/MDBBtn>
+					&lt;MDBBtn color="danger" onClick={eliminarAmigoInterno(amigo)}>
+						Eliminar
+					&lt;/MDBBtn>
+				&lt;/MDBFooter>
+			&lt;/MDBModal>
+		&lt;/>
 	)
 }
 
-export default FormInicio
+export default EliminarAmigo
 </code></pre>
         </article>
     </section>

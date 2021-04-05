@@ -17,7 +17,6 @@ import { obtenerCredenciales } from 'utils/usuarioVO'
  * "Amigo" y que permitirá la eliminación del mismo haciendo uso
  * de la API del servidor de juego
  * @param {usuario} amigo datos del amigo a eliminar
- * @returns
  */
 export const EliminarAmigo = ({ amigo }) => {
 	const [isOpen, setOpen] = useState(false)

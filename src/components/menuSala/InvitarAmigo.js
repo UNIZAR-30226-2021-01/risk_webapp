@@ -1,9 +1,7 @@
-import React from 'react'
-import AuthApi from 'utils/AuthApi'
+import React, { useContext } from 'react'
+import { MDBBtn } from 'mdbreact'
 
 export const InvitarAmigo = ({ amigo, ws }) => {
-	const Auth = useContext(AuthApi)
-
 	const invitarAmigo = () => {
 		const formData = {
 			idInvitado: amigo.id,
@@ -20,3 +18,5 @@ export const InvitarAmigo = ({ amigo, ws }) => {
 		</MDBBtn>
 	)
 }
+
+export default InvitarAmigo

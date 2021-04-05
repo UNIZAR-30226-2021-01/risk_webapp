@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: components/sesion/FormInicio.js</title>
+    <title>JSDoc: Source: components/menuPrincipal/TabAmigosNotificaciones.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: components/sesion/FormInicio.js</h1>
+    <h1 class="page-title">Source: components/menuPrincipal/TabAmigosNotificaciones.js</h1>
 
     
 
@@ -26,88 +26,125 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useContext, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { EntradaUsuario } from './entradasFormulario/EntradaUsuario'
-import { EntradaClave } from './entradasFormulario/EntradaClave'
-import { ErroresServer } from './entradasFormulario/ErroresServer'
-import hash from 'js-sha256'
-//import "./formCuenta.css";
-import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
-import AuthApi, { registrarseLocal } from './../../utils/AuthApi.js'
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, useContext } from 'react'
+import AuthApi from 'utils/AuthApi'
+import constants from 'utils/constants'
+import ListaAmigos from './../panelAmigos/ListaAmigos'
+import ListaNotificaciones from './../panelNotificaciones/ListaNotificaciones'
+import EliminarAmigo from './../panelAmigos/EliminarAmigo'
+import { obtenerAmigos, obtenerNotificaciones } from 'utils/restAPI'
+import { obtenerCredenciales } from 'utils/usuarioVO'
+import './tabAmigosNotificaciones.css'
+import {
+	MDBContainer,
+	MDBTabPane,
+	MDBTabContent,
+	MDBNav,
+	MDBNavItem,
+	MDBNavLink,
+	MDBBadge,
+} from 'mdbreact'
 
 /**
- * Representa un formulario de inicio de sesión de la cuenta, si algún valor es incorrecto
- * no permite enviarlo.
- * ## Requisitos:
- * - @todo Campo de correo o nombre de usuario no vacío
- * - Contraseña no vacía
- * @param {ObjectSesion} defaults Valores por defecto del formulario
- * @param {string} submitText Texto del botón de enviar formulario
- * @param {función} makePetition Función ejecutada al enviar el formulario
+ *
+ * @returns Componente que representa una tabla en la que el usuario podrá
+ * consultar tanto la lista de sus amigos como las notificaciones que haya
+ * recibido
  */
-export const FormInicio = ({ defaults, submitText, makePetition }) => {
+export const TabAmigosNotificaciones = () => {
 	const Auth = useContext(AuthApi)
 
-	const { register, handleSubmit, errors } = useForm({
-		defaultValues: {
-			usuario: defaults.usuario ? defaults.usuario : '',
-			clave: defaults.clave ? defaults.clave : '',
-		},
-	})
+	const [amigos, setAmigos] = useState([])
 
-	// Si se está enviando un formulario
-	const [submitting, setSubmitting] = useState(false)
-	// Errores del servidor
-	const [serverErrors, setServerErrors] = useState('')
+	// Panel activo
+	const [active, setActive] = useState({ justified: '1' })
+
+	// Número de notificaciones, se actualizará conforme lleguen y se borren
+	const [notis, setNotis] = useState([])
+
+	const fetchAmigos = async () => {
+		//console.log('Petición de amigos')
+		const nuestraInfo = obtenerCredenciales(Auth)
+		const dataAmigos = await obtenerAmigos(nuestraInfo)
+		//console.log(dataAmigos)
+		setAmigos(dataAmigos.amigos)
+	}
+
+	const fetchNotis = async () => {
+		//console.log('Petición de notificaciones')
+		const nuestraInfo = obtenerCredenciales(Auth)
+		const dataNotis = await obtenerNotificaciones(nuestraInfo)
+		//console.log(dataNotis)
+
+		// DATOS DE PRUEBA
+		/*let notisPrueba = [{infoExtra: 'PacoGamer', idEnvio: 69}, 
+		{infoExtra: 'Raulito69HD', idEnvio: 15},
+		{infoExtra: 'Raulito69XX', idEnvio: 12},
+		{infoExtra: 'Raulito69', idEnvio: 144}]
+		setNotis(notisPrueba)*/
+		setNotis(dataNotis.notificaciones)
+	}
+
+	useEffect(() => {
+		const interval = setInterval(async () => {
+			fetchAmigos()
+			fetchNotis()
+		}, constants.REFRESH_TIME)
+		return () => clearInterval(interval) //Elimina la ejecución periódica al desmontar
+	}, [])
+
+	const togglePills = (type, tab) => (e) => {
+		e.preventDefault()
+		if (active.justified !== tab) {
+			let items = { ...active }
+			items[type] = tab
+			setActive(items)
+		}
+	}
 
 	return (
-		&lt;MDBContainer>
-			&lt;MDBRow className="d-flex align-items-center flex-column">
-				&lt;MDBCol md="6">
-					&lt;form
-						id="inicio"
-						onSubmit={handleSubmit(async (formData) => {
-							if (submitting) {
-								return false
-							}
-							setSubmitting(true)
-							let hashedForm = formData
-							hashedForm.clave = hash.sha256(formData.clave)
-							const data = await makePetition(hashedForm)
-
-							setSubmitting(false)
-							if (data.err) {
-								setServerErrors(data.err)
-							} else {
-								setServerErrors('')
-								registrarseLocal(Auth, data)
-							}
-						})}
+		&lt;MDBContainer className="border mt-4 contenedor-pills">
+			&lt;MDBNav className="nav-pills nav-justified ">
+				&lt;MDBNavItem className="my-2">
+					&lt;MDBNavLink
+						link
+						to="#"
+						active={active.justified === '1'}
+						onClick={togglePills('justified', '1')}
 					>
-						&lt;ErroresServer serverErrors={serverErrors} />
-
-						&lt;EntradaUsuario register={register} errors={errors} />
-
-						&lt;EntradaClave
-							titulo={'Contraseña'}
-							register={register}
-							errors={errors}
-						/>
-
-						&lt;div className="text-center mt-4">
-							&lt;MDBBtn color="indigo" type="submit" disabled={submitting}>
-								{submitText}
-							&lt;/MDBBtn>
-						&lt;/div>
-					&lt;/form>
-				&lt;/MDBCol>
-			&lt;/MDBRow>
+						Lista de amigos
+					&lt;/MDBNavLink>
+				&lt;/MDBNavItem>
+				&lt;MDBNavItem className="my-2">
+					&lt;MDBNavLink
+						link
+						to="#"
+						active={active.justified === '2'}
+						onClick={togglePills('justified', '2')}
+					>
+						Notificaciones{' '}
+						{notis.length > 0 &amp;&amp; (
+							&lt;MDBBadge color="danger" pill>
+								{' '}
+								{notis.length}{' '}
+							&lt;/MDBBadge>
+						)}
+					&lt;/MDBNavLink>
+				&lt;/MDBNavItem>
+			&lt;/MDBNav>
+			&lt;MDBTabContent activeItem={active.justified}>
+				&lt;MDBTabPane tabId="1">
+					&lt;ListaAmigos usuarios={amigos} elemento={&lt;EliminarAmigo />} />
+				&lt;/MDBTabPane>
+				&lt;MDBTabPane tabId="2">
+					&lt;ListaNotificaciones notificaciones={notis} />
+				&lt;/MDBTabPane>
+			&lt;/MDBTabContent>
 		&lt;/MDBContainer>
 	)
 }
 
-export default FormInicio
+export default TabAmigosNotificaciones
 </code></pre>
         </article>
     </section>

@@ -1,19 +1,19 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-/**
- * @todo link en el router
- */
-
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+//import { useParams } from 'react-router-dom'
+import { MDBRow, MDBCol } from 'mdbreact'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
-import { MDBContainer} from 'mdbreact'
-
+import InvitarAmigo from './InvitarAmigo'
+import { obtenerAmigos } from 'utils/restAPI'
+import { MDBContainer } from 'mdbreact'
+import AuthApi from 'utils/AuthApi'
+import { obtenerCredenciales } from 'utils/usuarioVO'
 /**
- * 
+ *
+ * @todo link en el router
  * @todo websocket si close llama a onclose?
- * @returns 
  */
 export const Sala = () => {
+	const Auth = useContext(AuthApi)
 	const [ws, setWs] = useState(null)
 
 	// Jugadores ya conectados
@@ -23,7 +23,7 @@ export const Sala = () => {
 
 	useEffect(() => {
 		fetchAmigos()
-		this.check()
+		check()
 		return () => {
 			if (!WebSocket.CLOSED) {
 				ws.close()
