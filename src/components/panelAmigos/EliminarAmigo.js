@@ -43,36 +43,19 @@ export const EliminarAmigo = ({ amigo }) => {
 
 	return (
 		<>
-			{
-				//<MDBBtn onClick={() => {toggle()}} className='btn-borrar'> Eliminar </MDBBtn>
-			}
-			<MDBBtn className="btn-borrar" onClick={() => toggle()}>
+			<MDBBtn className="btn-borrar" onClick={toggle}>
 				<MDBIcon far icon="trash-alt" />
 			</MDBBtn>
 
-			<MDBModal
-				isOpen={isOpen}
-				toggle={() => {
-					toggle()
-				}}
-			>
-				<MDBModalHeader
-					toggle={() => {
-						toggle()
-					}}
-				>
+			<MDBModal isOpen={isOpen} toggle={toggle}>
+				<MDBModalHeader toggle={toggle}>
 					¿Estás seguro de que quieres eliminar a {amigo.nombre}?
 				</MDBModalHeader>
 				<MDBModalBody className="d-flex justify-content-between">
 					<ErroresServer serverErrors={serverErrors} />
 				</MDBModalBody>
 				<MDBFooter className="d-flex justify-content-around">
-					<MDBBtn
-						color="primary"
-						onClick={() => {
-							toggle()
-						}}
-					>
+					<MDBBtn color="primary" onClick={toggle}>
 						{' '}
 						Cancelar
 					</MDBBtn>

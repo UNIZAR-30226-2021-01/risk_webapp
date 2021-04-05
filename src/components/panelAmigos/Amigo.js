@@ -7,11 +7,13 @@ import { MDBRow, MDBCol } from 'mdbreact'
  * el amigo.
  * @param {usuario} datos Datos del amigo
  */
-export const Amigo = ({ datos, elemento }) => {
+export const Amigo = ({ datos, elemento, ws = null }) => {
 	return (
 		<MDBRow>
 			<MDBCol md="8">{datos.nombre}</MDBCol>
-			<MDBCol md="4">{React.cloneElement(elemento, { amigo: datos })}</MDBCol>
+			<MDBCol md="4">
+				{React.cloneElement(elemento, { amigo: datos, ws: ws })}
+			</MDBCol>
 		</MDBRow>
 	)
 }
