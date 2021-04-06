@@ -34,7 +34,7 @@ export const CrearSala = () => {
 			</MDBBtn>
 			<MDBModal isOpen={isOpen} toggle={toggle}>
 				<MDBModalHeader toggle={toggle}>Crear sala</MDBModalHeader>
-				<MDBCol middle="true">
+				<MDBCol middle={true}>
 					<MDBModalBody>
 						<FormCrearSala
 							usuario={Auth.auth.usuario}

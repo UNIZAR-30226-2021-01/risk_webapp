@@ -28,7 +28,7 @@ export const AnyadirAmigo = ({ usuario }) => {
 			</MDBBtn>
 			<MDBModal isOpen={isOpen}>
 				<MDBModalHeader toggle={toggle}>Añadir amigo</MDBModalHeader>
-				<MDBCol middle="true">
+				<MDBCol middle={true}>
 					<MDBModalBody>
 						<FormAnyadirAmigo
 							usuario={usuario}

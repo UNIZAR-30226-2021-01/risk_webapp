@@ -26,13 +26,13 @@ import { Link } from 'react-router-dom'
  * - Desloggearte
  */
 export const Header = () => {
+	const Auth = useContext(AuthApi)
+
 	const [state, setState] = useState({ isOpen: true })
 
 	const toggleCollapse = () => {
 		setState({ isOpen: !state.isOpen })
 	}
-
-	const Auth = useContext(AuthApi)
 
 	return (
 		<MDBNavbar color="default-color" dark expand="md">

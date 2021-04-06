@@ -27,7 +27,7 @@ export const Sala = (props) => {
 	useEffect(() => {
 		console.log('id: ', id, ' tipo: ', type)
 		fetchAmigos()
-		check()
+		//check()
 		return () => {
 			if (!WebSocket.CLOSED) {
 				ws.close()
@@ -64,22 +64,23 @@ export const Sala = (props) => {
 
 		// websocket onclose event listener
 		ws.onclose = (e) => {
-			console.log(
-				`Socket is closed. Reconnect will be attempted in ${Math.min(
-					10000 / 1000,
-					(tOut + tOut) / 1000
-				)} second.`,
-				e.reason
-			)
-
-			tOut = tOut + tOut //increment retry interval
-			connectInterval = setTimeout(check, Math.min(10000, tOut)) //call check function after timeout
+			console.log(`Socket is closed.`)
 		}
 
 		// websocket onerror event listener
 		ws.onerror = (err) => {
 			console.error('Socket encountered error: ', err.message, 'Closing socket')
 			ws.close()
+			console.log(
+				`Reconnect will be attempted in ${Math.min(
+					10000 / 1000,
+					(tOut + tOut) / 1000
+				)} second.`,
+				err.reason
+			)
+
+			tOut = tOut + tOut //increment retry interval
+			connectInterval = setTimeout(check, Math.min(10000, tOut)) //call check function after timeout
 		}
 
 		// websocket onmessage event listener

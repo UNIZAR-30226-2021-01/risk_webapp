@@ -119,7 +119,8 @@ const Routes = () => {
 				auth={Auth.auth.logged}
 				component={InicioSesion}
 			/>
-			<Route path="/sala/:id/:type" component={Sala} />
+			{/*<Route path="/sala/:id/:type" component={Sala} />*/}
+			<ProtectedRoute path="/sala" auth={Auth.auth.logged} component={Sala} />
 			<ProtectedRoute
 				path="/actualizarCuenta"
 				auth={Auth.auth.logged}

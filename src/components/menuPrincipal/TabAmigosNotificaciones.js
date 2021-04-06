@@ -49,12 +49,14 @@ export const TabAmigosNotificaciones = () => {
 		//console.log(dataNotis)
 
 		// DATOS DE PRUEBA
-		/*let notisPrueba = [{infoExtra: 'PacoGamer', idEnvio: 69}, 
-		{infoExtra: 'Raulito69HD', idEnvio: 15},
-		{infoExtra: 'Raulito69XX', idEnvio: 12},
-		{infoExtra: 'Raulito69', idEnvio: 144}]
-		setNotis(notisPrueba)*/
-		setNotis(dataNotis.notificaciones)
+		let notisPrueba = [
+			{ infoExtra: 'PacoGamer', idEnvio: 69 },
+			{ infoExtra: 'Raulito69HD', idEnvio: 15 },
+			{ infoExtra: 'Raulito69XX', idEnvio: 12 },
+			{ infoExtra: 'Raulito69', idEnvio: 144 },
+		]
+		setNotis(notisPrueba)
+		//setNotis(dataNotis.notificaciones)
 	}
 
 	useEffect(() => {
