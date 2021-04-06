@@ -1,16 +1,18 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import './notificacion.css'
 import { MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact'
-import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import AuthApi from './../../utils/AuthApi'
+import { useHistory } from 'react-router-dom'
 
 export const NotificacionSala = ({ datos }) => {
 	const Auth = useContext(AuthApi)
+	const history = useHistory()
 
 	const decisionSala = (datos) => async () => {
-		console.log('DECIDIENDODECIDIENDOOOO')
-		/*setServerErrors('')
-		const formData = { tipo: 'aceptar', idSala: datos.idEnvio }*/
+		console.log('no se')
+		//Debería redirigir a sala con id 12 y type aceptar
+		//Otra opción probada ha sido Redirect pero tampoco funciona
+		history.push('/sala/12/Aceptar')
 	}
 
 	return (
