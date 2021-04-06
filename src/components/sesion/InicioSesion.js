@@ -15,7 +15,7 @@ const InicioSesion = () => {
 		<MDBContainer className="d-flex align-items-center flex-column">
 			<h2> Iniciar sesión</h2>
 			<FormInicio
-				defaults={constants.NULL_VALUES}
+				defaults={constants.NULL_VALUES.usuario}
 				submitText="Aceptar"
 				makePetition={inicioSesion}
 			/>

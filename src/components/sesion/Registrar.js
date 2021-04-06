@@ -15,7 +15,7 @@ const Registrar = () => {
 		<MDBContainer className="d-flex align-items-center flex-column">
 			<h2> Crear cuenta</h2>
 			<FormRegistro
-				defaults={constants.NULL_VALUES}
+				defaults={constants.NULL_VALUES.usuario}
 				submitText="Registrarse"
 				makePetition={registrarse}
 				siValido={registrarseLocal}

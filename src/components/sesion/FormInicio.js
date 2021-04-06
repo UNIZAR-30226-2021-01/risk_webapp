@@ -23,7 +23,7 @@ export const FormInicio = ({ defaults, submitText, makePetition }) => {
 
 	const { register, handleSubmit, errors } = useForm({
 		defaultValues: {
-			usuario: defaults.usuario ? defaults.usuario : '',
+			usuario: defaults.nombre ? defaults.nombre : '',
 			clave: defaults.clave ? defaults.clave : '',
 		},
 	})
