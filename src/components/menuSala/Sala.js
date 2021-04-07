@@ -129,8 +129,8 @@ export const Sala = (props) => {
 
 	const crearSala = (formData) => {
 		formData.tiempoTurno = 3600
-		useState('2')
-		ws.send(JSON.stringify(formData))
+		setEstadoPag('2')
+		//ws.send(JSON.stringify(formData))
 	}
 
 	// Poner cada Tab en un componente distinto?

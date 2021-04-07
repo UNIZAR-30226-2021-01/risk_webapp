@@ -6,6 +6,7 @@ import { OkServer } from 'components/sesion/entradasFormulario/OkServer'
 import { EntradaNombre } from 'components/sesion/entradasFormulario/EntradaNombre'
 import { EntradaOcultaId } from 'components/sesion/entradasFormulario/EntradaOcultaID'
 import { EntradaOcultaHash } from 'components/sesion/entradasFormulario/EntradaOcultaHash'
+import { EntradaNumero } from 'components/sesion/entradasFormulario/EntradaNumero'
 
 export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
 	const { register, handleSubmit, errors } = useForm({ nombre: '' })
@@ -20,9 +21,11 @@ export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
 			<form
 				id="crearSala"
 				onSubmit={handleSubmit(async (formData) => {
+					formData.tiempoTurno = parseInt(formData.tiempoTurno)
+					console.log(formData)
+
 					setSubmitting(true)
 					setServerOk('')
-					console.log(formData, 'amigo')
 					enviarSolicitud(formData)
 					setSubmitting(false)
 				})}
@@ -33,7 +36,14 @@ export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
 				<EntradaNombre
 					register={register}
 					errors={errors}
-					label="Nombre de la sala"
+					texto="Nombre de la sala"
+					label="nombreSala"
+				/>
+				<EntradaNumero
+					register={register}
+					errors={errors}
+					text="Tiempo de turno (en minutos)"
+					label="tiempoTurno"
 				/>
 				<EntradaOcultaId register={register} value={usuario.id} />
 				<EntradaOcultaHash register={register} value={usuario.clave} />

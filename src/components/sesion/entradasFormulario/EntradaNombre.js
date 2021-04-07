@@ -2,24 +2,25 @@ import React from 'react'
 import ErroresCampo from './ErroresCampo'
 
 /**
- * EntradaNombre es un campo de formulario para un nombre
+ * EntradaNombre es un campo de formulario para un {label}
  * @param {form} register Formulario al que pertenece
  * @param {errors_form} errors Errores del registro
  */
 export const EntradaNombre = ({
 	register,
 	errors,
-	label = 'Nombre de usuario',
+	texto = 'Nombre de usuario',
+	label = 'nombre',
 }) => {
 	return (
 		<>
-			<label htmlFor="nombre" className="grey-text">
-				{label}
+			<label htmlFor={label} className="grey-text">
+				{texto}
 			</label>
 			<input
 				type="text"
-				name="nombre"
-				id="nombre"
+				name={label}
+				id={label}
 				className="form-control"
 				placeholder="Nombre"
 				ref={register({
@@ -27,13 +28,13 @@ export const EntradaNombre = ({
 					validate: (value) => {
 						return (
 							[/[^@]/].every((pattern) => pattern.test(value)) ||
-							'El nombre no puede contener @'
+							'El {label} no puede contener @'
 						)
 					},
 				})}
 			/>
 
-			<ErroresCampo error={errors.nombre} />
+			<ErroresCampo error={errors[label]} />
 		</>
 	)
 }
