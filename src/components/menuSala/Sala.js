@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { MDBRow, MDBCol, MDBTabContent, MDBTabPane } from 'mdbreact'
+import { MDBBtn, MDBRow, MDBCol, MDBTabContent, MDBTabPane } from 'mdbreact'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import InvitarAmigo from './InvitarAmigo'
 import { obtenerAmigos } from 'utils/restAPI'
@@ -9,6 +9,15 @@ import AuthApi from 'utils/AuthApi'
 import { obtenerCredenciales } from 'utils/usuarioVO'
 import { FormCrearSala } from './FormCrearSala'
 import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
+import { useHistory } from 'react-router-dom'
+import SalaEncabezado from './SalaEncabezado'
+import ListaJugadoresPartida from './ListaJugadoresPartida'
+
+const estadosInternos = {
+	CreandoFormulario: 'Creando formulario',
+	EsperandoRespuestaFormulario: 'Esperando respuesta creación formulario',
+	EsperandoInicio: 'Esperando inicio de partida',
+}
 
 /**
  *
@@ -17,18 +26,22 @@ import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServe
  */
 export const Sala = (props) => {
 	const Auth = useContext(AuthApi)
+	const history = useHistory()
 
 	// Obtiene el id de sala y el tipo de conexión establecida
 	//										(Aceptar, ...)
 	const { id } = useParams()
 
+	// Estado interno
+	let estadoInterno = estadosInternos.CreandoFormulario
+
 	// Websocket de la conexión
-	const [ws, setWs] = useState(null)
+	let ws
 
 	/**
 	 * 1: Creando sala
 	 * 2: Sala normal
-	 * 3: Cargando
+	 * 3: Cargando (probablemente no necesario, solo para mientras el ws está roto)
 	 */
 	const [estadoPag, setEstadoPag] = useState('3')
 
@@ -40,7 +53,12 @@ export const Sala = (props) => {
 	let url = ''
 
 	// Jugadores ya conectados
-	// const [jugadores, setJugadores] = useState([])
+	const [salaInfo, setSalaInfo] = useState({
+		tiempoTurno: 0,
+		nombreSala: '',
+		idSala: 0,
+		jugadores: [],
+	})
 
 	const [amigos, setAmigos] = useState([])
 
@@ -50,14 +68,17 @@ export const Sala = (props) => {
 			fetchAmigos()
 			setEstadoPag('1')
 			setSoyHost(true)
+			estadoInterno = estadosInternos.CreandoFormulario
 		} else {
 			setEstadoPag('2')
 			url = 'aceptarSala'
 			setSoyHost(false)
+			estadoInterno = estadosInternos.EsperandoInicio
 		}
+
 		console.log('id: ', id)
 
-		//connect()
+		connect()
 		return () => {
 			if (!WebSocket.CLOSED) {
 				ws.close()
@@ -72,14 +93,13 @@ export const Sala = (props) => {
 	}
 
 	const connect = () => {
-		var ws = new WebSocket(`wss://fathomless-ridge-74437.herokuapp.com/${url}`)
+		ws = new WebSocket(`wss://fathomless-ridge-74437.herokuapp.com/${url}`)
 		let tOut = 250
 		var connectInterval
 
 		// websocket onopen event listener
 		ws.onopen = () => {
 			console.log('connected websocket component')
-			setWs(ws)
 			/**
 			 * Mensaje de inicio
 			const message = { Cosa: 'inicio' }
@@ -113,24 +133,57 @@ export const Sala = (props) => {
 
 		// websocket onmessage event listener
 		ws.onmessage = (e) => {
-			const message = JSON.parse(e.data)
-			console.log(message.Num)
-			// Mirar tipos (?)
+			const data = JSON.parse(e.data)
+			console.log(data)
+			setServerErrors('')
+			// Caso error
+			if (data._tipoMensaje === 'e') {
+				setServerErrors(data.err)
+				// Caso mensaje de datos
+			} else if (data._tipoMensaje === 'd') {
+				if (estadoInterno == estadosInternos.EsperandoRespuestaFormulario) {
+					estadoInterno = estadosInternos.EsperandoInicio
+					setEstadoPag('2')
+				}
+				delete data._tipoMensaje
+				setSalaInfo(data)
+				// Caso mensaje de partida
+			} else if (data._tipoMensaje === 'p') {
+				// Comienza partida, comprobar estado y redirigir
+				if (estadoInterno == estadosInternos.EsperandoInicio) {
+					comenzarPartida()
+				} else {
+					console.log('???')
+				}
+			}
 		}
 	}
 
 	/**
-	 * utilited by the @function connect to check if the connection is close, if so attempts to reconnect
+	 * utilited by the @function connect to check if the connection is close due to an error, if so attempts to reconnect
 	 */
 	const check = () => {
 		const webS = ws
 		if (!webS || webS.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
 	}
 
+	const comenzarPartida = () => {
+		// Si es necesario, comprobar número de jugadores
+		ws.send(JSON.stringify({ tipo: 'Iniciar' }))
+	}
+
+	const redirigirPartida = () => {
+		history.push(`/partida/${salaInfo.idSala}`)
+	}
+
 	const crearSala = (formData) => {
-		formData.tiempoTurno = 3600
+		setSalaInfo({
+			...salaInfo,
+			tiempoTurno: formData.tiempoTurno,
+			nombreSala: formData.nombreSala,
+		})
 		setEstadoPag('2')
-		//ws.send(JSON.stringify(formData))
+		ws.send(JSON.stringify(formData))
 	}
 
 	// Poner cada Tab en un componente distinto?
@@ -139,21 +192,34 @@ export const Sala = (props) => {
 			<ErroresServer serverErrors={serverErrors} />
 			<MDBTabContent activeItem={estadoPag}>
 				<MDBTabPane tabId="1">
-					<p> Cargando1...</p>
+					<p> Pag1...</p>
 					<FormCrearSala
 						usuario={Auth.auth.usuario}
 						enviarSolicitud={crearSala}
 					/>
 				</MDBTabPane>
+				{/* Mover todo esto a otro componente si es necesario */}
 				<MDBTabPane tabId="2">
-					<p> Cargando2...</p>
+					<SalaEncabezado datos={salaInfo} />
+					<MDBRow>
+						<MDBCol>
+							<ListaJugadoresPartida usuarios={salaInfo.jugadores} />
+						</MDBCol>
+						<MDBCol>
+							{soyHost && (
+								<ListaAmigos
+									usuarios={amigos}
+									elemento={<InvitarAmigo ws={ws} />}
+									mostrarAnyadir={false}
+								/>
+							)}
+						</MDBCol>
+					</MDBRow>
+					{/* Comenzar partida, hacer el onClick*/}
 					{soyHost && (
-						<ListaAmigos
-							usuarios={amigos}
-							elemento={<InvitarAmigo ws={ws} />}
-							mostrarAnyadir={false}
-						/>
+						<MDBBtn onClick={comenzarPartida}>Comenzar partida</MDBBtn>
 					)}
+					<p> Pag2...</p>
 				</MDBTabPane>
 				<MDBTabPane tabId="3">
 					<p> Cargando...</p>

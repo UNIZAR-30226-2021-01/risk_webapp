@@ -24,6 +24,7 @@ import Registrar from './components/sesion/Registrar'
 import InicioSesion from './components/sesion/InicioSesion'
 import ActualizacionConfiguracion from './components/sesion/ActualizacionConfiguracion'
 import Sala from './components/menuSala/Sala'
+import Partida from 'components/partida/Partida'
 
 import Reglas from './components/Reglas/Reglas'
 
@@ -124,6 +125,11 @@ const Routes = () => {
 				path="/sala/:id"
 				auth={Auth.auth.logged}
 				component={Sala}
+			/>
+			<ProtectedRoute
+				path="/partida/:id"
+				auth={Auth.auth.logged}
+				component={Partida}
 			/>
 			<ProtectedRoute
 				path="/actualizarCuenta"
