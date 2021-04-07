@@ -6,11 +6,15 @@ import ErroresCampo from './ErroresCampo'
  * @param {form} register Formulario al que pertenece
  * @param {errors_form} errors Errores del registro
  */
-export const EntradaNombre = ({ register, errors }) => {
+export const EntradaNombre = ({
+	register,
+	errors,
+	label = 'Nombre de usuario',
+}) => {
 	return (
 		<>
 			<label htmlFor="nombre" className="grey-text">
-				Nombre de usuario
+				{label}
 			</label>
 			<input
 				type="text"

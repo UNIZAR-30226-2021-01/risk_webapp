@@ -13,8 +13,8 @@ import './listaAmigos.css'
 export const ListaAmigos = ({
 	usuarios,
 	elemento,
-	ws = null,
 	mostrarAnyadir = true,
+	...rest
 }) => {
 	const Auth = useContext(AuthApi)
 
@@ -24,7 +24,7 @@ export const ListaAmigos = ({
 				{mostrarAnyadir && <AnyadirAmigo usuario={Auth.auth.usuario} />}
 				{usuarios.map((usuario) => (
 					<MDBListGroupItem key={usuario.id.toString()}>
-						<Amigo datos={usuario} elemento={elemento} ws={ws} />
+						<Amigo datos={usuario} elemento={elemento} {...rest} />
 					</MDBListGroupItem>
 				))}
 			</MDBListGroup>

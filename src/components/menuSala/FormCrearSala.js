@@ -7,7 +7,7 @@ import { EntradaNombre } from 'components/sesion/entradasFormulario/EntradaNombr
 import { EntradaOcultaId } from 'components/sesion/entradasFormulario/EntradaOcultaID'
 import { EntradaOcultaHash } from 'components/sesion/entradasFormulario/EntradaOcultaHash'
 
-export const FormCrearSala = ({ usuario, enviarSolicitud, siValido }) => {
+export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
 	const { register, handleSubmit, errors } = useForm({ nombre: '' })
 	// Si se está enviando un formulario
 	const [submitting, setSubmitting] = useState(false)
@@ -21,23 +21,20 @@ export const FormCrearSala = ({ usuario, enviarSolicitud, siValido }) => {
 				id="crearSala"
 				onSubmit={handleSubmit(async (formData) => {
 					setSubmitting(true)
-					setServerErrors('')
 					setServerOk('')
 					console.log(formData, 'amigo')
-					const data = await enviarSolicitud(formData)
-					console.log(data, '?¿?¿?¿?¿?¿')
+					enviarSolicitud(formData)
 					setSubmitting(false)
-					if (data.code === 0) {
-						siValido(formData)
-					} else {
-						setServerErrors(data.err)
-					}
 				})}
 			>
 				<ErroresServer serverErrors={serverErrors} />
 				<OkServer serverOk={serverOk} />
 
-				<EntradaNombre register={register} errors={errors} />
+				<EntradaNombre
+					register={register}
+					errors={errors}
+					label="Nombre de la sala"
+				/>
 				<EntradaOcultaId register={register} value={usuario.id} />
 				<EntradaOcultaHash register={register} value={usuario.clave} />
 

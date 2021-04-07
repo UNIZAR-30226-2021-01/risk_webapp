@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { MDBRow, MDBCol } from 'mdbreact'
+import { MDBRow, MDBCol, MDBTabContent, MDBTabPane } from 'mdbreact'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import InvitarAmigo from './InvitarAmigo'
 import { obtenerAmigos } from 'utils/restAPI'
 import { MDBContainer } from 'mdbreact'
 import AuthApi from 'utils/AuthApi'
 import { obtenerCredenciales } from 'utils/usuarioVO'
+import { FormCrearSala } from './FormCrearSala'
+import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
 
 /**
  *
@@ -15,19 +17,47 @@ import { obtenerCredenciales } from 'utils/usuarioVO'
  */
 export const Sala = (props) => {
 	const Auth = useContext(AuthApi)
-	const [ws, setWs] = useState(null)
-	//Obtiene el id de sala y el tipo de conexión establecida
+
+	// Obtiene el id de sala y el tipo de conexión establecida
 	//										(Aceptar, ...)
-	const { id, type } = useParams()
+	const { id } = useParams()
+
+	// Websocket de la conexión
+	const [ws, setWs] = useState(null)
+
+	/**
+	 * 1: Creando sala
+	 * 2: Sala normal
+	 * 3: Cargando
+	 */
+	const [estadoPag, setEstadoPag] = useState('3')
+
+	// Indica si se es el host o no
+	const [soyHost, setSoyHost] = useState(false)
+
+	const [serverErrors, setServerErrors] = useState('')
+
+	let url = ''
+
 	// Jugadores ya conectados
 	// const [jugadores, setJugadores] = useState([])
 
 	const [amigos, setAmigos] = useState([])
 
 	useEffect(() => {
-		console.log('id: ', id, ' tipo: ', type)
-		fetchAmigos()
-		//check()
+		if (id === 'undefined') {
+			url = 'crearSala'
+			fetchAmigos()
+			setEstadoPag('1')
+			setSoyHost(true)
+		} else {
+			setEstadoPag('2')
+			url = 'aceptarSala'
+			setSoyHost(false)
+		}
+		console.log('id: ', id)
+
+		//connect()
 		return () => {
 			if (!WebSocket.CLOSED) {
 				ws.close()
@@ -42,9 +72,7 @@ export const Sala = (props) => {
 	}
 
 	const connect = () => {
-		var ws = new WebSocket(
-			'wss://fathomless-ridge-74437.herokuapp.com/aceptarSala'
-		)
+		var ws = new WebSocket(`wss://fathomless-ridge-74437.herokuapp.com/${url}`)
 		let tOut = 250
 		var connectInterval
 
@@ -99,19 +127,38 @@ export const Sala = (props) => {
 		if (!webS || webS.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
 	}
 
+	const crearSala = (formData) => {
+		formData.tiempoTurno = 3600
+		useState('2')
+		ws.send(JSON.stringify(formData))
+	}
+
+	// Poner cada Tab en un componente distinto?
 	return (
 		<MDBContainer>
-			<MDBRow>
-				<MDBCol md="8">
-					{/* Jugadores invitados*/}
-					<p>{id}</p>
-					<p>{type}</p>
-				</MDBCol>
-				{/* Esto solo si eres el host, y el botón de aceptar también*/}
-				<MDBCol md="5">
-					<ListaAmigos usuarios={amigos} elemento={<InvitarAmigo />} />
-				</MDBCol>
-			</MDBRow>
+			<ErroresServer serverErrors={serverErrors} />
+			<MDBTabContent activeItem={estadoPag}>
+				<MDBTabPane tabId="1">
+					<p> Cargando1...</p>
+					<FormCrearSala
+						usuario={Auth.auth.usuario}
+						enviarSolicitud={crearSala}
+					/>
+				</MDBTabPane>
+				<MDBTabPane tabId="2">
+					<p> Cargando2...</p>
+					{soyHost && (
+						<ListaAmigos
+							usuarios={amigos}
+							elemento={<InvitarAmigo ws={ws} />}
+							mostrarAnyadir={false}
+						/>
+					)}
+				</MDBTabPane>
+				<MDBTabPane tabId="3">
+					<p> Cargando...</p>
+				</MDBTabPane>
+			</MDBTabContent>
 		</MDBContainer>
 	)
 }

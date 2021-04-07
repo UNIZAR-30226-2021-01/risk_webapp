@@ -12,7 +12,7 @@ export const NotificacionSala = ({ datos }) => {
 		console.log('no se')
 		//Debería redirigir a sala con id 12 y type aceptar
 		//Otra opción probada ha sido Redirect pero tampoco funciona
-		history.push('/sala/12/Aceptar')
+		history.push('/sala/12')
 	}
 
 	return (

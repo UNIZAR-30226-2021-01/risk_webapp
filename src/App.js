@@ -121,7 +121,7 @@ const Routes = () => {
 			/>
 			{/*<Route path="/sala/:id/:type" component={Sala} />*/}
 			<ProtectedRoute
-				path="/sala/:id/:type"
+				path="/sala/:id"
 				auth={Auth.auth.logged}
 				component={Sala}
 			/>
