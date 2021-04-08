@@ -1,0 +1,10 @@
+.col.p-1.mt-1 .container.mt-9 {
+	padding: 1rem;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 20rem;
+}
+
+ul.list-group {
+	width: 22rem !important;
+}

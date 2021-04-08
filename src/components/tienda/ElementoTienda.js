@@ -10,7 +10,7 @@ import AuthApi from './../../utils/AuthApi'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import { comprarObjeto } from 'utils/restAPI'
 import iconos from 'assets/iconos/iconos'
-import aspectos from 'assets/aspectos/aspectos'
+import tropas from 'assets/tropas/tropas'
 import { recargarUsuarioServer } from 'utils/AuthServer'
 
 const ElementoTienda = ({ datos, tipo }) => {
@@ -20,7 +20,7 @@ const ElementoTienda = ({ datos, tipo }) => {
 	var imagen
 
 	if (tipo === 'Icono') imagen = iconos[datos.id].img
-	else imagen = aspectos[datos.id].img
+	else imagen = tropas[datos.id].img
 
 	const toggle = () => {
 		setOpen(!isOpen)

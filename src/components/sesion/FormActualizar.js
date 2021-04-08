@@ -12,7 +12,7 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
 
 import './formActualizar.css'
 import iconosJS from 'assets/iconos/iconos'
-import aspectosJS from 'assets/aspectos/aspectos'
+import aspectosJS from 'assets/tropas/tropas'
 
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto

@@ -15,6 +15,8 @@ import {
 	MDBIcon,
 } from 'mdbreact'
 import { Link } from 'react-router-dom'
+import iconos from '../assets/iconos/iconos'
+import { obtenerCredenciales } from '../utils/usuarioVO'
 
 /**
  * Header contiene el encabezado de la aplicación y permite consultar
@@ -74,7 +76,10 @@ export const Header = () => {
 							<MDBNavItem style={{ marginRight: '3rem' }}>
 								<MDBDropdown>
 									<MDBDropdownToggle nav caret>
+										{/*
 										<MDBIcon icon="user" />
+										*/}
+										<img src={iconos[Auth.auth.usuario.icono].img}></img>
 										<div className="d-none d-md-inline" id="head-user">
 											{Auth.auth.usuario.nombre}
 										</div>

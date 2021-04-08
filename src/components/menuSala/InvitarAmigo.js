@@ -12,9 +12,8 @@ export const InvitarAmigo = ({ amigo, ws }) => {
 	}
 
 	return (
-		<MDBBtn className="btn-borrar" onClick={invitarAmigo}>
+		<MDBBtn className="btn-invitar" onClick={invitarAmigo}>
 			Invitar
-			{/*<MDBIcon far icon="trash-alt" /> */}
 		</MDBBtn>
 	)
 }

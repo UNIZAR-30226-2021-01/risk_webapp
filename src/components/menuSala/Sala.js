@@ -12,6 +12,7 @@ import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServe
 import { useHistory } from 'react-router-dom'
 import SalaEncabezado from './SalaEncabezado'
 import ListaJugadoresPartida from './ListaJugadoresPartida'
+import './Sala.css'
 
 const estadosInternos = {
 	CreandoFormulario: 'Creando formulario',
@@ -90,6 +91,15 @@ export const Sala = (props) => {
 		const nuestraInfo = obtenerCredenciales(Auth)
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		setAmigos(dataAmigos.amigos)
+		/*const amigosPrueba = [
+			{ id: 1, nombre: 'PacoGamer', icono: 1, aspecto: 1 },
+			{ id: 2, nombre: 'PacoGamerHD', icono: 1, aspecto: 2 },
+			{ id: 3, nombre: 'xxxPacoGamerxxx', icono: 2, aspecto: 1 },
+			{ id: 4, nombre: 'PacoGamer', icono: 1, aspecto: 1 },
+			{ id: 5, nombre: 'PacoGamerHD', icono: 1, aspecto: 2 },
+			{ id: 6, nombre: 'xxxPacoGamerxxx', icono: 2, aspecto: 1 },
+		]
+		setAmigos(amigosPrueba)*/
 	}
 
 	const connect = () => {
@@ -183,7 +193,7 @@ export const Sala = (props) => {
 			nombreSala: formData.nombreSala,
 		})
 		setEstadoPag('2')
-		ws.send(JSON.stringify(formData))
+		//ws.send(JSON.stringify(formData))
 	}
 
 	// Poner cada Tab en un componente distinto?
@@ -202,10 +212,12 @@ export const Sala = (props) => {
 				<MDBTabPane tabId="2">
 					<SalaEncabezado datos={salaInfo} />
 					<MDBRow>
-						<MDBCol>
+						<MDBCol className="p-1 mt-1">
+							<h2 className="text-center">Jugadores</h2>
 							<ListaJugadoresPartida usuarios={salaInfo.jugadores} />
 						</MDBCol>
-						<MDBCol>
+						<MDBCol className="p-1 mt-1">
+							<h2 className="text-center">Amigos</h2>
 							{soyHost && (
 								<ListaAmigos
 									usuarios={amigos}
@@ -217,7 +229,11 @@ export const Sala = (props) => {
 					</MDBRow>
 					{/* Comenzar partida, hacer el onClick*/}
 					{soyHost && (
-						<MDBBtn onClick={comenzarPartida}>Comenzar partida</MDBBtn>
+						<MDBRow className="d-flex justify-content-center">
+							<MDBBtn onClick={comenzarPartida} className="mt-1">
+								Comenzar partida
+							</MDBBtn>
+						</MDBRow>
 					)}
 					<p> Pag2...</p>
 				</MDBTabPane>

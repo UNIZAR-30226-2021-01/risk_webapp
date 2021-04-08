@@ -42,7 +42,7 @@ export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
 				<EntradaNumero
 					register={register}
 					errors={errors}
-					text="Tiempo de turno (en minutos)"
+					texto="Tiempo de turno (en minutos)"
 					label="tiempoTurno"
 				/>
 				<EntradaOcultaId register={register} value={usuario.id} />
