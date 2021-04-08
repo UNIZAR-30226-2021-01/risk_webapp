@@ -9,10 +9,10 @@ export const NotificacionSala = ({ datos }) => {
 	const history = useHistory()
 
 	const decisionSala = (datos) => async () => {
-		console.log('no se')
+		const dirSala = `/sala/${datos.idEnvio}`
 		//Debería redirigir a sala con id 12 y type aceptar
 		//Otra opción probada ha sido Redirect pero tampoco funciona
-		history.push('/sala/12')
+		history.push(dirSala)
 	}
 
 	return (

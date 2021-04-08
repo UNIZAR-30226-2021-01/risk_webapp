@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import {
 	MDBBtn,
@@ -45,9 +45,10 @@ export const Sala = (props) => {
 	const { id } = useParams()
 
 	// Estado interno
-	const [estadoInterno, setEstadoInterno] = useState(
+	/*const [estadoInterno, setEstadoInterno] = useState(
 		estadosInternos.CreandoFormulario
-	)
+	)*/
+	const estadoInterno = useRef(estadosInternos.CreandoFormulario)
 
 	// Websocket de la conexión
 	const [ws, setWs] = useState(undefined)
@@ -70,7 +71,7 @@ export const Sala = (props) => {
 	// Jugadores ya conectados
 	const [salaInfo, setSalaInfo] = useState({
 		tiempoTurno: 0,
-		nombreSala: '',
+		nombrePartida: '',
 		idSala: 0,
 		jugadores: [],
 	})
@@ -83,12 +84,14 @@ export const Sala = (props) => {
 			fetchAmigos()
 			setSoyHost(true)
 			setEstadoPag('1')
-			setEstadoInterno(estadosInternos.CreandoFormulario)
+			estadoInterno.current = estadosInternos.CreandoFormulario
+			//setEstadoInterno(estadosInternos.CreandoFormulario)
 		} else {
 			url = 'aceptarSala'
 			setSoyHost(false)
 			setEstadoPag('2')
-			setEstadoInterno(estadosInternos.EsperandoInicio)
+			estadoInterno.current = estadosInternos.EsperandoInicio
+			//setEstadoInterno(estadosInternos.EsperandoInicio)
 		}
 
 		console.log(url)
@@ -103,10 +106,27 @@ export const Sala = (props) => {
 		}
 	}, [])
 
+	useEffect(() => {
+		if (id !== 'undefined') {
+			solicitarDatos()
+		}
+	}, [ws])
+
+	/*function comparer(otherArray) {
+		return function (current) {
+			return (
+				otherArray.filter(function (other) {
+					return other.id == current.id
+				}).length == 0
+			)
+		}
+	}*/
+
 	const fetchAmigos = async () => {
 		const nuestraInfo = obtenerCredenciales(Auth)
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		setAmigos(dataAmigos.amigos)
+
 		/*const amigosPrueba = [
 			{ id: 1, nombre: 'PacoGamer', icono: 1, aspecto: 1 },
 			{ id: 2, nombre: 'PacoGamerHD', icono: 1, aspecto: 2 },
@@ -153,8 +173,11 @@ export const Sala = (props) => {
 				setServerErrors(data.err)
 				// Caso mensaje de datos
 			} else if (data._tipoMensaje === 'd') {
-				if (estadoInterno == estadosInternos.EsperandoRespuestaFormulario) {
-					setEstadoInterno(estadosInternos.EsperandoInicio)
+				if (
+					estadoInterno.current === estadosInternos.EsperandoRespuestaFormulario
+				) {
+					estadoInterno.current = estadosInternos.EsperandoInicio
+					//setEstadoInterno(estadosInternos.EsperandoInicio)
 					setEstadoPag('2')
 				} else {
 					console.log('sad')
@@ -164,7 +187,7 @@ export const Sala = (props) => {
 				// Caso mensaje de partida
 			} else if (data._tipoMensaje === 'p') {
 				// Comienza partida, comprobar estado y redirigir
-				if (estadoInterno == estadosInternos.EsperandoInicio) {
+				if (estadoInterno.current === estadosInternos.EsperandoInicio) {
 					comenzarPartida()
 				} else {
 					console.log('No se debe dar este caos.')
@@ -189,6 +212,16 @@ export const Sala = (props) => {
 		history.push(`/partida/${salaInfo.idSala}`)
 	}
 
+	const solicitarDatos = () => {
+		if (ws !== undefined && ws.readyState === WebSocket.OPEN) {
+			const formData = {
+				...obtenerCredenciales(Auth),
+				idSala: parseInt(id),
+			}
+			ws.send(JSON.stringify(formData))
+		}
+	}
+
 	const crearSala = (formData) => {
 		if (ws !== undefined && ws.readyState === WebSocket.OPEN) {
 			setSalaInfo({
@@ -196,10 +229,11 @@ export const Sala = (props) => {
 				tiempoTurno: formData.tiempoTurno,
 				nombreSala: formData.nombreSala,
 			})
-			console.log(estadosInternos.EsperandoRespuestaFormulario)
 			// Por algún motivo no funciona
-			setEstadoInterno(estadosInternos.EsperandoRespuestaFormulario)
-			console.log(estadoInterno, 'plz')
+			//setEstadoInterno(estadosInternos.EsperandoRespuestaFormulario)
+			estadoInterno.current = estadosInternos.EsperandoRespuestaFormulario
+
+			//console.log(estadoInterno, 'plz')
 			formData = {
 				...formData,
 				...obtenerCredenciales(Auth),

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { MDBAlert, MDBBtn, MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import AuthApi from 'utils/AuthApi'
+import { useHistory } from 'react-router-dom'
 
 /**
  * Representación de un amigo en la lista de amigos, da la opción de eliminar
@@ -9,6 +10,8 @@ import AuthApi from 'utils/AuthApi'
  */
 export const PartidaMini = ({ datosPartida }) => {
 	const Auth = useContext(AuthApi)
+	const history = useHistory()
+	const rutaSala = '/sala/' + datosPartida.id.toString()
 
 	let turnoDisplay
 	if (Auth.auth.usuario.nombre === datosPartida.nombreTurnoActual) {
@@ -29,7 +32,14 @@ export const PartidaMini = ({ datosPartida }) => {
 					<h4>{datosPartida.nombre}</h4>
 				</MDBCol>
 				<MDBCol>
-					<MDBBtn color="default">Unirse</MDBBtn>
+					<MDBBtn
+						color="default"
+						onClick={() => {
+							history.push(rutaSala)
+						}}
+					>
+						Unirse
+					</MDBBtn>
 				</MDBCol>
 			</MDBRow>
 			<hr />
