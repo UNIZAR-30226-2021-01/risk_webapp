@@ -34,7 +34,7 @@ export const FormRegistro = ({
 		defaultValues: {
 			nombre: defaults.nombre ? defaults.nombre : '',
 			correo: defaults.correo ? defaults.correo : '',
-			clave: defaults.clave ? defaults.clave : '',
+			clave: '',
 			recibeCorreos: defaults.recibeCorreos ? defaults.recibeCorreos : false,
 		},
 	})

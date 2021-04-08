@@ -22,7 +22,7 @@ const Registrar = () => {
 			/>
 			<p>
 				{' '}
-				¿Ya tienes cuenta? <Link to="/inicioSesion">Inicia sesión</Link>
+				Si ya tienes cuenta, <Link to="/inicioSesion">inicia sesión</Link>
 			</p>
 		</MDBContainer>
 	)

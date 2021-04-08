@@ -41,7 +41,7 @@ export const FormActualizar = ({
 			icono: defaults.icono ? defaults.icono : 1,
 			aspecto: defaults.aspecto ? defaults.aspecto : 1,
 			correo: defaults.correo ? defaults.correo : '',
-			clave: defaults.clave ? defaults.clave : '',
+			clave: '',
 			recibeCorreos: defaults.recibeCorreos ? defaults.recibeCorreos : false,
 			cambioClave: defaults.cambioClave ? defaults.cambioClave : false,
 		},

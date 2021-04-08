@@ -50,13 +50,13 @@ export const Sala = (props) => {
 	)*/
 	const estadoInterno = useRef(estadosInternos.CreandoFormulario)
 
-	// Websocket de la conexión
-	const [ws, setWs] = useState(undefined)
+	// Websocket de la conexión, en current va
+	const ws = useRef(undefined)
 
 	/**
 	 * 1: Creando sala
 	 * 2: Sala normal
-	 * 3: Cargando (probablemente no necesario, solo para mientras el ws está roto)
+	 * 3: Cargando (probablemente no necesario, solo para mientras el ws.current está roto)
 	 */
 	const [estadoPag, setEstadoPag] = useState('3')
 	const [modal, setModal] = useState(true)
@@ -79,8 +79,12 @@ export const Sala = (props) => {
 	const [amigos, setAmigos] = useState([])
 
 	useEffect(() => {
+		let interval
 		if (id === 'undefined') {
 			url = 'crearSala'
+			interval = setInterval(async () => {
+				fetchAmigos()
+			}, constants.REFRESH_TIME)
 			fetchAmigos()
 			setSoyHost(true)
 			setEstadoPag('1')
@@ -99,18 +103,23 @@ export const Sala = (props) => {
 
 		connect()
 		return () => {
-			console.log('Desmontando ws')
-			if (!WebSocket.CLOSED) {
-				ws.close()
+			console.log(ws.current, 'Desmontando ws')
+			if (url === 'crearSala') {
+				clearInterval(interval)
+			}
+			if (ws.current && ws.readyState !== WebSocket.CLOSED) {
+				ws.current.close()
 			}
 		}
 	}, [])
 
+	/*
 	useEffect(() => {
 		if (id !== 'undefined') {
 			solicitarDatos()
 		}
-	}, [ws])
+	}, [ws.current])
+	*/
 
 	/*function comparer(otherArray) {
 		return function (current) {
@@ -126,45 +135,34 @@ export const Sala = (props) => {
 		const nuestraInfo = obtenerCredenciales(Auth)
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		setAmigos(dataAmigos.amigos)
-
-		/*const amigosPrueba = [
-			{ id: 1, nombre: 'PacoGamer', icono: 1, aspecto: 1 },
-			{ id: 2, nombre: 'PacoGamerHD', icono: 1, aspecto: 2 },
-			{ id: 3, nombre: 'xxxPacoGamerxxx', icono: 2, aspecto: 1 },
-			{ id: 4, nombre: 'PacoGamer', icono: 1, aspecto: 1 },
-			{ id: 5, nombre: 'PacoGamerHD', icono: 1, aspecto: 2 },
-			{ id: 6, nombre: 'xxxPacoGamerxxx', icono: 2, aspecto: 1 },
-		]
-		setAmigos(amigosPrueba)*/
 	}
 
 	// Si se cae la conexión, el server te tira, por lo que no hay que intentar
 	// reconectar
 	const connect = () => {
-		let ws = new WebSocket(`${constants.BASER_WS_URL}${url}`)
+		ws.current = new WebSocket(`${constants.BASER_WS_URL}${url}`)
 		let tOut = 250
 
 		// websocket onopen event listener
-		ws.onopen = () => {
-			console.log(ws.readyState, 'Conectado')
+		ws.current.onopen = () => {
+			console.log(ws.current.readyState, 'Conectado')
 			setModal(false)
-			setWs(ws)
 		}
 
 		// websocket onclose event listener
-		ws.onclose = (e) => {
+		ws.current.onclose = (e) => {
 			console.log(`Socket cerrado.`)
 		}
 
 		// websocket onerror event listener
-		ws.onerror = (err) => {
+		ws.current.onerror = (err) => {
 			console.error('Socket encountered error: ', err.message, 'Closing socket')
 			setModal(true)
-			ws.close()
+			ws.current.close()
 		}
 
 		// websocket onmessage event listener
-		ws.onmessage = (e) => {
+		ws.current.onmessage = (e) => {
 			const data = JSON.parse(e.data)
 			console.log(data, estadoInterno, 'Datos y estado')
 			setServerErrors('')
@@ -200,12 +198,12 @@ export const Sala = (props) => {
 	 * utilited by the @function connect to check if the connection is close due to an error, if so attempts to reconnect
 	 */
 	const check = () => {
-		if (!ws || ws.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
+		if (!ws.current || ws.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
 	}
 
 	const comenzarPartida = () => {
 		// Si es necesario, comprobar número de jugadores
-		ws.send(JSON.stringify({ tipo: 'Iniciar' }))
+		ws.current.send(JSON.stringify({ tipo: 'Iniciar' }))
 	}
 
 	const redirigirPartida = () => {
@@ -213,17 +211,17 @@ export const Sala = (props) => {
 	}
 
 	const solicitarDatos = () => {
-		if (ws !== undefined && ws.readyState === WebSocket.OPEN) {
+		if (ws.current !== undefined && ws.readyState === WebSocket.OPEN) {
 			const formData = {
 				...obtenerCredenciales(Auth),
 				idSala: parseInt(id),
 			}
-			ws.send(JSON.stringify(formData))
+			ws.current.send(JSON.stringify(formData))
 		}
 	}
 
 	const crearSala = (formData) => {
-		if (ws !== undefined && ws.readyState === WebSocket.OPEN) {
+		if (ws.current !== undefined && ws.current.readyState === WebSocket.OPEN) {
 			setSalaInfo({
 				...salaInfo,
 				tiempoTurno: formData.tiempoTurno,
@@ -239,9 +237,9 @@ export const Sala = (props) => {
 				...obtenerCredenciales(Auth),
 			}
 			console.log(formData, 'Envío crear sala')
-			ws.send(JSON.stringify(formData))
+			ws.current.send(JSON.stringify(formData))
 		} else {
-			console.log(ws.readyState, 'Estado del socket')
+			console.log(ws.current.readyState, 'Estado del socket')
 		}
 	}
 
@@ -289,8 +287,7 @@ export const Sala = (props) => {
 							{soyHost && (
 								<ListaAmigos
 									usuarios={amigos}
-									elemento={<InvitarAmigo ws={ws} />}
-									mostrarAnyadir={false}
+									elemento={<InvitarAmigo ws={ws.current} />}
 								/>
 							)}
 						</MDBCol>

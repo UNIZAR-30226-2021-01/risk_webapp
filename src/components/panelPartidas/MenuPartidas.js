@@ -18,6 +18,7 @@ export const MenuSalas = () => {
 			setPartidas(dataPartidas)
 		}
 		//setData()
+
 		setPartidas([
 			{
 				id: 1,

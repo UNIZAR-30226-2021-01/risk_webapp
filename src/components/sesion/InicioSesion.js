@@ -20,7 +20,7 @@ const InicioSesion = () => {
 				makePetition={inicioSesion}
 			/>
 			<p>
-				¿No tienes cuenta?<Link to="/registro"> Regístrate </Link>
+				Si no tienes cuenta, <Link to="/registro"> regístrate </Link>
 			</p>
 		</MDBContainer>
 	)

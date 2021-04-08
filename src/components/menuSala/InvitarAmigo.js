@@ -8,6 +8,7 @@ export const InvitarAmigo = ({ amigo, ws }) => {
 			tipo: 'Invitar',
 		}
 
+		console.log(ws, 'Ws cuando invitas')
 		ws.send(JSON.stringify(formData))
 	}
 
