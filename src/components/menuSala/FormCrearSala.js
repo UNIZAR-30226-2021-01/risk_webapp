@@ -8,7 +8,7 @@ import { EntradaOcultaId } from 'components/sesion/entradasFormulario/EntradaOcu
 import { EntradaOcultaHash } from 'components/sesion/entradasFormulario/EntradaOcultaHash'
 import { EntradaNumero } from 'components/sesion/entradasFormulario/EntradaNumero'
 
-export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
+export const FormCrearSala = ({ enviarSolicitud }) => {
 	const { register, handleSubmit, errors } = useForm({ nombre: '' })
 	// Si se está enviando un formulario
 	const [submitting, setSubmitting] = useState(false)
@@ -22,7 +22,6 @@ export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
 				id="crearSala"
 				onSubmit={handleSubmit(async (formData) => {
 					formData.tiempoTurno = parseInt(formData.tiempoTurno)
-					console.log(formData)
 
 					setSubmitting(true)
 					setServerOk('')
@@ -45,8 +44,6 @@ export const FormCrearSala = ({ usuario, enviarSolicitud }) => {
 					texto="Tiempo de turno (en minutos)"
 					label="tiempoTurno"
 				/>
-				<EntradaOcultaId register={register} value={usuario.id} />
-				<EntradaOcultaHash register={register} value={usuario.clave} />
 
 				<div className="text-center mt-4">
 					<MDBBtn color="indigo" type="submit" disabled={submitting}>

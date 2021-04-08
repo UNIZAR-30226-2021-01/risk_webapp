@@ -26,6 +26,9 @@ const constants = {
 	// URL base del servidor de juego
 	BASE_SERVER_URL: 'https://risk-servidor.herokuapp.com/',
 
+	// URL base del servidor de websockets
+	BASER_WS_URL: 'wss://risk-servidor.herokuapp.com/',
+
 	// Tiempo de refresco
 	REFRESH_TIME: 2500,
 }

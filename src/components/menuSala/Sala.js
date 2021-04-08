@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { MDBBtn, MDBRow, MDBCol, MDBTabContent, MDBTabPane } from 'mdbreact'
+import {
+	MDBBtn,
+	MDBRow,
+	MDBCol,
+	MDBTabContent,
+	MDBTabPane,
+	MDBModal,
+	MDBModalBody,
+	MDBModalFooter,
+	MDBModalHeader,
+} from 'mdbreact'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import InvitarAmigo from './InvitarAmigo'
 import { obtenerAmigos } from 'utils/restAPI'
@@ -12,6 +22,7 @@ import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServe
 import { useHistory } from 'react-router-dom'
 import SalaEncabezado from './SalaEncabezado'
 import ListaJugadoresPartida from './ListaJugadoresPartida'
+import constants from 'utils/constants'
 import './Sala.css'
 
 const estadosInternos = {
@@ -34,10 +45,12 @@ export const Sala = (props) => {
 	const { id } = useParams()
 
 	// Estado interno
-	let estadoInterno = estadosInternos.CreandoFormulario
+	const [estadoInterno, setEstadoInterno] = useState(
+		estadosInternos.CreandoFormulario
+	)
 
 	// Websocket de la conexión
-	let ws
+	const [ws, setWs] = useState(undefined)
 
 	/**
 	 * 1: Creando sala
@@ -45,6 +58,7 @@ export const Sala = (props) => {
 	 * 3: Cargando (probablemente no necesario, solo para mientras el ws está roto)
 	 */
 	const [estadoPag, setEstadoPag] = useState('3')
+	const [modal, setModal] = useState(true)
 
 	// Indica si se es el host o no
 	const [soyHost, setSoyHost] = useState(false)
@@ -67,20 +81,22 @@ export const Sala = (props) => {
 		if (id === 'undefined') {
 			url = 'crearSala'
 			fetchAmigos()
-			setEstadoPag('1')
 			setSoyHost(true)
-			estadoInterno = estadosInternos.CreandoFormulario
+			setEstadoPag('1')
+			setEstadoInterno(estadosInternos.CreandoFormulario)
 		} else {
-			setEstadoPag('2')
 			url = 'aceptarSala'
 			setSoyHost(false)
-			estadoInterno = estadosInternos.EsperandoInicio
+			setEstadoPag('2')
+			setEstadoInterno(estadosInternos.EsperandoInicio)
 		}
 
+		console.log(url)
 		console.log('id: ', id)
 
 		connect()
 		return () => {
+			console.log('Desmontando ws')
 			if (!WebSocket.CLOSED) {
 				ws.close()
 			}
@@ -102,49 +118,35 @@ export const Sala = (props) => {
 		setAmigos(amigosPrueba)*/
 	}
 
+	// Si se cae la conexión, el server te tira, por lo que no hay que intentar
+	// reconectar
 	const connect = () => {
-		ws = new WebSocket(`wss://fathomless-ridge-74437.herokuapp.com/${url}`)
+		let ws = new WebSocket(`${constants.BASER_WS_URL}${url}`)
 		let tOut = 250
-		var connectInterval
 
 		// websocket onopen event listener
 		ws.onopen = () => {
-			console.log('connected websocket component')
-			/**
-			 * Mensaje de inicio
-			const message = { Cosa: 'inicio' }
-			ws.send(JSON.stringify(message))
-			 */
-
-			tOut = 250 // reset timer to 250 on open of websocket connection
-			clearTimeout(connectInterval) // clear Interval on on open of websocket connection
+			console.log(ws.readyState, 'Conectado')
+			setModal(false)
+			setWs(ws)
 		}
 
 		// websocket onclose event listener
 		ws.onclose = (e) => {
-			console.log(`Socket is closed.`)
+			console.log(`Socket cerrado.`)
 		}
 
 		// websocket onerror event listener
 		ws.onerror = (err) => {
 			console.error('Socket encountered error: ', err.message, 'Closing socket')
+			setModal(true)
 			ws.close()
-			console.log(
-				`Reconnect will be attempted in ${Math.min(
-					10000 / 1000,
-					(tOut + tOut) / 1000
-				)} second.`,
-				err.reason
-			)
-
-			tOut = tOut + tOut //increment retry interval
-			connectInterval = setTimeout(check, Math.min(10000, tOut)) //call check function after timeout
 		}
 
 		// websocket onmessage event listener
 		ws.onmessage = (e) => {
 			const data = JSON.parse(e.data)
-			console.log(data)
+			console.log(data, estadoInterno, 'Datos y estado')
 			setServerErrors('')
 			// Caso error
 			if (data._tipoMensaje === 'e') {
@@ -152,8 +154,10 @@ export const Sala = (props) => {
 				// Caso mensaje de datos
 			} else if (data._tipoMensaje === 'd') {
 				if (estadoInterno == estadosInternos.EsperandoRespuestaFormulario) {
-					estadoInterno = estadosInternos.EsperandoInicio
+					setEstadoInterno(estadosInternos.EsperandoInicio)
 					setEstadoPag('2')
+				} else {
+					console.log('sad')
 				}
 				delete data._tipoMensaje
 				setSalaInfo(data)
@@ -163,7 +167,7 @@ export const Sala = (props) => {
 				if (estadoInterno == estadosInternos.EsperandoInicio) {
 					comenzarPartida()
 				} else {
-					console.log('???')
+					console.log('No se debe dar este caos.')
 				}
 			}
 		}
@@ -173,8 +177,7 @@ export const Sala = (props) => {
 	 * utilited by the @function connect to check if the connection is close due to an error, if so attempts to reconnect
 	 */
 	const check = () => {
-		const webS = ws
-		if (!webS || webS.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
+		if (!ws || ws.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
 	}
 
 	const comenzarPartida = () => {
@@ -187,26 +190,57 @@ export const Sala = (props) => {
 	}
 
 	const crearSala = (formData) => {
-		setSalaInfo({
-			...salaInfo,
-			tiempoTurno: formData.tiempoTurno,
-			nombreSala: formData.nombreSala,
-		})
-		setEstadoPag('2')
-		//ws.send(JSON.stringify(formData))
+		if (ws !== undefined && ws.readyState === WebSocket.OPEN) {
+			setSalaInfo({
+				...salaInfo,
+				tiempoTurno: formData.tiempoTurno,
+				nombreSala: formData.nombreSala,
+			})
+			console.log(estadosInternos.EsperandoRespuestaFormulario)
+			// Por algún motivo no funciona
+			setEstadoInterno(estadosInternos.EsperandoRespuestaFormulario)
+			console.log(estadoInterno, 'plz')
+			formData = {
+				...formData,
+				...obtenerCredenciales(Auth),
+			}
+			console.log(formData, 'Envío crear sala')
+			ws.send(JSON.stringify(formData))
+		} else {
+			console.log(ws.readyState, 'Estado del socket')
+		}
 	}
 
 	// Poner cada Tab en un componente distinto?
 	return (
 		<MDBContainer>
 			<ErroresServer serverErrors={serverErrors} />
+			{/*  Mover a otro componente
+			El modal debería ser mientras se espera un mensaje, no por si se cae.
+			Si se cae, se debería redirigir al menú principal tras mostrar un modal de
+			'conexión caída' */}
+			<MDBModal isOpen={modal} toggle={() => {}}>
+				<MDBModalBody className="d-flex justify-content-between">
+					<p>
+						{' '}
+						Te has desconectado. Comprueba tu conexión e inténtalo más tarde{' '}
+					</p>
+				</MDBModalBody>
+				<MDBModalFooter>
+					<MDBBtn
+						onClick={() => {
+							history.push('/')
+						}}
+					>
+						Volver al menú principal
+					</MDBBtn>
+				</MDBModalFooter>
+			</MDBModal>
+
 			<MDBTabContent activeItem={estadoPag}>
 				<MDBTabPane tabId="1">
 					<p> Pag1...</p>
-					<FormCrearSala
-						usuario={Auth.auth.usuario}
-						enviarSolicitud={crearSala}
-					/>
+					<FormCrearSala enviarSolicitud={crearSala} />
 				</MDBTabPane>
 				{/* Mover todo esto a otro componente si es necesario */}
 				<MDBTabPane tabId="2">
@@ -238,7 +272,7 @@ export const Sala = (props) => {
 					<p> Pag2...</p>
 				</MDBTabPane>
 				<MDBTabPane tabId="3">
-					<p> Cargando...</p>
+					<p> Cargando </p>
 				</MDBTabPane>
 			</MDBTabContent>
 		</MDBContainer>

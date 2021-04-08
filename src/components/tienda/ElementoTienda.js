@@ -50,33 +50,19 @@ const ElementoTienda = ({ datos, tipo }) => {
 				<div className="imagenPrueba">
 					<img src={imagen} />
 				</div>
-				<MDBBtn color="primary" onClick={() => toggle()}>
+				<MDBBtn color="primary" onClick={toggle}>
 					{datos.precio}
 				</MDBBtn>
 			</div>
-			<MDBModal
-				isOpen={isOpen}
-				toggle={() => {
-					toggle()
-				}}
-			>
-				<MDBModalHeader
-					toggle={() => {
-						toggle()
-					}}
-				>
+			<MDBModal isOpen={isOpen} toggle={toggle}>
+				<MDBModalHeader toggle={toggle}>
 					¿Quieres comprar este {tipo} por {datos.precio} riskos?
 				</MDBModalHeader>
 				<MDBModalBody className="d-flex justify-content-between">
 					<ErroresServer serverErrors={serverErrors} />
 				</MDBModalBody>
 				<MDBFooter className="d-flex justify-content-around">
-					<MDBBtn
-						color="primary"
-						onClick={() => {
-							toggle()
-						}}
-					>
+					<MDBBtn color="primary" onClick={toggle}>
 						{' '}
 						Cancelar
 					</MDBBtn>
