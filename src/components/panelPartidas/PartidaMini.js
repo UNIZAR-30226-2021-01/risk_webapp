@@ -15,10 +15,15 @@ export const PartidaMini = ({ datosPartida }) => {
 
 	let turnoDisplay
 	if (Auth.auth.usuario.nombre === datosPartida.nombreTurnoActual) {
-		turnoDisplay = <MDBAlert color="success"> Tu turno </MDBAlert>
+		turnoDisplay = (
+			<MDBAlert color="success" className="m-0">
+				{' '}
+				Tu turno{' '}
+			</MDBAlert>
+		)
 	} else {
 		turnoDisplay = (
-			<p>
+			<p className="m-0">
 				{' '}
 				Turno de <strong>{datosPartida.nombreTurnoActual}</strong>
 			</p>
@@ -28,12 +33,12 @@ export const PartidaMini = ({ datosPartida }) => {
 	return (
 		<MDBContainer>
 			<MDBRow>
-				<MDBCol>
+				<MDBCol className="d-flex align-items-center">
 					<h4>{datosPartida.nombre}</h4>
 				</MDBCol>
-				<MDBCol>
+				<MDBCol className="d-flex justify-content-end">
 					<MDBBtn
-						color="default"
+						className="btn-unirsePartida"
 						onClick={() => {
 							history.push(rutaSala)
 						}}

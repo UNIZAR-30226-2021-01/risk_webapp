@@ -40,7 +40,7 @@ export const MenuSalas = () => {
 
 	return (
 		<MDBContainer>
-			<h2> Partidas en curso </h2>
+			<h2 className="text-center mb-1"> Partidas en curso </h2>
 			<ListaPartidas partidas={partidas} />
 		</MDBContainer>
 	)

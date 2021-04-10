@@ -7,7 +7,7 @@ import { MDBContainer, MDBFooter } from 'mdbreact'
  */
 const Footer = () => {
 	return (
-		<MDBFooter fixed="bottom" color="blue" className="font-small pt-3 mt-4">
+		<MDBFooter fixed="bottom" color="blue" className="font-small pt-3">
 			<MDBContainer fluid className="text-center">
 				<h5 className="title">Proyecto software - Risk multiplataforma</h5>
 			</MDBContainer>

@@ -23,9 +23,11 @@ export const AnyadirAmigo = ({ usuario }) => {
 
 	return (
 		<MDBContainer>
-			<MDBBtn color="primary" className="btn-addfriend" onClick={toggle}>
-				Añadir amigo
-			</MDBBtn>
+			<div className="d-flex justify-content-center">
+				<MDBBtn className="btn-addfriend" onClick={toggle}>
+					Añadir amigo
+				</MDBBtn>
+			</div>
 			<MDBModal isOpen={isOpen}>
 				<MDBModalHeader toggle={toggle}>Añadir amigo</MDBModalHeader>
 				<MDBCol middle={true}>

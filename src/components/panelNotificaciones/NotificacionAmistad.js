@@ -67,7 +67,6 @@ export const NotificacionAmistad = ({ datos }) => {
 					<MDBRow className="mr-1">
 						<MDBCol md="6">
 							<MDBBtn
-								color="success"
 								className="btn-notis"
 								onClick={decisionAmistad(datos, 'Aceptar')}
 							>

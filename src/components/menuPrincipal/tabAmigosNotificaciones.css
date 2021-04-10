@@ -1,9 +1,27 @@
-.container.border.mt-4.contenedor-pills{
-	max-height: 25rem;
-}
-
-.container.border.mt-4.contenedor-pills .container.mt-9{
+ul.list-group.lista-notis,
+ul.list-group.lista-amigos {
 	overflow-y: scroll;
 	overflow-x: hidden;
-	max-height: 20rem;
+	max-height: 18.5rem;
+	width: 100% !important;
+	color: #111 !important;
+}
+
+ul.list-group.lista-notis {
+	max-height: 22rem;
+}
+
+ul.list-group.lista-notis li.list-group-item.list-group-item-undefined,
+ul.list-group.lista-amigos li.list-group-item.list-group-item-undefined {
+	border: 0.2rem solid #7c643c;
+	border-radius: 0.2rem;
+	margin-bottom: 0.5rem;
+	margin-top: 1rem;
+	background: repeating-linear-gradient(
+		0deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
 }

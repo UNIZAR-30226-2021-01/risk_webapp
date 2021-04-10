@@ -83,7 +83,11 @@ export const FormRegistro = ({
 						<RecibeCorreos register={register} errors={errors} />
 
 						<div className="text-center mt-4">
-							<MDBBtn color="indigo" type="submit" disabled={submitting}>
+							<MDBBtn
+								className="btn-registro"
+								type="submit"
+								disabled={submitting}
+							>
 								{submitText}
 							</MDBBtn>
 						</div>

@@ -39,7 +39,18 @@ export const TabAmigosNotificaciones = () => {
 		const nuestraInfo = obtenerCredenciales(Auth)
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		//console.log(dataAmigos)
-		setAmigos(dataAmigos.amigos)
+
+		let amigosPrueba = [
+			{ id: 1, nombre: 'ricardo', icono: 1 },
+			{ id: 2, nombre: 'rick', icono: 2 },
+			{ id: 3, nombre: 'ricky', icono: 3 },
+			{ id: 4, nombre: 'rick', icono: 4 },
+			{ id: 5, nombre: 'ricky', icono: 6 },
+			{ id: 6, nombre: 'rick', icono: 8 },
+			{ id: 7, nombre: 'ricky', icono: 10 },
+		]
+		setAmigos(amigosPrueba)
+		//setAmigos(dataAmigos.amigos)
 	}
 
 	const fetchNotis = async () => {
@@ -49,14 +60,14 @@ export const TabAmigosNotificaciones = () => {
 		//console.log(dataNotis)
 
 		// DATOS DE PRUEBA
-		/*let notisPrueba = [
-			{ infoExtra: 'PacoGamer', idEnvio: 69 },
+		let notisPrueba = [
+			{ infoExtra: 'PacoGamer', idEnvio: 69, tipo: 'Peticion de amistad' },
 			{ infoExtra: 'Raulito69HD', idEnvio: 15 },
 			{ infoExtra: 'Raulito69XX', idEnvio: 12 },
 			{ infoExtra: 'Raulito69', idEnvio: 144 },
 		]
-		setNotis(notisPrueba)*/
-		setNotis(dataNotis.notificaciones)
+		setNotis(notisPrueba)
+		//setNotis(dataNotis.notificaciones)
 	}
 
 	useEffect(() => {
@@ -77,7 +88,7 @@ export const TabAmigosNotificaciones = () => {
 	}
 
 	return (
-		<MDBContainer className="border mt-4 contenedor-pills">
+		<MDBContainer className="mt-4 contenedor-pills">
 			<MDBNav className="nav-pills nav-justified ">
 				<MDBNavItem className="my-2">
 					<MDBNavLink

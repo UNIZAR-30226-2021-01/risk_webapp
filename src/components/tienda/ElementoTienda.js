@@ -12,13 +12,15 @@ import { comprarObjeto } from 'utils/restAPI'
 import iconos from 'assets/iconos/iconos'
 import tropas from 'assets/tropas/tropas'
 import { recargarUsuarioServer } from 'utils/AuthServer'
+import riskos from '../../assets/UI/moneda.png'
+import marcoIcono from '../../assets/UI/avatar_marco.png'
+import fondoTropa from '../../assets/UI/avatar_fondo.png'
 
 const ElementoTienda = ({ datos, tipo }) => {
 	const Auth = useContext(AuthApi)
 	const [serverErrors, setServerErrors] = useState('')
 	const [isOpen, setOpen] = useState(false)
 	var imagen
-
 	if (tipo === 'Icono') imagen = iconos[datos.id].img
 	else imagen = tropas[datos.id].img
 
@@ -47,12 +49,19 @@ const ElementoTienda = ({ datos, tipo }) => {
 	return (
 		<>
 			<div className="item-tienda">
-				<div className="imagenPrueba">
-					<img src={imagen} />
+				<div className="img-item-container">
+					<img src={imagen} className="img-item" />
+					<img src={marcoIcono} className="img-item-fondo" />
+					{tipo === 'Aspecto' && (
+						<img src={fondoTropa} className="img-tropas-fondo" />
+					)}
 				</div>
-				<MDBBtn color="primary" onClick={toggle}>
-					{datos.precio}
-				</MDBBtn>
+				<div className="d-flex justify-content-center align-content-center">
+					<MDBBtn onClick={toggle}>
+						<img src={riskos} className="riskos-img"></img>
+						<div className="d-none d-md-inline">{datos.precio}</div>
+					</MDBBtn>
+				</div>
 			</div>
 			<MDBModal isOpen={isOpen} toggle={toggle}>
 				<MDBModalHeader toggle={toggle}>

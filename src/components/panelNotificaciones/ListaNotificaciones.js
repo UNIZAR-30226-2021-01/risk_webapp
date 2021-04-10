@@ -11,8 +11,8 @@ import NotificacionSala from './NotificacionSala.js'
  */
 const ListaNotificaciones = ({ notificaciones }) => {
 	return (
-		<MDBContainer className="mt-9">
-			<MDBListGroup style={{ width: '18.5rem' }}>
+		<MDBContainer className="mt-3">
+			<MDBListGroup className="lista-notis">
 				{
 					//Los tipos son "Invitacion" y "Peticion de amistad"
 				}

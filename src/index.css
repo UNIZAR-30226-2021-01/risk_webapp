@@ -42,7 +42,8 @@ code {
 
 @font-face {
 	font-family: 'Pixel';
-	src: local('Pixel'), url(./fonts/exepixelperfect.medium.ttf) format('truetype');
+	src: local('Pixel'),
+		url(./fonts/exepixelperfect.medium.ttf) format('truetype');
 }
 
 * {
@@ -51,5 +52,7 @@ code {
 
 /* Empuja el footer al fondo de la página, mantener */
 .wrapper {
-	min-height: calc(100vh - 158px);
+	min-height: calc(100vh - 5.8rem);
+	background-color: #000000;
+	color: antiquewhite;
 }

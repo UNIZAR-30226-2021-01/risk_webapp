@@ -40,7 +40,7 @@ const Tienda = () => {
 	}
 
 	return (
-		<MDBContainer className="border mt-4 contenedor-pills">
+		<MDBContainer className="mt-4 contenedor-pills">
 			<MDBNav className="nav-pills nav-justified ">
 				<MDBNavItem className="my-2">
 					<MDBNavLink

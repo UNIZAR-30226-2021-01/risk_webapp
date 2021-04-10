@@ -16,8 +16,10 @@ import {
 } from 'mdbreact'
 import { Link } from 'react-router-dom'
 import iconos from '../assets/iconos/iconos'
+import marcoIcono from '../assets/UI/avatar_marco.png'
+import riskos from '../assets/UI/moneda.png'
 import { obtenerCredenciales } from '../utils/usuarioVO'
-
+import titulo from '../assets/UI/titulo.png'
 /**
  * Header contiene el encabezado de la aplicación y permite consultar
  * las reglas.
@@ -37,10 +39,13 @@ export const Header = () => {
 	}
 
 	return (
-		<MDBNavbar color="default-color" dark expand="md">
+		<MDBNavbar dark expand="md">
 			<MDBNavbarBrand>
 				<Link to="/">
-					<strong className="white-text">RISK</strong>
+					<img src={titulo}></img>
+					{/*
+						<strong className="white-text">RISK</strong>
+					*/}
 				</Link>
 			</MDBNavbarBrand>
 			<MDBNavbarToggler onClick={toggleCollapse} />
@@ -67,7 +72,10 @@ export const Header = () => {
 						<>
 							<MDBNavItem>
 								<div className="riskos-head">
+									{/*
 									<MDBIcon icon="coins" />
+									*/}
+									<img src={riskos} className="riskos-img"></img>
 									<div className="d-none d-md-inline" id="riskos-num">
 										{Auth.auth.usuario.riskos}
 									</div>
@@ -79,7 +87,11 @@ export const Header = () => {
 										{/*
 										<MDBIcon icon="user" />
 										*/}
-										<img src={iconos[Auth.auth.usuario.icono].img}></img>
+										<img
+											src={iconos[Auth.auth.usuario.icono].img}
+											className="icono"
+										></img>
+										<img src={marcoIcono} className="marco-icono"></img>
 										<div className="d-none d-md-inline" id="head-user">
 											{Auth.auth.usuario.nombre}
 										</div>

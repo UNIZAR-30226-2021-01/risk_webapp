@@ -1,0 +1,49 @@
+.btn-default.btn.Ripple-parent.btn-crearSala {
+	font-size: 1.2rem;
+	padding: 0.1rem 0.5rem;
+	margin: 0.75rem;
+	margin-left: 0rem;
+	width: 100%;
+	background-color: #009e73 !important;
+}
+
+ul.list-group.lista-partidas {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 22rem;
+	width: 100% !important;
+	color: #111 !important;
+
+	background: repeating-linear-gradient(
+		90deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+	border-radius: 1rem;
+}
+
+ul.list-group.lista-partidas li {
+	border: 0.2rem solid #7c643c;
+	border-radius: 0.2rem;
+	margin-bottom: 0.5rem;
+	margin-top: 1rem;
+	background: repeating-linear-gradient(
+		0deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+	/*background-image: u.rl('../../assets/UI/ui_1.png');
+	background-size: auto;*/
+}
+
+.btn-default.btn.Ripple-parent.btn-unirsePartida {
+	background-color: #009e73 !important;
+	font-size: 1.2rem;
+	padding: 0.2rem 0.7rem;
+	margin: 0.75rem;
+	margin-left: 0rem;
+}

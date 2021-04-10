@@ -26,11 +26,7 @@ export const NotificacionSala = ({ datos }) => {
 				<MDBCol md="4">
 					<MDBRow className="mr-1">
 						<MDBCol md="6">
-							<MDBBtn
-								color="success"
-								className="btn-notis"
-								onClick={decisionSala(datos)}
-							>
+							<MDBBtn className="btn-notis" onClick={decisionSala(datos)}>
 								<MDBIcon icon="check" />
 							</MDBBtn>
 						</MDBCol>

@@ -1,3 +1,8 @@
+.navbar-dark.navbar.navbar-expand-md {
+	background-color: #d55e00;
+	color: #fff !important;
+}
+
 .fa {
 	margin-right: 0.45rem;
 }
@@ -8,6 +13,7 @@ strong.white-text {
 
 #head-user {
 	font-size: 1.75rem;
+	margin-left: 0.25rem;
 }
 
 .dropdown.show .show.dropdown-menu.dropdown-default a {
@@ -21,6 +27,20 @@ strong.white-text {
 	padding: 0.5rem;
 }
 
+.riskos-img {
+	width: 1rem;
+}
+
 #riskos-num {
 	font-size: 1.75rem;
+	margin-left: 0.1rem;
+}
+
+.icono {
+	position: absolute;
+	top: 0.65rem;
+}
+
+.icono-marco {
+	position: absolute;
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import PartidaMini from './PartidaMini'
 import { MDBBtn, MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 import { useHistory } from 'react-router-dom'
-
+import './ListaPartidas.css'
 /**
  * Muestra la lista de amigos recibida como parámetro y da la opción de
  * añadir un amigo.
@@ -11,24 +11,25 @@ import { useHistory } from 'react-router-dom'
 export const ListaPartidas = ({ partidas }) => {
 	const history = useHistory()
 	return (
-		<MDBContainer className="mt-9">
-			<MDBListGroup style={{ width: '18.5rem' }}>
-				<MDBBtn
-					color="primary"
-					className="btn-addfriend"
-					onClick={() => {
-						history.push('/sala/undefined')
-					}}
-				>
-					Crear sala
-				</MDBBtn>
-				{partidas.map((partida) => (
-					<MDBListGroupItem key={partida.id.toString()}>
-						<PartidaMini datosPartida={partida} />
-					</MDBListGroupItem>
-				))}
-			</MDBListGroup>
-		</MDBContainer>
+		<>
+			<MDBBtn
+				className="btn-crearSala my-0"
+				onClick={() => {
+					history.push('/sala/undefined')
+				}}
+			>
+				Crear sala
+			</MDBBtn>
+			<MDBContainer className="mt-3">
+				<MDBListGroup className="lista-partidas">
+					{partidas.map((partida) => (
+						<MDBListGroupItem key={partida.id.toString()}>
+							<PartidaMini datosPartida={partida} />
+						</MDBListGroupItem>
+					))}
+				</MDBListGroup>
+			</MDBContainer>
+		</>
 	)
 }
 

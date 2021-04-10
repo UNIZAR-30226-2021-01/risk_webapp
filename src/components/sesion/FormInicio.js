@@ -68,7 +68,11 @@ export const FormInicio = ({ defaults, submitText, makePetition }) => {
 						/>
 
 						<div className="text-center mt-4">
-							<MDBBtn type="submit" disabled={submitting}>
+							<MDBBtn
+								className="btn-inicio"
+								type="submit"
+								disabled={submitting}
+							>
 								{submitText}
 							</MDBBtn>
 						</div>

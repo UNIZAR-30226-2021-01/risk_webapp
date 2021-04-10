@@ -19,15 +19,15 @@ export const ListaAmigos = ({
 	const Auth = useContext(AuthApi)
 
 	return (
-		<MDBContainer className="mt-9">
-			<MDBListGroup style={{ width: '18.5rem' }}>
-				{mostrarAnyadir && <AnyadirAmigo usuario={Auth.auth.usuario} />}
+		<MDBContainer className="mt-3">
+			<MDBListGroup className="lista-amigos">
 				{usuarios.map((usuario) => (
 					<MDBListGroupItem key={usuario.id.toString()}>
 						<Amigo datos={usuario} elemento={elemento} {...rest} />
 					</MDBListGroupItem>
 				))}
 			</MDBListGroup>
+			{mostrarAnyadir && <AnyadirAmigo usuario={Auth.auth.usuario} />}
 		</MDBContainer>
 	)
 }
