@@ -1,14 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import NotificacionAmistad from './NotificacionAmistad.js'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 import NotificacionSala from './NotificacionSala.js'
 
 /**
  * Muestra la lista de notificaciones recibida como parámetro.
- * @param {lista_de_notificaciones} notificaciones Notificaciones del
- * usuario de la aplicación recibidas como JSON a través de la API
- * del servidor de juego.
- */
+ * @param {lista_de_notificaciones} notificaciones  */
 const ListaNotificaciones = ({ notificaciones }) => {
 	return (
 		<MDBContainer className="mt-3">
@@ -32,4 +30,15 @@ const ListaNotificaciones = ({ notificaciones }) => {
 	)
 }
 
+ListaNotificaciones.PropTypes = {
+	/**
+	 * Notificaciones del usuario de la aplicación recibidas como JSON a
+	 * través de la API del servidor de juego.
+	 */
+	notificaciones: PropTypes.arrayOf(
+		PropTypes.shape({
+			idEnvio: PropTypes.number,
+		})
+	),
+}
 export default ListaNotificaciones

@@ -1,21 +1,18 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { MDBBtn } from 'mdbreact'
-import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
-import { OkServer } from 'components/sesion/entradasFormulario/OkServer'
 import { EntradaNombre } from 'components/sesion/entradasFormulario/EntradaNombre'
-import { EntradaOcultaId } from 'components/sesion/entradasFormulario/EntradaOcultaID'
-import { EntradaOcultaHash } from 'components/sesion/entradasFormulario/EntradaOcultaHash'
 import { EntradaNumero } from 'components/sesion/entradasFormulario/EntradaNumero'
 
+/**
+ * Formulario de creación de sala, contiene un campo para el nombre y
+ * otro para el tiempo de turno.
+ */
 export const FormCrearSala = ({ enviarSolicitud }) => {
 	const { register, handleSubmit, errors } = useForm({ nombre: '' })
 	// Si se está enviando un formulario
 	const [submitting, setSubmitting] = useState(false)
-	// Array de strings
-	const [serverErrors, setServerErrors] = useState('')
-	// SetOk
-	const [serverOk, setServerOk] = useState('')
 	return (
 		<div>
 			<form
@@ -24,14 +21,10 @@ export const FormCrearSala = ({ enviarSolicitud }) => {
 					formData.tiempoTurno = parseInt(formData.tiempoTurno)
 
 					setSubmitting(true)
-					setServerOk('')
 					enviarSolicitud(formData)
 					setSubmitting(false)
 				})}
 			>
-				<ErroresServer serverErrors={serverErrors} />
-				<OkServer serverOk={serverOk} />
-
 				<EntradaNombre
 					register={register}
 					errors={errors}
@@ -53,4 +46,11 @@ export const FormCrearSala = ({ enviarSolicitud }) => {
 			</form>
 		</div>
 	)
+}
+
+FormCrearSala.propTypes = {
+	/**
+	 * @param {Datos_formulario} formData
+	 */
+	enviarSolicitud: PropTypes.func,
 }

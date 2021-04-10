@@ -90,11 +90,13 @@ module.exports = {
 				},
 			],
 		},
+		/*
 		{
 			name: 'Librerías javascript',
 			description:
 				'Librerías propias desarrolladas para parte de la lógica de la aplicación',
 			components: 'src/utils/*.js',
 		},
+		*/
 	],
 }

@@ -1,6 +1,11 @@
-import { MDBCol, MDBRow } from 'mdbreact'
 import React from 'react'
+import PropTypes from 'prop-types'
+import { MDBCol } from 'mdbreact'
 
+/**
+ * Encabezado de una sala de partida, muestra el nombre de la sala, el tiempo de
+ * turno y el número de jugadores actuales
+ */
 export const SalaEncabezado = ({ datos }) => {
 	console.log('NOMBRESALA', datos)
 	return (
@@ -19,6 +24,25 @@ export const SalaEncabezado = ({ datos }) => {
 			</MDBCol>
 		</div>
 	)
+}
+
+SalaEncabezado.PropTypes = {
+	datos: PropTypes.shape({
+		/**
+		 * Nombre de la partida
+		 */
+		nombrePartida: PropTypes.string,
+
+		/**
+		 * Tiempo de turno en minutos
+		 */
+		tiempoTurno: PropTypes.number,
+
+		/**
+		 * Array de jugadores que se usará para su longitud
+		 */
+		jugadores: PropTypes.arrayOf(PropTypes.any),
+	}),
 }
 
 export default SalaEncabezado

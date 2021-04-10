@@ -14,7 +14,7 @@ import { solicitudAmistad } from 'utils/restAPI'
  * Implementa un pop-up para añadir un amigo, este pop-up contiene
  * un formulario donde insertar el nombre del amigo.
  */
-export const AnyadirAmigo = ({ usuario }) => {
+export const AnyadirAmigo = () => {
 	const [isOpen, setOpen] = useState(false)
 
 	const toggle = () => {
@@ -32,10 +32,7 @@ export const AnyadirAmigo = ({ usuario }) => {
 				<MDBModalHeader toggle={toggle}>Añadir amigo</MDBModalHeader>
 				<MDBCol middle={true}>
 					<MDBModalBody>
-						<FormAnyadirAmigo
-							usuario={usuario}
-							enviarSolicitud={solicitudAmistad}
-						/>
+						<FormAnyadirAmigo enviarSolicitud={solicitudAmistad} />
 					</MDBModalBody>
 				</MDBCol>
 			</MDBModal>

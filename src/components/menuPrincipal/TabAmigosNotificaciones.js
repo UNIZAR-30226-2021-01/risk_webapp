@@ -18,10 +18,8 @@ import {
 } from 'mdbreact'
 
 /**
- *
- * @returns Componente que representa una tabla en la que el usuario podrá
- * consultar tanto la lista de sus amigos como las notificaciones que haya
- * recibido
+ * Tabla en la que el usuario podrá consultar tanto la lista de sus
+ * amigos como las notificaciones que haya recibido.
  */
 export const TabAmigosNotificaciones = () => {
 	const Auth = useContext(AuthApi)
@@ -40,6 +38,7 @@ export const TabAmigosNotificaciones = () => {
 		const dataAmigos = await obtenerAmigos(nuestraInfo)
 		//console.log(dataAmigos)
 
+		/*
 		let amigosPrueba = [
 			{ id: 1, nombre: 'ricardo', icono: 1 },
 			{ id: 2, nombre: 'rick', icono: 2 },
@@ -49,8 +48,9 @@ export const TabAmigosNotificaciones = () => {
 			{ id: 6, nombre: 'rick', icono: 8 },
 			{ id: 7, nombre: 'ricky', icono: 10 },
 		]
-		setAmigos(amigosPrueba)
-		//setAmigos(dataAmigos.amigos)
+		*/
+		//setAmigos(amigosPrueba)
+		setAmigos(dataAmigos.amigos)
 	}
 
 	const fetchNotis = async () => {
@@ -59,6 +59,7 @@ export const TabAmigosNotificaciones = () => {
 		const dataNotis = await obtenerNotificaciones(nuestraInfo)
 		//console.log(dataNotis)
 
+		/*
 		// DATOS DE PRUEBA
 		let notisPrueba = [
 			{ infoExtra: 'PacoGamer', idEnvio: 69, tipo: 'Peticion de amistad' },
@@ -67,7 +68,8 @@ export const TabAmigosNotificaciones = () => {
 			{ infoExtra: 'Raulito69', idEnvio: 144 },
 		]
 		setNotis(notisPrueba)
-		//setNotis(dataNotis.notificaciones)
+		*/
+		setNotis(dataNotis.notificaciones)
 	}
 
 	useEffect(() => {

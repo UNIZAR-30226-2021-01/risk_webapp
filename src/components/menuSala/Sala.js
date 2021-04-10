@@ -9,7 +9,6 @@ import {
 	MDBModal,
 	MDBModalBody,
 	MDBModalFooter,
-	MDBModalHeader,
 } from 'mdbreact'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import InvitarAmigo from './InvitarAmigo'
@@ -32,7 +31,8 @@ const estadosInternos = {
 }
 
 /**
- *
+ * Lógica y vista de una sala, gestiona la creación de la sala y
+ * la vista de esta hasta que comienza la partida.
  */
 export const Sala = () => {
 	const Auth = useContext(AuthApi)
@@ -111,14 +111,6 @@ export const Sala = () => {
 		}
 	}, [])
 
-	/*
-	useEffect(() => {
-		if (id !== 'undefined') {
-			solicitarDatos()
-		}
-	}, [ws.current])
-	*/
-
 	/*function comparer(otherArray) {
 		return function (current) {
 			return (
@@ -139,7 +131,6 @@ export const Sala = () => {
 	// reconectar
 	const connect = () => {
 		ws.current = new WebSocket(`${constants.BASER_WS_URL}${url}`)
-		let tOut = 250
 
 		// websocket onopen event listener
 		ws.current.onopen = () => {
@@ -148,7 +139,7 @@ export const Sala = () => {
 		}
 
 		// websocket onclose event listener
-		ws.current.onclose = (e) => {
+		ws.current.onclose = () => {
 			console.log(`Socket cerrado.`)
 		}
 
@@ -192,22 +183,18 @@ export const Sala = () => {
 		}
 	}
 
-	/**
-	 * utilited by the @function connect to check if the connection is close due to an error, if so attempts to reconnect
-	 */
-	const check = () => {
-		if (!ws.current || ws.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
-	}
-
 	const comenzarPartida = () => {
 		// Si es necesario, comprobar número de jugadores
 		ws.current.send(JSON.stringify({ tipo: 'Iniciar' }))
 	}
 
+	/*
 	const redirigirPartida = () => {
 		history.push(`/partida/${salaInfo.idSala}`)
 	}
+	*/
 
+	/*
 	const solicitarDatos = () => {
 		if (ws.current !== undefined && ws.readyState === WebSocket.OPEN) {
 			const formData = {
@@ -217,6 +204,7 @@ export const Sala = () => {
 			ws.current.send(JSON.stringify(formData))
 		}
 	}
+	*/
 
 	const crearSala = (formData) => {
 		if (ws.current !== undefined && ws.current.readyState === WebSocket.OPEN) {

@@ -1,17 +1,18 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import './notificacion.css'
 import { MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact'
-import AuthApi from './../../utils/AuthApi'
 import { useHistory } from 'react-router-dom'
 
+/**
+ * Representación de una notificación de invitación a partida
+ * en la lista de notificaciones.
+ */
 export const NotificacionSala = ({ datos }) => {
-	const Auth = useContext(AuthApi)
 	const history = useHistory()
 
 	const decisionSala = (datos) => async () => {
 		const dirSala = `/sala/${datos.idEnvio}`
-		//Debería redirigir a sala con id 12 y type aceptar
-		//Otra opción probada ha sido Redirect pero tampoco funciona
 		history.push(dirSala)
 	}
 
@@ -44,6 +45,12 @@ export const NotificacionSala = ({ datos }) => {
 			</MDBRow>
 		</>
 	)
+}
+
+NotificacionSala.PropTypes = {
+	datos: PropTypes.shape({
+		idEnvio: PropTypes.number,
+	}),
 }
 
 export default NotificacionSala

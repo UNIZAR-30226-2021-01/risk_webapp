@@ -17,8 +17,9 @@ export const MenuSalas = () => {
 			console.log(dataPartidas)
 			setPartidas(dataPartidas)
 		}
-		//setData()
+		setData()
 
+		/*
 		setPartidas([
 			{
 				id: 1,
@@ -36,6 +37,7 @@ export const MenuSalas = () => {
 				nombreTurnoActual: 'oscargamer',
 			},
 		])
+		*/
 	}, [])
 
 	return (

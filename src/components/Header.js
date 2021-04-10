@@ -12,14 +12,13 @@ import {
 	MDBDropdownToggle,
 	MDBDropdownMenu,
 	MDBDropdownItem,
-	MDBIcon,
 } from 'mdbreact'
 import { Link } from 'react-router-dom'
 import iconos from '../assets/iconos/iconos'
 import marcoIcono from '../assets/UI/avatar_marco.png'
 import riskos from '../assets/UI/moneda.png'
-import { obtenerCredenciales } from '../utils/usuarioVO'
 import titulo from '../assets/UI/titulo.png'
+
 /**
  * Header contiene el encabezado de la aplicación y permite consultar
  * las reglas.

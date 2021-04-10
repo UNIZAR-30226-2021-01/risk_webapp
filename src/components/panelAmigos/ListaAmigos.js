@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import AuthApi from 'utils/AuthApi'
+import React from 'react'
 import Amigo from './Amigo.js'
 import AnyadirAmigo from './AnyadirAmigo'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
@@ -16,8 +15,6 @@ export const ListaAmigos = ({
 	mostrarAnyadir = true,
 	...rest
 }) => {
-	const Auth = useContext(AuthApi)
-
 	return (
 		<MDBContainer className="mt-3">
 			<MDBListGroup className="lista-amigos">
@@ -27,7 +24,7 @@ export const ListaAmigos = ({
 					</MDBListGroupItem>
 				))}
 			</MDBListGroup>
-			{mostrarAnyadir && <AnyadirAmigo usuario={Auth.auth.usuario} />}
+			{mostrarAnyadir && <AnyadirAmigo />}
 		</MDBContainer>
 	)
 }

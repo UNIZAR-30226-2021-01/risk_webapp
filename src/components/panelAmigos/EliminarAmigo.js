@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import {
 	MDBModal,
 	MDBModalHeader,
@@ -16,7 +17,6 @@ import { obtenerCredenciales } from 'utils/usuarioVO'
  * Botón que se utilizará en la lista de amigos junto al componente
  * "Amigo" y que permitirá la eliminación del mismo haciendo uso
  * de la API del servidor de juego
- * @param {usuario} amigo datos del amigo a eliminar
  */
 export const EliminarAmigo = ({ amigo }) => {
 	const [isOpen, setOpen] = useState(false)
@@ -65,6 +65,16 @@ export const EliminarAmigo = ({ amigo }) => {
 			</MDBModal>
 		</>
 	)
+}
+
+EliminarAmigo.PropTypes = {
+	/**
+	 * Datos del amigo a eliminar
+	 */
+	amigo: PropTypes.shape({
+		nombre: PropTypes.string,
+		id: PropTypes.number,
+	}),
 }
 
 export default EliminarAmigo
