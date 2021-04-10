@@ -1,5 +1,6 @@
 /**
  * Constantes que se usan en la aplicación
+ * @public
  */
 const constants = {
 	// Valores de prueba

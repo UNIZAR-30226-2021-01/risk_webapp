@@ -26,38 +26,136 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, useContext } from 'react'
-//import { useParams } from 'react-router-dom'
-import { MDBRow, MDBCol } from 'mdbreact'
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, useContext, useRef } from 'react'
+import { useParams } from 'react-router-dom'
+import {
+	MDBBtn,
+	MDBRow,
+	MDBCol,
+	MDBTabContent,
+	MDBTabPane,
+	MDBModal,
+	MDBModalBody,
+	MDBModalFooter,
+	MDBModalHeader,
+} from 'mdbreact'
 import ListaAmigos from './../panelAmigos/ListaAmigos'
 import InvitarAmigo from './InvitarAmigo'
 import { obtenerAmigos } from 'utils/restAPI'
 import { MDBContainer } from 'mdbreact'
 import AuthApi from 'utils/AuthApi'
 import { obtenerCredenciales } from 'utils/usuarioVO'
+import { FormCrearSala } from './FormCrearSala'
+import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
+import { useHistory } from 'react-router-dom'
+import SalaEncabezado from './SalaEncabezado'
+import ListaJugadoresPartida from './ListaJugadoresPartida'
+import constants from 'utils/constants'
+import './Sala.css'
+
+const estadosInternos = {
+	CreandoFormulario: 'Creando formulario',
+	EsperandoRespuestaFormulario: 'Esperando respuesta creación formulario',
+	EsperandoInicio: 'Esperando inicio de partida',
+}
+
 /**
  *
- * @todo link en el router
- * @todo websocket si close llama a onclose?
  */
 export const Sala = () => {
 	const Auth = useContext(AuthApi)
-	const [ws, setWs] = useState(null)
+	const history = useHistory()
+
+	// Obtiene el id de sala y el tipo de conexión establecida
+	//										(Aceptar, ...)
+	const { id } = useParams()
+
+	// Estado interno
+	/*const [estadoInterno, setEstadoInterno] = useState(
+		estadosInternos.CreandoFormulario
+	)*/
+	const estadoInterno = useRef(estadosInternos.CreandoFormulario)
+
+	// Websocket de la conexión, en current va
+	const ws = useRef(undefined)
+
+	/**
+	 * 1: Creando sala
+	 * 2: Sala normal
+	 * 3: Cargando (probablemente no necesario, solo para mientras el ws.current está roto)
+	 */
+	const [estadoPag, setEstadoPag] = useState('3')
+	const [modal, setModal] = useState(true)
+
+	// Indica si se es el host o no
+	const [soyHost, setSoyHost] = useState(false)
+
+	const [serverErrors, setServerErrors] = useState('')
+
+	let url = ''
 
 	// Jugadores ya conectados
-	// const [jugadores, setJugadores] = useState([])
+	const [salaInfo, setSalaInfo] = useState({
+		tiempoTurno: 0,
+		nombrePartida: '',
+		idSala: 0,
+		jugadores: [],
+	})
 
 	const [amigos, setAmigos] = useState([])
 
 	useEffect(() => {
-		fetchAmigos()
-		check()
+		let interval
+		if (id === 'undefined') {
+			url = 'crearSala'
+			interval = setInterval(async () => {
+				fetchAmigos()
+			}, constants.REFRESH_TIME)
+			fetchAmigos()
+			setSoyHost(true)
+			setEstadoPag('1')
+			estadoInterno.current = estadosInternos.CreandoFormulario
+			//setEstadoInterno(estadosInternos.CreandoFormulario)
+		} else {
+			url = 'aceptarSala'
+			setSoyHost(false)
+			setEstadoPag('2')
+			estadoInterno.current = estadosInternos.EsperandoInicio
+			//setEstadoInterno(estadosInternos.EsperandoInicio)
+		}
+
+		console.log(url)
+		console.log('id: ', id)
+
+		connect()
 		return () => {
-			if (!WebSocket.CLOSED) {
-				ws.close()
+			console.log(ws.current, 'Desmontando ws')
+			if (url === 'crearSala') {
+				clearInterval(interval)
+			}
+			if (ws.current &amp;&amp; ws.readyState !== WebSocket.CLOSED) {
+				ws.current.close()
 			}
 		}
 	}, [])
+
+	/*
+	useEffect(() => {
+		if (id !== 'undefined') {
+			solicitarDatos()
+		}
+	}, [ws.current])
+	*/
+
+	/*function comparer(otherArray) {
+		return function (current) {
+			return (
+				otherArray.filter(function (other) {
+					return other.id == current.id
+				}).length == 0
+			)
+		}
+	}*/
 
 	const fetchAmigos = async () => {
 		const nuestraInfo = obtenerCredenciales(Auth)
@@ -65,72 +163,180 @@ export const Sala = () => {
 		setAmigos(dataAmigos.amigos)
 	}
 
+	// Si se cae la conexión, el server te tira, por lo que no hay que intentar
+	// reconectar
 	const connect = () => {
-		let that = this
-		var connectInterval
+		ws.current = new WebSocket(`${constants.BASER_WS_URL}${url}`)
+		let tOut = 250
 
 		// websocket onopen event listener
-		ws.onopen = () => {
-			console.log('connected websocket component')
-			setWs(ws)
-			/**
-			 * Mensaje de inicio
-			const message = { Cosa: 'inicio' }
-			ws.send(JSON.stringify(message))
-			 */
-
-			that.timeout = 250 // reset timer to 250 on open of websocket connection
-			clearTimeout(connectInterval) // clear Interval on on open of websocket connection
+		ws.current.onopen = () => {
+			console.log(ws.current.readyState, 'Conectado')
+			setModal(false)
 		}
 
 		// websocket onclose event listener
-		ws.onclose = (e) => {
-			console.log(
-				`Socket is closed. Reconnect will be attempted in ${Math.min(
-					10000 / 1000,
-					(that.timeout + that.timeout) / 1000
-				)} second.`,
-				e.reason
-			)
-
-			that.timeout = that.timeout + that.timeout //increment retry interval
-			connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)) //call check function after timeout
+		ws.current.onclose = (e) => {
+			console.log(`Socket cerrado.`)
 		}
 
 		// websocket onerror event listener
-		ws.onerror = (err) => {
+		ws.current.onerror = (err) => {
 			console.error('Socket encountered error: ', err.message, 'Closing socket')
-			ws.close()
+			setModal(true)
+			ws.current.close()
 		}
 
 		// websocket onmessage event listener
-		ws.onmessage = (e) => {
-			const message = JSON.parse(e.data)
-			console.log(message.Num)
-			// Mirar tipos (?)
+		ws.current.onmessage = (e) => {
+			const data = JSON.parse(e.data)
+			console.log(data, estadoInterno, 'Datos y estado')
+			setServerErrors('')
+			// Caso error
+			if (data._tipoMensaje === 'e') {
+				setServerErrors(data.err)
+				// Caso mensaje de datos
+			} else if (data._tipoMensaje === 'd') {
+				if (
+					estadoInterno.current === estadosInternos.EsperandoRespuestaFormulario
+				) {
+					estadoInterno.current = estadosInternos.EsperandoInicio
+					//setEstadoInterno(estadosInternos.EsperandoInicio)
+					setEstadoPag('2')
+				} else {
+					console.log('sad')
+				}
+				delete data._tipoMensaje
+				setSalaInfo(data)
+				// Caso mensaje de partida
+			} else if (data._tipoMensaje === 'p') {
+				// Comienza partida, comprobar estado y redirigir
+				if (estadoInterno.current === estadosInternos.EsperandoInicio) {
+					comenzarPartida()
+				} else {
+					console.log('No se debe dar este caos.')
+				}
+			}
 		}
 	}
 
 	/**
-	 * utilited by the @function connect to check if the connection is close, if so attempts to reconnect
+	 * utilited by the @function connect to check if the connection is close due to an error, if so attempts to reconnect
 	 */
 	const check = () => {
-		const { ws } = this.state
-		if (!ws || ws.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
+		if (!ws.current || ws.readyState === WebSocket.CLOSED) connect() //check if websocket instance is closed, if so call `connect` function.
 	}
 
+	const comenzarPartida = () => {
+		// Si es necesario, comprobar número de jugadores
+		ws.current.send(JSON.stringify({ tipo: 'Iniciar' }))
+	}
+
+	const redirigirPartida = () => {
+		history.push(`/partida/${salaInfo.idSala}`)
+	}
+
+	const solicitarDatos = () => {
+		if (ws.current !== undefined &amp;&amp; ws.readyState === WebSocket.OPEN) {
+			const formData = {
+				...obtenerCredenciales(Auth),
+				idSala: parseInt(id),
+			}
+			ws.current.send(JSON.stringify(formData))
+		}
+	}
+
+	const crearSala = (formData) => {
+		if (ws.current !== undefined &amp;&amp; ws.current.readyState === WebSocket.OPEN) {
+			setSalaInfo({
+				...salaInfo,
+				tiempoTurno: formData.tiempoTurno,
+				nombreSala: formData.nombreSala,
+			})
+			// Por algún motivo no funciona
+			//setEstadoInterno(estadosInternos.EsperandoRespuestaFormulario)
+			estadoInterno.current = estadosInternos.EsperandoRespuestaFormulario
+
+			//console.log(estadoInterno, 'plz')
+			formData = {
+				...formData,
+				...obtenerCredenciales(Auth),
+			}
+			console.log(formData, 'Envío crear sala')
+			ws.current.send(JSON.stringify(formData))
+		} else {
+			console.log(ws.current.readyState, 'Estado del socket')
+		}
+	}
+
+	// Poner cada Tab en un componente distinto?
 	return (
 		&lt;MDBContainer>
-			&lt;MDBRow>
-				&lt;MDBCol md="8">{/* Jugadores invitados*/}&lt;/MDBCol>
-				{/* Esto solo si eres el host, y el botón de aceptar también*/}
-				&lt;MDBCol md="5">
-					&lt;ListaAmigos usuarios={amigos} elemento={&lt;InvitarAmigo />} />
-				&lt;/MDBCol>
-			&lt;/MDBRow>
+			&lt;ErroresServer serverErrors={serverErrors} />
+			{/*  Mover a otro componente
+			El modal debería ser mientras se espera un mensaje, no por si se cae.
+			Si se cae, se debería redirigir al menú principal tras mostrar un modal de
+			'conexión caída' */}
+			&lt;MDBModal isOpen={modal} toggle={() => {}}>
+				&lt;MDBModalBody className="d-flex justify-content-between">
+					&lt;p>
+						{' '}
+						Te has desconectado. Comprueba tu conexión e inténtalo más tarde{' '}
+					&lt;/p>
+				&lt;/MDBModalBody>
+				&lt;MDBModalFooter>
+					&lt;MDBBtn
+						onClick={() => {
+							history.push('/')
+						}}
+					>
+						Volver al menú principal
+					&lt;/MDBBtn>
+				&lt;/MDBModalFooter>
+			&lt;/MDBModal>
+
+			&lt;MDBTabContent activeItem={estadoPag}>
+				&lt;MDBTabPane tabId="1">
+					&lt;p> Pag1...&lt;/p>
+					&lt;FormCrearSala enviarSolicitud={crearSala} />
+				&lt;/MDBTabPane>
+				{/* Mover todo esto a otro componente si es necesario */}
+				&lt;MDBTabPane tabId="2">
+					&lt;SalaEncabezado datos={salaInfo} />
+					&lt;MDBRow>
+						&lt;MDBCol className="p-1 mt-1">
+							&lt;h2 className="text-center">Jugadores&lt;/h2>
+							&lt;ListaJugadoresPartida usuarios={salaInfo.jugadores} />
+						&lt;/MDBCol>
+						&lt;MDBCol className="p-1 mt-1">
+							&lt;h2 className="text-center">Amigos&lt;/h2>
+							{soyHost &amp;&amp; (
+								&lt;ListaAmigos
+									usuarios={amigos}
+									elemento={&lt;InvitarAmigo ws={ws.current} />}
+								/>
+							)}
+						&lt;/MDBCol>
+					&lt;/MDBRow>
+					{/* Comenzar partida, hacer el onClick*/}
+					{soyHost &amp;&amp; (
+						&lt;MDBRow className="d-flex justify-content-center">
+							&lt;MDBBtn onClick={comenzarPartida} className="mt-1">
+								Comenzar partida
+							&lt;/MDBBtn>
+						&lt;/MDBRow>
+					)}
+					&lt;p> Pag2...&lt;/p>
+				&lt;/MDBTabPane>
+				&lt;MDBTabPane tabId="3">
+					&lt;p> Cargando &lt;/p>
+				&lt;/MDBTabPane>
+			&lt;/MDBTabContent>
 		&lt;/MDBContainer>
 	)
 }
+
+export default Sala
 </code></pre>
         </article>
     </section>
@@ -141,13 +347,13 @@ export const Sala = () => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#CrearSala">CrearSala</a></li><li><a href="global.html#credenciales">credenciales</a></li><li><a href="global.html#EliminarAmigo">EliminarAmigo</a></li><li><a href="global.html#EntradaAmigo">EntradaAmigo</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaImg">EntradaImg</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#EntradaOcultaHash">EntradaOcultaHash</a></li><li><a href="global.html#EntradaOcultaId">EntradaOcultaId</a></li><li><a href="global.html#EntradaUsuario">EntradaUsuario</a></li><li><a href="global.html#ErroresCampo">ErroresCampo</a></li><li><a href="global.html#ErroresServer">ErroresServer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#inicioSesion">inicioSesion</a></li><li><a href="global.html#ListaAmigos">ListaAmigos</a></li><li><a href="global.html#ListaNotificaciones">ListaNotificaciones</a></li><li><a href="global.html#ListaPartidas">ListaPartidas</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#MenuOpts">MenuOpts</a></li><li><a href="global.html#MenuPrincipal">MenuPrincipal</a></li><li><a href="global.html#NotificacionAmistad">NotificacionAmistad</a></li><li><a href="global.html#obtenerAspectosDisponibles">obtenerAspectosDisponibles</a></li><li><a href="global.html#obtenerAspectosTienda">obtenerAspectosTienda</a></li><li><a href="global.html#obtenerCredenciales">obtenerCredenciales</a></li><li><a href="global.html#obtenerDir">obtenerDir</a></li><li><a href="global.html#obtenerIconosDisponibles">obtenerIconosDisponibles</a></li><li><a href="global.html#obtenerIconosTienda">obtenerIconosTienda</a></li><li><a href="global.html#obtenerPrevio">obtenerPrevio</a></li><li><a href="global.html#obtenerRutaAspecto">obtenerRutaAspecto</a></li><li><a href="global.html#obtenerRutaIcono">obtenerRutaIcono</a></li><li><a href="global.html#obtenerSiguiente">obtenerSiguiente</a></li><li><a href="global.html#OkServer">OkServer</a></li><li><a href="global.html#PartidaMini">PartidaMini</a></li><li><a href="global.html#peticionQForm">peticionQForm</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#recargarUsuarioServer">recargarUsuarioServer</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#registrarse">registrarse</a></li><li><a href="global.html#registrarseLocal">registrarseLocal</a></li><li><a href="global.html#Reglas">Reglas</a></li><li><a href="global.html#Routes">Routes</a></li><li><a href="global.html#Sala">Sala</a></li><li><a href="global.html#TabAmigosNotificaciones">TabAmigosNotificaciones</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ActualizacionConfiguracion">ActualizacionConfiguracion</a></li><li><a href="global.html#Amigo">Amigo</a></li><li><a href="global.html#AnyadirAmigo">AnyadirAmigo</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#comprarObjeto">comprarObjeto</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#CrearSala">CrearSala</a></li><li><a href="global.html#crearSala">crearSala</a></li><li><a href="global.html#credenciales">credenciales</a></li><li><a href="global.html#decisionPeticion">decisionPeticion</a></li><li><a href="global.html#EliminarAmigo">EliminarAmigo</a></li><li><a href="global.html#eliminarAmigo">eliminarAmigo</a></li><li><a href="global.html#EntradaAmigo">EntradaAmigo</a></li><li><a href="global.html#EntradaCambioClave">EntradaCambioClave</a></li><li><a href="global.html#EntradaClave">EntradaClave</a></li><li><a href="global.html#EntradaCorreo">EntradaCorreo</a></li><li><a href="global.html#EntradaImg">EntradaImg</a></li><li><a href="global.html#EntradaNombre">EntradaNombre</a></li><li><a href="global.html#EntradaNumero">EntradaNumero</a></li><li><a href="global.html#EntradaOcultaHash">EntradaOcultaHash</a></li><li><a href="global.html#EntradaOcultaId">EntradaOcultaId</a></li><li><a href="global.html#EntradaUsuario">EntradaUsuario</a></li><li><a href="global.html#ErroresCampo">ErroresCampo</a></li><li><a href="global.html#ErroresServer">ErroresServer</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#FormActualizar">FormActualizar</a></li><li><a href="global.html#FormInicio">FormInicio</a></li><li><a href="global.html#FormRegistro">FormRegistro</a></li><li><a href="global.html#Head">Head</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#InicioSesion">InicioSesion</a></li><li><a href="global.html#inicioSesion">inicioSesion</a></li><li><a href="global.html#Jugador">Jugador</a></li><li><a href="global.html#ListaAmigos">ListaAmigos</a></li><li><a href="global.html#ListaNotificaciones">ListaNotificaciones</a></li><li><a href="global.html#ListaPartidas">ListaPartidas</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#MenuOpts">MenuOpts</a></li><li><a href="global.html#MenuPrincipal">MenuPrincipal</a></li><li><a href="global.html#NotificacionAmistad">NotificacionAmistad</a></li><li><a href="global.html#obtenerAmigos">obtenerAmigos</a></li><li><a href="global.html#obtenerAspectosDisponibles">obtenerAspectosDisponibles</a></li><li><a href="global.html#obtenerAspectosTienda">obtenerAspectosTienda</a></li><li><a href="global.html#obtenerCredenciales">obtenerCredenciales</a></li><li><a href="global.html#obtenerDir">obtenerDir</a></li><li><a href="global.html#obtenerIconosDisponibles">obtenerIconosDisponibles</a></li><li><a href="global.html#obtenerIconosTienda">obtenerIconosTienda</a></li><li><a href="global.html#obtenerNotificaciones">obtenerNotificaciones</a></li><li><a href="global.html#obtenerPartidas">obtenerPartidas</a></li><li><a href="global.html#obtenerPrevio">obtenerPrevio</a></li><li><a href="global.html#obtenerRutaAspecto">obtenerRutaAspecto</a></li><li><a href="global.html#obtenerRutaIcono">obtenerRutaIcono</a></li><li><a href="global.html#obtenerSiguiente">obtenerSiguiente</a></li><li><a href="global.html#OkServer">OkServer</a></li><li><a href="global.html#PartidaMini">PartidaMini</a></li><li><a href="global.html#peticionQForm">peticionQForm</a></li><li><a href="global.html#ProtectedLogin">ProtectedLogin</a></li><li><a href="global.html#ProtectedRoute">ProtectedRoute</a></li><li><a href="global.html#recargarUsuario">recargarUsuario</a></li><li><a href="global.html#recargarUsuarioServer">recargarUsuarioServer</a></li><li><a href="global.html#RecibeCorreos">RecibeCorreos</a></li><li><a href="global.html#Registrar">Registrar</a></li><li><a href="global.html#registrarse">registrarse</a></li><li><a href="global.html#registrarseLocal">registrarseLocal</a></li><li><a href="global.html#Reglas">Reglas</a></li><li><a href="global.html#Routes">Routes</a></li><li><a href="global.html#Sala">Sala</a></li><li><a href="global.html#solicitudAmistad">solicitudAmistad</a></li><li><a href="global.html#TabAmigosNotificaciones">TabAmigosNotificaciones</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 05 2021 18:29:05 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Sat Apr 10 2021 20:03:27 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>

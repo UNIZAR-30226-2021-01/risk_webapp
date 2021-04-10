@@ -33,10 +33,8 @@ const estadosInternos = {
 
 /**
  *
- * @todo link en el router
- * @todo websocket si close llama a onclose?
  */
-export const Sala = (props) => {
+export const Sala = () => {
 	const Auth = useContext(AuthApi)
 	const history = useHistory()
 

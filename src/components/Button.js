@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 /**
  * Botón simple de la aplicación
+ * @deprecated En desuso tras la migración a Bootstrap
  */
 const Button = ({ color, text, onClick }) => {
 	return (

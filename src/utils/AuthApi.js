@@ -5,6 +5,7 @@ import constants from './constants.js'
 /**
  * AuthApi es el contexto de loggeo de la aplicación,
  * aquí accederán el resto de componentes.
+ * @public
  */
 export const AuthApi = React.createContext()
 
@@ -13,6 +14,7 @@ export const AuthApi = React.createContext()
  * contexto y añadiéndolo como cookies al usuario.
  * @param {contexto} Auth Contexto de la aplicación
  * @param data Datos a registrar localmente
+ * @public
  */
 export const registrarseLocal = (Auth, data) => {
 	console.log(data)
@@ -25,6 +27,7 @@ export const registrarseLocal = (Auth, data) => {
  * Función de deslogeo local
  * @param {contexto} Auth Contexto de la aplicación
  * @returns false
+ * @public
  */
 export const logOut = (Auth) => {
 	Auth.setAuth(constants.NULL_VALUES)
@@ -37,6 +40,7 @@ export const logOut = (Auth) => {
  * @deprecated
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Objeto con (idUsuario, clave) del usuario
+ * @public
  */
 export const credenciales = (Auth) => {
 	return {

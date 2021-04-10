@@ -9,6 +9,7 @@ export const extension = '.png'
  * @param {int} actual Id del objeto actual
  * @param {int} dir Dirección hacia la que buscar
  * @returns Id del siguiente
+ * @public
  */
 const obtenerDir = (disponibles, actual, dir) => {
 	let i = disponibles.findIndex((element) => {

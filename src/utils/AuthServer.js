@@ -7,6 +7,7 @@ import { recargarUsuario } from './restAPI'
  * si falla la recarga desloggea al usuario, si no actualiza
  * localmente los datos.
  * @param {contexto} Auth
+ * @public
  */
 export const recargarUsuarioServer = async (Auth) => {
 	console.log(Auth)

@@ -3,7 +3,7 @@ import './MenuOpts.css'
 
 /**
  * Opciones del usuario para la cabecera
- * @deprecated
+ * @deprecated No usado tras la migración a bootstrap
  */
 export const MenuOpts = () => {
 	return (

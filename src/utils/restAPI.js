@@ -28,6 +28,7 @@ export const peticionQForm = async (route, formData) => {
  * @param {datos_usuario} formData Contiene los datos necesarios para el inicio de sesión
  * de un usuario en el servidor (nombre o correo del usuario y su clave correspondiente)
  * @returns Respuesta recibida a la petición de inicio de sesión en JSON
+ * @public
  */
 export const inicioSesion = async (formData) => {
 	const data = await peticionQForm('iniciarSesion', formData)
@@ -39,28 +40,49 @@ export const inicioSesion = async (formData) => {
  * @param {datos_usuario} formData Contiene los datos necesarios para el registro
  * de un usuario en el servidor
  * @returns Respuesta recibida a la petición de registro en JSON
+ * @public
  */
 export const registrarse = async (formData) => {
 	const data = await peticionQForm('registrar', formData)
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const recargarUsuario = async (formData) => {
 	const data = await peticionQForm('recargarUsuario', formData)
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const solicitudAmistad = async (formData) => {
 	const data = await peticionQForm('enviarSolicitudAmistad', formData)
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const eliminarAmigo = async (formData) => {
 	formData.decision = 'Borrar'
 	const data = await peticionQForm('gestionAmistad', formData)
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const obtenerAmigos = async (formData) => {
 	const data = await peticionQForm('amigos', formData)
 	if (data.amigos === null) {
@@ -69,6 +91,11 @@ export const obtenerAmigos = async (formData) => {
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const obtenerNotificaciones = async (formData) => {
 	const data = await peticionQForm('notificaciones', formData)
 	if (data.notificaciones === null) {
@@ -77,22 +104,43 @@ export const obtenerNotificaciones = async (formData) => {
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const decisionPeticion = async (formData) => {
 	const data = await peticionQForm('gestionAmistad', formData)
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const obtenerPartidas = async (formData) => {
 	const data = await peticionQForm('partidas', formData)
 	return data
 }
 
-/* Funciones de la tienda */
+// Funciones de la tienda
+
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const comprarObjeto = async (formData) => {
 	const data = await peticionQForm('comprar', formData)
 	return data
 }
 
+/**
+ *
+ * @param {*} formData
+ * @public
+ */
 export const crearSala = async (formData) => {
 	const data = await peticionQForm('crearSala', formData)
 	return data
