@@ -67,7 +67,7 @@ export const EliminarAmigo = ({ amigo }) => {
 	)
 }
 
-EliminarAmigo.PropTypes = {
+EliminarAmigo.propTypes = {
 	/**
 	 * Datos del amigo a eliminar
 	 */

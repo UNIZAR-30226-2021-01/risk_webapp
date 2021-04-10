@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import {
 	MDBBtn,
 	MDBModal,
@@ -15,7 +16,11 @@ import { recargarUsuarioServer } from 'utils/AuthServer'
 import riskos from '../../assets/UI/moneda.png'
 import marcoIcono from '../../assets/UI/avatar_marco.png'
 import fondoTropa from '../../assets/UI/avatar_fondo.png'
+import { obtenerCredenciales } from 'utils/usuarioVO'
 
+/**
+ * Muestra los datos del elemento recibido como parámetro según su tipo.
+ */
 const ElementoTienda = ({ datos, tipo }) => {
 	const Auth = useContext(AuthApi)
 	const [serverErrors, setServerErrors] = useState('')
@@ -31,10 +36,9 @@ const ElementoTienda = ({ datos, tipo }) => {
 	const comprarObjetoInterno = () => async () => {
 		setServerErrors('')
 		const formData = {
-			idUsuario: Auth.auth.usuario.id,
+			...obtenerCredenciales(Auth),
 			cosmetico: datos.id,
 			tipo: tipo,
-			clave: Auth.auth.usuario.clave,
 		}
 		const data = await comprarObjeto(formData)
 
@@ -75,13 +79,21 @@ const ElementoTienda = ({ datos, tipo }) => {
 						{' '}
 						Cancelar
 					</MDBBtn>
-					<MDBBtn color="success" onClick={comprarObjetoInterno()}>
+					<MDBBtn color="success" onClick={comprarObjetoInterno}>
 						Comprar
 					</MDBBtn>
 				</MDBFooter>
 			</MDBModal>
 		</>
 	)
+}
+
+ElementoTienda.propTypes = {
+	datos: PropTypes.shape({
+		precio: PropTypes.number,
+		id: PropTypes.number,
+	}),
+	tipo: PropTypes.string,
 }
 
 export default ElementoTienda

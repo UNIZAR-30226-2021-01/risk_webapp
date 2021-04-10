@@ -2,12 +2,13 @@ import React from 'react'
 import { MDBContainer, MDBRow } from 'mdbreact'
 
 /**
- * Componente estático que muestra las reglas de juego
- * @returns Contenedor en el que se muestran las reglas del juego
- * estructuradas en parrafos. Las reglas están basadas en las
- * del juego de mesa "Risk" y han sido adaptadas al formato que
- * se pretende diseñar de forma que faciliten la jugabilidad
- * en un entorno virtual (web y movil).
+ * Componente estático que muestra las reglas de juego, es un
+ * contenedor en el que se muestran las reglas del juego
+ * estructuradas en parrafos.
+ * Las reglas están basadas en las del juego de mesa "Risk"
+ * y han sido adaptadas al formato que se pretende diseñar
+ * de forma que faciliten la jugabilidad en un entorno
+ * virtual (web y movil).
  */
 export const Reglas = () => {
 	return (

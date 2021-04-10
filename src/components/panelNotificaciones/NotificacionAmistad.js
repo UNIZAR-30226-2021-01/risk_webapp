@@ -108,7 +108,7 @@ export const NotificacionAmistad = ({ datos }) => {
 	)
 }
 
-NotificacionAmistad.PropTypes = {
+NotificacionAmistad.propTypes = {
 	/**
 	 * Datos con una cadena de información y el id
 	 * de la sala a la que unirse.

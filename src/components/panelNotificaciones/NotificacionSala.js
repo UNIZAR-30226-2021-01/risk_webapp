@@ -47,7 +47,7 @@ export const NotificacionSala = ({ datos }) => {
 	)
 }
 
-NotificacionSala.PropTypes = {
+NotificacionSala.propTypes = {
 	datos: PropTypes.shape({
 		idEnvio: PropTypes.number,
 	}),

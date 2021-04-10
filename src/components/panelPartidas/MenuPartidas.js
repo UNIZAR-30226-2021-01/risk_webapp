@@ -5,6 +5,10 @@ import { obtenerPartidas } from 'utils/restAPI'
 import AuthApi from 'utils/AuthApi'
 import { obtenerCredenciales } from 'utils/usuarioVO'
 
+/**
+ * Muestra el menú de salas de la aplicación y la lista
+ * de partidas.
+ */
 export const MenuSalas = () => {
 	const Auth = useContext(AuthApi)
 
@@ -18,26 +22,6 @@ export const MenuSalas = () => {
 			setPartidas(dataPartidas)
 		}
 		setData()
-
-		/*
-		setPartidas([
-			{
-				id: 1,
-				nombre: 'p1',
-				nombreTurnoActual: '1',
-			},
-			{
-				id: 2,
-				nombre: 'p2',
-				nombreTurnoActual: 'samugamer',
-			},
-			{
-				id: 3,
-				nombre: 'p3',
-				nombreTurnoActual: 'oscargamer',
-			},
-		])
-		*/
 	}, [])
 
 	return (

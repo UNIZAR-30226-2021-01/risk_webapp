@@ -20,7 +20,7 @@ export const ListaJugadoresPartida = ({ usuarios }) => {
 	)
 }
 
-ListaJugadoresPartida.PropTypes = {
+ListaJugadoresPartida.propTypes = {
 	/**
 	 * Lista de jugadores de la partida
 	 */

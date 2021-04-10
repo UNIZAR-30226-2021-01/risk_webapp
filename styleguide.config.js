@@ -85,8 +85,8 @@ module.exports = {
 				},
 				{
 					name: 'Componentes de tienda',
-					description: 'Componentes correspondientes al menú de salas',
-					components: 'src/components/menuSala/*.js',
+					description: 'Componentes correspondientes a la tienda',
+					components: 'src/components/tienda/*.js',
 				},
 			],
 		},

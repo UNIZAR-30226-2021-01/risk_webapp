@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { MDBAlert, MDBBtn, MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import AuthApi from 'utils/AuthApi'
 import { useHistory } from 'react-router-dom'
 
 /**
- * Representación de un amigo en la lista de amigos, da la opción de eliminar
- * el amigo.
- * @param {usuario} datosPartida Datos del amigo
+ * Representación de una partida en la lista de partidas,
+ * dando la opción de unirse.
  */
 export const PartidaMini = ({ datosPartida }) => {
 	const Auth = useContext(AuthApi)
@@ -51,6 +51,25 @@ export const PartidaMini = ({ datosPartida }) => {
 			<MDBRow>{turnoDisplay}</MDBRow>
 		</MDBContainer>
 	)
+}
+
+PartidaMini.propTypes = {
+	datosPartida: PropTypes.shape({
+		/**
+		 * Id de la partida
+		 */
+		id: PropTypes.number,
+
+		/**
+		 * Nombre de la partida
+		 */
+		nombre: PropTypes.string,
+
+		/**
+		 * Nombre del jugador del turno actual.
+		 */
+		nombreTurnoActual: PropTypes.string,
+	}),
 }
 
 export default PartidaMini

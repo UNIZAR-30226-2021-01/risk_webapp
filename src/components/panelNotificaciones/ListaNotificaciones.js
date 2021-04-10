@@ -6,7 +6,8 @@ import NotificacionSala from './NotificacionSala.js'
 
 /**
  * Muestra la lista de notificaciones recibida como parámetro.
- * @param {lista_de_notificaciones} notificaciones  */
+ * @param {lista_de_notificaciones} notificaciones
+ */
 const ListaNotificaciones = ({ notificaciones }) => {
 	return (
 		<MDBContainer className="mt-3">
@@ -30,7 +31,7 @@ const ListaNotificaciones = ({ notificaciones }) => {
 	)
 }
 
-ListaNotificaciones.PropTypes = {
+ListaNotificaciones.propTypes = {
 	/**
 	 * Notificaciones del usuario de la aplicación recibidas como JSON a
 	 * través de la API del servidor de juego.

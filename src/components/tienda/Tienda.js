@@ -13,6 +13,11 @@ import ListaElementos from './ListaElementos'
 import './Tienda.css'
 import { obtenerIconosTienda, obtenerAspectosTienda } from 'utils/usuarioVO'
 
+/**
+ * Componente de tienda de la aplicación, contiene 2 ventanas, una con los
+ * iconos por comprar y otro con los aspectos según los que ya tiene el
+ * usuario.
+ */
 const Tienda = () => {
 	const Auth = useContext(AuthApi)
 

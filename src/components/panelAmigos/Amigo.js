@@ -26,7 +26,7 @@ export const Amigo = ({ datos, elemento, ...rest }) => {
 	)
 }
 
-Amigo.PropTypes = {
+Amigo.propTypes = {
 	/**
 	 * Datos del amigo
 	 */

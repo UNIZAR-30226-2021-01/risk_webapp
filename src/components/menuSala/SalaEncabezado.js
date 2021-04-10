@@ -26,7 +26,7 @@ export const SalaEncabezado = ({ datos }) => {
 	)
 }
 
-SalaEncabezado.PropTypes = {
+SalaEncabezado.propTypes = {
 	datos: PropTypes.shape({
 		/**
 		 * Nombre de la partida

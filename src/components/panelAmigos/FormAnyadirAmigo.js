@@ -55,7 +55,7 @@ export const FormAnyadirAmigo = ({ enviarSolicitud }) => {
 	)
 }
 
-FormAnyadirAmigo.PropTypes = {
+FormAnyadirAmigo.propTypes = {
 	/**
 	 * Función para enviar la solicitud
 	 * @param {datos_formulario} formData
