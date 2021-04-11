@@ -21,6 +21,7 @@ module.exports = {
 	},
 	*/
 	styleguideDir: 'docs',
+	title: 'Documentación de la aplicación web de https://github.com/UNIZAR-30226-2021-01/risk_webapp',
 	sections: [
 		{
 			name: 'Introducción',

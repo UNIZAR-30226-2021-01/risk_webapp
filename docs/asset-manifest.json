@@ -3,15 +3,15 @@
     "main.css": "/static/css/main.b8b2586c.chunk.css",
     "main.js": "/build/main.35b6a655.js",
     "runtime-main.js": "/build/bundle.483fa668.js",
-    "build/2.d2cb0d3c.js": "/build/2.d2cb0d3c.js",
-    "build/2.d2cb0d3c.js.LICENSE.txt": "/build/2.d2cb0d3c.js.LICENSE.txt",
+    "build/2.e71c7921.js": "/build/2.e71c7921.js",
+    "build/2.e71c7921.js.LICENSE.txt": "/build/2.e71c7921.js.LICENSE.txt",
     "index.html": "/index.html",
     "static/css/main.b8b2586c.chunk.css.map": "/static/css/main.b8b2586c.chunk.css.map",
     "static/media/index.css": "/static/media/exepixelperfect.medium.5c4776d0.ttf"
   },
   "entrypoints": [
     "build/bundle.483fa668.js",
-    "build/2.d2cb0d3c.js",
+    "build/2.e71c7921.js",
     "static/css/main.b8b2586c.chunk.css",
     "build/main.35b6a655.js"
   ]
