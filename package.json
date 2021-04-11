@@ -38,6 +38,7 @@
 	"husky": {
 		"hooks": {
 			"pre-commit": "yarn run format",
+			"pre-commit": "npx styleguidist build",
 			"pre-push": "yarn run format",
 			"...": "..."
 		}

@@ -1,8 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 /**
- * Muestra un string como error si error no es vacío
- * @param {error_form} error Error de un formulario
+ * Muestra un string como error si error no es vacío.
  */
 export const ErroresCampo = ({ error }) => {
 	return (
@@ -12,6 +12,13 @@ export const ErroresCampo = ({ error }) => {
 			) : null}
 		</>
 	)
+}
+
+ErroresCampo.propTypes = {
+	/**
+	 * Error del formulario, si no existe no se muestra.
+	 */
+	error: PropTypes.any,
 }
 
 export default ErroresCampo

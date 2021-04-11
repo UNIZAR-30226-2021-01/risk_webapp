@@ -20,6 +20,9 @@ module.exports = {
 		return props
 	},
 	*/
+	styleguideDir: 'docs',
+	title: 'Documentación de la aplicación web del proyecto',
+	usageMode: 'expand',
 	sections: [
 		{
 			name: 'Introducción',
@@ -27,12 +30,18 @@ module.exports = {
 				'Esta documentación corresponde a la aplicación web de un proyecto de Risk de la asignatura Proyecto Software. Se pueden consultar los repositorios en https://github.com/UNIZAR-30226-2021-01.',
 			content: 'docs/introduccion.md',
 		},
+		/*
+		{
+			name: 'App',
+			description: 'Componente raíz de la aplicación',
+			componentes: ['src/App.js'],
+		},
+		*/
 		{
 			name: 'Componentes de la aplicación',
 			description:
 				'En esta sección se describirán los componentes de la aplicación de react',
-			exampleMode: 'expand',
-			usageMode: 'expand',
+			//exampleMode: 'expand',
 			components: 'src/components/*.js',
 			sections: [
 				{
@@ -61,7 +70,7 @@ module.exports = {
 					components: 'src/components/panelPartidas/*.js',
 				},
 				{
-					name: 'Componentes de partidas',
+					name: 'Componentes de partida',
 					description: 'Componentes de partida',
 					components: 'src/components/partida/*.js',
 				},
@@ -85,16 +94,18 @@ module.exports = {
 				},
 				{
 					name: 'Componentes de tienda',
-					description: 'Componentes correspondientes al menú de salas',
-					components: 'src/components/menuSala/*.js',
+					description: 'Componentes correspondientes a la tienda',
+					components: 'src/components/tienda/*.js',
 				},
 			],
 		},
+		/*
 		{
 			name: 'Librerías javascript',
 			description:
 				'Librerías propias desarrolladas para parte de la lógica de la aplicación',
 			components: 'src/utils/*.js',
 		},
+		*/
 	],
 }

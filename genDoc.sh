@@ -9,7 +9,9 @@
 ######################################################################
 
 
-jsdoc src -r -d docs
 npx styleguidist build
+#cd docs
+#mv index.html index.md
+#sed -i '1d' index.md
 
 

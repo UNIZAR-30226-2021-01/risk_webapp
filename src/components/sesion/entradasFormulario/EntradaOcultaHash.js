@@ -4,6 +4,7 @@ import React from 'react'
  * EntradaOcultaHash es un campo oculto para la clave hasheada
  * @param {form} register Formulario al que pertenece
  * @param {int} value Hash de la contraseña del usuario
+ * @deprecated Usar la api de usuarioVO
  */
 export const EntradaOcultaHash = ({ register, value }) => {
 	return (

@@ -12,22 +12,18 @@ import {
 	MDBDropdownToggle,
 	MDBDropdownMenu,
 	MDBDropdownItem,
-	MDBIcon,
 } from 'mdbreact'
 import { Link } from 'react-router-dom'
 import iconos from '../assets/iconos/iconos'
 import marcoIcono from '../assets/UI/avatar_marco.png'
 import riskos from '../assets/UI/moneda.png'
-import { obtenerCredenciales } from '../utils/usuarioVO'
 import titulo from '../assets/UI/titulo.png'
+
 /**
  * Header contiene el encabezado de la aplicación y permite consultar
  * las reglas.
- * Si se está loggeado, permite:
- * - Visitar la tienda
- * - Consultar tus riskos
- * - Actualizar tu perfil
- * - Desloggearte
+ * Si se tiene la sesión iniciada permite visitar la tienda, consultar tus
+ * riskos, actualizar tu perfil y cerrar sesión
  */
 export const Header = () => {
 	const Auth = useContext(AuthApi)
@@ -43,9 +39,6 @@ export const Header = () => {
 			<MDBNavbarBrand>
 				<Link to="/">
 					<img src={titulo}></img>
-					{/*
-						<strong className="white-text">RISK</strong>
-					*/}
 				</Link>
 			</MDBNavbarBrand>
 			<MDBNavbarToggler onClick={toggleCollapse} />

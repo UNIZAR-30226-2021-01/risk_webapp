@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import './notificacion.css'
 import {
 	MDBRow,
@@ -13,12 +14,11 @@ import {
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import AuthApi from './../../utils/AuthApi'
 import { decisionPeticion } from '../../utils/restAPI'
+import { obtenerCredenciales } from 'utils/usuarioVO'
 
 /**
  * Representación de una notificación de petición de amistad en la
- * lista de notificaciones
- * @param {notificacion} datos Datos de la notificación obtenidos
- * a través de la API del servidor de juego.
+ * lista de notificaciones.
  */
 export const NotificacionAmistad = ({ datos }) => {
 	const [isOpen, setOpen] = useState(false)
@@ -32,10 +32,9 @@ export const NotificacionAmistad = ({ datos }) => {
 	const decisionAmistad = (datos, decision) => async () => {
 		setServerErrors('')
 		const formData = {
-			idUsuario: Auth.auth.usuario.id,
 			idAmigo: datos.idEnvio,
 			decision: decision,
-			clave: Auth.auth.usuario.clave,
+			...obtenerCredenciales(Auth),
 		}
 
 		const data = await decisionPeticion(formData)
@@ -85,17 +84,8 @@ export const NotificacionAmistad = ({ datos }) => {
 					</MDBRow>
 				</MDBCol>
 			</MDBRow>
-			<MDBModal
-				isOpen={isOpen}
-				toggle={() => {
-					toggle()
-				}}
-			>
-				<MDBModalHeader
-					toggle={() => {
-						toggle()
-					}}
-				>
+			<MDBModal isOpen={isOpen} toggle={toggle}>
+				<MDBModalHeader toggle={toggle}>
 					Se ha producido un error:
 				</MDBModalHeader>
 				<MDBModalBody>
@@ -103,13 +93,7 @@ export const NotificacionAmistad = ({ datos }) => {
 				</MDBModalBody>
 				<MDBModalFooter className="d-flex justify-content-around">
 					<MDBRow>
-						<MDBBtn
-							color="primary"
-							className="btn-modal"
-							onClick={() => {
-								toggle()
-							}}
-						>
+						<MDBBtn color="primary" className="btn-modal" onClick={toggle}>
 							{' '}
 							Aceptar
 						</MDBBtn>
@@ -118,6 +102,17 @@ export const NotificacionAmistad = ({ datos }) => {
 			</MDBModal>
 		</>
 	)
+}
+
+NotificacionAmistad.propTypes = {
+	/**
+	 * Datos con una cadena de información y el id
+	 * de la sala a la que unirse.
+	 */
+	datos: PropTypes.shape({
+		infoExtra: PropTypes.string,
+		idEnvio: PropTypes.number,
+	}),
 }
 
 export default NotificacionAmistad

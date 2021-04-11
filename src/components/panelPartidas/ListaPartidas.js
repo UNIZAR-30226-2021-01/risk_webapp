@@ -1,12 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PartidaMini from './PartidaMini'
 import { MDBBtn, MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 import { useHistory } from 'react-router-dom'
 import './ListaPartidas.css'
+
 /**
- * Muestra la lista de amigos recibida como parámetro y da la opción de
- * añadir un amigo.
- * @param {lista_de_usuarios} partidas Amigos del usuario de la aplicación
+ * Muestra la lista de partidas recibida como parámetro
+ * y un botón para crear sala.
  */
 export const ListaPartidas = ({ partidas }) => {
 	const history = useHistory()
@@ -31,6 +32,17 @@ export const ListaPartidas = ({ partidas }) => {
 			</MDBContainer>
 		</>
 	)
+}
+
+ListaPartidas.propTypes = {
+	/**
+	 * Lista de partidas a mostrar
+	 */
+	partidas: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number,
+		})
+	),
 }
 
 export default ListaPartidas

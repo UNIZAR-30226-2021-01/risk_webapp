@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { MDBContainer, MDBBtn } from 'mdbreact'
 import { EntradaAmigo } from './../sesion/entradasFormulario/EntradaAmigo'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import { OkServer } from './../sesion/entradasFormulario/OkServer'
-import { EntradaOcultaId } from '../sesion/entradasFormulario/EntradaOcultaID'
-import { EntradaOcultaHash } from '../sesion/entradasFormulario/EntradaOcultaHash'
+import { obtenerCredenciales } from 'utils/usuarioVO'
+import AuthApi from 'utils/AuthApi'
 
-export const FormAnyadirAmigo = ({ usuario, enviarSolicitud }) => {
+/**
+ * Formulario para añadir un amigo mediante su nombre de usuario.
+ */
+export const FormAnyadirAmigo = ({ enviarSolicitud }) => {
+	const Auth = useContext(AuthApi)
+
 	const { register, handleSubmit, errors } = useForm({ nombre: '' })
 	// Si se está enviando un formulario
 	const [submitting, setSubmitting] = useState(false)
@@ -25,22 +31,19 @@ export const FormAnyadirAmigo = ({ usuario, enviarSolicitud }) => {
 					setServerErrors('')
 					setServerOk('')
 					console.log(formData, 'amigo')
-					const data = await enviarSolicitud(formData)
-					console.log(data, '?¿?¿?¿?¿?¿')
-					setSubmitting(false)
-					if (data.code === 0) {
-						setServerOk('Solicitud enviada correctamente.')
-					} else {
-						setServerErrors(data.err)
+					formData = {
+						...formData,
+						...obtenerCredenciales(Auth),
 					}
+					const data = await enviarSolicitud(formData)
+					setSubmitting(false)
+					setServerErrors(data.err)
 				})}
 			>
 				<ErroresServer serverErrors={serverErrors} />
 				<OkServer serverOk={serverOk} />
 
 				<EntradaAmigo register={register} errors={errors} />
-				<EntradaOcultaId register={register} value={usuario.id} />
-				<EntradaOcultaHash register={register} value={usuario.clave} />
 
 				<div className="text-center mt-4">
 					<MDBBtn color="indigo" type="submit" disabled={submitting}>
@@ -50,4 +53,12 @@ export const FormAnyadirAmigo = ({ usuario, enviarSolicitud }) => {
 			</form>
 		</MDBContainer>
 	)
+}
+
+FormAnyadirAmigo.propTypes = {
+	/**
+	 * Función para enviar la solicitud
+	 * @param {datos_formulario} formData
+	 */
+	enviarSolicitud: PropTypes.func,
 }

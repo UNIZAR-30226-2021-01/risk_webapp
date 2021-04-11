@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { EntradaUsuario } from './entradasFormulario/EntradaUsuario'
 import { EntradaClave } from './entradasFormulario/EntradaClave'
@@ -9,14 +10,10 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
 import AuthApi, { registrarseLocal } from './../../utils/AuthApi.js'
 
 /**
- * Representa un formulario de inicio de sesión de la cuenta, si algún valor es incorrecto
- * no permite enviarlo.
- * ## Requisitos:
- * - @todo Campo de correo o nombre de usuario no vacío
- * - Contraseña no vacía
- * @param {ObjectSesion} defaults Valores por defecto del formulario
- * @param {string} submitText Texto del botón de enviar formulario
- * @param {función} makePetition Función ejecutada al enviar el formulario
+ * Representa un formulario de inicio de sesión de la cuenta, si algún
+ * valor es incorrecto no permite enviarlo.
+ * El formulario pide que el campo de correo o nombre de usuario sea
+ * no vacío y la contraseña también.
  */
 export const FormInicio = ({ defaults, submitText, makePetition }) => {
 	const Auth = useContext(AuthApi)
@@ -83,4 +80,21 @@ export const FormInicio = ({ defaults, submitText, makePetition }) => {
 	)
 }
 
+FormInicio.propTypes = {
+	/**
+	 * Valores por defecto del formulario
+	 */
+	defaults: PropTypes.any,
+
+	/**
+	 * Texto del botón de enviar formulario
+	 */
+	submitText: PropTypes.string,
+
+	/**
+	 * Función llamada al enviar los datos
+	 * @param {datos_formulario} formData
+	 */
+	makePetition: PropTypes.func,
+}
 export default FormInicio

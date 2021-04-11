@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { EntradaNombre } from './entradasFormulario/EntradaNombre'
 import { EntradaCorreo } from './entradasFormulario/EntradaCorreo'
@@ -13,15 +14,8 @@ import AuthApi from '../../utils/AuthApi'
 /**
  * Representa un formulario de registro de la cuenta, si algún valor es incorrecto
  * no permite enviarlo.
- * Requisitos:
- * - Nombre de usuario no vacío
- * - Correo con formato de correo
- * - Contraseña de mínimo 8 caracteres, con al menos una mayúscula, minúscula,
- * 		dígito y carácter especial.
- * @param {ObjectSesion} defaults Valores por defecto del formulario
- * @param {string} submitText Texto del botón de enviar formulario
- * @param {función} makePetition Función ejecutada al enviar el formulario
- * @param {función} siValido Función ejecutada si la comunicación con el server es válida
+ * El formulario requiere que el nombre de usuario sea no vacío, el correo tenga
+ * formato de correo y la contraseña sea no vacía.
  */
 export const FormRegistro = ({
 	defaults,
@@ -98,4 +92,28 @@ export const FormRegistro = ({
 	)
 }
 
+FormRegistro.PropTypes = {
+	/**
+	 * Valores por defecto del formulario.
+	 */
+	defaults: PropTypes.any,
+
+	/**
+	 * Texto del botón de enviar formulario.
+	 */
+	submitText: PropTypes.string,
+
+	/**
+	 * Función llamada al enviar el formulario.
+	 * @param {datos_formulario} formData
+	 * @returns {shape_code} error
+	 */
+	makePetition: PropTypes.func,
+
+	/**
+	 * Función llamada si makePetition no devuelve error.
+	 * @param {datos_formulario} formData
+	 */
+	siValido: PropTypes.func,
+}
 export default FormRegistro

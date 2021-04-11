@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom'
 import { MDBContainer } from 'mdbreact'
 
 /**
- * Inicio de sesion, si el loggeo es correcto añade las cookies de sesión
- * al cliente y en el contexto de la aplicación
- * @requires FormInicio
+ * Inicio de sesion, si el inicio de sesión es correcto añade las cookies
+ * de sesión al cliente y en el contexto de la aplicación.
  */
 const InicioSesion = () => {
 	return (

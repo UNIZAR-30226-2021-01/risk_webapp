@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ErroresCampo from './ErroresCampo'
 
 /**
@@ -29,4 +30,26 @@ export const EntradaNumero = ({
 			<ErroresCampo error={errors.numero} />
 		</>
 	)
+}
+
+EntradaNumero.propTypes = {
+	/**
+	 * Registro del formulario al que pertenece.
+	 */
+	register: PropTypes.any,
+
+	/**
+	 * Errores del formulario correspondiente.
+	 */
+	errors: PropTypes.any,
+
+	/**
+	 * Texto de la etiqueta.
+	 */
+	texto: PropTypes.string,
+
+	/**
+	 * Etiqueta del formulario.
+	 */
+	label: PropTypes.string,
 }

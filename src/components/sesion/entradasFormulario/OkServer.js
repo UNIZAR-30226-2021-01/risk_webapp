@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { MDBAlert } from 'mdbreact'
 
 /**
- * Da feedback al usuario si serverOk no es vacío
- * @param {string} serverOk String que se mostrará si no es vacía
+ * Da feedback al usuario si serverOk no es vacío, como
+ * un mensaje de éxito.
  */
 export const OkServer = ({ serverOk }) => {
 	return (
@@ -15,4 +16,11 @@ export const OkServer = ({ serverOk }) => {
 			)}
 		</>
 	)
+}
+
+OkServer.propTypes = {
+	/**
+	 * String que se mostrará si no es vacía.
+	 */
+	serverOk: PropTypes.string,
 }

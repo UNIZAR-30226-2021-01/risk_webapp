@@ -1,15 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { MDBRow, MDBCol } from 'mdbreact'
 import tropas from '../../assets/tropas/tropas'
 import iconos from '../../assets/iconos/iconos'
+
 /**
- * Representación de un amigo en la lista de amigos, da la opción de eliminar
- * el amigo.
- * @param {usuario} datos Datos del amigo
+ * Representación de un jugador para la lista de jugadores en
+ * una partida.
  */
 export const Jugador = ({ datos }) => {
-	const icono = iconos[datos.id].img
-	const aspecto = tropas[datos.id].img
+	const icono = iconos[datos.icono].img
+	const aspecto = tropas[datos.aspecto].img
 
 	return (
 		<MDBRow>
@@ -31,6 +32,14 @@ export const Jugador = ({ datos }) => {
 			</MDBCol>
 		</MDBRow>
 	)
+}
+
+Jugador.PropTypes = {
+	datos: PropTypes.shape({
+		icono: PropTypes.number,
+		aspecto: PropTypes.number,
+		nombre: PropTypes.string,
+	}),
 }
 
 export default Jugador

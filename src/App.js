@@ -35,10 +35,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import { recargarUsuario } from 'utils/restAPI'
 
 /**
- * App contiene el router y el header/footer de la aplicación,
+ * App contiene el router, header/footer y metadatos de la aplicación,
  * previene al usuario de entrar a las páginas en las que se requiere
  * estar loggeado si no lo está y viceversa.
- * @todo Darle bien estilo a todo.
  */
 function App() {
 	const [auth, setAuth] = useState(constants.NULL_VALUES)

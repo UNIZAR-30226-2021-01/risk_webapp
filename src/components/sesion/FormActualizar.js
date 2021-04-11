@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { EntradaNombre } from './entradasFormulario/EntradaNombre'
 import { EntradaCorreo } from './entradasFormulario/EntradaCorreo'
@@ -16,11 +17,10 @@ import aspectosJS from 'assets/tropas/tropas'
 
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
- * no permite enviarlo. Solo envía los cambios de los valores modificados. La clave
- * ## Requisitos:
- * - Nombre de usuario no vacío
- * - Correo con formato de correo
- * - Contraseña no vacía
+ * no permite enviarlo. Solo envía los cambios de los valores modificados. Para cambiar
+ * la clave hay que marcar la casilla e introducir la contraseña nueva.
+ * El formulario pide que el nombre de usuario sea no vacío, el correo tenga formato de
+ * correo y la contraseña sea no vacía.
  *
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario
@@ -41,7 +41,7 @@ export const FormActualizar = ({
 			icono: defaults.icono ? defaults.icono : 1,
 			aspecto: defaults.aspecto ? defaults.aspecto : 1,
 			correo: defaults.correo ? defaults.correo : '',
-			clave: '',
+			clave: '1',
 			recibeCorreos: defaults.recibeCorreos ? defaults.recibeCorreos : false,
 			cambioClave: defaults.cambioClave ? defaults.cambioClave : false,
 		},
@@ -122,6 +122,37 @@ export const FormActualizar = ({
 			</MDBRow>
 		</MDBContainer>
 	)
+}
+
+FormActualizar.propTypes = {
+	/**
+	 * Valores por defecto del formulario
+	 */
+	defaults: PropTypes.any,
+
+	/**
+	 * Texto del botón de enviar formulario
+	 */
+	submitText: PropTypes.string,
+
+	/**
+	 * Función que se ejecutarla al enviar el formulario.
+	 * @param {datos_formulario} formData
+	 * @returns code y err
+	 */
+	submitData: PropTypes.func,
+
+	iconos: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number,
+		})
+	),
+
+	aspectos: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number,
+		})
+	),
 }
 
 export default FormActualizar

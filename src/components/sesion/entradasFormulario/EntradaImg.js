@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { obtenerPrevio, obtenerSiguiente } from 'utils/fotoPerfil'
 import { MDBCol } from 'mdbreact'
 import ErroresCampo from './ErroresCampo'
@@ -7,13 +8,7 @@ import FlechaDerecha from 'assets/UI/flecha_derecha.png'
 
 /**
  * EntradaImg es un selector de imagen entre una serie de disponibles
- * @param {formulario} register Formulario al que se adhiere
- * @param {errores_formulario} errors Errores del formulario
- * @param {string} tag Nombre del campo
- * @param {array_int} disponibles Imagenes disponibles
- * @param {int} inicial Valor inicial del formulario
- * @param {array_int} imagenes Imagenes correspondientes y su precio
- * @returns Campo de entrada
+ * mediante flechas y una lista de disponibles.
  */
 export const EntradaImg = ({
 	register,
@@ -79,4 +74,40 @@ export const EntradaImg = ({
 			<ErroresCampo error={errors[tag]} />
 		</>
 	)
+}
+
+EntradaImg.propTypes = {
+	/**
+	 * Registro del formulario al que pertenece.
+	 */
+	register: PropTypes.any,
+
+	/**
+	 * Errores del formulario correspondiente.
+	 */
+	errors: PropTypes.any,
+
+	/**
+	 * Nombre del campo.
+	 */
+	tag: PropTypes.string,
+
+	/**
+	 * Array de disponibles.
+	 */
+	disponibles: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number,
+		})
+	),
+
+	/**
+	 * Valor inicial del formulario.
+	 */
+	inicial: PropTypes.number,
+
+	/**
+	 * Array de imágenes correspondientes.
+	 */
+	imagenes: PropTypes.arrayOf(PropTypes.any),
 }

@@ -1,12 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './amigo.css'
 import { MDBRow, MDBCol } from 'mdbreact'
 import iconos from '../../assets/iconos/iconos'
 import marcoIcono from '../../assets/UI/avatar_marco.png'
+
 /**
- * Representación de un amigo en la lista de amigos, da la opción de eliminar
- * el amigo.
- * @param {usuario} datos Datos del amigo
+ * Representación de un amigo en la lista de amigos, muestra a su derecha el
+ * componente pasado como parámetro.
  */
 export const Amigo = ({ datos, elemento, ...rest }) => {
 	console.log(datos)
@@ -24,6 +25,14 @@ export const Amigo = ({ datos, elemento, ...rest }) => {
 			</MDBCol>
 		</MDBRow>
 	)
+}
+
+Amigo.propTypes = {
+	datos: PropTypes.shape({
+		icono: PropTypes.number,
+		nombre: PropTypes.string,
+	}),
+	elemento: PropTypes.element,
 }
 
 export default Amigo
