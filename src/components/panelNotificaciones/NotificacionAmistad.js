@@ -67,9 +67,7 @@ export const NotificacionAmistad = ({ datos }) => {
 						<MDBCol md="6">
 							<MDBBtn
 								className="btn-notis"
-								onClick={() => {
-									decisionAmistad(datos, 'Aceptar')
-								}}
+								onClick={decisionAmistad(datos, 'Aceptar')}
 							>
 								<MDBIcon icon="check" />
 							</MDBBtn>
@@ -78,9 +76,7 @@ export const NotificacionAmistad = ({ datos }) => {
 							<MDBBtn
 								color="danger"
 								className="btn-notis"
-								onClick={() => {
-									decisionAmistad(datos, 'Rechazar')
-								}}
+								onClick={decisionAmistad(datos, 'Rechazar')}
 							>
 								<MDBIcon icon="times" />
 							</MDBBtn>

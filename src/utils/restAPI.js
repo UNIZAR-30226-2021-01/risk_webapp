@@ -31,7 +31,9 @@ export const peticionQForm = async (route, formData) => {
  * @public
  */
 export const inicioSesion = async (formData) => {
+	console.log(formData)
 	const data = await peticionQForm('iniciarSesion', formData)
+	console.log(data)
 	return data
 }
 

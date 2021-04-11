@@ -257,7 +257,6 @@ export const Sala = () => {
 
 			<MDBTabContent activeItem={estadoPag}>
 				<MDBTabPane tabId="1">
-					<p> Pag1...</p>
 					<FormCrearSala enviarSolicitud={crearSala} />
 				</MDBTabPane>
 				{/* Mover todo esto a otro componente si es necesario */}
@@ -286,7 +285,6 @@ export const Sala = () => {
 							</MDBBtn>
 						</MDBRow>
 					)}
-					<p> Pag2...</p>
 				</MDBTabPane>
 				<MDBTabPane tabId="3">
 					<p> Cargando </p>

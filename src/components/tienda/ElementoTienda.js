@@ -34,6 +34,7 @@ const ElementoTienda = ({ datos, tipo }) => {
 	}
 
 	const comprarObjetoInterno = () => async () => {
+		console.log('Comprar objeto interno')
 		setServerErrors('')
 		const formData = {
 			...obtenerCredenciales(Auth),
@@ -79,7 +80,7 @@ const ElementoTienda = ({ datos, tipo }) => {
 						{' '}
 						Cancelar
 					</MDBBtn>
-					<MDBBtn color="success" onClick={comprarObjetoInterno}>
+					<MDBBtn color="success" onClick={comprarObjetoInterno()}>
 						Comprar
 					</MDBBtn>
 				</MDBFooter>
