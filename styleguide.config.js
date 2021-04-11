@@ -20,6 +20,7 @@ module.exports = {
 		return props
 	},
 	*/
+	styleguideDir: 'docs',
 	sections: [
 		{
 			name: 'Introducción',
