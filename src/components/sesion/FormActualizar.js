@@ -16,9 +16,10 @@ import aspectosJS from 'assets/tropas/tropas'
 
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
- * no permite enviarlo. Solo envía los cambios de los valores modificados. La clave
+ * no permite enviarlo. Solo envía los cambios de los valores modificados. Para cambiar
+ * la clave hay que marcar la casilla e introducir la contraseña nueva.
  * El formulario pide que el nombre de usuario sea no vacío, el correo tenga formato de
- * correo y la contraseña sea no vacía
+ * correo y la contraseña sea no vacía.
  *
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario

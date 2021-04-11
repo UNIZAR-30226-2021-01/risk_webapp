@@ -22,11 +22,8 @@ import titulo from '../assets/UI/titulo.png'
 /**
  * Header contiene el encabezado de la aplicación y permite consultar
  * las reglas.
- * Si se está loggeado, permite:
- * - Visitar la tienda
- * - Consultar tus riskos
- * - Actualizar tu perfil
- * - Desloggearte
+ * Si se tiene la sesión iniciada permite visitar la tienda, consultar tus
+ * riskos, actualizar tu perfil y cerrar sesión
  */
 export const Header = () => {
 	const Auth = useContext(AuthApi)

@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom'
 import { MDBContainer } from 'mdbreact'
 
 /**
- * Crea una cuenta del usuario, si el loggeo es correcto añade las cookies de sesión
- * al cliente y en el contexto de la aplicación
+ * Crea una cuenta del usuario, si el registro es correcto añade las
+ * cookies de sesión al cliente y en el contexto de la aplicación.
  */
 const Registrar = () => {
 	return (

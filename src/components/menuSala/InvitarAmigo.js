@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { MDBBtn } from 'mdbreact'
 
 /**
- * Componente que muestra un botón para enviar una solicitud de amistad
+ * Componente que muestra un botón para enviar una invitación de partida
  * por el websocket al amigo correspondiente.
  */
 export const InvitarAmigo = ({ amigo, ws }) => {

@@ -6,8 +6,8 @@ import iconos from '../../assets/iconos/iconos'
 import marcoIcono from '../../assets/UI/avatar_marco.png'
 
 /**
- * Representación de un amigo en la lista de amigos, muestra a su derecha el componente
- * pasado como parámetro.
+ * Representación de un amigo en la lista de amigos, muestra a su derecha el
+ * componente pasado como parámetro.
  */
 export const Amigo = ({ datos, elemento, ...rest }) => {
 	console.log(datos)
