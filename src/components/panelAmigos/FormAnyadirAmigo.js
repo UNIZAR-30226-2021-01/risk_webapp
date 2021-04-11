@@ -36,6 +36,9 @@ export const FormAnyadirAmigo = ({ enviarSolicitud }) => {
 						...obtenerCredenciales(Auth),
 					}
 					const data = await enviarSolicitud(formData)
+					if (data.code === 0) {
+						setServerOk('Solicitud enviada correctamente.')
+					}
 					setSubmitting(false)
 					setServerErrors(data.err)
 				})}
