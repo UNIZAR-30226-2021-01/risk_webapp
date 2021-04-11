@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Amigo from './Amigo.js'
 import AnyadirAmigo from './AnyadirAmigo'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
@@ -27,6 +28,16 @@ export const ListaAmigos = ({
 			{mostrarAnyadir && <AnyadirAmigo />}
 		</MDBContainer>
 	)
+}
+
+ListaAmigos.propTypes = {
+	usuarios: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number,
+		})
+	),
+	elemento: PropTypes.element,
+	mostrarAnyadir: PropTypes.bool,
 }
 
 export default ListaAmigos

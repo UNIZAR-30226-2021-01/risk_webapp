@@ -1,10 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ErroresCampo from './ErroresCampo'
 
 /**
- * Campo de formulario para nombre de usuario o correo
- * @param {form} register Formulario al que pertenece
- * @param {errors_form} errors Errores del registro
+ * Campo de formulario para nombre de usuario o correo.
  */
 export const EntradaUsuario = ({ register, errors }) => {
 	return (
@@ -25,4 +24,16 @@ export const EntradaUsuario = ({ register, errors }) => {
 			<ErroresCampo error={errors.usuario} />
 		</>
 	)
+}
+
+EntradaUsuario.propTypes = {
+	/**
+	 * Registro del formulario al que pertenece.
+	 */
+	register: PropTypes.any,
+
+	/**
+	 * Errores del formulario correspondiente.
+	 */
+	errors: PropTypes.any,
 }

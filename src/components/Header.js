@@ -39,9 +39,6 @@ export const Header = () => {
 			<MDBNavbarBrand>
 				<Link to="/">
 					<img src={titulo}></img>
-					{/*
-						<strong className="white-text">RISK</strong>
-					*/}
 				</Link>
 			</MDBNavbarBrand>
 			<MDBNavbarToggler onClick={toggleCollapse} />

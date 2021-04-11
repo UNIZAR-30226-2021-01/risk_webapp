@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ErroresCampo from './ErroresCampo'
 
 /**
@@ -41,4 +42,21 @@ export const EntradaClave = ({ titulo, register, errors }) => {
 			<ErroresCampo error={errors.clave} />
 		</>
 	)
+}
+
+EntradaClave.propTypes = {
+	/**
+	 * Etiqueta de título.
+	 */
+	titulo: PropTypes.string,
+
+	/**
+	 * Registro del formulario al que pertenece.
+	 */
+	register: PropTypes.any,
+
+	/**
+	 * Errores del formulario correspondiente.
+	 */
+	errors: PropTypes.any,
 }

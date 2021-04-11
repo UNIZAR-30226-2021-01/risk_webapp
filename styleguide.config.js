@@ -30,6 +30,13 @@ module.exports = {
 				'Esta documentación corresponde a la aplicación web de un proyecto de Risk de la asignatura Proyecto Software. Se pueden consultar los repositorios en https://github.com/UNIZAR-30226-2021-01.',
 			content: 'docs/introduccion.md',
 		},
+		/*
+		{
+			name: 'App',
+			description: 'Componente raíz de la aplicación',
+			componentes: ['src/App.js'],
+		},
+		*/
 		{
 			name: 'Componentes de la aplicación',
 			description:
@@ -63,7 +70,7 @@ module.exports = {
 					components: 'src/components/panelPartidas/*.js',
 				},
 				{
-					name: 'Componentes de partidas',
+					name: 'Componentes de partida',
 					description: 'Componentes de partida',
 					components: 'src/components/partida/*.js',
 				},

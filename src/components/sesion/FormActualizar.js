@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { EntradaNombre } from './entradasFormulario/EntradaNombre'
 import { EntradaCorreo } from './entradasFormulario/EntradaCorreo'
@@ -121,6 +122,37 @@ export const FormActualizar = ({
 			</MDBRow>
 		</MDBContainer>
 	)
+}
+
+FormActualizar.propTypes = {
+	/**
+	 * Valores por defecto del formulario
+	 */
+	defaults: PropTypes.any,
+
+	/**
+	 * Texto del botón de enviar formulario
+	 */
+	submitText: PropTypes.string,
+
+	/**
+	 * Función que se ejecutarla al enviar el formulario.
+	 * @param {datos_formulario} formData
+	 * @returns code y err
+	 */
+	submitData: PropTypes.func,
+
+	iconos: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number,
+		})
+	),
+
+	aspectos: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number,
+		})
+	),
 }
 
 export default FormActualizar

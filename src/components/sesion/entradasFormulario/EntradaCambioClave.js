@@ -1,11 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 /**
- * EntradaCambioClave es un campo de formulario para decir que quieres
- * cambiar la clave
- * @param {string} titulo Etiqueta para el cambio
- * @param {form} register Formulario al que pertenece
- * @param {errors_form} errors Errores del registro
+ * EntradaCambioClave es un campo de formulario para indicar que se quiere
+ * cambiar la clave.
  */
 export const EntradaCambioClave = ({ titulo, register, errors }) => {
 	return (
@@ -27,4 +25,21 @@ export const EntradaCambioClave = ({ titulo, register, errors }) => {
 			) : null}
 		</>
 	)
+}
+
+EntradaCambioClave.propTypes = {
+	/**
+	 * Etiqueta de título.
+	 */
+	titulo: PropTypes.string,
+
+	/**
+	 * Registro del formulario al que pertenece.
+	 */
+	register: PropTypes.any,
+
+	/**
+	 * Errores del formulario correspondiente.
+	 */
+	errors: PropTypes.any,
 }

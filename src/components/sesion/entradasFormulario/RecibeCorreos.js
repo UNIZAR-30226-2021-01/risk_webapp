@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 /**
- * RecibeCorreos es un campo de formulario para la recepción de correos
+ * RecibeCorreos es un campo de formulario para la recepción de correos.
  * @param {form} register Formulario al que pertenece
  */
 export const RecibeCorreos = ({ register }) => {
@@ -19,4 +21,11 @@ export const RecibeCorreos = ({ register }) => {
 			/>
 		</>
 	)
+}
+
+RecibeCorreos.propTypes = {
+	/**
+	 * Registro del formulario al que pertenece.
+	 */
+	register: PropTypes.any,
 }
