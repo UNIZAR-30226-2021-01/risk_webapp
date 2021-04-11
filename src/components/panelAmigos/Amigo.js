@@ -4,6 +4,7 @@ import './amigo.css'
 import { MDBRow, MDBCol } from 'mdbreact'
 import iconos from '../../assets/iconos/iconos'
 import marcoIcono from '../../assets/UI/avatar_marco.png'
+
 /**
  * Representación de un amigo en la lista de amigos, muestra a su derecha el componente
  * pasado como parámetro.
@@ -27,9 +28,6 @@ export const Amigo = ({ datos, elemento, ...rest }) => {
 }
 
 Amigo.propTypes = {
-	/**
-	 * Datos del amigo
-	 */
 	datos: PropTypes.shape({
 		icono: PropTypes.number,
 		nombre: PropTypes.string,

@@ -13,11 +13,8 @@ import AuthApi from '../../utils/AuthApi'
 /**
  * Representa un formulario de registro de la cuenta, si algún valor es incorrecto
  * no permite enviarlo.
- * Requisitos:
- * - Nombre de usuario no vacío
- * - Correo con formato de correo
- * - Contraseña de mínimo 8 caracteres, con al menos una mayúscula, minúscula,
- * 		dígito y carácter especial.
+ * El formulario requiere que el nombre de usuario sea no vacío, el correo tenga
+ * formato de correo y la contraseña sea no vacía.
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario
  * @param {función} makePetition Función ejecutada al enviar el formulario

@@ -21,7 +21,8 @@ module.exports = {
 	},
 	*/
 	styleguideDir: 'docs',
-	title: 'Documentación de la aplicación web de https://github.com/UNIZAR-30226-2021-01/risk_webapp',
+	title: 'Documentación de la aplicación web del proyecto',
+	usageMode: 'expand',
 	sections: [
 		{
 			name: 'Introducción',
@@ -33,8 +34,7 @@ module.exports = {
 			name: 'Componentes de la aplicación',
 			description:
 				'En esta sección se describirán los componentes de la aplicación de react',
-			exampleMode: 'expand',
-			usageMode: 'expand',
+			//exampleMode: 'expand',
 			components: 'src/components/*.js',
 			sections: [
 				{

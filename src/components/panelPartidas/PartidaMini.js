@@ -54,20 +54,14 @@ export const PartidaMini = ({ datosPartida }) => {
 }
 
 PartidaMini.propTypes = {
+	/**
+	 * Id de la partida
+	 * Nombre de la partida
+	 * Nombre del jugador del turno actual.
+	 */
 	datosPartida: PropTypes.shape({
-		/**
-		 * Id de la partida
-		 */
 		id: PropTypes.number,
-
-		/**
-		 * Nombre de la partida
-		 */
 		nombre: PropTypes.string,
-
-		/**
-		 * Nombre del jugador del turno actual.
-		 */
 		nombreTurnoActual: PropTypes.string,
 	}),
 }

@@ -27,20 +27,16 @@ export const SalaEncabezado = ({ datos }) => {
 }
 
 SalaEncabezado.propTypes = {
+	/**
+	 * Nombre de la partida
+	 * Tiempo de turno en minutos
+	 * Lista de jugadores para su longitud
+	 */
 	datos: PropTypes.shape({
-		/**
-		 * Nombre de la partida
-		 */
 		nombrePartida: PropTypes.string,
 
-		/**
-		 * Tiempo de turno en minutos
-		 */
 		tiempoTurno: PropTypes.number,
 
-		/**
-		 * Array de jugadores que se usará para su longitud
-		 */
 		jugadores: PropTypes.arrayOf(PropTypes.any),
 	}),
 }

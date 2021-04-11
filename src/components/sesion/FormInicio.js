@@ -9,11 +9,10 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
 import AuthApi, { registrarseLocal } from './../../utils/AuthApi.js'
 
 /**
- * Representa un formulario de inicio de sesión de la cuenta, si algún valor es incorrecto
- * no permite enviarlo.
- * ## Requisitos:
- * - @todo Campo de correo o nombre de usuario no vacío
- * - Contraseña no vacía
+ * Representa un formulario de inicio de sesión de la cuenta, si algún
+ * valor es incorrecto no permite enviarlo.
+ * El formulario pide que el campo de correo o nombre de usuario sea
+ * no vacío y la contraseña también.
  * @param {ObjectSesion} defaults Valores por defecto del formulario
  * @param {string} submitText Texto del botón de enviar formulario
  * @param {función} makePetition Función ejecutada al enviar el formulario
