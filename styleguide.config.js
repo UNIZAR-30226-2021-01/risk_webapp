@@ -21,7 +21,7 @@ module.exports = {
 	},
 	*/
 	styleguideDir: 'docs',
-	title: 'Documentación de la aplicación web del proyecto',
+	title: 'Documentación de la aplicación web del proyecto.',
 	usageMode: 'expand',
 	sections: [
 		{
@@ -38,48 +38,48 @@ module.exports = {
 		{
 			name: 'Componentes de la aplicación',
 			description:
-				'En esta sección se describirán los componentes de la aplicación de react',
+				'En esta sección se describirán los componentes de la aplicación de react.',
 			//exampleMode: 'expand',
 			components: 'src/components/*.js',
 			sections: [
 				{
 					name: 'Menú principal',
-					description: 'Componentes básicos del menú principal',
+					description: 'Componentes básicos del menú principal.',
 					components: 'src/components/menuPrincipal/*.js',
 				},
 				{
 					name: 'Menú de salas',
-					description: 'Componentes del menú de salas',
+					description: 'Componentes del menú de salas.',
 					components: 'src/components/menuSala/*.js',
 				},
 				{
 					name: 'Panel de amigos',
-					description: 'Componentes del panel de amigos',
+					description: 'Componentes del panel de amigos.',
 					components: 'src/components/panelAmigos/*.js',
 				},
 				{
 					name: 'Panel de notificaciones',
-					description: 'Componentes del panel de notificaciones',
+					description: 'Componentes del panel de notificaciones.',
 					components: 'src/components/panelNotificaciones/*.js',
 				},
 				{
 					name: 'Panel de partidas',
-					description: 'Componentes del panel de partidas',
+					description: 'Componentes del panel de partidas.',
 					components: 'src/components/panelPartidas/*.js',
 				},
 				{
 					name: 'Componentes de partida',
-					description: 'Componentes de partida',
+					description: 'Componentes de partida.',
 					components: 'src/components/partida/*.js',
 				},
 				{
 					name: 'Reglas del juego',
-					description: 'Componentes de las reglas de juego',
+					description: 'Componentes de las reglas de juego.',
 					components: 'src/components/Reglas/*.js',
 				},
 				{
 					name: 'Componentes de cuenta y sesión',
-					description: 'Componentes de loggeo y sesión',
+					description: 'Componentes de loggeo y sesión.',
 					components: 'src/components/sesion/*.js',
 					sections: [
 						{
@@ -92,7 +92,7 @@ module.exports = {
 				},
 				{
 					name: 'Componentes de tienda',
-					description: 'Componentes correspondientes a la tienda',
+					description: 'Componentes correspondientes a la tienda.',
 					components: 'src/components/tienda/*.js',
 				},
 			],
@@ -100,7 +100,7 @@ module.exports = {
 		{
 			name: 'Librerías javascript',
 			description:
-				'Librerías propias desarrolladas para parte de la lógica de la aplicación',
+				'Librerías propias desarrolladas para parte de la lógica de la aplicación.',
 			components: 'src/utils/*.js',
 		},
 	],
