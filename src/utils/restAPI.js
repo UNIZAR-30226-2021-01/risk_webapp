@@ -2,12 +2,12 @@ import constants from './constants'
 import qs from 'qs'
 
 /**
- * Envía una petición al server mediante el método POST con los datos recibidos como parámetro
+ * Envía una petición al server mediante el método POST con los datos recibidos como parámetro.
  * @param {datos_adicionales} formData Contiene los datos necesarios para la función solicitada
  * por el usuario.
  * @param {ruta_servidor} route Es la ruta dentro del servidor a la que se envía la petición.
- * Cada ruta espera unaa configuración distinta de parámetros que se le pasarán mediante formData
- * @returns Respuesta recibida del servidor en formato JSON
+ * Cada ruta espera una configuración distinta de parámetros que se le pasarán mediante formData.
+ * @returns Respuesta recibida del servidor en formato JSON.
  */
 export const peticionQForm = async (route, formData) => {
 	const url = `${constants.BASE_SERVER_URL}${route}`
@@ -24,10 +24,10 @@ export const peticionQForm = async (route, formData) => {
 }
 
 /**
- * Hace una petición al server de inicio de sesión con los datos recibidos como parámetro
+ * Hace una petición al server de inicio de sesión con los datos recibidos como parámetro.
  * @param {datos_usuario} formData Contiene los datos necesarios para el inicio de sesión
- * de un usuario en el servidor (nombre o correo del usuario y su clave correspondiente)
- * @returns Respuesta recibida a la petición de inicio de sesión en JSON
+ * de un usuario en el servidor (nombre o correo del usuario y su clave correspondiente).
+ * @returns Respuesta recibida a la petición de inicio de sesión en JSON.
  * @public
  */
 export const inicioSesion = async (formData) => {
@@ -40,8 +40,8 @@ export const inicioSesion = async (formData) => {
 /**
  * Hace una petición al server de registro con los datos recibidos como parámetro
  * @param {datos_usuario} formData Contiene los datos necesarios para el registro
- * de un usuario en el servidor
- * @returns Respuesta recibida a la petición de registro en JSON
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const registrarse = async (formData) => {
@@ -50,8 +50,10 @@ export const registrarse = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server de recarga con los datos recibidos como parámetro
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const recargarUsuario = async (formData) => {
@@ -60,8 +62,11 @@ export const recargarUsuario = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server de solicitud de amistad con los datos recibidos
+ * como parámetro.
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor
+ * @returns Respuesta recibida a la petición de registro en JSON
  * @public
  */
 export const solicitudAmistad = async (formData) => {
@@ -70,8 +75,10 @@ export const solicitudAmistad = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server de eliminar amigo con los datos recibidos como parámetro.
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const eliminarAmigo = async (formData) => {
@@ -81,8 +88,11 @@ export const eliminarAmigo = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server de obtener la lista de amigos con los datos
+ * recibidos como parámetro.
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const obtenerAmigos = async (formData) => {
@@ -94,8 +104,11 @@ export const obtenerAmigos = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server de obtener la lista de notifiaciones con
+ * los datos recibidos como parámetro.
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const obtenerNotificaciones = async (formData) => {
@@ -107,8 +120,10 @@ export const obtenerNotificaciones = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server con la decisión de una petición de amistad.
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const decisionPeticion = async (formData) => {
@@ -117,8 +132,11 @@ export const decisionPeticion = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server de obtención de la lista de partidas
+ * con los datos recibidos como parámetro.
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const obtenerPartidas = async (formData) => {
@@ -129,8 +147,11 @@ export const obtenerPartidas = async (formData) => {
 // Funciones de la tienda
 
 /**
- *
- * @param {*} formData
+ * Hace una petición al server de comprar el objeto con los datos recibidos
+ * como parámetro.
+ * @param {datos_usuario} formData Contiene los datos necesarios para el registro
+ * de un usuario en el servidor.
+ * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
 export const comprarObjeto = async (formData) => {
@@ -139,8 +160,7 @@ export const comprarObjeto = async (formData) => {
 }
 
 /**
- *
- * @param {*} formData
+ * @deprecated
  * @public
  */
 export const crearSala = async (formData) => {
