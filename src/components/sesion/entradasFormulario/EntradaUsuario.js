@@ -8,7 +8,7 @@ import ErroresCampo from './ErroresCampo'
 export const EntradaUsuario = ({ register, errors }) => {
 	return (
 		<>
-			<label htmlFor="usuario" className="grey-text">
+			<label htmlFor="usuario" className="black-text">
 				{' '}
 				Correo o usuario
 			</label>

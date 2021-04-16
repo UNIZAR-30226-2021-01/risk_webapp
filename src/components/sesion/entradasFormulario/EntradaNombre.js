@@ -15,7 +15,7 @@ export const EntradaNombre = ({
 }) => {
 	return (
 		<>
-			<label htmlFor={label} className="grey-text">
+			<label htmlFor={label} className="black-text">
 				{texto}
 			</label>
 			<input

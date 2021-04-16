@@ -10,6 +10,7 @@ import hash from 'js-sha256'
 //import "./formCuenta.css"
 import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
 import AuthApi from '../../utils/AuthApi'
+import './FormRegistro.css'
 
 /**
  * Representa un formulario de registro de la cuenta, si algún valor es incorrecto
@@ -39,7 +40,7 @@ export const FormRegistro = ({
 	const [serverErrors, setServerErrors] = useState('')
 
 	return (
-		<MDBContainer>
+		<MDBContainer id="cont-registro">
 			<MDBRow className="d-flex align-items-center flex-column">
 				<MDBCol md="6">
 					<form

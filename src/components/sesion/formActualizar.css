@@ -1,8 +1,24 @@
+#cont-actualizar {
+	padding-bottom: 0.8rem;
+	background: repeating-linear-gradient(
+		0deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+	border-radius: 1rem !important;
+	border: 0.2rem solid #7c643c;
+	color: #444;
+	margin-bottom: 2rem;
+}
+
 .selector-avatar,
 .selector-fichas {
 	display: flex;
 	align-items: center;
 	justify-content: space-evenly;
+	margin-top: 0.8rem;
 }
 
 .flecha {
@@ -23,8 +39,23 @@
 	padding: 30px;
 }
 
-#avatar,
-#avatar-ajustes,
-#ficha-ajustes {
+#ficha-ajustes,
+.marco-asset {
 	height: 150px;
+}
+
+#avatar-ajustes,
+.fondo-asset {
+	height: 150px;
+	position: absolute;
+}
+
+label {
+	color: #fff;
+}
+
+.btn-default.btn.Ripple-parent {
+	font-size: 1.3rem;
+	padding: 0.15rem 0.7rem;
+	background-color: #d55e00 !important;
 }

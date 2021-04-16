@@ -8,6 +8,7 @@ import hash from 'js-sha256'
 //import "./formCuenta.css";
 import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
 import AuthApi, { registrarseLocal } from './../../utils/AuthApi.js'
+import './FormInicio.css'
 
 /**
  * Representa un formulario de inicio de sesión de la cuenta, si algún
@@ -31,7 +32,7 @@ export const FormInicio = ({ defaults, submitText, makePetition }) => {
 	const [serverErrors, setServerErrors] = useState('')
 
 	return (
-		<MDBContainer>
+		<MDBContainer id="cont-inicio">
 			<MDBRow className="d-flex align-items-center flex-column">
 				<MDBCol md="6">
 					<form

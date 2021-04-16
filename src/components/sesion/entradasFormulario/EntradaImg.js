@@ -5,6 +5,7 @@ import { MDBCol } from 'mdbreact'
 import ErroresCampo from './ErroresCampo'
 import FlechaIzquierda from 'assets/UI/flecha_izquierda.png'
 import FlechaDerecha from 'assets/UI/flecha_derecha.png'
+import marcoIcono from 'assets/UI/avatar_marco.png'
 
 /**
  * EntradaImg es un selector de imagen entre una serie de disponibles
@@ -17,6 +18,7 @@ export const EntradaImg = ({
 	disponibles,
 	inicial,
 	imagenes,
+	fondo,
 }) => {
 	const [imagenActual, setImagenActual] = useState(inicial)
 	const [avanzando, setAvanzando] = useState(false)
@@ -50,16 +52,21 @@ export const EntradaImg = ({
 					alt="Flecha anterior"
 					onClick={avanzarPrevio}
 				/>
-				<img
-					id="avatar-ajustes"
-					src={imagenes[imagenActual].img}
-					alt="Avatar"
-				/>
+
+				<img className="marco-asset" src={marcoIcono} alt="icono avatar" />
 				<img
 					className="flecha sig"
 					src={FlechaDerecha}
 					alt="Flecha siguiente"
 					onClick={avanzarSiguiente}
+				/>
+				{fondo && (
+					<img className="fondo-asset" src={fondo} alt="fondo avatar" />
+				)}
+				<img
+					id="avatar-ajustes"
+					src={imagenes[imagenActual].img}
+					alt="Avatar"
 				/>
 			</MDBCol>
 			<input

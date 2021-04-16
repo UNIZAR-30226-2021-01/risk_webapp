@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 export const RecibeCorreos = ({ register }) => {
 	return (
 		<>
-			<label htmlFor="recibeCorreos" className="grey-text">
+			<label htmlFor="recibeCorreos" className="black-text">
 				{' '}
 				Quiero recibir correo:{' '}
 			</label>

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 export const EntradaCambioClave = ({ titulo, register, errors }) => {
 	return (
 		<>
-			<label htmlFor="cambioClave" className="grey-text">
+			<label htmlFor="cambioClave" className="black-text">
 				{' '}
 				{titulo}
 			</label>

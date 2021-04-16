@@ -14,6 +14,7 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn } from 'mdbreact'
 import './formActualizar.css'
 import iconosJS from 'assets/iconos/iconos'
 import aspectosJS from 'assets/tropas/tropas'
+import fondoAspecto from 'assets/UI/avatar_fondo.png'
 
 /**
  * Representa un formulario de actualización de la cuenta, si algún valor es incorrecto
@@ -53,7 +54,7 @@ export const FormActualizar = ({
 	const [serverErrors, setServerErrors] = useState('')
 
 	return (
-		<MDBContainer>
+		<MDBContainer id="cont-actualizar">
 			<MDBRow className="d-flex align-items-center flex-column">
 				<MDBCol md="6">
 					<form
@@ -92,6 +93,7 @@ export const FormActualizar = ({
 							disponibles={aspectos}
 							inicial={defaults.aspecto}
 							imagenes={aspectosJS}
+							fondo={fondoAspecto}
 						/>
 
 						<EntradaNombre register={register} errors={errors} />
@@ -113,7 +115,7 @@ export const FormActualizar = ({
 						<RecibeCorreos register={register} errors={errors} />
 
 						<div className="text-center mt-4">
-							<MDBBtn color="indigo" type="submit" disabled={submitting}>
+							<MDBBtn type="submit" disabled={submitting}>
 								{submitText}
 							</MDBBtn>
 						</div>

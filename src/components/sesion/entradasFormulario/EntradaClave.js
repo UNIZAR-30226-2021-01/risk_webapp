@@ -11,7 +11,7 @@ import ErroresCampo from './ErroresCampo'
 export const EntradaClave = ({ titulo, register, errors }) => {
 	return (
 		<>
-			<label htmlFor="clave" className="grey-text">
+			<label htmlFor="clave" className="black-text">
 				{' '}
 				{titulo}
 			</label>
