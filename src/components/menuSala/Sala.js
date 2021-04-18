@@ -21,6 +21,7 @@ import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServe
 import { useHistory } from 'react-router-dom'
 import SalaEncabezado from './SalaEncabezado'
 import ListaJugadoresPartida from './ListaJugadoresPartida'
+import { socketAbierto, crearSala, aceptarSala } from 'utils/SalaApi'
 import constants from 'utils/constants'
 import './Sala.css'
 
@@ -138,7 +139,7 @@ export const Sala = () => {
 			setModal(false)
 			if (id !== 'undefined') {
 				let idInt = parseInt(id)
-				aceptarSala(idInt)
+				aceptarSalaLocal(idInt)
 			}
 		}
 
@@ -210,36 +211,26 @@ export const Sala = () => {
 	}
 	*/
 
-	const crearSala = (formData) => {
-		if (ws.current !== undefined && ws.current.readyState === WebSocket.OPEN) {
+	const crearSalaLocal = (formData) => {
+		if (socketAbierto(ws.current)) {
 			setSalaInfo({
 				...salaInfo,
 				tiempoTurno: formData.tiempoTurno,
 				nombreSala: formData.nombreSala,
 			})
-			// Por algún motivo no funciona
-			//setEstadoInterno(estadosInternos.EsperandoRespuestaFormulario)
+
 			estadoInterno.current = estadosInternos.EsperandoRespuestaFormulario
 
-			//console.log(estadoInterno, 'plz')
-			formData = {
-				...formData,
-				...obtenerCredenciales(Auth),
-			}
-			console.log(formData, 'Envío crear sala')
-			ws.current.send(JSON.stringify(formData))
+			console.log(estadoInterno, 'plz')
+			crearSala(Auth, ws.current, formData)
 		} else {
 			console.log(ws.current.readyState, 'Estado del socket')
 		}
 	}
 
-	const aceptarSala = (id) => {
-		if (ws.current !== undefined && ws.current.readyState === WebSocket.OPEN) {
-			const data = {
-				...obtenerCredenciales(Auth),
-				idSala: id,
-			}
-			ws.current.send(JSON.stringify(data))
+	const aceptarSalaLocal = (id) => {
+		if (socketAbierto(ws.current)) {
+			aceptarSala(Auth, ws.current, id)
 		} else {
 			console.log(ws.current.readyState, 'Estado del socket')
 		}
@@ -273,7 +264,7 @@ export const Sala = () => {
 
 			<MDBTabContent activeItem={estadoPag}>
 				<MDBTabPane tabId="1">
-					<FormCrearSala enviarSolicitud={crearSala} />
+					<FormCrearSala enviarSolicitud={crearSalaLocal} />
 				</MDBTabPane>
 				{/* Mover todo esto a otro componente si es necesario */}
 				<MDBTabPane tabId="2">
