@@ -31,7 +31,7 @@ const ActualizacionConfiguracion = () => {
 	 * @param {nuevos_datos} formData Valores recogidos en el formulario
 	 */
 	const actualizarCampo = async (oldValues, campo, formData) => {
-		const url = `${constants.BASE_SERVER_URL}personalizarUsuario` // Actualizar
+		const url = `${constants.BASE_SERVER_URL}personalizarUsuario`
 		const nuevoValor = formData[campo]
 		let options = {
 			method: 'POST',

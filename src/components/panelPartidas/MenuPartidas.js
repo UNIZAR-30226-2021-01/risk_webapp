@@ -18,8 +18,7 @@ export const MenuSalas = () => {
 		async function setData() {
 			const formData = obtenerCredenciales(Auth)
 			const dataPartidas = await obtenerPartidas(formData)
-			console.log(dataPartidas)
-			//setPartidas(dataPartidas)
+			setPartidas(dataPartidas.partidas)
 		}
 		setData()
 	}, [])

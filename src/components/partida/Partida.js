@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Risk from 'assets/mapas/RiskMapa'
+import partidaEstado from './partidaEstados'
 import { MDBContainer } from 'mdbreact'
 import { SVGMap } from './SVGMap'
 
@@ -8,9 +9,7 @@ import { SVGMap } from './SVGMap'
  * @todo todo  falta
  */
 export const Partida = () => {
-	const [map, setMap] = useState({
-		...Risk,
-	})
+	const [estado, dispatch] = partidaEstado()
 
 	const handleClickEnUbicacion = (event) => {
 		console.log(event.target.attributes.name.value)
@@ -20,7 +19,7 @@ export const Partida = () => {
 		<MDBContainer>
 			{/* Para que se vea el mapa */}
 			<div className="bg-primary">
-				<SVGMap map={map} onLocationClick={handleClickEnUbicacion} />
+				<SVGMap map={Risk} onLocationClick={handleClickEnUbicacion} />
 			</div>
 		</MDBContainer>
 	)

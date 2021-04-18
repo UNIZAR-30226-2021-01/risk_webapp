@@ -39,8 +39,8 @@ export const FormActualizar = ({
 	const { register, handleSubmit, errors } = useForm({
 		defaultValues: {
 			nombre: defaults.nombre ? defaults.nombre : '',
-			icono: defaults.icono ? defaults.icono : 1,
-			aspecto: defaults.aspecto ? defaults.aspecto : 1,
+			icono: defaults.icono ? defaults.icono : 0,
+			aspecto: defaults.aspecto ? defaults.aspecto : 0,
 			correo: defaults.correo ? defaults.correo : '',
 			clave: '1',
 			recibeCorreos: defaults.recibeCorreos ? defaults.recibeCorreos : false,

@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Aspecto from 'assets/tropas/aspecto_0.png'
 import { obtenerCentro } from 'utils/mapa'
 
 export const SVGMap = (props) => {
@@ -49,7 +50,7 @@ export const SVGMap = (props) => {
 							onBlur={props.onLocationBlur}
 							key={location.id}
 						/>
-						{/*<image href={Aspecto} x={coords.x - 40} y={coords.y - 30} />*/}
+						<image href={Aspecto} x={coords.x - 40} y={coords.y - 30} />
 						<text style={{ fill: 'red' }} x={coords.x} y={coords.y}>
 							23
 						</text>

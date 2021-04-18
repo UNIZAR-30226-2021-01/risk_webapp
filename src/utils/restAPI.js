@@ -141,6 +141,9 @@ export const decisionPeticion = async (formData) => {
  */
 export const obtenerPartidas = async (formData) => {
 	const data = await peticionQForm('partidas', formData)
+	if (data.partidas === null) {
+		data.partidas = []
+	}
 	return data
 }
 

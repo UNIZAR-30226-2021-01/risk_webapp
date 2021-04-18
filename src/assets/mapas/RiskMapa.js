@@ -3,7 +3,7 @@
  */
 export default {
 	label: 'Mapa del risk',
-	viewBox: '0 0 1024 792',
+	viewBox: '0 0 1024 650',
 	locations: [
 		{
 			id: '0',
