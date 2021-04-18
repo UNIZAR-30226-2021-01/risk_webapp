@@ -38,9 +38,10 @@ strong.white-text {
 
 .icono {
 	position: absolute;
-	top: 0.65rem;
+	top: 0.7rem;
+	width: 2.75rem;
 }
 
-.icono-marco {
-	position: absolute;
+.marco-icono {
+	width: 2.75rem;
 }

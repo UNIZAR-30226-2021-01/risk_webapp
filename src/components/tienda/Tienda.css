@@ -1,6 +1,6 @@
 .item-tienda .btn-default.btn {
-	font-size: 0.8rem;
-	width: 4rem;
+	font-size: 0.65rem;
+	width: 4.3rem;
 	padding: 0rem 0rem;
 	margin: 0rem;
 	color: #1d170e !important;
@@ -70,4 +70,25 @@
 	width: 1rem;
 	height: 1rem;
 	margin-right: 0.2rem;
+}
+
+div.modal-content {
+	color: #111 !important;
+	border: 0.3rem solid #7c643c !important;
+	border-radius: 2rem;
+	background: repeating-linear-gradient(
+		90deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+}
+
+.btn-default.btn.Ripple-parent.compra-objeto {
+	background-color: #009e73 !important;
+}
+
+.btn-default.btn.Ripple-parent.cancela-compra {
+	background-color: rgb(224, 57, 57) !important;
 }

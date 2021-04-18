@@ -76,11 +76,11 @@ const ElementoTienda = ({ datos, tipo }) => {
 					<ErroresServer serverErrors={serverErrors} />
 				</MDBModalBody>
 				<MDBFooter className="d-flex justify-content-around">
-					<MDBBtn color="primary" onClick={toggle}>
+					<MDBBtn className="cancela-compra" onClick={toggle}>
 						{' '}
 						Cancelar
 					</MDBBtn>
-					<MDBBtn color="success" onClick={comprarObjetoInterno()}>
+					<MDBBtn className="compra-objeto" onClick={comprarObjetoInterno()}>
 						Comprar
 					</MDBBtn>
 				</MDBFooter>
