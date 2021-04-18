@@ -136,6 +136,10 @@ export const Sala = () => {
 		ws.current.onopen = () => {
 			console.log(ws.current.readyState, 'Conectado')
 			setModal(false)
+			if (id !== 'undefined') {
+				let idInt = parseInt(id)
+				aceptarSala(idInt)
+			}
 		}
 
 		// websocket onclose event listener
@@ -153,7 +157,7 @@ export const Sala = () => {
 		// websocket onmessage event listener
 		ws.current.onmessage = (e) => {
 			const data = JSON.parse(e.data)
-			console.log(data, estadoInterno, 'Datos y estado')
+			console.log(data, 'Datos y estado')
 			setServerErrors('')
 			// Caso error
 			if (data._tipoMensaje === 'e') {
@@ -229,6 +233,18 @@ export const Sala = () => {
 		}
 	}
 
+	const aceptarSala = (id) => {
+		if (ws.current !== undefined && ws.current.readyState === WebSocket.OPEN) {
+			const data = {
+				...obtenerCredenciales(Auth),
+				idSala: id,
+			}
+			ws.current.send(JSON.stringify(data))
+		} else {
+			console.log(ws.current.readyState, 'Estado del socket')
+		}
+	}
+
 	// Poner cada Tab en un componente distinto?
 	return (
 		<MDBContainer>
@@ -267,15 +283,15 @@ export const Sala = () => {
 							<h2 className="text-center">Jugadores</h2>
 							<ListaJugadoresPartida usuarios={salaInfo.jugadores} />
 						</MDBCol>
-						<MDBCol className="p-1 mt-1">
-							<h2 className="text-center">Amigos</h2>
-							{soyHost && (
+						{soyHost && (
+							<MDBCol className="p-1 mt-1">
+								<h2 className="text-center">Amigos</h2>
 								<ListaAmigos
 									usuarios={amigos}
 									elemento={<InvitarAmigo ws={ws.current} />}
 								/>
-							)}
-						</MDBCol>
+							</MDBCol>
+						)}
 					</MDBRow>
 					{/* Comenzar partida, hacer el onClick*/}
 					{soyHost && (
