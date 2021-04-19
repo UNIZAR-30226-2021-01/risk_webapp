@@ -34,7 +34,7 @@ export const ACCIONES = {
 
 export const MAPEO_TIPO_ACCIONES = {
 	p: ACCIONES.DATOS_COMPLETOS_PARTIDA,
-	f: ACCIONES.CONFIRMAR_CAMBIO_FASE,
+	f: ACCIONES.CONFIRMACION_CAMBIO_FASE,
 	r: ACCIONES.CONFIRMACION_REFUERZO,
 	a: ACCIONES.CONFIRMACION_ATAQUE,
 	m: ACCIONES.CONFIRMACION_MOVIMIENTO,
@@ -79,7 +79,6 @@ const FASE_ESTADO = [
 	ESTADOS.FASE_DE_MOVIMIENTO,
 ]
 
-//Considerar lanzar excepciones para debuggear
 function estadoPrevio(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO:
@@ -103,6 +102,7 @@ function estadoPrevio(estado) {
 	}
 }
 
+//Considerar lanzar excepciones para debuggear
 function estadoSiguienteSeleccionarOrigen(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO:
@@ -110,7 +110,7 @@ function estadoSiguienteSeleccionarOrigen(estado) {
 		case ESTADOS.FASE_DE_ATAQUE:
 			return ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN
 		default:
-			return estado
+			throw 'No tiene siguiente'
 	}
 }
 
@@ -123,7 +123,7 @@ function estadoSiguienteSeleccionarDestino(estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN:
 			return ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO
 		default:
-			return estado
+			throw 'No tiene siguiente'
 	}
 }
 
@@ -136,7 +136,7 @@ function estadoSiguienteSeleccionarUnidades(estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO:
 			return ESTADOS.ESPERANDO_CONFIRMACION_MOVIMIENTO
 		default:
-			return estado
+			throw 'No tiene siguiente'
 	}
 }
 
@@ -149,7 +149,7 @@ function estadoACambioFase(estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO:
 			return ESTADOS.PASAR_TURNO
 		default:
-			return estado
+			throw 'No se está para ir a cambio fase'
 	}
 }
 
@@ -160,7 +160,7 @@ function estadoSigCambioFase(estado) {
 		case ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO:
 			return ESTADOS.FASE_DE_MOVIMIENTO
 		default:
-			return estado
+			throw 'No se está en cambio fase'
 	}
 }
 

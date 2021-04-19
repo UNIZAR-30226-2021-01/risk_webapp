@@ -1,26 +1,73 @@
 import React, { useState } from 'react'
-import Risk from 'assets/mapas/RiskMapa'
-import partidaEstado from './partidaEstados'
+import Mapa from 'assets/mapas/RiskMapa'
+import partidaEstado, {
+	JUGADAS,
+	ACCIONES,
+	MAPEO_TIPO_ACCIONES,
+	FASES,
+	ESTADOS,
+} from './partidaEstados'
 import { MDBContainer } from 'mdbreact'
 import { SVGMap } from './SVGMap'
 
+function encontrarDatosJugador(lista, id) {
+	for (let i = 0; i < lista.length; i++) {
+		if (lista[i].id === id) {
+			return {
+				...lista[i],
+				colorIndice: i,
+			}
+		}
+	}
+	throw 'No existe el jugador'
+}
+
 /**
  * Implementa una partida
- * @todo todo  falta
+ * @todo todo falta
  */
 export const Partida = () => {
 	const [estado, dispatch] = partidaEstado()
 
-	const handleClickEnUbicacion = (event) => {
+	const mapaUnido = {
+		label: Mapa.label,
+		viewBox: Mapa.viewBox,
+		locations: Mapa.locations.map((location, index) => {
+			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
+				let datosJugador = encontrarDatosJugador(
+					estado.jugadores,
+					location.jugador
+				)
+				return {
+					...location,
+					jugador: estado.territorios[index].jugador,
+					aspecto: datosJugador.aspecto,
+					tropas: estado.territorios[index].tropas,
+				}
+			} else {
+				return location
+			}
+		}),
+	}
+
+	console.log(mapaUnido, 'mapa funcional')
+
+	const clickEnUbicacion = (event) => {
 		console.log(event.target.attributes.name.value)
 	}
 
 	return (
 		<MDBContainer>
 			{/* Para que se vea el mapa */}
-			<div className="bg-primary">
-				<SVGMap map={Risk} onLocationClick={handleClickEnUbicacion} />
-			</div>
+			{estado.estadoInterno !== ESTADOS.CARGANDO && (
+				<div className="bg-primary">
+					<SVGMap map={Mapa} onLocationClick={clickEnUbicacion} />
+				</div>
+			)}
+			{estado.estadoInterno === ESTADOS.CARGANDO && (
+				//Formatear
+				<div>Cargando...</div>
+			)}
 		</MDBContainer>
 	)
 }
