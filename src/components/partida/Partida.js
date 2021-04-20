@@ -9,6 +9,9 @@ import partidaEstado, {
 } from './partidaEstados'
 import { MDBContainer } from 'mdbreact'
 import { SVGMap } from './SVGMap'
+import loading from 'assets/UI/loading.png'
+import './Partida.css'
+import ListaJugadores from './ListaJugadores'
 
 function encontrarDatosJugador(lista, id) {
 	for (let i = 0; i < lista.length; i++) {
@@ -60,13 +63,20 @@ export const Partida = () => {
 		<MDBContainer>
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
-				<div className="bg-primary">
-					<SVGMap map={Mapa} onLocationClick={clickEnUbicacion} />
+				<div>
+					<ListaJugadores />
+					<div className="mapa">
+						<SVGMap map={Mapa} onLocationClick={clickEnUbicacion} />
+					</div>
 				</div>
 			)}
 			{estado.estadoInterno === ESTADOS.CARGANDO && (
 				//Formatear
-				<div>Cargando...</div>
+
+				<div className="loader">
+					<img src={loading} id="load-spinner" />
+					<p>Cargando...</p>
+				</div>
 			)}
 		</MDBContainer>
 	)

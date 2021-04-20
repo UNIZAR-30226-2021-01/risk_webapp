@@ -2,7 +2,7 @@ import iconos from 'assets/iconos/iconos'
 import { MDBCol, MDBRow } from 'mdbreact'
 import React from 'react'
 
-const JugadorPartida = (jugador) => {
+const JugadorPartida = ({ jugador }) => {
 	return (
 		<MDBRow className="jugador-en-partida">
 			<MDBCol md="4">

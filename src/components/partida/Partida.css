@@ -1,0 +1,26 @@
+@keyframes spinner {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+#load-spinner {
+	width: 20rem;
+	animation: spinner 1s ease-out infinite;
+}
+
+.loader {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.mapa {
+	background-color: white;
+}
+
+.icono-jugador-partida {
+	width: 3rem;
+}

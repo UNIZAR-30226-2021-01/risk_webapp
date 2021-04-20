@@ -14,6 +14,12 @@
 .icono-marco-jugador,
 .aspecto-jugador {
 	position: absolute;
+	width: 3.5rem;
+}
+
+.icono-jugador,
+.aspecto-fondo-jugador {
+	width: 3.5rem;
 }
 
 .btn-default.btn.Ripple-parent.mt-1 {
