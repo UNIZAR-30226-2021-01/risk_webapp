@@ -18,7 +18,16 @@
 }
 
 .mapa {
-	background-color: white;
+	background-color: #4aa5f6;
+	border: 0.4rem solid #7c643c;
+	width: 53rem;
+	margin-left: 5rem;
+}
+
+.mapa path {
+	stroke-width: 0.06rem;
+	stroke: #7c643c;
+	fill: #b2d163;
 }
 
 .icono-jugador-partida {

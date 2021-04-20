@@ -60,10 +60,10 @@ export const Partida = () => {
 	}
 
 	return (
-		<MDBContainer>
+		<MDBContainer fluid>
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
-				<div>
+				<div className="d-flex pb-4">
 					<ListaJugadores />
 					<div className="mapa">
 						<SVGMap map={Mapa} onLocationClick={clickEnUbicacion} />
