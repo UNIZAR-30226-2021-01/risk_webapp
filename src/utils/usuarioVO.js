@@ -15,6 +15,14 @@ export const obtenerCredenciales = (Auth) => {
 }
 
 /**
+ * Devuelve el id del usuario
+ * @param {contexto} Auth Contexto de la aplicación
+ * @returns Id del usuario
+ */
+export const obtenerIdUsuario = (Auth) => {
+	return Auth.auth.usuario.id
+}
+/**
  * Devuelve la lista de iconos del usuario
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Lista de iconos del usuario

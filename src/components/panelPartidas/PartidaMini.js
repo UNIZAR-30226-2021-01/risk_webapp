@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom'
 export const PartidaMini = ({ datosPartida }) => {
 	const Auth = useContext(AuthApi)
 	const history = useHistory()
-	const rutaSala = '/sala/' + datosPartida.id.toString()
+	const rutaSala = '/partida/' + datosPartida.id.toString()
 
 	let turnoDisplay
 	if (Auth.auth.usuario.nombre === datosPartida.nombreTurnoActual) {

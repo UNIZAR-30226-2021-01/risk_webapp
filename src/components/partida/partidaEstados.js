@@ -1,5 +1,4 @@
 import { useReducer } from 'react'
-import Risk from 'assets/mapas/RiskMapa'
 
 export const JUGADAS = {
 	REFUERZO: 'REFUERZO',
@@ -172,7 +171,9 @@ function estadoSigCambioFase(estado) {
 		// Lo que sea
 	}
 	"datosJugadaActual": {
-
+		origen: int 
+		destino: int
+		tropas: int 
 	}
 	error: "" (solo si hay)
 	"tiempoTurno": int,
@@ -310,7 +311,9 @@ function maquinaEstados(state, action) {
 	delete action.data._tipoMensaje
 	delete state.error
 	if (action.tipo === ESTADOS.DATOS_COMPLETOS_PARTIDA) {
-		if (action.tengoTurno) {
+		if (
+			action.idJugador === action.data.jugadores[action.data.turnoActual].id
+		) {
 			action.data.estado = FASE_ESTADO[action.data.fase]
 		} else {
 			action.data.estado = ESTADOS.TURNO_RIVAL
@@ -320,10 +323,7 @@ function maquinaEstados(state, action) {
 			...action.data,
 		}
 	} else if (initialState.cargando) {
-		console.log(
-			'Recibido algo que no es de datos completos mientras aún se está esperando'
-		)
-		return state
+		throw 'Recibido algo que no es de datos completos mientras aún se está esperando'
 	} else {
 		return casosLocales(state, action)
 	}

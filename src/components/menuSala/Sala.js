@@ -179,8 +179,9 @@ export const Sala = () => {
 				// Caso mensaje de partida
 			} else if (data._tipoMensaje === 'p') {
 				// Comienza partida, comprobar estado y redirigir
+				console.log(data)
 				if (estadoInterno.current === estadosInternos.EsperandoInicio) {
-					comenzarPartida()
+					entrarPartida()
 				} else {
 					console.log('No se debe dar este caos.')
 				}
@@ -190,14 +191,15 @@ export const Sala = () => {
 
 	const comenzarPartida = () => {
 		// Si es necesario, comprobar número de jugadores
+		estadoInterno.current = estadosInternos.EsperandoInicio
 		ws.current.send(JSON.stringify({ tipo: 'Iniciar' }))
 	}
 
-	/*
-	const redirigirPartida = () => {
-		history.push(`/partida/${salaInfo.idSala}`)
+	const entrarPartida = () => {
+		// Si es necesario, comprobar número de jugadores
+		const dirPartida = `/partida/${salaInfo.idSala}`
+		history.push(dirPartida)
 	}
-	*/
 
 	/*
 	const solicitarDatos = () => {
