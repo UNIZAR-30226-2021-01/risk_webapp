@@ -186,7 +186,6 @@ function estadoSigCambioFase(estado) {
 	"territorios": [ { "id":int, "jugador":int, "tropas":int } ],
 }
 */
-const initialState = { estadoInterno: ESTADOS.CARGANDO }
 
 function casosLocales(state, action) {
 	switch (action.tipo) {
@@ -310,19 +309,21 @@ function casosLocales(state, action) {
 function maquinaEstados(state, action) {
 	delete action.data._tipoMensaje
 	delete state.error
-	if (action.tipo === ESTADOS.DATOS_COMPLETOS_PARTIDA) {
+	console.log(state, 'estado en transicion')
+	console.log(action, 'accion en transicion')
+	if (action.tipo === ACCIONES.DATOS_COMPLETOS_PARTIDA) {
 		if (
 			action.idJugador === action.data.jugadores[action.data.turnoActual].id
 		) {
-			action.data.estado = FASE_ESTADO[action.data.fase]
+			action.data.estadoInterno = FASE_ESTADO[action.data.fase]
 		} else {
-			action.data.estado = ESTADOS.TURNO_RIVAL
+			action.data.estadoInterno = ESTADOS.TURNO_RIVAL
 		}
 		return {
 			...state,
 			...action.data,
 		}
-	} else if (initialState.cargando) {
+	} else if (state.estadoInterno === ESTADOS.CARGANDO) {
 		throw 'Recibido algo que no es de datos completos mientras aún se está esperando'
 	} else {
 		return casosLocales(state, action)
@@ -330,5 +331,5 @@ function maquinaEstados(state, action) {
 }
 
 export default function partidaEstado() {
-	return useReducer(maquinaEstados, initialState)
+	return useReducer(maquinaEstados, { estadoInterno: ESTADOS.CARGANDO })
 }

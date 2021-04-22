@@ -17,6 +17,8 @@ import AuthApi from 'utils/AuthApi'
 import { obtenerCredenciales, obtenerIdUsuario } from 'utils/usuarioVO'
 import constants from 'utils/constants'
 import { ModalReconectando } from './ModalReconectando'
+import { ModalFormNumeroTropas } from './ModalFormNumeroTropas'
+import { Cargando } from './Cargando'
 
 function encontrarDatosJugador(lista, id) {
 	for (let i = 0; i < lista.length; i++) {
@@ -27,7 +29,7 @@ function encontrarDatosJugador(lista, id) {
 			}
 		}
 	}
-	throw 'No existe el jugador'
+	throw `No existe el jugador ${id}`
 }
 
 /**
@@ -42,6 +44,7 @@ export const Partida = () => {
 	const [reconectando, setReconectando] = useState(false)
 	const ws = useRef(undefined)
 
+	console.log(estado, 'estado')
 	useEffect(() => {
 		connect()
 		return () => {
@@ -51,6 +54,10 @@ export const Partida = () => {
 			}
 		}
 	}, [])
+
+	useEffect(() => {
+		// Poner código de envío de mensajes
+	}, [estado])
 
 	// Si se cae la conexión, el server te tira, hay que intentar reconectar
 	const connect = () => {
@@ -98,10 +105,7 @@ export const Partida = () => {
 		viewBox: Mapa.viewBox,
 		locations: Mapa.locations.map((location, index) => {
 			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
-				let datosJugador = encontrarDatosJugador(
-					estado.jugadores,
-					location.jugador
-				)
+				let datosJugador = estado.jugadores[estado.territorios[index].jugador]
 				return {
 					...location,
 					jugador: estado.territorios[index].jugador,
@@ -109,6 +113,7 @@ export const Partida = () => {
 					tropas: estado.territorios[index].tropas,
 				}
 			} else {
+				//Poder debug
 				return location
 			}
 		}),
@@ -123,6 +128,14 @@ export const Partida = () => {
 	return (
 		<MDBContainer fluid>
 			<ModalReconectando isOpen={reconectando} />
+			{/* Poner bien los parámetros */}
+			<ModalFormNumeroTropas
+				isOpen={false}
+				origen={'sudafrica'}
+				destino={'nueva guinea'}
+				max={2}
+				onSubmit={(formData) => {}}
+			/>
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
 				<div className="d-flex pb-4">
@@ -133,13 +146,7 @@ export const Partida = () => {
 				</div>
 			)}
 
-			{estado.estadoInterno === ESTADOS.CARGANDO && (
-				//Formatear
-				<div className="loader">
-					<img src={loading} id="load-spinner" />
-					<p>Cargando...</p>
-				</div>
-			)}
+			{estado.estadoInterno === ESTADOS.CARGANDO && <Cargando />}
 		</MDBContainer>
 	)
 }
