@@ -10,7 +10,6 @@ import marcoIcono from '../../assets/UI/avatar_marco.png'
  * componente pasado como parámetro.
  */
 export const Amigo = ({ datos, elemento, ...rest }) => {
-	console.log(datos)
 	return (
 		<MDBRow>
 			<MDBCol md="2">

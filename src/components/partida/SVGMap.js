@@ -5,6 +5,7 @@ import { obtenerCentro } from 'utils/mapa'
 import tropas from 'assets/tropas/tropas'
 
 export const SVGMap = (props) => {
+	console.log(props.map, 'mapa recibido por svgmap')
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +18,13 @@ export const SVGMap = (props) => {
 			{props.map.locations.map((location, index) => {
 				let coords = obtenerCentro(location)
 				return (
-					<g key={location.id}>
+					<g
+						key={location.id}
+						name={location.name}
+						onClick={() => {
+							props.onLocationClick(location.id)
+						}}
+					>
 						<path
 							id={location.id}
 							name={location.name}
@@ -45,18 +52,19 @@ export const SVGMap = (props) => {
 							onMouseOver={props.onLocationMouseOver}
 							onMouseOut={props.onLocationMouseOut}
 							onMouseMove={props.onLocationMouseMove}
-							onClick={props.onLocationClick}
 							onKeyDown={props.onLocationKeyDown}
 							onFocus={props.onLocationFocus}
 							onBlur={props.onLocationBlur}
 							key={location.id}
 						/>
 						<image
-							href={tropas[location.aspecto]}
-							x={coords.x - 40}
-							y={coords.y - 30}
+							href={tropas[0].img}
+							height="100px"
+							width="100px"
+							x={coords.x - 50}
+							y={coords.y - 50}
 						/>
-						<text style={{ fill: 'red' }} x={coords.x} y={coords.y}>
+						<text style={{ fill: 'red' }} x={coords.x + 20} y={coords.y}>
 							{location.tropas}
 						</text>
 					</g>

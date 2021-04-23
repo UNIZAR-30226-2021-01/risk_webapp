@@ -7,6 +7,9 @@ import partidaEstado, {
 	MAPEO_TIPO_ACCIONES,
 	FASES,
 	ESTADOS,
+	obtenerOrigen,
+	obtenerDestino,
+	obtenerTropas,
 } from './partidaEstados'
 import { MDBContainer } from 'mdbreact'
 import { SVGMap } from './SVGMap'
@@ -44,6 +47,29 @@ export const Partida = () => {
 	const [reconectando, setReconectando] = useState(false)
 	const ws = useRef(undefined)
 
+	const [mapaUnido, setMapaUnido] = useState(Mapa)
+
+	const unirMapas = () => {
+		setMapaUnido({
+			label: Mapa.label,
+			viewBox: Mapa.viewBox,
+			locations: Mapa.locations.map((location, index) => {
+				if (estado.estadoInterno !== ESTADOS.CARGANDO) {
+					let datosJugador = estado.jugadores[estado.territorios[index].jugador]
+					return {
+						...location,
+						jugador: estado.territorios[index].jugador,
+						aspecto: datosJugador.aspecto,
+						tropas: estado.territorios[index].tropas,
+					}
+				} else {
+					//Poder debug
+					return location
+				}
+			}),
+		})
+		console.log('Actualizado mapa')
+	}
 	console.log(estado, 'estado')
 	useEffect(() => {
 		connect()
@@ -55,8 +81,48 @@ export const Partida = () => {
 		}
 	}, [])
 
+	const sendData = (data) => {
+		ws.current.send(JSON.stringify(data))
+	}
+
 	useEffect(() => {
+		const faseMsg = { tipo: 'Fase' }
+		unirMapas()
 		// Poner código de envío de mensajes
+		switch (estado.estadoInterno) {
+			case ESTADOS.ESPERANDO_CONFIRMACION_REFUERZO:
+				sendData({
+					tipo: 'Refuerzos',
+					id: obtenerDestino(estado),
+					tropas: obtenerTropas(estado),
+				})
+				break
+			case ESTADOS.ESPERANDO_CONFIRMACION_ATAQUE:
+				sendData({
+					tipo: 'Refuerzos',
+					origen: obtenerOrigen(estado),
+					destino: obtenerDestino(estado),
+					tropas: obtenerTropas(estado),
+				})
+				break
+			case ESTADOS.ESPERANDO_CONFIRMACION_MOVIMIENTO:
+				sendData({
+					tipo: 'Refuerzos',
+					origen: obtenerOrigen(estado),
+					destino: obtenerDestino(estado),
+					tropas: obtenerTropas(estado),
+				})
+				break
+			case ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO:
+				sendData(faseMsg)
+				break
+			case ESTADOS.CAMBIO_DE_FASE_A_ATAQUE:
+				sendData(faseMsg)
+				break
+			case ESTADOS.PASAR_TURNO:
+				sendData(faseMsg)
+				break
+		}
 	}, [estado])
 
 	// Si se cae la conexión, el server te tira, hay que intentar reconectar
@@ -100,29 +166,8 @@ export const Partida = () => {
 		}
 	}
 
-	const mapaUnido = {
-		label: Mapa.label,
-		viewBox: Mapa.viewBox,
-		locations: Mapa.locations.map((location, index) => {
-			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
-				let datosJugador = estado.jugadores[estado.territorios[index].jugador]
-				return {
-					...location,
-					jugador: estado.territorios[index].jugador,
-					aspecto: datosJugador.aspecto,
-					tropas: estado.territorios[index].tropas,
-				}
-			} else {
-				//Poder debug
-				return location
-			}
-		}),
-	}
-
-	console.log(mapaUnido, 'mapa funcional')
-
 	const clickEnUbicacion = (event) => {
-		console.log(event.target.attributes.name.value)
+		console.log(event)
 	}
 
 	return (
@@ -141,7 +186,7 @@ export const Partida = () => {
 				<div className="d-flex pb-4">
 					<ListaJugadores />
 					<div className="mapa">
-						<SVGMap map={Mapa} onLocationClick={clickEnUbicacion} />
+						<SVGMap map={mapaUnido} onLocationClick={clickEnUbicacion} />
 					</div>
 				</div>
 			)}

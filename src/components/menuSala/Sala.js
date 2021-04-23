@@ -158,7 +158,6 @@ export const Sala = () => {
 		// websocket onmessage event listener
 		ws.current.onmessage = (e) => {
 			const data = JSON.parse(e.data)
-			console.log(data, 'Datos y estado')
 			setServerErrors('')
 			// Caso error
 			if (data._tipoMensaje === 'e') {

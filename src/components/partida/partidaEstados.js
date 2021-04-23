@@ -78,6 +78,18 @@ const FASE_ESTADO = [
 	ESTADOS.FASE_DE_MOVIMIENTO,
 ]
 
+export function obtenerOrigen(estado) {
+	return estado.jugadaActual.origen
+}
+
+export function obtenerDestino(estado) {
+	return estado.jugadaActual.destino
+}
+
+export function obtenerTropas(estado) {
+	return estado.jugadaActual.tropas
+}
+
 function estadoPrevio(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO:
