@@ -30,6 +30,11 @@
 	fill: #b2d163;
 }
 
+.mapa svg {
+	stroke: aqua;
+	stroke-width: 0.06rem;
+}
+
 .icono-jugador-partida {
 	width: 3rem;
 }
