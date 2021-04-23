@@ -2,18 +2,20 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Mapa from 'assets/mapas/RiskMapa'
 import partidaEstado, {
-	JUGADAS,
+	//JUGADAS,
 	ACCIONES,
 	MAPEO_TIPO_ACCIONES,
-	FASES,
+	//FASES,
 	ESTADOS,
 	obtenerOrigen,
 	obtenerDestino,
 	obtenerTropas,
+	tocaNumeroTropas,
+	tocaOrigen,
+	tocaDestino,
 } from './partidaEstados'
-import { MDBContainer } from 'mdbreact'
+import { MDBContainer, MDBBtn } from 'mdbreact'
 import { SVGMap } from './SVGMap'
-import loading from 'assets/UI/loading.png'
 import './Partida.css'
 import ListaJugadores from './ListaJugadores'
 import AuthApi from 'utils/AuthApi'
@@ -22,22 +24,11 @@ import constants from 'utils/constants'
 import { ModalReconectando } from './ModalReconectando'
 import { ModalFormNumeroTropas } from './ModalFormNumeroTropas'
 import { Cargando } from './Cargando'
-
-function encontrarDatosJugador(lista, id) {
-	for (let i = 0; i < lista.length; i++) {
-		if (lista[i].id === id) {
-			return {
-				...lista[i],
-				colorIndice: i,
-			}
-		}
-	}
-	throw `No existe el jugador ${id}`
-}
+import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
 
 /**
  * Implementa una partida
- * @todo todo falta
+ * @todo Intentar reconectarse
  */
 export const Partida = () => {
 	const Auth = useContext(AuthApi)
@@ -68,13 +59,12 @@ export const Partida = () => {
 				}
 			}),
 		})
-		console.log('Actualizado mapa')
 	}
-	console.log(estado, 'estado')
+
 	useEffect(() => {
 		connect()
 		return () => {
-			console.log(ws.current, 'Desmontando ws')
+			console.log('Desmontando ws')
 			if (ws.current && ws.current.readyState !== WebSocket.CLOSED) {
 				ws.current.close()
 			}
@@ -99,7 +89,7 @@ export const Partida = () => {
 				break
 			case ESTADOS.ESPERANDO_CONFIRMACION_ATAQUE:
 				sendData({
-					tipo: 'Refuerzos',
+					tipo: 'Ataque',
 					origen: obtenerOrigen(estado),
 					destino: obtenerDestino(estado),
 					tropas: obtenerTropas(estado),
@@ -107,7 +97,7 @@ export const Partida = () => {
 				break
 			case ESTADOS.ESPERANDO_CONFIRMACION_MOVIMIENTO:
 				sendData({
-					tipo: 'Refuerzos',
+					tipo: 'Movimiento',
 					origen: obtenerOrigen(estado),
 					destino: obtenerDestino(estado),
 					tropas: obtenerTropas(estado),
@@ -125,7 +115,7 @@ export const Partida = () => {
 		}
 	}, [estado])
 
-	// Si se cae la conexión, el server te tira, hay que intentar reconectar
+	// Si se cae la conexión, el server te tira, hay que intentar reconectar (no hecho)
 	const connect = () => {
 		ws.current = new WebSocket(`${constants.BASER_WS_URL}entrarPartida`)
 
@@ -137,7 +127,6 @@ export const Partida = () => {
 				idSala: parseInt(id),
 			}
 			ws.current.send(JSON.stringify(msg))
-			console.log(msg, 'Enviado mensaje de conexión')
 			setReconectando(false)
 		}
 
@@ -156,7 +145,6 @@ export const Partida = () => {
 		// websocket onmessage event listener
 		ws.current.onmessage = (e) => {
 			const data = JSON.parse(e.data)
-			console.log(data, 'Datos recibidos')
 			let action = {
 				tipo: MAPEO_TIPO_ACCIONES[data._tipoMensaje],
 				idJugador: obtenerIdUsuario(Auth),
@@ -167,24 +155,65 @@ export const Partida = () => {
 	}
 
 	const clickEnUbicacion = (event) => {
-		console.log(event)
+		// Origen
+		if (tocaOrigen(estado)) {
+			dispatch({
+				tipo: ACCIONES.SELECCIONAR_ORIGEN,
+				data: {
+					datosExtra: parseInt(event),
+				},
+			})
+			// Destino
+		} else if (tocaDestino(estado)) {
+			dispatch({
+				tipo: ACCIONES.SELECCIONAR_DESTINO,
+				data: {
+					datosExtra: parseInt(event),
+				},
+			})
+		}
+	}
+
+	const pasarFase = () => {
+		dispatch({
+			tipo: ACCIONES.ENVIAR_MENSAJE_CAMBIO_FASE,
+		})
+	}
+
+	const seleccionarUnidades = (n) => {
+		dispatch({
+			tipo: ACCIONES.SELECCIONAR_UNIDADES,
+			data: {
+				datosExtra: n,
+			},
+		})
 	}
 
 	return (
 		<MDBContainer fluid>
+			<ErroresServer error={estado.error} />
+			<h1> Estado: {estado.estadoInterno} </h1>
 			<ModalReconectando isOpen={reconectando} />
+			<MDBBtn onClick={pasarFase}> Pasar fase</MDBBtn>
 			{/* Poner bien los parámetros */}
 			<ModalFormNumeroTropas
-				isOpen={false}
-				origen={'sudafrica'}
-				destino={'nueva guinea'}
-				max={2}
-				onSubmit={(formData) => {}}
+				isOpen={tocaNumeroTropas(estado)}
+				origen={mapaUnido.locations[obtenerOrigen(estado)].name}
+				destino={mapaUnido.locations[obtenerDestino(estado)].name}
+				max={1000}
+				onSubmit={(formData) => {
+					seleccionarUnidades(parseInt(formData.n))
+				}}
+				toggle={() => {
+					dispatch({
+						tipo: ACCIONES.CANCELAR,
+					})
+				}}
 			/>
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
 				<div className="d-flex pb-4">
-					<ListaJugadores />
+					<ListaJugadores jugadores={estado.jugadores} />
 					<div className="mapa">
 						<SVGMap map={mapaUnido} onLocationClick={clickEnUbicacion} />
 					</div>

@@ -37,6 +37,7 @@ export const MAPEO_TIPO_ACCIONES = {
 	r: ACCIONES.CONFIRMACION_REFUERZO,
 	a: ACCIONES.CONFIRMACION_ATAQUE,
 	m: ACCIONES.CONFIRMACION_MOVIMIENTO,
+	e: ACCIONES.ERROR,
 }
 
 export const FASES = {
@@ -79,29 +80,61 @@ const FASE_ESTADO = [
 ]
 
 export function obtenerOrigen(estado) {
-	return estado.jugadaActual.origen
+	return estado.datosJugadaActual.origen
 }
 
 export function obtenerDestino(estado) {
-	return estado.jugadaActual.destino
+	return estado.datosJugadaActual.destino
 }
 
 export function obtenerTropas(estado) {
-	return estado.jugadaActual.tropas
+	return estado.datosJugadaActual.tropas
+}
+
+export function tocaOrigen(estado) {
+	return (
+		estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE ||
+		estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO
+	)
+}
+
+export function tocaDestino(estado) {
+	return (
+		estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN ||
+		estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO ||
+		estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS
+	)
+}
+
+export function tocaNumeroTropas(estado) {
+	return (
+		estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO ||
+		estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_DESTINO ||
+		estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO
+	)
 }
 
 function estadoPrevio(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO:
 			return ESTADOS.FASE_DE_REFUERZOS
+		case ESTADOS.ESPERANDO_CONFIRMACION_REFUERZO:
+			return ESTADOS.FASE_DE_REFUERZOS
+
 		case ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN:
 			return ESTADOS.FASE_DE_ATAQUE
 		case ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_DESTINO:
 			return ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN
+		case ESTADOS.ESPERANDO_CONFIRMACION_ATAQUE:
+			return ESTADOS.FASE_DE_ATAQUE
+
 		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN:
 			return ESTADOS.FASE_DE_MOVIMIENTO
 		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO:
 			return ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN
+		case ESTADOS.ESPERANDO_CONFIRMACION_MOVIMIENTO:
+			return ESTADOS.FASE_DE_MOVIMIENTO
+
 		case ESTADOS.CAMBIO_DE_FASE_A_ATAQUE:
 			return ESTADOS.FASE_DE_REFUERZOS
 		case ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO:
@@ -170,8 +203,6 @@ function estadoSigCambioFase(estado) {
 			return ESTADOS.FASE_DE_ATAQUE
 		case ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO:
 			return ESTADOS.FASE_DE_MOVIMIENTO
-		default:
-			throw 'No se está en cambio fase'
 	}
 }
 
@@ -204,6 +235,7 @@ function casosLocales(state, action) {
 		case ACCIONES.CONFIRMACION_REFUERZO: {
 			let idTerritorio = action.data.id
 			state.ultimaJugada = {
+				...state,
 				jugada: JUGADAS.REFUERZO,
 				...action.data,
 			}
@@ -258,14 +290,10 @@ function casosLocales(state, action) {
 			}
 		}
 		case ACCIONES.SELECCIONAR_DESTINO: {
-			let datosJugadaActual = {}
-			if (state.estadoInterno !== ESTADOS.FASE_REFUERZOS) {
-				datosJugadaActual.idOrigen = state.datosJugadaActual.idOrigen
-			}
 			return {
 				...state,
 				datosJugadaActual: {
-					...datosJugadaActual,
+					...state.datosJugadaActual,
 					destino: action.data.datosExtra,
 				},
 				estadoInterno: estadoSiguienteSeleccionarDestino(state.estadoInterno),
@@ -282,7 +310,6 @@ function casosLocales(state, action) {
 			}
 		}
 		case ACCIONES.ENVIAR_MENSAJE_CAMBIO_FASE: {
-			delete state.datosJugadaActual
 			return {
 				...state,
 				estadoInterno: estadoACambioFase(state.estadoInterno),
@@ -319,13 +346,15 @@ function casosLocales(state, action) {
 	}
 */
 function maquinaEstados(state, action) {
-	delete action.data._tipoMensaje
-	delete state.error
+	if ('data' in action && '_tipoMensaje' in action.data) {
+		delete action.data._tipoMensaje
+	}
+	state.error = ''
 	console.log(state, 'estado en transicion')
 	console.log(action, 'accion en transicion')
 	if (action.tipo === ACCIONES.DATOS_COMPLETOS_PARTIDA) {
 		if (
-			action.idJugador === action.data.jugadores[action.data.turnoActual].id
+			action.idJugador === action.data.jugadores[action.data.turnoJugador].id
 		) {
 			action.data.estadoInterno = FASE_ESTADO[action.data.fase]
 		} else {
@@ -343,5 +372,8 @@ function maquinaEstados(state, action) {
 }
 
 export default function partidaEstado() {
-	return useReducer(maquinaEstados, { estadoInterno: ESTADOS.CARGANDO })
+	return useReducer(maquinaEstados, {
+		estadoInterno: ESTADOS.CARGANDO,
+		datosJugadaActual: { origen: 0, destino: 1, tropas: 1 },
+	})
 }

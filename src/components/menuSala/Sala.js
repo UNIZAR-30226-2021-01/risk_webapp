@@ -71,9 +71,11 @@ export const Sala = () => {
 	const [salaInfo, setSalaInfo] = useState({
 		tiempoTurno: 0,
 		nombrePartida: '',
-		idSala: 0,
+		idPartida: 0,
 		jugadores: [],
 	})
+
+	console.log(salaInfo, 'salaInfo')
 
 	const [amigos, setAmigos] = useState([])
 
@@ -170,19 +172,16 @@ export const Sala = () => {
 					estadoInterno.current = estadosInternos.EsperandoInicio
 					//setEstadoInterno(estadosInternos.EsperandoInicio)
 					setEstadoPag('2')
-				} else {
-					console.log('sad')
 				}
 				delete data._tipoMensaje
 				setSalaInfo(data)
 				// Caso mensaje de partida
 			} else if (data._tipoMensaje === 'p') {
 				// Comienza partida, comprobar estado y redirigir
-				console.log(data)
 				if (estadoInterno.current === estadosInternos.EsperandoInicio) {
-					entrarPartida()
+					entrarPartida(data.idPartida)
 				} else {
-					console.log('No se debe dar este caos.')
+					throw 'No se debe dar este caso.'
 				}
 			}
 		}
@@ -194,23 +193,11 @@ export const Sala = () => {
 		ws.current.send(JSON.stringify({ tipo: 'Iniciar' }))
 	}
 
-	const entrarPartida = () => {
+	const entrarPartida = (id) => {
 		// Si es necesario, comprobar número de jugadores
-		const dirPartida = `/partida/${salaInfo.idSala}`
+		let dirPartida = `/partida/${id}`
 		history.push(dirPartida)
 	}
-
-	/*
-	const solicitarDatos = () => {
-		if (ws.current !== undefined && ws.readyState === WebSocket.OPEN) {
-			const formData = {
-				...obtenerCredenciales(Auth),
-				idSala: parseInt(id),
-			}
-			ws.current.send(JSON.stringify(formData))
-		}
-	}
-	*/
 
 	const crearSalaLocal = (formData) => {
 		if (socketAbierto(ws.current)) {

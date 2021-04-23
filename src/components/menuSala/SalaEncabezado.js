@@ -7,7 +7,6 @@ import { MDBCol } from 'mdbreact'
  * turno y el número de jugadores actuales
  */
 export const SalaEncabezado = ({ datos }) => {
-	console.log('NOMBRESALA', datos)
 	return (
 		<div
 			className="d-flex p-2 flex-row justify-content-between "

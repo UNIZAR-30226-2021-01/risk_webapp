@@ -6,7 +6,7 @@ export const ModalReconectando = ({ isOpen }) => {
 	return (
 		<MDBModal isOpen={isOpen}>
 			<MDBModalHeader>
-				Te has desconectado. Intentando reconectar...
+				Te has desconectado. Intentando reconectar... (no implementado)
 			</MDBModalHeader>
 			<MDBModalBody>
 				<div className="loader">

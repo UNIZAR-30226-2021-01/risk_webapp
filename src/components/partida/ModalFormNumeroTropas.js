@@ -10,6 +10,7 @@ export const ModalFormNumeroTropas = ({
 	destino,
 	max,
 	onSubmit,
+	toggle,
 }) => {
 	const { register, handleSubmit, errors } = useForm({ numero: 1 })
 	// Si se está enviando un formulario
@@ -17,7 +18,7 @@ export const ModalFormNumeroTropas = ({
 	const [error, setErrors] = useState('')
 
 	return (
-		<MDBModal isOpen={isOpen}>
+		<MDBModal isOpen={isOpen} toggle={toggle}>
 			<MDBModalHeader>
 				¿Cuántas tropas se envían de {origen} a {destino}? (máx. {max})
 			</MDBModalHeader>

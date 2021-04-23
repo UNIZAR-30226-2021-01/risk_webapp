@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Aspecto from 'assets/tropas/aspecto_0.png'
 import { obtenerCentro } from 'utils/mapa'
 import tropas from 'assets/tropas/tropas'
 
 export const SVGMap = (props) => {
-	console.log(props.map, 'mapa recibido por svgmap')
+	console.log(
+		'rerender, memorizar con reactMemo, cada zona a un componente distinto para evitar re-renderizar todo innecesariamente'
+	)
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -57,16 +58,20 @@ export const SVGMap = (props) => {
 							onBlur={props.onLocationBlur}
 							key={location.id}
 						/>
-						<image
-							href={tropas[0].img}
-							height="100px"
-							width="100px"
-							x={coords.x - 50}
-							y={coords.y - 50}
-						/>
-						<text style={{ fill: 'red' }} x={coords.x + 20} y={coords.y}>
-							{location.tropas}
-						</text>
+						{'aspecto' in location && (
+							<image
+								href={tropas[location.aspecto].img}
+								height="100px"
+								width="100px"
+								x={coords.x - 50}
+								y={coords.y - 50}
+							/>
+						)}
+						{'tropas' in location && (
+							<text style={{ fill: 'red' }} x={coords.x + 20} y={coords.y}>
+								{location.tropas}
+							</text>
+						)}
 					</g>
 				)
 			})}
