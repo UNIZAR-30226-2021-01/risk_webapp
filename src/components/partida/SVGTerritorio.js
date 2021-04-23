@@ -4,6 +4,13 @@ import { obtenerCentro } from 'utils/mapa'
 
 const SVGTerritorio = ({ location, index, props }) => {
 	let coords = obtenerCentro(location)
+	let clases =
+		typeof props.locationClassName === 'function'
+			? props.locationClassName(location, index)
+			: props.locationClassName
+	if (location.jugador) {
+		clases = clases + ` jugador${location.jugador}`
+	}
 
 	return (
 		<g
@@ -16,11 +23,7 @@ const SVGTerritorio = ({ location, index, props }) => {
 				id={location.id}
 				name={location.name}
 				d={location.path}
-				className={
-					typeof props.locationClassName === 'function'
-						? props.locationClassName(location, index)
-						: props.locationClassName
-				}
+				className={clases}
 				tabIndex={
 					typeof props.locationTabIndex === 'function'
 						? props.locationTabIndex(location, index)

@@ -38,3 +38,27 @@
 .icono-jugador-partida {
 	width: 3rem;
 }
+
+.mapa path.jugador0 {
+	fill: #d55e00;
+}
+
+.mapa path.jugador1 {
+	fill: #0072b2;
+}
+
+.mapa path.jugador2 {
+	fill: #e69f00;
+}
+
+.mapa path.jugador3 {
+	fill: #009e73;
+}
+
+.mapa path.jugador4 {
+	fill: #cc79a7;
+}
+
+.mapa path.jugador5 {
+	fill: #000000;
+}
