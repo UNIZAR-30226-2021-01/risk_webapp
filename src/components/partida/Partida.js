@@ -191,7 +191,8 @@ export const Partida = () => {
 
 	return (
 		<MDBContainer fluid>
-			<ErroresServer error={estado.error} />
+			{estado.error && <ErroresServer error={estado.error} />}
+
 			<h1> Estado: {estado.estadoInterno} </h1>
 			<ModalReconectando isOpen={reconectando} />
 			<MDBBtn onClick={pasarFase}> Pasar fase</MDBBtn>
