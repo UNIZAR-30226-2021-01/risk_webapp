@@ -3,19 +3,12 @@ import tropas from 'assets/tropas/tropas'
 import { obtenerCentro } from 'utils/mapa'
 
 const SVGTerritorio = ({ location, index, props }) => {
-	location.tropas = 2000
-	location.aspecto = 12
-
-	location.jugador = Math.floor(Math.random() * 6)
-
 	let coords = obtenerCentro(location)
 	let clases =
 		typeof props.locationClassName === 'function'
 			? props.locationClassName(location, index)
 			: props.locationClassName
-	if (location.jugador) {
-		clases = clases + ` jugador${location.jugador}`
-	}
+	clases = clases + ` jugador${location.jugador}`
 
 	return (
 		<g

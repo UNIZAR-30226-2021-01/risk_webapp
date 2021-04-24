@@ -9,6 +9,7 @@ import partidaEstado, {
 	ESTADOS,
 	obtenerOrigen,
 	obtenerDestino,
+	refuerzosRestantes,
 	obtenerTropas,
 	tocaNumeroTropas,
 	tocaOrigen,
@@ -61,6 +62,15 @@ export const Partida = () => {
 		})
 	}
 
+	/*const jugadoresPrueba = [
+		{ id: 1, nombre: 'aa', aspecto: 12, icono: 7 },
+		{ id: 2, nombre: 'xxxxx', aspecto: 12, icono: 11 },
+		{ id: 14, nombre: 'asdsdwq', aspecto: 12, icono: 12 },
+		{ id: 124, nombre: 'asdfasadfw', aspecto: 12, icono: 4 },
+		{ id: 143124, nombre: 'asdsdwq', aspecto: 12, icono: 12 },
+		{ id: 121424, nombre: 'asdfasadfw', aspecto: 12, icono: 4 },
+	]*/
+
 	useEffect(() => {
 		connect()
 		return () => {
@@ -76,6 +86,7 @@ export const Partida = () => {
 	}
 
 	useEffect(() => {
+		console.log(estado)
 		const faseMsg = { tipo: 'Fase' }
 		unirMapas()
 		// Poner código de envío de mensajes
@@ -189,6 +200,19 @@ export const Partida = () => {
 		})
 	}
 
+	function maxTropas(estado) {
+		let maximoTropas
+		if (
+			estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS ||
+			estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO
+		) {
+			maximoTropas = refuerzosRestantes(estado)
+		} else {
+			maximoTropas = mapaUnido.locations[obtenerOrigen(estado)].tropas
+		}
+		return maximoTropas
+	}
+
 	return (
 		<MDBContainer fluid>
 			{estado.error && <ErroresServer error={estado.error} />}
@@ -199,9 +223,10 @@ export const Partida = () => {
 			{/* Poner bien los parámetros */}
 			<ModalFormNumeroTropas
 				isOpen={tocaNumeroTropas(estado)}
+				estado={estado.estadoInterno}
 				origen={mapaUnido.locations[obtenerOrigen(estado)].name}
 				destino={mapaUnido.locations[obtenerDestino(estado)].name}
-				max={1000}
+				max={maxTropas(estado)}
 				onSubmit={(formData) => {
 					seleccionarUnidades(parseInt(formData.n))
 				}}
@@ -214,7 +239,10 @@ export const Partida = () => {
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
 				<div className="d-flex pb-4">
-					<ListaJugadores jugadores={estado.jugadores} />
+					<ListaJugadores
+						jugadores={estado.jugadores}
+						jugadorTurno={estado.turnoJugador}
+					/>
 					<div className="mapa">
 						<SVGMap map={mapaUnido} onLocationClick={clickEnUbicacion} />
 					</div>

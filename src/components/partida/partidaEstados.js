@@ -230,12 +230,24 @@ function estadoSigCambioFase(estado) {
 }
 */
 
+function usarRefuerzos(state, action) {
+	state.jugadores.forEach((jugador) => {
+		if (jugador.id === action.idJugador)
+			jugador.refuerzos = jugador.refuezos - state.datosJugadaActual.tropas
+	})
+	console.log(state.jugadores)
+}
+
+export function refuerzosRestantes(state) {
+	return state.jugadores[state.turnoJugador].refuerzos
+}
+
 function casosLocales(state, action) {
 	switch (action.tipo) {
 		case ACCIONES.CONFIRMACION_REFUERZO: {
+			usarRefuerzos(state, action)
 			let idTerritorio = action.data.id
 			state.ultimaJugada = {
-				...state,
 				jugada: JUGADAS.REFUERZO,
 				...action.data,
 			}
@@ -284,6 +296,7 @@ function casosLocales(state, action) {
 			return {
 				...state,
 				datosJugadaActual: {
+					...state.datosJugadaActual,
 					origen: action.data.datosExtra,
 				},
 				estadoInterno: estadoSiguienteSeleccionarOrigen(state.estadoInterno),
@@ -327,7 +340,7 @@ function casosLocales(state, action) {
 /*
 	Action recibida
 	tipo: "",
-	tengoTurno: bool,
+	idJugador: int,
 	datosExtra: , (id origen, id destino, ntropas...) No poner el campo, solo el número
 	"data": {
 		"_tipoMensaje": "p",

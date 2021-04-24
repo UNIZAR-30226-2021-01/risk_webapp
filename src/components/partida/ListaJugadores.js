@@ -7,8 +7,7 @@ const ListaJugadores = ({ jugadores, jugadorTurno }) => {
 		<MDBListGroup className="jugadores-en-partida">
 			{jugadores.map((jugador, index) => {
 				let clasesJugador = `jugador${index}`
-				if (jugador.id === jugadorTurno)
-					clasesJugador = clasesJugador + ' esSuTurno'
+				if (index === jugadorTurno) clasesJugador = clasesJugador + ' esSuTurno'
 				return (
 					<MDBListGroupItem
 						key={jugador.id.toString()}
