@@ -7,9 +7,49 @@
 		#f6d196 40px
 	);
 	border-radius: 1rem !important;
-	border: 0.2rem solid #7c643c;
+	border-width: 0.3rem !important;
+	border-style: solid;
 	color: #444;
 	margin-bottom: 1rem;
+}
+
+.list-group-item.esSuTurno.list-group-item-undefined {
+	background: repeating-linear-gradient(
+		0deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+	border-radius: 1rem !important;
+	border-width: 0.6rem !important;
+	border-style: outset;
+	color: #444;
+	margin-bottom: 1rem;
+}
+
+.list-group-item.jugador0 {
+	border-color: #d55e00;
+}
+
+.list-group-item.jugador1 {
+	border-color: #0072b2;
+}
+
+.list-group-item.jugador2 {
+	border-color: #e69f00;
+}
+
+.list-group-item.jugador3 {
+	border-color: #009e73;
+}
+
+.list-group-item.jugador4 {
+	border-color: #cc79a7;
+}
+
+.list-group-item.jugador5 {
+	border-color: #f2f2f2;
 }
 
 .icono-marco-jugador,
