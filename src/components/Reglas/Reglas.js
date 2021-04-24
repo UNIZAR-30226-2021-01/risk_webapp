@@ -14,115 +14,40 @@ export const Reglas = () => {
 	return (
 		<MDBContainer>
 			<MDBRow>
-				<h2>Reglas RISK</h2>
+				<h1>Reglas pixelRISK</h1>
 			</MDBRow>
 			<h3 className="font-weight-bold mb-12 p-12">
-				<strong>Inicio:</strong>
+				<strong>Introducción:</strong>
 			</h3>
 			<p className="text-left">
-				Cada jugador obtiene un número de tropas dependiendo del número de
-				jugadores
+				En este juego participan entre 3 y 6 jugadores en un mapa global con el
+				objetivo de conquistar el mundo entero usando tropas para atacar y
+				defender territorios.
 			</p>
-			<ul>
-				<li>3 Jugadores: 35</li>
-				<li>4 Jugadores: 30</li>
-				<li>5 Jugadores: 25</li>
-				<li>6 Jugadores: 20</li>
-			</ul>
-			<p>Cada uno tira un dado para obtener orden de turnos (Aleatorio)</p>
-			<h3>Reglas de posicionamiento de tropas</h3>
+			<p>Cada jugador tiene su turno, el cual está separado en fases:</p>
+			<h2>
+				<strong>Fase 1: </strong>
+			</h2>
 			<p>
-				<strong>Método 1: </strong>
-				Ir colocando uno a uno las tropas, hasta que no existan provincias
-				vacías.
+				Obtienes un numero de tropas nuevas dependiendo de los territorios que
+				tengas conquistados. Estas tropas se deben repartir como refuerzos en
+				territorios en los que ya tengas tropas.
 			</p>
+			<h2>
+				<strong>Fase 2: </strong>
+			</h2>
 			<p>
-				<strong>Método 2: </strong>
-				Aleatorio por cartas, se pone una tropa en cada territorio recibido Se
-				refuerzan los territorios con el resto de tropas restantes Barajar
-				cartas RISK™
+				Ataca desde un territorio tuyo con un número específico de tropas a un
+				territorio enemigo tantas veces como quieras. No puedes atacar desde un
+				territorio que sólo tenga una tropa.
 			</p>
-			<h3>Cada turno: </h3>
-			<p>Calcular el número de tropas que el jugador recibe basado en:</p>
-			<ul>
-				<li>
-					Número de provincias conquistadas (DIVIDIR ENTRE 3, IGNORAR DECIM.)
-				</li>
-				<li>Bono por continente controlado</li>
-				<li>
-					Canjear un trío de cartas dependiendo de las siguientes reglas:
-					<ul>
-						<li>
-							Un trio de cartas es:
-							<ul>
-								<li>Tres cartas con el mismo tipo de tropa en ellas</li>
-								<li>Tres cartas con los tres tipos de cartas en ellas</li>
-							</ul>
-						</li>
-						<li>
-							El jugador obtiene 4+2x tropas extras, donde x es el número de
-							tríos de cartas que se han canjeado en total en la partida.
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<p>Atacar: </p>
-			<ul>
-				<li>
-					Anunciar la provincia desde donde se ataca, a la provincia colindante
-					a la que se ataca.
-				</li>
-				<li>
-					Anunciar con cuantas tropas se ataca. (No se puede atacar con todas
-					las tropas)
-				</li>
-				<li>
-					El atacante tira un número de dados igual al número de tropas
-					atacantes, máximo 3.
-				</li>
-				<li>
-					El defensor tira un número de dados igual al número de tropas en su
-					provincia, máximo 2.
-				</li>
-				<li>
-					<p>El cálculo de tropas perdidas es el siguiente:</p>
-					<ul>
-						<li>
-							Comparar los dos dados más altos de cada uno y los dos dados
-							segundos en número. (Dos parejas de dados)
-						</li>
-						<li>
-							El defensor pierde una tropa por cada par de dados en el que tiene
-							menos número que el atacante.
-						</li>
-						<li>
-							El atacante pierde una tropa por cada par de dados en el que tiene
-							menor o igual número que el defensor
-						</li>
-						<li>
-							Si el defensor acaba sin tropas en la provincia a defender, el
-							atacante mueve el número de tropas atacantes a la provincia
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<p>Repetir cuantos ataques se deseen</p>
-			<p>Si has conquistado un territorio, robar una carta RISK™</p>
+			<h2>
+				<strong>Fase 3: </strong>
+			</h2>
 			<p>
-				Si has eliminado a un jugador, obtienes todas las cartas RISK™ del
-				eliminado
+				Una única vez, mueve un número cualquiera de tropas desde un territorio
+				controlado por tí a otro territorio de tu propiedad.
 			</p>
-			<p>
-				Si tienes 6 o más cartas en este momento, hay que canjear cartas hasta
-				tener 4 o menos.
-			</p>
-			<p>Reforzar: </p>
-			<ul>
-				<li>
-					Puedes mover cuantas tropas desees desde una provincia a una
-					colindante.
-				</li>
-			</ul>
 		</MDBContainer>
 	)
 }
