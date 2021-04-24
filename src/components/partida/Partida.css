@@ -25,14 +25,21 @@
 }
 
 .mapa path {
+	pointer-events: all;
 	stroke-width: 0.06rem;
 	stroke: #7c643c;
 	fill: #b2d163;
 }
 
-.mapa svg {
-	stroke: aqua;
-	stroke-width: 0.06rem;
+.mapa g image {
+	pointer-events: none;
+	width: 3.4rem;
+}
+
+.mapa g text {
+	stroke: darkslategrey;
+	stroke-width: 0.04rem;
+	pointer-events: none;
 }
 
 .icono-jugador-partida {

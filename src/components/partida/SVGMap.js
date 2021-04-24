@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SVGTerritorio from './SVGTerritorio'
+import MemoizedSVGTerritorio from './SVGTerritorio'
 
 export const SVGMap = (props) => {
 	console.log(
@@ -17,7 +17,7 @@ export const SVGMap = (props) => {
 		>
 			{props.childrenBefore}
 			{props.map.locations.map((location, index) => (
-				<SVGTerritorio
+				<MemoizedSVGTerritorio
 					location={location}
 					index={index}
 					props={props}

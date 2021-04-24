@@ -3,6 +3,11 @@ import tropas from 'assets/tropas/tropas'
 import { obtenerCentro } from 'utils/mapa'
 
 const SVGTerritorio = ({ location, index, props }) => {
+	location.tropas = 2000
+	location.aspecto = 12
+
+	location.jugador = Math.floor(Math.random() * 6)
+
 	let coords = obtenerCentro(location)
 	let clases =
 		typeof props.locationClassName === 'function'
@@ -51,12 +56,12 @@ const SVGTerritorio = ({ location, index, props }) => {
 					href={tropas[location.aspecto].img}
 					height="100px"
 					width="100px"
-					x={coords.x - 50}
+					x={coords.x - 35}
 					y={coords.y - 50}
 				/>
 			)}
 			{'tropas' in location && (
-				<text style={{ fill: 'red' }} x={coords.x + 20} y={coords.y}>
+				<text style={{ fill: 'white' }} x={coords.x + 20} y={coords.y}>
 					{location.tropas}
 				</text>
 			)}
@@ -64,4 +69,35 @@ const SVGTerritorio = ({ location, index, props }) => {
 	)
 }
 
+function territorioPropsAreEqual(prevTerritorio, nextTerritorio) {
+	const locationIgual =
+		prevTerritorio.location.aspecto === nextTerritorio.location.aspecto &&
+		prevTerritorio.location.conexiones.length ===
+			nextTerritorio.location.conexiones.length &&
+		prevTerritorio.location.conexiones.every(
+			(val, index) => val === nextTerritorio.location.conexiones[index]
+		) &&
+		prevTerritorio.location.id === nextTerritorio.location.id &&
+		prevTerritorio.location.jugador === nextTerritorio.location.jugador &&
+		prevTerritorio.location.name === nextTerritorio.location.name &&
+		prevTerritorio.location.path === nextTerritorio.location.path &&
+		prevTerritorio.location.tropas === nextTerritorio.location.tropas
+
+	const propIgual =
+		prevTerritorio.props.locationAriaLabel ===
+			nextTerritorio.props.locationAriaLabel &&
+		prevTerritorio.props.locationRole === nextTerritorio.props.locationRole &&
+		prevTerritorio.props.locationTabIndex ===
+			nextTerritorio.props.locationTabIndex &&
+		prevTerritorio.props.locationClassName ===
+			nextTerritorio.props.locationClassName
+
+	return locationIgual && propIgual
+}
+
 export default SVGTerritorio
+
+export const MemoizedSVGTerritorio = React.memo(
+	SVGTerritorio,
+	territorioPropsAreEqual
+)
