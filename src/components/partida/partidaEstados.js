@@ -101,7 +101,7 @@ export function tocaOrigen(estado) {
 export function tocaDestino(estado) {
 	return (
 		estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN ||
-		estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO ||
+		estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN ||
 		estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS
 	)
 }
@@ -148,17 +148,20 @@ function estadoPrevio(estado) {
 
 //Considerar lanzar excepciones para debuggear
 function estadoSiguienteSeleccionarOrigen(estado) {
+	console.log('!')
 	switch (estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO:
 			return ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN
 		case ESTADOS.FASE_DE_ATAQUE:
 			return ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN
 		default:
+			console.log(estado, 'F')
 			throw 'No tiene siguiente'
 	}
 }
 
 function estadoSiguienteSeleccionarDestino(estado) {
+	console.log('?')
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS:
 			return ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO
@@ -167,6 +170,7 @@ function estadoSiguienteSeleccionarDestino(estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN:
 			return ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO
 		default:
+			console.log(estado, 'F')
 			throw 'No tiene siguiente'
 	}
 }
@@ -180,7 +184,7 @@ function estadoSiguienteSeleccionarUnidades(estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO:
 			return ESTADOS.ESPERANDO_CONFIRMACION_MOVIMIENTO
 		default:
-			throw 'No tiene siguiente'
+			return estado
 	}
 }
 
@@ -188,12 +192,22 @@ function estadoACambioFase(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS:
 			return ESTADOS.CAMBIO_DE_FASE_A_ATAQUE
+		case ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO:
+			return ESTADOS.CAMBIO_DE_FASE_A_ATAQUE
 		case ESTADOS.FASE_DE_ATAQUE:
+			return ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO
+		case ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN:
+			return ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO
+		case ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_DESTINO:
 			return ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO
 		case ESTADOS.FASE_DE_MOVIMIENTO:
 			return ESTADOS.PASAR_TURNO
+		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN:
+			return ESTADOS.PASAR_TURNO
+		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO:
+			return ESTADOS.PASAR_TURNO
 		default:
-			throw 'No se está para ir a cambio fase'
+			return estado
 	}
 }
 
@@ -245,42 +259,54 @@ export function refuerzosRestantes(state) {
 function casosLocales(state, action) {
 	switch (action.tipo) {
 		case ACCIONES.CONFIRMACION_REFUERZO: {
-			usarRefuerzos(state, action)
+			let stateNuevo = { ...state }
+			usarRefuerzos(stateNuevo, action)
 			let idTerritorio = action.data.id
-			state.ultimaJugada = {
+			stateNuevo.ultimaJugada = {
 				jugada: JUGADAS.REFUERZO,
 				...action.data,
 			}
-			state.territorios[idTerritorio] = action.data.territorio.tropas
-			if (state.estadoInterno === ESTADOS.ESPERANDO_CONFIRMACION_REFUERZO) {
-				state.estadoInterno = ESTADOS.FASE_DE_REFUERZOS
+			stateNuevo.territorios[idTerritorio] = action.data.territorio.tropas
+			if (
+				stateNuevo.estadoInterno === ESTADOS.ESPERANDO_CONFIRMACION_REFUERZO
+			) {
+				stateNuevo.estadoInterno = ESTADOS.FASE_DE_REFUERZOS
 			}
-			return state
+			return stateNuevo
 		}
 		case ACCIONES.CONFIRMACION_ATAQUE: {
+			let stateNuevo = { ...state }
 			let idTerritorioOrigen = action.data.territorioOrigen.id
 			let idTerritorioDestino = action.data.territorioDestino.id
-			state.ultimaJugada = {
+			stateNuevo.ultimaJugada = {
 				jugada: JUGADAS.ATAQUE,
 				...action.data,
 			}
-			state.territorios[idTerritorioOrigen] = action.data.territorioOrigen
-			state.territorios[idTerritorioDestino] = action.data.territorioDestino
-			return state
+			stateNuevo.territorios[idTerritorioOrigen] = action.data.territorioOrigen
+			stateNuevo.territorios[idTerritorioDestino] =
+				action.data.territorioDestino
+			if (stateNuevo.estadoInterno === ESTADOS.ESPERANDO_CONFIRMACION_ATAQUE) {
+				stateNuevo.estadoInterno = ESTADOS.FASE_DE_ATAQUE
+			}
+			return stateNuevo
 		}
 		case ACCIONES.CONFIRMACION_MOVIMIENTO: {
+			let stateNuevo = { ...state }
 			let idTerritorioOrigen = action.data.territorioOrigen.id
 			let idTerritorioDestino = action.data.territorioDestino.id
-			state.ultimaJugada = {
+			stateNuevo.ultimaJugada = {
 				jugada: JUGADAS.MOVIMIENTO,
 				...action.data,
 			}
-			state.territorios[idTerritorioOrigen] = action.data.territorioOrigen
-			state.territorios[idTerritorioDestino] = action.data.territorioDestino
-			if (state.estadoInterno === ESTADOS.ESPERANDO_CONFIRMACION_MOVIMIENTO) {
-				state.estadoInterno = ESTADOS.FASE_DE_MOVIMIENTO
+			stateNuevo.territorios[idTerritorioOrigen] = action.data.territorioOrigen
+			stateNuevo.territorios[idTerritorioDestino] =
+				action.data.territorioDestino
+			if (
+				stateNuevo.estadoInterno === ESTADOS.ESPERANDO_CONFIRMACION_MOVIMIENTO
+			) {
+				stateNuevo.estadoInterno = ESTADOS.FASE_DE_MOVIMIENTO
 			}
-			return state
+			return stateNuevo
 		}
 		case ACCIONES.CANCELAR: {
 			return { ...state, estadoInterno: estadoPrevio(state.estadoInterno) }

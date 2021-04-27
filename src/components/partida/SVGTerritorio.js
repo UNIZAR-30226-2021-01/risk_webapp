@@ -3,6 +3,7 @@ import tropas from 'assets/tropas/tropas'
 import { obtenerCentro } from 'utils/mapa'
 
 const SVGTerritorio = ({ location, index, props }) => {
+	console.log('rerender territorio')
 	let coords = obtenerCentro(location)
 	let clases =
 		typeof props.locationClassName === 'function'
@@ -14,6 +15,7 @@ const SVGTerritorio = ({ location, index, props }) => {
 		<g
 			name={location.name}
 			onClick={() => {
+				console.log('Click a ', location.name)
 				props.onLocationClick(location.id)
 			}}
 		>
@@ -90,7 +92,7 @@ function territorioPropsAreEqual(prevTerritorio, nextTerritorio) {
 
 export default SVGTerritorio
 
-export const MemoizedSVGTerritorio = React.memo(
+export const MemorizedSVGTerritorio = React.memo(
 	SVGTerritorio,
 	territorioPropsAreEqual
 )

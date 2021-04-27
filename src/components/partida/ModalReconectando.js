@@ -1,17 +1,20 @@
 import React from 'react'
-import { MDBModal, MDBModalHeader, MDBModalBody } from 'mdbreact'
-import loading from 'assets/UI/loading.png'
+import { MDBBtn, MDBModal, MDBModalHeader, MDBModalBody } from 'mdbreact'
 
 export const ModalReconectando = ({ isOpen }) => {
 	return (
 		<MDBModal isOpen={isOpen}>
 			<MDBModalHeader>
-				Te has desconectado. Intentando reconectar... (no implementado)
+				Te has desconectado. Sal y vuelve a entrar o recarga.
 			</MDBModalHeader>
 			<MDBModalBody>
-				<div className="loader">
-					<img src={loading} id="load-spinner" />
-				</div>
+				<MDBBtn
+					onClick={() => {
+						history.push('/')
+					}}
+				>
+					Volver al menú principal
+				</MDBBtn>
 			</MDBModalBody>
 		</MDBModal>
 	)

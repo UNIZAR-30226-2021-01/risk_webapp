@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import MemoizedSVGTerritorio from './SVGTerritorio'
+import { MemorizedSVGTerritorio } from './SVGTerritorio'
 
-export const SVGMap = (props) => {
+export const MemorizedSVGMap = React.memo(function SVGMap(props) {
 	console.log(
 		'rerender, memorizar con reactMemo, cada zona a un componente distinto para evitar re-renderizar todo innecesariamente'
 	)
@@ -17,7 +17,7 @@ export const SVGMap = (props) => {
 		>
 			{props.childrenBefore}
 			{props.map.locations.map((location, index) => (
-				<MemoizedSVGTerritorio
+				<MemorizedSVGTerritorio
 					location={location}
 					index={index}
 					props={props}
@@ -27,9 +27,9 @@ export const SVGMap = (props) => {
 			{props.childrenAfter}
 		</svg>
 	)
-}
+})
 
-SVGMap.propTypes = {
+MemorizedSVGMap.propTypes = {
 	// Map properties
 	map: PropTypes.shape({
 		viewBox: PropTypes.string.isRequired,
@@ -64,7 +64,7 @@ SVGMap.propTypes = {
 	childrenAfter: PropTypes.node,
 }
 
-SVGMap.defaultProps = {
+MemorizedSVGMap.defaultProps = {
 	className: 'svg-map',
 	role: 'none', // No role for map
 	locationClassName: 'svg-map__location',

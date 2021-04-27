@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, {
+	useCallback,
+	useContext,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 import { useParams } from 'react-router-dom'
 import Mapa from 'assets/mapas/RiskMapa'
 import partidaEstado, {
@@ -16,7 +22,7 @@ import partidaEstado, {
 	tocaDestino,
 } from './partidaEstados'
 import { MDBContainer, MDBBtn } from 'mdbreact'
-import { SVGMap } from './SVGMap'
+import { MemorizedSVGMap } from './SVGMap'
 import './Partida.css'
 import ListaJugadores from './ListaJugadores'
 import AuthApi from 'utils/AuthApi'
@@ -123,7 +129,7 @@ export const Partida = () => {
 		}
 	}, [estado])
 
-	// Si se cae la conexión, el server te tira, hay que intentar reconectar (no hecho)
+	// Si se cae la conexión, el server te tira, no hay que intentar reconectar (no hecho)
 	const connect = () => {
 		ws.current = new WebSocket(`${constants.BASER_WS_URL}entrarPartida`)
 
@@ -162,13 +168,13 @@ export const Partida = () => {
 		}
 	}
 
-	const clickEnUbicacion = (event) => {
+	const clickEnUbicacion = useCallback((id) => {
 		// Origen
 		if (tocaOrigen(estado)) {
 			dispatch({
 				tipo: ACCIONES.SELECCIONAR_ORIGEN,
 				data: {
-					datosExtra: parseInt(event),
+					datosExtra: parseInt(id),
 				},
 			})
 			// Destino
@@ -176,11 +182,11 @@ export const Partida = () => {
 			dispatch({
 				tipo: ACCIONES.SELECCIONAR_DESTINO,
 				data: {
-					datosExtra: parseInt(event),
+					datosExtra: parseInt(id),
 				},
 			})
 		}
-	}
+	})
 
 	const pasarFase = () => {
 		dispatch({
@@ -241,7 +247,10 @@ export const Partida = () => {
 						jugadorTurno={estado.turnoJugador}
 					/>
 					<div className="mapa">
-						<SVGMap map={mapaUnido} onLocationClick={clickEnUbicacion} />
+						<MemorizedSVGMap
+							map={mapaUnido}
+							onLocationClick={clickEnUbicacion}
+						/>
 					</div>
 				</div>
 			)}
