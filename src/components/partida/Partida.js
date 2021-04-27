@@ -18,8 +18,8 @@ import partidaEstado, {
 	refuerzosRestantes,
 	obtenerTropas,
 	tocaNumeroTropas,
-	tocaOrigen,
-	tocaDestino,
+	//tocaOrigen,
+	//tocaDestino,
 } from './partidaEstados'
 import { MDBContainer, MDBBtn } from 'mdbreact'
 import { MemorizedSVGMap } from './SVGMap'
@@ -168,25 +168,19 @@ export const Partida = () => {
 		}
 	}
 
-	const clickEnUbicacion = useCallback((id) => {
-		// Origen
-		if (tocaOrigen(estado)) {
+	const clickEnUbicacion = useCallback(
+		(id) => {
+			console.log(estado, 'origen')
 			dispatch({
-				tipo: ACCIONES.SELECCIONAR_ORIGEN,
+				tipo: ACCIONES.SELECCIONAR_TROPAS,
 				data: {
 					datosExtra: parseInt(id),
 				},
 			})
 			// Destino
-		} else if (tocaDestino(estado)) {
-			dispatch({
-				tipo: ACCIONES.SELECCIONAR_DESTINO,
-				data: {
-					datosExtra: parseInt(id),
-				},
-			})
-		}
-	})
+		},
+		[estado]
+	)
 
 	const pasarFase = () => {
 		dispatch({
@@ -218,7 +212,7 @@ export const Partida = () => {
 
 	return (
 		<MDBContainer fluid>
-			{estado.error && <ErroresServer error={estado.error} />}
+			<ErroresServer serverErrors={estado.error} />
 
 			<h1> Estado: {estado.estadoInterno} </h1>
 			<ModalReconectando isOpen={reconectando} />

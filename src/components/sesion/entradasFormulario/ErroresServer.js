@@ -11,7 +11,7 @@ export const ErroresServer = ({ serverErrors }) => {
 		<>
 			{serverErrors !== '' && (
 				<MDBAlert color="danger">
-					<p> Error del servidor: {serverErrors}</p>
+					<p> Error: {serverErrors}</p>
 				</MDBAlert>
 			)}
 		</>

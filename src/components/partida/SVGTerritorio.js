@@ -15,7 +15,6 @@ const SVGTerritorio = ({ location, index, props }) => {
 		<g
 			name={location.name}
 			onClick={() => {
-				console.log('Click a ', location.name)
 				props.onLocationClick(location.id)
 			}}
 		>

@@ -147,22 +147,13 @@ function estadoPrevio(estado) {
 }
 
 //Considerar lanzar excepciones para debuggear
-function estadoSiguienteSeleccionarOrigen(estado) {
+function estadoSiguienteSeleccionarLocalizacion(estado) {
 	console.log('!')
 	switch (estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO:
 			return ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN
 		case ESTADOS.FASE_DE_ATAQUE:
 			return ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN
-		default:
-			console.log(estado, 'F')
-			throw 'No tiene siguiente'
-	}
-}
-
-function estadoSiguienteSeleccionarDestino(estado) {
-	console.log('?')
-	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS:
 			return ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO
 		case ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN:
@@ -245,9 +236,10 @@ function estadoSigCambioFase(estado) {
 */
 
 function usarRefuerzos(state, action) {
-	state.jugadores.forEach((jugador) => {
-		if (jugador.id === action.idJugador)
-			jugador.refuerzos = jugador.refuezos - state.datosJugadaActual.tropas
+	state.jugadores.map((jugador) => {
+		if (jugador.id === action.idJugador) {
+			jugador.refuerzos = jugador.refuerzos - state.datosJugadaActual.tropas
+		}
 	})
 	console.log(state.jugadores)
 }
@@ -261,12 +253,13 @@ function casosLocales(state, action) {
 		case ACCIONES.CONFIRMACION_REFUERZO: {
 			let stateNuevo = { ...state }
 			usarRefuerzos(stateNuevo, action)
-			let idTerritorio = action.data.id
+			let idTerritorio = action.data.territorio.id
 			stateNuevo.ultimaJugada = {
 				jugada: JUGADAS.REFUERZO,
 				...action.data,
 			}
-			stateNuevo.territorios[idTerritorio] = action.data.territorio.tropas
+			stateNuevo.territorios[idTerritorio].tropas =
+				action.data.territorio.tropas
 			if (
 				stateNuevo.estadoInterno === ESTADOS.ESPERANDO_CONFIRMACION_REFUERZO
 			) {
@@ -318,24 +311,24 @@ function casosLocales(state, action) {
 				error: action.data.err,
 			}
 		}
-		case ACCIONES.SELECCIONAR_ORIGEN: {
-			return {
-				...state,
-				datosJugadaActual: {
-					...state.datosJugadaActual,
-					origen: action.data.datosExtra,
-				},
-				estadoInterno: estadoSiguienteSeleccionarOrigen(state.estadoInterno),
-			}
-		}
-		case ACCIONES.SELECCIONAR_DESTINO: {
-			return {
-				...state,
-				datosJugadaActual: {
-					...state.datosJugadaActual,
-					destino: action.data.datosExtra,
-				},
-				estadoInterno: estadoSiguienteSeleccionarDestino(state.estadoInterno),
+		case ACCIONES.SELECCIONAR_TROPAS: {
+			if (tocaOrigen(state) || tocaDestino(state)) {
+				let datosActual = { ...state.datosJugadaActual }
+				if (tocaOrigen(state)) {
+					datosActual.origen = action.data.datosExtra
+				} else {
+					datosActual.destino = action.data.datosExtra
+				}
+				return {
+					...state,
+					datosJugadaActual: datosActual,
+					estadoInterno: estadoSiguienteSeleccionarLocalizacion(
+						state.estadoInterno
+					),
+				}
+			} else {
+				console.log('?')
+				return state
 			}
 		}
 		case ACCIONES.SELECCIONAR_UNIDADES: {
@@ -413,6 +406,7 @@ function maquinaEstados(state, action) {
 export default function partidaEstado() {
 	return useReducer(maquinaEstados, {
 		estadoInterno: ESTADOS.CARGANDO,
+		error: '',
 		datosJugadaActual: { origen: 0, destino: 1, tropas: 1 },
 	})
 }

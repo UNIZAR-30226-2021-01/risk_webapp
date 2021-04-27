@@ -39,7 +39,7 @@ export const Jugador = ({ datos }) => {
 	)
 }
 
-Jugador.PropTypes = {
+Jugador.propTypes = {
 	datos: PropTypes.shape({
 		icono: PropTypes.number,
 		aspecto: PropTypes.number,

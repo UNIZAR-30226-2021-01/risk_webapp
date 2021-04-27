@@ -4,9 +4,6 @@ import PropTypes from 'prop-types'
 import { MemorizedSVGTerritorio } from './SVGTerritorio'
 
 export const MemorizedSVGMap = React.memo(function SVGMap(props) {
-	console.log(
-		'rerender, memorizar con reactMemo, cada zona a un componente distinto para evitar re-renderizar todo innecesariamente'
-	)
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"

@@ -235,7 +235,12 @@ export const Sala = () => {
 			El modal debería ser mientras se espera un mensaje, no por si se cae.
 			Si se cae, se debería redirigir al menú principal tras mostrar un modal de
 			'conexión caída' */}
-			<MDBModal isOpen={modal} toggle={() => {}}>
+			<MDBModal
+				isOpen={modal}
+				toggle={() => {
+					setModal(false)
+				}}
+			>
 				<MDBModalBody className="d-flex justify-content-between">
 					<p>
 						{' '}
