@@ -32,6 +32,9 @@ const constants = {
 
 	// Tiempo de refresco
 	REFRESH_TIME: 2500,
+
+	// Tiempo entre pings
+	TIEMPO_PING: 25000,
 }
 
 export default constants

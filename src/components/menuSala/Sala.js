@@ -21,7 +21,7 @@ import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServe
 import { useHistory } from 'react-router-dom'
 import SalaEncabezado from './SalaEncabezado'
 import ListaJugadoresPartida from './ListaJugadoresPartida'
-import { socketAbierto, crearSala, aceptarSala } from 'utils/SalaApi'
+import { socketAbierto, crearSala, aceptarSala, ping } from 'utils/SalaApi'
 import constants from 'utils/constants'
 import './Sala.css'
 
@@ -75,8 +75,6 @@ export const Sala = () => {
 		jugadores: [],
 	})
 
-	console.log(salaInfo, 'salaInfo')
-
 	const [amigos, setAmigos] = useState([])
 
 	useEffect(() => {
@@ -103,12 +101,17 @@ export const Sala = () => {
 		console.log('id: ', id)
 
 		connect()
+		let intervalPing = setInterval(() => {
+			ping(ws.current)
+		}, constants.TIEMPO_PING)
+
 		return () => {
 			console.log(ws.current, 'Desmontando ws')
 			if (url === 'crearSala') {
 				clearInterval(interval)
 			}
-			if (ws.current && ws.readyState !== WebSocket.CLOSED) {
+			clearInterval(intervalPing)
+			if (ws.current && ws.current.readyState !== WebSocket.CLOSED) {
 				ws.current.close()
 			}
 		}

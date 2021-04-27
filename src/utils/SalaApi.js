@@ -20,3 +20,9 @@ export const aceptarSala = (Auth, ws, id) => {
 	}
 	ws.send(JSON.stringify(data))
 }
+
+export const ping = (ws) => {
+	if (ws && ws.readyState !== WebSocket.CLOSED) {
+		ws.send(JSON.stringify({ tipo: 'Ping' }))
+	}
+}

@@ -27,6 +27,8 @@ import { ModalFormNumeroTropas } from './ModalFormNumeroTropas'
 import { Cargando } from './Cargando'
 import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
 
+import { ping } from 'utils/SalaApi'
+
 /**
  * Implementa una partida
  * @todo Intentar reconectarse
@@ -62,22 +64,17 @@ export const Partida = () => {
 		})
 	}
 
-	/*const jugadoresPrueba = [
-		{ id: 1, nombre: 'aa', aspecto: 12, icono: 7 },
-		{ id: 2, nombre: 'xxxxx', aspecto: 12, icono: 11 },
-		{ id: 14, nombre: 'asdsdwq', aspecto: 12, icono: 12 },
-		{ id: 124, nombre: 'asdfasadfw', aspecto: 12, icono: 4 },
-		{ id: 143124, nombre: 'asdsdwq', aspecto: 12, icono: 12 },
-		{ id: 121424, nombre: 'asdfasadfw', aspecto: 12, icono: 4 },
-	]*/
-
 	useEffect(() => {
 		connect()
+		let intervalPing = setInterval(() => {
+			ping(ws.current)
+		}, constants.TIEMPO_PING)
 		return () => {
 			console.log('Desmontando ws')
 			if (ws.current && ws.current.readyState !== WebSocket.CLOSED) {
 				ws.current.close()
 			}
+			clearInterval(intervalPing)
 		}
 	}, [])
 
