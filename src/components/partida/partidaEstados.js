@@ -208,6 +208,8 @@ function estadoSigCambioFase(estado) {
 			return ESTADOS.FASE_DE_ATAQUE
 		case ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO:
 			return ESTADOS.FASE_DE_MOVIMIENTO
+		default:
+			return estado.estadoInterno
 	}
 }
 

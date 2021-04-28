@@ -8,7 +8,7 @@ import React, {
 import { useParams } from 'react-router-dom'
 import Mapa from 'assets/mapas/RiskMapa'
 import partidaEstado, {
-	//JUGADAS,
+	JUGADAS,
 	ACCIONES,
 	MAPEO_TIPO_ACCIONES,
 	//FASES,
@@ -50,9 +50,36 @@ export const Partida = () => {
 	const [mapaUnido, setMapaUnido] = useState(Mapa)
 
 	const unirMapas = () => {
+		let origenAntiguo = -1
+		let destinoAntiguo = -1
+
+		let origen = -1
+		let destinos = []
+
+		if (estado.estadoInterno !== ESTADOS.CARGANDO) {
+			if ('ultimaJugada' in estado) {
+				let jugadaUltima = estado.ultimaJugada
+				if (estado.ultimaJugada.jugada === JUGADAS.REFUERZO) {
+					origenAntiguo = jugadaUltima.territorio.id
+				} else {
+					origenAntiguo = jugadaUltima.territorioOrigen.id
+					destinoAntiguo = jugadaUltima.territorioDestino.id
+				}
+			}
+
+			if (estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN) {
+				origen = obtenerOrigen(estado)
+				destinos = Mapa.locations[origen].conexiones
+			}
+		}
+
 		setMapaUnido({
 			label: Mapa.label,
 			viewBox: Mapa.viewBox,
+			origenAntiguo: origenAntiguo,
+			destinoAntiguo: destinoAntiguo,
+			origen: origen,
+			listaDestino: destinos,
 			locations: Mapa.locations.map((location, index) => {
 				if (estado.estadoInterno !== ESTADOS.CARGANDO) {
 					let datosJugador = estado.jugadores[estado.territorios[index].jugador]
