@@ -14,7 +14,7 @@ const JugadorPartida = ({ jugador }) => {
 				</div>
 			</MDBCol>
 			<MDBCol
-				md="4"
+				md="7"
 				className="d-flex justify-content-center align-items-center"
 			>
 				{jugador.nombre}

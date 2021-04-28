@@ -1,0 +1,103 @@
+p {
+	margin-bottom: 0px !important;
+	font-size: 2rem;
+}
+
+.fases {
+	display: flex;
+	/*justify-content: center;*/
+	align-items: center;
+	justify-content: center;
+	height: 10rem;
+	padding: 1rem;
+}
+
+.punta-flecha {
+	height: 1rem;
+	width: 1rem;
+	border: 1.4rem solid;
+	border-color: #999287 #999287 transparent transparent;
+}
+
+div.flecha-1 .punta-flecha {
+	transform: rotate(45deg) translateX(-1rem) translateY(1.07rem);
+}
+
+div.flecha-2 .punta-flecha {
+	transform: rotate(45deg) translateX(-1.95rem) translateY(2.03rem);
+}
+
+div.flecha-1 .cuerpo-flecha {
+	background-color: #999287;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 10rem;
+	height: 4rem;
+	border-top-right-radius: 0.2rem;
+	border-bottom-right-radius: 0.2rem;
+}
+
+div.flecha-2 .cuerpo-flecha {
+	background-color: #999287;
+	width: 10rem;
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-top-right-radius: 0.2rem;
+	border-bottom-right-radius: 0.2rem;
+	transform: translateX(-1.375rem);
+}
+
+div.flecha-3 .cuerpo-flecha {
+	background-color: #999287;
+	width: 10rem;
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: translateX(-1.33rem);
+}
+
+.pluma-flecha {
+	/* duplicate the triange */
+	position: relative;
+	height: 0px;
+	width: 0px;
+	border: 1.3rem solid;
+	border-color: #999287 #999287 transparent transparent;
+	transform: rotate(45deg);
+}
+
+.pluma-flecha:before,
+.pluma-flecha:after {
+	content: '';
+	display: block;
+	position: absolute;
+
+	/* set up more triangles */
+	height: 0;
+	width: 0;
+
+	/* half the parent border
+	   rounded up */
+	border: 0.995rem solid;
+}
+
+.pluma-flecha:before {
+	border-color: #999287 transparent transparent #999287;
+	display: block;
+	top: -1px;
+	right: 0px;
+	transform-origin: top right;
+	transform: rotate(45deg);
+}
+
+.pluma-flecha:after {
+	border-color: transparent #999287 #999287 transparent;
+	top: 0px;
+	right: -1px;
+	transform-origin: top right;
+	transform: rotate(-45deg);
+}

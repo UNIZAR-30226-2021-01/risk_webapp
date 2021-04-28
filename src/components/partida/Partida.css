@@ -9,6 +9,17 @@
 	animation: spinner 1s ease-out infinite;
 }
 
+.btn-default.btn.Ripple-parent.btn-pasar {
+	font-size: 1.3rem;
+	height: 22rem;
+	padding: 0.15rem 0.7rem;
+	background-color: #d55e00 !important;
+}
+
+.btn-default.btn.Ripple-parent.btn-pasar:hover {
+	background-color: #bb5609 !important;
+}
+
 .loader {
 	width: 100%;
 	height: 100%;
@@ -20,7 +31,7 @@
 .mapa {
 	background-color: #4aa5f6;
 	border: 0.4rem solid #7c643c;
-	width: 53rem;
+	width: 70rem;
 	margin-left: 5rem;
 }
 

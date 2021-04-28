@@ -25,6 +25,7 @@ import { MDBContainer, MDBBtn } from 'mdbreact'
 import { MemorizedSVGMap } from './SVGMap'
 import './Partida.css'
 import ListaJugadores from './ListaJugadores'
+import FasesPartida from './FasesPartida'
 import AuthApi from 'utils/AuthApi'
 import { obtenerCredenciales, obtenerIdUsuario } from 'utils/usuarioVO'
 import constants from 'utils/constants'
@@ -243,7 +244,7 @@ export const Partida = () => {
 
 			<h1> Estado: {estado.estadoInterno} </h1>
 			<ModalReconectando isOpen={reconectando} />
-			<MDBBtn onClick={pasarFase}> Pasar fase</MDBBtn>
+
 			{/* Poner bien los parámetros */}
 			<ModalFormNumeroTropas
 				isOpen={tocaNumeroTropas(estado)}
@@ -262,18 +263,27 @@ export const Partida = () => {
 			/>
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
-				<div className="d-flex pb-4">
+				<>
 					<ListaJugadores
 						jugadores={estado.jugadores}
 						jugadorTurno={estado.turnoJugador}
 					/>
-					<div className="mapa">
-						<MemorizedSVGMap
-							map={mapaUnido}
-							onLocationClick={clickEnUbicacion}
-						/>
+					<div className="d-flex flex-row align-items-center justify-content-center">
+						<div className="mapa">
+							<MemorizedSVGMap
+								map={mapaUnido}
+								onLocationClick={clickEnUbicacion}
+							/>
+						</div>
+						{estado.estadoInterno != ESTADOS.TURNO_RIVAL && (
+							<MDBBtn onClick={pasarFase} className="btn-pasar">
+								{' '}
+								Pasar fase
+							</MDBBtn>
+						)}
 					</div>
-				</div>
+					<FasesPartida />
+				</>
 			)}
 
 			{estado.estadoInterno === ESTADOS.CARGANDO && <Cargando />}

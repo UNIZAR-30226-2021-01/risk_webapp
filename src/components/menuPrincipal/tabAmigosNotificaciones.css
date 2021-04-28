@@ -17,6 +17,7 @@ ul.list-group.lista-amigos li.list-group-item.list-group-item-undefined {
 	border-radius: 0.2rem;
 	margin-bottom: 0.5rem;
 	margin-top: 1rem;
+	width: initial;
 	background: repeating-linear-gradient(
 		0deg,
 		#ebc486,
