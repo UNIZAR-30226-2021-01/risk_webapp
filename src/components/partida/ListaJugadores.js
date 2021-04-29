@@ -7,7 +7,7 @@ const ListaJugadores = ({ jugadores, jugadorTurno }) => {
 	return (
 		<MDBListGroup className="jugadores-en-partida d-flex flex-row justify-content-between">
 			{jugadores.map((jugador, index) => {
-				let clasesJugador = `jugador${index}`
+				let clasesJugador = `jugador-en-partida jugador${index}`
 				if (index === jugadorTurno) clasesJugador = clasesJugador + ' esSuTurno'
 				return (
 					<MDBListGroupItem

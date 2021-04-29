@@ -8,10 +8,16 @@ import Jugador from './Jugador'
  */
 export const ListaJugadoresPartida = ({ usuarios }) => {
 	return (
-		<MDBContainer className="mt-9">
-			<MDBListGroup style={{ width: '18.5rem' }}>
+		<MDBContainer className="mt-9 fondo-lista-jugadores">
+			<MDBListGroup
+				className="d-flex align-items-center lista-jugadores-sala"
+				style={{ width: '18.5rem' }}
+			>
 				{usuarios.map((usuario) => (
-					<MDBListGroupItem key={usuario.id.toString()}>
+					<MDBListGroupItem
+						className="jugador-sala"
+						key={usuario.id.toString()}
+					>
 						<Jugador datos={usuario} />
 					</MDBListGroupItem>
 				))}

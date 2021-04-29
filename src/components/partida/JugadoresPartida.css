@@ -2,7 +2,7 @@ ul.list-group {
 	width: 100% !important;
 }
 
-.list-group-item.list-group-item-undefined {
+.list-group-item.jugador-en-partida.list-group-item-undefined {
 	background: repeating-linear-gradient(
 		90deg,
 		#ebc486,
@@ -58,14 +58,14 @@ ul.list-group {
 	border-color: #f2f2f2;
 }
 
-.icono-marco-jugador,
-.aspecto-jugador {
+.jugador-en-partida .icono-marco-jugador,
+.jugador-en-partida .aspecto-jugador {
 	position: absolute;
 	width: 3.5rem;
 }
 
-.icono-jugador-partida,
-.aspecto-fondo-jugador {
+.jugador-en-partida .icono-jugador-partida,
+.jugador-en-partida .aspecto-fondo-jugador {
 	width: 3.5rem;
 }
 

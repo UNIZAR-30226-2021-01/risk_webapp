@@ -17,7 +17,7 @@ export const ListaAmigos = ({
 	...rest
 }) => {
 	return (
-		<MDBContainer className="mt-3">
+		<MDBContainer className="mt-3 fondo-lista-amigos">
 			<MDBListGroup className="lista-amigos">
 				{usuarios.map((usuario) => (
 					<MDBListGroupItem key={usuario.id.toString()}>

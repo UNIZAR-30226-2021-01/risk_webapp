@@ -1,10 +1,20 @@
-.col.p-1.mt-1 .container.mt-9 {
+.col.p-1.mt-1 .container.mt-9.fondo-lista-jugadores {
+	background: repeating-linear-gradient(
+		90deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+	border-radius: 1rem;
+	border: 0.2rem solid #7c643c;
 	padding: 1rem;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	max-height: 20rem;
 }
 
 ul.list-group {
 	width: 22rem !important;
+}
+
+h2.titulo-sala {
+	font-size: 1.7rem;
 }

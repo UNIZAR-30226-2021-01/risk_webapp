@@ -17,7 +17,10 @@ export const Jugador = ({ datos }) => {
 
 	return (
 		<MDBRow>
-			<MDBCol md="4">
+			<MDBCol
+				md="4"
+				className="d-flex justify-content-center align-items-center"
+			>
 				<div>
 					<img src={marcoIcono} className="icono-marco-jugador"></img>
 					<img src={icono} className="icono-jugador" />
@@ -25,11 +28,14 @@ export const Jugador = ({ datos }) => {
 			</MDBCol>
 			<MDBCol
 				md="4"
-				className="d-flex justify-content-center align-items-center"
+				className="d-flex justify-content-center align-items-center nombre-jugador"
 			>
 				{datos.nombre}
 			</MDBCol>
-			<MDBCol md="4">
+			<MDBCol
+				md="4"
+				className="d-flex justify-content-center align-items-center"
+			>
 				<div>
 					<img src={aspecto} className="aspecto-jugador" />
 					<img src={fondoAspecto} className="aspecto-fondo-jugador"></img>
