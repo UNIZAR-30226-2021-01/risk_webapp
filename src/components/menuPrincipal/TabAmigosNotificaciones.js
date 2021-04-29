@@ -63,9 +63,10 @@ export const TabAmigosNotificaciones = () => {
 		// DATOS DE PRUEBA
 		let notisPrueba = [
 			{ infoExtra: 'PacoGamer', idEnvio: 69, tipo: 'Peticion de amistad' },
-			{ infoExtra: 'Raulito69HD', idEnvio: 15 },
-			{ infoExtra: 'Raulito69XX', idEnvio: 12 },
-			{ infoExtra: 'Raulito69', idEnvio: 144 },
+			{ infoExtra: 'Raulito69HD', idEnvio: 15, tipo: 'Peticion de amistad' },
+			{ infoExtra: 'Raulito69XX', idEnvio: 12, tipo: 'Invitacion' },
+			{ infoExtra: 'Raulito69', idEnvio: 144, tipo: 'Invitacion' },
+			{ infoExtra: 'LASala', idEnvio: 123, tipo: 'Notificacion de turno' },
 		]
 		setNotis(notisPrueba)
 		*/

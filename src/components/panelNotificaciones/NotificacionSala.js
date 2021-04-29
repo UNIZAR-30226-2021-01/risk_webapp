@@ -20,7 +20,7 @@ export const NotificacionSala = ({ datos }) => {
 		<>
 			<MDBRow>
 				<MDBCol md="8">
-					<p>
+					<p className="texto-noti-sala">
 						<strong>{datos.infoExtra}</strong> te ha invitado a una partida
 					</p>
 				</MDBCol>

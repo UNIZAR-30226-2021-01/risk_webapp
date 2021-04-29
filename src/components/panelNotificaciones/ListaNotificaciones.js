@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import NotificacionAmistad from './NotificacionAmistad.js'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 import NotificacionSala from './NotificacionSala.js'
+import NotificacionTurno from './NotificacionTurno.js'
 
 /**
  * Muestra la lista de notificaciones recibida como parámetro.
@@ -18,10 +19,14 @@ const ListaNotificaciones = ({ notificaciones }) => {
 				{notificaciones.map((notificacion) => {
 					return (
 						<MDBListGroupItem key={notificacion.idEnvio.toString()}>
-							{notificacion.tipo === 'Peticion de amistad' ? (
+							{notificacion.tipo === 'Peticion de amistad' && (
 								<NotificacionAmistad datos={notificacion} />
-							) : (
+							)}
+							{notificacion.tipo === 'Invitacion' && (
 								<NotificacionSala datos={notificacion} />
+							)}
+							{notificacion.tipo === 'Notificacion de turno' && (
+								<NotificacionTurno datos={notificacion} />
 							)}
 						</MDBListGroupItem>
 					)

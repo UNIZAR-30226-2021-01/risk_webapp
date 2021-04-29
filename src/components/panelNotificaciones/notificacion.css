@@ -35,3 +35,15 @@
 	font-size: 1.15rem;
 	padding: 0.3rem 1.2rem;
 }
+
+p.texto-noti-amistad,
+p.texto-noti-sala,
+p.texto-noti-turno {
+	font-size: 1.6rem;
+}
+
+p.texto-noti-amistad strong,
+p.texto-noti-sala strong,
+p.texto-noti-turno strong {
+	font-size: 1.7rem;
+}

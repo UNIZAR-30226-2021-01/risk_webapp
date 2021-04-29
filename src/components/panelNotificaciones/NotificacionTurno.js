@@ -13,14 +13,16 @@ import {
 } from 'mdbreact'
 import { ErroresServer } from './../sesion/entradasFormulario/ErroresServer'
 import AuthApi from './../../utils/AuthApi'
-import { decisionPeticion } from '../../utils/restAPI'
+import { useHistory } from 'react-router-dom'
+import { borrarNotiTurno } from 'utils/restAPI'
 import { obtenerCredenciales } from 'utils/usuarioVO'
 
 /**
- * Representación de una notificación de petición de amistad en la
- * lista de notificaciones.
+ * Representación de una notificación de invitación a partida
+ * en la lista de notificaciones.
  */
-export const NotificacionAmistad = ({ datos }) => {
+export const NotificacionTurno = ({ datos }) => {
+	const history = useHistory()
 	const [isOpen, setOpen] = useState(false)
 	const [serverErrors, setServerErrors] = useState('')
 	const Auth = useContext(AuthApi)
@@ -29,26 +31,21 @@ export const NotificacionAmistad = ({ datos }) => {
 		setOpen(!isOpen)
 	}
 
-	const decisionAmistad = (datos, decision) => async () => {
+	const confirmarTurno = (datos) => async () => {
+		const dirSala = `/partida/${datos.idEnvio}`
+		history.push(dirSala)
+	}
+
+	const borrarNotiTurnoInterno = (datos) => async () => {
 		setServerErrors('')
 		const formData = {
-			idAmigo: datos.idEnvio,
-			decision: decision,
+			idSal: datos.idEnvio,
 			...obtenerCredenciales(Auth),
 		}
 
-		const data = await decisionPeticion(formData)
+		const data = await borrarNotiTurno(formData)
 
-		if (data.code === 0) {
-			console.log(
-				'Amigo con id y nombre: ' +
-					datos.idEnvio +
-					' ' +
-					datos.infoExtra +
-					' has elegido ' +
-					decision
-			)
-		} else {
+		if (data.code != 0) {
 			setServerErrors(data.err)
 			toggle()
 		}
@@ -59,16 +56,13 @@ export const NotificacionAmistad = ({ datos }) => {
 			<MDBRow>
 				<MDBCol md="8">
 					<p className="texto-noti-amistad">
-						Solicitud de amistad de <strong>{datos.infoExtra}</strong>
+						Es tu turno en la partida <strong>{datos.infoExtra}</strong>
 					</p>
 				</MDBCol>
 				<MDBCol md="4">
 					<MDBRow className="mr-1">
 						<MDBCol md="6">
-							<MDBBtn
-								className="btn-notis"
-								onClick={decisionAmistad(datos, 'Aceptar')}
-							>
+							<MDBBtn className="btn-notis" onClick={confirmarTurno(datos)}>
 								<MDBIcon icon="check" />
 							</MDBBtn>
 						</MDBCol>
@@ -76,7 +70,7 @@ export const NotificacionAmistad = ({ datos }) => {
 							<MDBBtn
 								color="danger"
 								className="btn-notis"
-								onClick={decisionAmistad(datos, 'Rechazar')}
+								onClick={borrarNotiTurnoInterno(datos)}
 							>
 								<MDBIcon icon="times" />
 							</MDBBtn>
@@ -104,15 +98,11 @@ export const NotificacionAmistad = ({ datos }) => {
 	)
 }
 
-NotificacionAmistad.propTypes = {
-	/**
-	 * Datos con una cadena de información y el id
-	 * de la sala a la que unirse.
-	 */
+NotificacionTurno.propTypes = {
 	datos: PropTypes.shape({
 		infoExtra: PropTypes.string,
 		idEnvio: PropTypes.number,
 	}),
 }
 
-export default NotificacionAmistad
+export default NotificacionTurno

@@ -131,6 +131,11 @@ export const decisionPeticion = async (formData) => {
 	return data
 }
 
+export const borrarNotiTurno = async (formData) => {
+	const data = await peticionQForm('borrarNotificacionTurno', formData)
+	return data
+}
+
 /**
  * Hace una petición al server de obtención de la lista de partidas
  * con los datos recibidos como parámetro.
