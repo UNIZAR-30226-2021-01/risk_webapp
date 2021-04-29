@@ -198,7 +198,7 @@ function estadoACambioFase(estado) {
 		case ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO:
 			return ESTADOS.PASAR_TURNO
 		default:
-			return estadoInterno
+			return estado
 	}
 }
 
@@ -209,7 +209,7 @@ function estadoSigCambioFase(estado) {
 		case ESTADOS.CAMBIO_DE_FASE_A_MOVIMIENTO:
 			return ESTADOS.FASE_DE_MOVIMIENTO
 		default:
-			return estadoInterno
+			return estado
 	}
 }
 
