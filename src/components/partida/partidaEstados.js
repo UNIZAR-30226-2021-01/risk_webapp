@@ -353,6 +353,7 @@ function casosLocales(state, action) {
 			return {
 				...state,
 				estadoInterno: estadoSigCambioFase(state.estadoInterno),
+				fase: state.fase + 1,
 			}
 		}
 	}
