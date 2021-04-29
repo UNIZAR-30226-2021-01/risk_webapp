@@ -258,7 +258,7 @@ export const Partida = () => {
 		) {
 			maximoTropas = refuerzosRestantes(estado)
 		} else {
-			maximoTropas = mapaUnido.locations[obtenerOrigen(estado)].tropas
+			maximoTropas = mapaUnido.locations[obtenerOrigen(estado)].tropas - 1
 		}
 		return maximoTropas
 	}
