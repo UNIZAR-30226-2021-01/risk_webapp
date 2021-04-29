@@ -33,9 +33,16 @@ import { ModalReconectando } from './ModalReconectando'
 import { ModalFormNumeroTropas } from './ModalFormNumeroTropas'
 import { Cargando } from './Cargando'
 import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
+import { obtenerCentro } from 'utils/mapa'
 
 import { ping } from 'utils/SalaApi'
 
+Mapa.locations = Mapa.locations.map((location) => {
+	return {
+		...location,
+		coords: obtenerCentro(location),
+	}
+})
 /**
  * Implementa una partida
  * @todo Intentar reconectarse
@@ -74,28 +81,46 @@ export const Partida = () => {
 			}
 		}
 
-		setMapaUnido({
+		let locations = Mapa.locations.map((location, index) => {
+			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
+				let datosJugador = estado.jugadores[estado.territorios[index].jugador]
+				return {
+					...location,
+					jugador: estado.territorios[index].jugador,
+					aspecto: datosJugador.aspecto,
+					tropas: estado.territorios[index].tropas,
+				}
+			} else {
+				//Poder debug
+				return location
+			}
+		})
+
+		locations = locations.map((location) => {
+			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
+				let centrosAdyacentes = []
+				location.conexiones.forEach((adyacente) =>
+					centrosAdyacentes.push(locations[adyacente].coords)
+				)
+				return {
+					...location,
+					centrosAdyacentes: centrosAdyacentes,
+				}
+			} else {
+				return location
+			}
+		})
+
+		let mapa = {
 			label: Mapa.label,
 			viewBox: Mapa.viewBox,
 			origenAntiguo: origenAntiguo,
 			destinoAntiguo: destinoAntiguo,
 			origen: origen,
 			listaDestino: destinos,
-			locations: Mapa.locations.map((location, index) => {
-				if (estado.estadoInterno !== ESTADOS.CARGANDO) {
-					let datosJugador = estado.jugadores[estado.territorios[index].jugador]
-					return {
-						...location,
-						jugador: estado.territorios[index].jugador,
-						aspecto: datosJugador.aspecto,
-						tropas: estado.territorios[index].tropas,
-					}
-				} else {
-					//Poder debug
-					return location
-				}
-			}),
-		})
+			locations: locations,
+		}
+		setMapaUnido(mapa)
 	}
 
 	useEffect(() => {

@@ -1,10 +1,8 @@
 import React from 'react'
 import tropas from 'assets/tropas/tropas'
-import { obtenerCentro } from 'utils/mapa'
 
 const SVGTerritorio = ({ location, index, props }) => {
 	console.log('rerender territorio')
-	let coords = obtenerCentro(location)
 	let clases =
 		typeof props.locationClassName === 'function'
 			? props.locationClassName(location, index)
@@ -45,17 +43,35 @@ const SVGTerritorio = ({ location, index, props }) => {
 				onBlur={props.onLocationBlur}
 				key={location.id}
 			/>
+			{/*
+				Poner estilos para que se vean las líneas	
+			*/}
+			{'centrosAdyacentes' in location &&
+				location.centrosAdyacentes.map((centro, index) => (
+					<line
+						key={`${location.id}-${index}`}
+						x1={location.coords.x}
+						y1={location.coords.y}
+						x2={centro.x}
+						y2={centro.y}
+						style={{ stroke: 'rgb(255, 255, 255)' }}
+					/>
+				))}
 			{'aspecto' in location && (
 				<image
 					href={tropas[location.aspecto].img}
 					height="100px"
 					width="100px"
-					x={coords.x - 35}
-					y={coords.y - 50}
+					x={location.coords.x - 35}
+					y={location.coords.y - 50}
 				/>
 			)}
 			{'tropas' in location && (
-				<text style={{ fill: 'white' }} x={coords.x + 20} y={coords.y}>
+				<text
+					style={{ fill: 'white' }}
+					x={location.coords.x + 20}
+					y={location.coords.y}
+				>
 					{location.tropas}
 				</text>
 			)}
