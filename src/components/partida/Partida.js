@@ -307,7 +307,7 @@ export const Partida = () => {
 							</MDBBtn>
 						)}
 					</div>
-					<FasesPartida />
+					<FasesPartida fase={estado.fase} />
 				</>
 			)}
 

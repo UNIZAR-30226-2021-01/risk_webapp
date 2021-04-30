@@ -53,6 +53,12 @@
 	pointer-events: none;
 }
 
+.mapa line {
+	stroke: rgba(255, 255, 255, 0.555);
+	stroke-width: 2;
+	fill: rgba(255, 255, 255, 0.555);
+}
+
 .icono-jugador-partida {
 	width: 3rem;
 }
