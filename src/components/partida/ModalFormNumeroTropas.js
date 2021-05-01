@@ -5,6 +5,42 @@ import { useForm } from 'react-hook-form'
 import { EntradaNumero } from 'components/sesion/entradasFormulario/EntradaNumero'
 import { FASES, obtenerDestino, obtenerOrigen } from './partidaEstados'
 
+/**
+ * Comprueba si es legal mover las tropas de un país origen a un país destino.
+ * Se debe comprobar previamente que origen y destino pertenecen al jugador
+ * al que le toca en ese turno.
+ * @param {int} origen id del país origen
+ * @param {int} destino id del país destino
+ * @param {array} territorios array "territorios" del estado
+ * @param {array} locations array "locations" del Mapa Unido
+ */
+const moverLegal = (origen, destino, territorios, locations) => {
+	let frontera = [origen]
+	let explorados = []
+	let encontrado = false
+	let fallo = false
+	while (!encontrado && !fallo) {
+		if (frontera.length === 0) fallo = true
+		else {
+			let nodo = locations[frontera.pop()]
+			explorados.push(nodo.id)
+			nodo.conexiones.forEach((adyacente) => {
+				if (!explorados.includes(adyacente) && !frontera.includes(adyacente)) {
+					if (adyacente == destino) {
+						encontrado = true
+					} else if (
+						// Si el territorio actual pertenece al mismo jugador que el nodo padre
+						territorios[adyacente].jugador === territorios[nodo.id].jugador
+					) {
+						frontera.push(adyacente)
+					}
+				}
+			})
+		}
+	}
+	return encontrado
+}
+
 export const ModalFormNumeroTropas = ({
 	isOpen,
 	locations,
@@ -30,45 +66,6 @@ export const ModalFormNumeroTropas = ({
 	let mensaje = `¿Cuántas tropas se envían de ${origen.name} a ${destino.name}? (máx. ${max})`
 	let MensajeError =
 		'Mínimo se necesita mover 1 tropa y como máximo una menos del total de las del continente.'
-
-	/**
-	 * Comprueba si es legal mover las tropas de un país origen a un país destino.
-	 * Se debe comprobar previamente que origen y destino pertenecen al jugador
-	 * al que le toca en ese turno.
-	 * @param {int} origen id del país origen
-	 * @param {int} destino id del país destino
-	 * @param {array} territorios array "territorios" del estado
-	 * @param {array} locations array "locations" del Mapa Unido
-	 */
-	const moverLegal = (origen, destino, territorios, locations) => {
-		let frontera = [origen]
-		let explorados = []
-		let encontrado = false
-		let fallo = false
-		while (!encontrado && !fallo) {
-			if (frontera.length === 0) fallo = true
-			else {
-				let nodo = locations[frontera.pop()]
-				explorados.push(nodo.id)
-				nodo.conexiones.forEach((adyacente) => {
-					if (
-						!explorados.includes(adyacente) &&
-						!frontera.includes(adyacente)
-					) {
-						if (adyacente == destino) {
-							encontrado = true
-						} else if (
-							// Si el territorio actual pertenece al mismo jugador que el nodo padre
-							territorios[adyacente].jugador === territorios[nodo.id].jugador
-						) {
-							frontera.push(adyacente)
-						}
-					}
-				})
-			}
-		}
-		return encontrado
-	}
 
 	if (estado.fase === FASES.FASE_REFUERZOS) {
 		mensaje = `¿Cuántos refuerzos se envían a ${destino.name}? (máx. ${max})`
