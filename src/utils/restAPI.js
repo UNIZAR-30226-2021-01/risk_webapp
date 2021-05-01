@@ -121,9 +121,9 @@ export const obtenerNotificaciones = async (formData) => {
 
 /**
  * Hace una petición al server con la decisión de una petición de amistad.
- * @param {datos_usuario} formData Contiene los datos necesarios para el registro
- * de un usuario en el servidor.
- * @returns Respuesta recibida a la petición de registro en JSON.
+ * @param {datos_usuario} formData Contiene los datos necesarios para gestionar
+ * una petición de amistad del usuario
+ * @returns Respuesta recibida a la decisión de la petición en formato JSON.
  * @public
  */
 export const decisionPeticion = async (formData) => {
@@ -131,6 +131,23 @@ export const decisionPeticion = async (formData) => {
 	return data
 }
 
+/**
+ *
+ * @param {datos_rechazo} formData Contiene los datos necesarios para
+ * rechazar una invitación a una partida
+ * @returns respuesta recibida de la petición en formato JSON
+ */
+export const rechazarPartida = async (formData) => {
+	const data = await peticionQForm('rechazarPartida', formData)
+	return data
+}
+
+/**
+ *
+ * @param {datos_borrar_noti} formData Contiene los datos necesarios para
+ * borrar una notificación de turno en partida
+ * @returns respuesta recibida de la petición en formato JSON
+ */
 export const borrarNotiTurno = async (formData) => {
 	const data = await peticionQForm('borrarNotificacionTurno', formData)
 	return data

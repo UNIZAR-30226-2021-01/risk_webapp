@@ -1,0 +1,5 @@
+.container.container-reglas {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	max-height: 30rem;
+}

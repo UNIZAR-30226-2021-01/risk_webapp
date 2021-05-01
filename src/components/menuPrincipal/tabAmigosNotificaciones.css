@@ -40,3 +40,7 @@ ul.list-group.lista-amigos li.list-group-item.list-group-item-undefined {
 .active.nav-link {
 	background-color: #a84800 !important;
 }
+
+ul.nav-pills.nav-justified {
+	margin-top: 2.1rem;
+}

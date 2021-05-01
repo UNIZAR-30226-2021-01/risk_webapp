@@ -1,6 +1,6 @@
 import React from 'react'
 import { MDBContainer, MDBRow } from 'mdbreact'
-
+import './Reglas.css'
 /**
  * Componente estático que muestra las reglas de juego, es un
  * contenedor en el que se muestran las reglas del juego
@@ -12,7 +12,7 @@ import { MDBContainer, MDBRow } from 'mdbreact'
  */
 export const Reglas = () => {
 	return (
-		<MDBContainer>
+		<MDBContainer className="container-reglas">
 			<MDBRow>
 				<h1>Reglas pixelRISK</h1>
 			</MDBRow>
