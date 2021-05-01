@@ -409,6 +409,7 @@ function maquinaEstados(state, action) {
 export default function partidaEstado() {
 	return useReducer(maquinaEstados, {
 		estadoInterno: ESTADOS.CARGANDO,
+		fase: 0,
 		error: '',
 		datosJugadaActual: { origen: 0, destino: 1, tropas: 1 },
 	})
