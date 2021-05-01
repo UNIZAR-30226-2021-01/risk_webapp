@@ -34,8 +34,8 @@
 	background-image: url(./assets/UI/scroll_fondo_palo_2_31x.png);
 	background-size: contain;
 	background-color: transparent;
-	border-radius: 15px;
-	border: 3px solid black;
+	border-radius: 10px;
+	border: 1px solid black;
 }
 
 ::-webkit-scrollbar-button:vertical:decrement {
@@ -57,5 +57,5 @@
 	background-size: contain;
 	background-color: transparent;
 	border-radius: 15px;
-	border: 3px solid black;
+	border: 2.5px solid black;
 }
