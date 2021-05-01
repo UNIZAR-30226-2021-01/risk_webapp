@@ -47,3 +47,15 @@ p.texto-noti-sala strong,
 p.texto-noti-turno strong {
 	font-size: 1.7rem;
 }
+
+.btn {
+	background-image: none;
+}
+
+.aceptar {
+	background-image: url(assets/UI/aceptar_grande.png);
+}
+
+.rechazar {
+	background-image: url(assets/UI/rechazar_grande.png);
+}

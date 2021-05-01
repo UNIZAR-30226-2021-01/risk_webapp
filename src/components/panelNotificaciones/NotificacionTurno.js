@@ -5,7 +5,6 @@ import {
 	MDBRow,
 	MDBCol,
 	MDBBtn,
-	MDBIcon,
 	MDBModal,
 	MDBModalHeader,
 	MDBModalBody,
@@ -62,18 +61,17 @@ export const NotificacionTurno = ({ datos }) => {
 				<MDBCol md="4">
 					<MDBRow className="mr-1">
 						<MDBCol md="6">
-							<MDBBtn className="btn-notis" onClick={confirmarTurno(datos)}>
-								<MDBIcon icon="check" />
-							</MDBBtn>
+							<MDBBtn
+								className="btn-notis aceptar"
+								onClick={confirmarTurno(datos)}
+							></MDBBtn>
 						</MDBCol>
 						<MDBCol md="6">
 							<MDBBtn
 								color="danger"
-								className="btn-notis"
+								className="btn-notis rechazar"
 								onClick={borrarNotiTurnoInterno(datos)}
-							>
-								<MDBIcon icon="times" />
-							</MDBBtn>
+							></MDBBtn>
 						</MDBCol>
 					</MDBRow>
 				</MDBCol>

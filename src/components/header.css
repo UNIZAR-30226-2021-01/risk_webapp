@@ -1,6 +1,14 @@
 .navbar-dark.navbar.navbar-expand-md {
-	background-color: #d55e00;
+	background-color: rgba(255, 140, 0, 0.3);
 	color: #fff !important;
+}
+
+.navbar-dark.navbar.navbar-expand-md:hover {
+	background-color: rgba(255, 140, 0, 0.5);
+}
+
+.dropdown-item:hover {
+	background-color: rgba(168, 72, 0, 0.7) !important;
 }
 
 .fa {
@@ -44,4 +52,12 @@ strong.white-text {
 
 .marco-icono {
 	width: 2.75rem;
+}
+
+.dropdown .dropdown-toggle {
+	background-color: rgba(168, 72, 0, 0) !important;
+}
+
+.dropdown:hover .dropdown-toggle {
+	background-color: rgba(168, 72, 0, 0.7) !important;
 }

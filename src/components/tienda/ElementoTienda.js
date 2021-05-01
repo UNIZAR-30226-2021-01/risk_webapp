@@ -26,6 +26,7 @@ const ElementoTienda = ({ datos, tipo }) => {
 	const [serverErrors, setServerErrors] = useState('')
 	const [isOpen, setOpen] = useState(false)
 	var imagen
+
 	if (tipo === 'Icono') imagen = iconos[datos.id].img
 	else imagen = tropas[datos.id].img
 

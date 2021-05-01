@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './notificacion.css'
-import { MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact'
+import { MDBRow, MDBCol, MDBBtn } from 'mdbreact'
 import { useHistory } from 'react-router-dom'
 
 /**
@@ -27,18 +27,17 @@ export const NotificacionSala = ({ datos }) => {
 				<MDBCol md="4">
 					<MDBRow className="mr-1">
 						<MDBCol md="6">
-							<MDBBtn className="btn-notis" onClick={decisionSala(datos)}>
-								<MDBIcon icon="check" />
-							</MDBBtn>
+							<MDBBtn
+								className="btn-notis aceptar"
+								onClick={decisionSala(datos)}
+							></MDBBtn>
 						</MDBCol>
 						<MDBCol md="6">
 							<MDBBtn
 								color="danger"
-								className="btn-notis"
+								className="btn-notis rechazar"
 								onClick={decisionSala(datos)}
-							>
-								<MDBIcon icon="times" />
-							</MDBBtn>
+							></MDBBtn>
 						</MDBCol>
 					</MDBRow>
 				</MDBCol>

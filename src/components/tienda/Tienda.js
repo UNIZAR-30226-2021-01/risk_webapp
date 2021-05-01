@@ -23,6 +23,9 @@ const Tienda = () => {
 
 	const [active, setActive] = useState({ justified: '1' })
 
+	console.log(obtenerIconosTienda(Auth), 'iconos')
+	console.log(obtenerAspectosTienda(Auth), 'aspectos')
+
 	let iconosSinComprar = obtenerIconosTienda(Auth).filter(function (obj) {
 		return !Auth.auth.iconos.some(function (obj2) {
 			return obj.id == obj2.id
@@ -34,6 +37,9 @@ const Tienda = () => {
 			return obj.id == obj2.id
 		})
 	})
+
+	console.log(iconosSinComprar, 'iconosSinComprar')
+	console.log(aspectosSinComprar, 'aspectosSinComprar')
 
 	const togglePills = (type, tab) => (e) => {
 		e.preventDefault()

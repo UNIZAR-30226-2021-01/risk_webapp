@@ -26,3 +26,17 @@ ul.list-group.lista-amigos li.list-group-item.list-group-item-undefined {
 		#f6d196 40px
 	);
 }
+
+.nav-link {
+	background-color: rgb(213, 94, 0);
+	color: #e0e0e0 !important;
+}
+
+.nav-link:hover {
+	color: #e0e0e0 !important;
+	background-color: #b75001;
+}
+
+.active.nav-link {
+	background-color: #a84800 !important;
+}

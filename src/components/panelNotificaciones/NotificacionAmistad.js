@@ -5,7 +5,6 @@ import {
 	MDBRow,
 	MDBCol,
 	MDBBtn,
-	MDBIcon,
 	MDBModal,
 	MDBModalHeader,
 	MDBModalBody,
@@ -66,20 +65,16 @@ export const NotificacionAmistad = ({ datos }) => {
 					<MDBRow className="mr-1">
 						<MDBCol md="6">
 							<MDBBtn
-								className="btn-notis"
+								className="btn-notis aceptar"
 								onClick={decisionAmistad(datos, 'Aceptar')}
-							>
-								<MDBIcon icon="check" />
-							</MDBBtn>
+							></MDBBtn>
 						</MDBCol>
 						<MDBCol md="6">
 							<MDBBtn
 								color="danger"
-								className="btn-notis"
+								className="btn-notis rechazar"
 								onClick={decisionAmistad(datos, 'Rechazar')}
-							>
-								<MDBIcon icon="times" />
-							</MDBBtn>
+							></MDBBtn>
 						</MDBCol>
 					</MDBRow>
 				</MDBCol>

@@ -4,7 +4,6 @@ import {
 	MDBModal,
 	MDBModalHeader,
 	MDBModalBody,
-	MDBIcon,
 	MDBBtn,
 	MDBFooter,
 } from 'mdbreact'
@@ -42,9 +41,7 @@ export const EliminarAmigo = ({ amigo }) => {
 
 	return (
 		<>
-			<MDBBtn className="btn-borrar" onClick={toggle}>
-				<MDBIcon far icon="trash-alt" />
-			</MDBBtn>
+			<MDBBtn className="btn-borrar" onClick={toggle}></MDBBtn>
 
 			<MDBModal isOpen={isOpen} toggle={toggle}>
 				<MDBModalHeader toggle={toggle}>

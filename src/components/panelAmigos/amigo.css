@@ -4,6 +4,7 @@
 
 .btn-default.btn.Ripple-parent.btn-borrar {
 	background-color: rgb(224, 57, 57) !important;
+	background-image: url(assets/UI/rechazar_grande.png);
 	height: 2.2rem;
 	width: 2.2rem;
 	padding: 0rem;
@@ -29,7 +30,7 @@
 	padding: 0.1rem 0.5rem;
 	margin: 0.75rem;
 	margin-left: 0rem;
-	background-color: #009e73 !important;
+	background-color: #ff8c00 !important;
 }
 
 .nav-link.Ripple-parent {

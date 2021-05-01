@@ -107,7 +107,7 @@ const ActualizacionConfiguracion = () => {
 			<h2> Actualizar configuración </h2>
 			<FormActualizar
 				defaults={values}
-				submitText="Actualizar"
+				submitText={'Actualizar'}
 				submitData={actualizarServer}
 				iconos={Auth.auth.iconos}
 				aspectos={Auth.auth.aspectos}

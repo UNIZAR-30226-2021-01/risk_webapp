@@ -17,7 +17,7 @@
 
 /* Empuja el footer al fondo de la página, mantener */
 .wrapper {
-	min-height: calc(100vh - 6rem);
+	min-height: calc(100vh - 5.95rem);
 	/*background-color: #000000;*/
 	color: antiquewhite;
 }
@@ -58,4 +58,12 @@
 	background-color: transparent;
 	border-radius: 15px;
 	border: 2.5px solid black;
+}
+
+.btn-default {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-color: orange !important;
+	color: #444 !important;
+	/*border: 2.5px solid black;*/
 }
