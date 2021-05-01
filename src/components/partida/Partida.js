@@ -279,9 +279,8 @@ export const Partida = () => {
 			{/* Poner bien los parámetros */}
 			<ModalFormNumeroTropas
 				isOpen={tocaNumeroTropas(estado)}
-				estado={estado.estadoInterno}
-				origen={mapaUnido.locations[obtenerOrigen(estado)].name}
-				destino={mapaUnido.locations[obtenerDestino(estado)].name}
+				estado={estado}
+				locations={mapaUnido.locations}
 				max={maxTropas(estado)}
 				onSubmit={(formData) => {
 					seleccionarUnidades(parseInt(formData.n))
