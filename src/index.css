@@ -9,8 +9,10 @@
 }
 
 .App {
+	background-color: black;
 	background-image: url(./assets/images/FondoMenu_7x.png);
 	background-size: contain;
+	overflow: overlay;
 }
 
 /* Empuja el footer al fondo de la página, mantener */
@@ -18,4 +20,42 @@
 	min-height: calc(100vh - 6rem);
 	/*background-color: #000000;*/
 	color: antiquewhite;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 20px;
+	background-size: contain;
+	background-color: transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background-image: url(./assets/UI/scroll_fondo_palo_2_31x.png);
+	background-size: contain;
+	background-color: transparent;
+	border-radius: 15px;
+	border: 3px solid black;
+}
+
+::-webkit-scrollbar-button:vertical:decrement {
+	background-image: url(./assets/UI/flecha_scroll.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-button:vertical:increment {
+	background-image: url(./assets/UI/flecha_scroll_180.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-image: url(./assets/UI/scrollbar_tile_3_60x.png);
+	background-size: contain;
+	background-color: transparent;
+	border-radius: 15px;
+	border: 3px solid black;
 }
