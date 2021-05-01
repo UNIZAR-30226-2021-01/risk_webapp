@@ -168,6 +168,12 @@ export const Sala = () => {
 			if (data._tipoMensaje === 'e') {
 				setServerErrors(data.err)
 				// Caso mensaje de datos
+				if (
+					estadoInterno.current === estadosInternos.EsperandoRespustaFormulario
+				) {
+					estadosInternos.current === estadosInternos.CreandoFormulario
+					setEstadoPag('1')
+				}
 			} else if (data._tipoMensaje === 'd') {
 				if (
 					estadoInterno.current === estadosInternos.EsperandoRespuestaFormulario

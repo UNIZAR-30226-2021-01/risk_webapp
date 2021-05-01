@@ -21,7 +21,7 @@ import partidaEstado, {
 	//tocaOrigen,
 	//tocaDestino,
 } from './partidaEstados'
-import { MDBContainer, MDBBtn } from 'mdbreact'
+import { MDBContainer, MDBBtn, MDBCol, MDBRow } from 'mdbreact'
 import { MemorizedSVGMap } from './SVGMap'
 import './Partida.css'
 import ListaJugadores from './ListaJugadores'
@@ -250,6 +250,12 @@ export const Partida = () => {
 		})
 	}
 
+	const cancelarAccion = () => {
+		dispatch({
+			tipo: ACCIONES.CANCELAR,
+		})
+	}
+
 	function maxTropas(estado) {
 		let maximoTropas
 		if (
@@ -280,11 +286,7 @@ export const Partida = () => {
 				onSubmit={(formData) => {
 					seleccionarUnidades(parseInt(formData.n))
 				}}
-				toggle={() => {
-					dispatch({
-						tipo: ACCIONES.CANCELAR,
-					})
-				}}
+				toggle={cancelarAccion}
 			/>
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
@@ -300,12 +302,28 @@ export const Partida = () => {
 								onLocationClick={clickEnUbicacion}
 							/>
 						</div>
-						{estado.estadoInterno != ESTADOS.TURNO_RIVAL && (
-							<MDBBtn onClick={pasarFase} className="btn-pasar">
-								{' '}
-								Pasar fase
-							</MDBBtn>
-						)}
+						<MDBCol>
+							<MDBRow>
+								<MDBBtn
+									onClick={cancelarAccion}
+									disabled={estado.estadoInterno === ESTADOS.turnoRival}
+									className="btn-cancelar"
+								>
+									{' '}
+									Cancelar
+								</MDBBtn>
+							</MDBRow>
+							<MDBRow>
+								<MDBBtn
+									onClick={pasarFase}
+									disabled={estado.estadoInterno === ESTADOS.turnoRival}
+									className="btn-pasar"
+								>
+									{' '}
+									Pasar fase
+								</MDBBtn>
+							</MDBRow>
+						</MDBCol>
 					</div>
 					<FasesPartida fase={estado.fase} />
 				</>

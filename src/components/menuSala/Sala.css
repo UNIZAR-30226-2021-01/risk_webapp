@@ -18,3 +18,18 @@ ul.list-group {
 h2.titulo-sala {
 	font-size: 1.7rem;
 }
+
+#panelSala {
+	padding-bottom: 0.8rem;
+	background: repeating-linear-gradient(
+		0deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+	border-radius: 1rem !important;
+	border: 0.2rem solid #7c643c;
+	color: #444;
+	margin-bottom: 2rem;
+}

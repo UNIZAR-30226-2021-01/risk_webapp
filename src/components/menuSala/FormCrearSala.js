@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { MDBBtn } from 'mdbreact'
+import { MDBContainer, MDBBtn } from 'mdbreact'
 import { EntradaNombre } from 'components/sesion/entradasFormulario/EntradaNombre'
 import { EntradaNumero } from 'components/sesion/entradasFormulario/EntradaNumero'
+import './Sala.css'
 
 /**
  * Formulario de creación de sala, contiene un campo para el nombre y
@@ -14,7 +15,7 @@ export const FormCrearSala = ({ enviarSolicitud }) => {
 	// Si se está enviando un formulario
 	const [submitting, setSubmitting] = useState(false)
 	return (
-		<div>
+		<MDBContainer id="panelSala">
 			<form
 				id="crearSala"
 				onSubmit={handleSubmit(async (formData) => {
@@ -44,7 +45,7 @@ export const FormCrearSala = ({ enviarSolicitud }) => {
 					</MDBBtn>
 				</div>
 			</form>
-		</div>
+		</MDBContainer>
 	)
 }
 

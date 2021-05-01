@@ -1,45 +1,3 @@
-/*
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-.btn {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-}
-*/
-
 @font-face {
 	font-family: 'Pixel';
 	src: local('Pixel'),
@@ -50,9 +8,14 @@ code {
 	font-family: 'Pixel';
 }
 
+.App {
+	background-image: url(./assets/images/FondoMenu_7x.png);
+	background-size: contain;
+}
+
 /* Empuja el footer al fondo de la página, mantener */
 .wrapper {
-	min-height: calc(100vh - 5.8rem);
-	background-color: #000000;
+	min-height: calc(100vh - 6rem);
+	/*background-color: #000000;*/
 	color: antiquewhite;
 }

@@ -9,14 +9,14 @@
 	animation: spinner 1s ease-out infinite;
 }
 
-.btn-default.btn.Ripple-parent.btn-pasar {
+.btn-default.btn.Ripple-parent.btn-pasar.btn-cancelar {
 	font-size: 1.3rem;
 	height: 22rem;
 	padding: 0.15rem 0.7rem;
 	background-color: #d55e00 !important;
 }
 
-.btn-default.btn.Ripple-parent.btn-pasar:hover {
+.btn-default.btn.Ripple-parent.btn-pasar.btn-cancelar:hover {
 	background-color: #bb5609 !important;
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { MDBContainer, MDBFooter } from 'mdbreact'
+import './Footer.css'
 
 /**
  * Pie de página de la aplicación, muestra el copyright, el
@@ -7,7 +8,7 @@ import { MDBContainer, MDBFooter } from 'mdbreact'
  */
 const Footer = () => {
 	return (
-		<MDBFooter fixed="bottom" color="blue" className="font-small pt-3">
+		<MDBFooter fixed="bottom" className="font-small pt-3 footer">
 			<MDBContainer fluid className="text-center">
 				<h5 className="title">Proyecto software - Risk multiplataforma</h5>
 			</MDBContainer>

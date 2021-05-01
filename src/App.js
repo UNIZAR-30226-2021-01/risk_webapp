@@ -78,7 +78,7 @@ function App() {
 	}, [])
 
 	return (
-		<>
+		<div className="App">
 			{!recargando && (
 				<>
 					<Head />
@@ -94,7 +94,7 @@ function App() {
 					</AuthApi.Provider>{' '}
 				</>
 			)}
-		</>
+		</div>
 	)
 }
 
