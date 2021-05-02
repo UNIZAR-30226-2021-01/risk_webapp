@@ -1,6 +1,6 @@
 ul.list-group.lista-notis,
 ul.list-group.lista-amigos {
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 	max-height: 18.5rem;
 	width: 100% !important;

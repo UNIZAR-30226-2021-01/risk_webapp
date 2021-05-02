@@ -52,7 +52,7 @@
 .container.mt-4.contenedor-pills .container.mt-9 {
 	display: flex;
 	flex-wrap: wrap;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 	max-height: 24rem;
 	background: repeating-linear-gradient(
