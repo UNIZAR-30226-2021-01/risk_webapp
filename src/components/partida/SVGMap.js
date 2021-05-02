@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { MemorizedSVGTerritorio } from './SVGTerritorio'
+import { MemorizedAspecto } from './Aspecto'
+import { MemorizedNumTropas } from './NumTropas'
+import { MemorizedLinea } from './Linea'
 
 export const MemorizedSVGMap = React.memo(function SVGMap(props) {
 	return (
@@ -20,6 +23,39 @@ export const MemorizedSVGMap = React.memo(function SVGMap(props) {
 					props={props}
 					key={location.id}
 				/>
+			))}
+			{props.map.locations.map(
+				(location, index) =>
+					'centrosAdyacentes' in location &&
+					location.centrosAdyacentes.map((centro, index) => (
+						<MemorizedLinea
+							key={`${location.id}-${index}`}
+							x1={location.coords.x}
+							y1={location.coords.y}
+							x2={centro.x}
+							y2={centro.y}
+						/>
+					))
+			)}
+			{props.map.locations.map((location, index) => (
+				<>
+					{'aspecto' in location && (
+						<MemorizedAspecto
+							key={`aspecto-${index}`}
+							x={location.coords.x}
+							y={location.coords.y}
+							numAspecto={location.aspecto}
+						/>
+					)}
+					{'tropas' in location && (
+						<MemorizedNumTropas
+							key={`tropas-${index}`}
+							x={location.coords.x}
+							y={location.coords.y}
+							numTropas={location.tropas}
+						/>
+					)}
+				</>
 			))}
 			{props.childrenAfter}
 		</svg>

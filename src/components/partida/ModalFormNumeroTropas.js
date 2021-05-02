@@ -72,7 +72,7 @@ export const ModalFormNumeroTropas = ({
 		MensajeError = `Se debe enviar como mínimo 1 refuerzo y como máximo el total de refuerzos restantes (${max})`
 	} else if (
 		estado.fase === FASES.FASE_ATAQUE &&
-		!origen.conexiones.includes(destino.id)
+		!origen.conexiones.includes(parseInt(destino.id))
 	) {
 		MensajeError =
 			'Los países de origen y destino del ataque deben estar unidos'
@@ -94,10 +94,7 @@ export const ModalFormNumeroTropas = ({
 					id="registro"
 					onSubmit={handleSubmit((formData) => {
 						let n = parseInt(formData.n)
-						if (
-							(estado.fase === FASES.FASE_REFUERZOS && n > 0 && n <= max) ||
-							(n > 0 && n < max)
-						) {
+						if (n > 0 && n <= max) {
 							setErrors('')
 							setSubmitting(true)
 							onSubmit(formData)

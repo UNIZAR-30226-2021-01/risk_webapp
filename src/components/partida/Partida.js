@@ -277,16 +277,18 @@ export const Partida = () => {
 			<ModalReconectando isOpen={reconectando} />
 
 			{/* Poner bien los parámetros */}
-			<ModalFormNumeroTropas
-				isOpen={tocaNumeroTropas(estado)}
-				estado={estado}
-				locations={mapaUnido.locations}
-				max={maxTropas(estado)}
-				onSubmit={(formData) => {
-					seleccionarUnidades(parseInt(formData.n))
-				}}
-				toggle={cancelarAccion}
-			/>
+			{estado.estadoInterno !== ESTADOS.CARGANDO && (
+				<ModalFormNumeroTropas
+					isOpen={tocaNumeroTropas(estado)}
+					estado={estado}
+					locations={mapaUnido.locations}
+					max={maxTropas(estado)}
+					onSubmit={(formData) => {
+						seleccionarUnidades(parseInt(formData.n))
+					}}
+					toggle={cancelarAccion}
+				/>
+			)}
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
 				<>

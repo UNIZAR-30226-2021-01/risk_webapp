@@ -9,14 +9,18 @@
 	animation: spinner 1s ease-out infinite;
 }
 
-.btn-default.btn.Ripple-parent.btn-pasar.btn-cancelar {
+.btn-default.btn.Ripple-parent.btn-pasar,
+.btn-default.btn.Ripple-parent.btn-cancelar {
 	font-size: 1.3rem;
-	height: 22rem;
+	height: 18rem;
+	width: 6.5rem;
+	color: white !important;
 	padding: 0.15rem 0.7rem;
 	background-color: #d55e00 !important;
 }
 
-.btn-default.btn.Ripple-parent.btn-pasar.btn-cancelar:hover {
+.btn-default.btn.Ripple-parent.btn-pasar:hover,
+.btn-default.btn.Ripple-parent.btn-cancelar:hover {
 	background-color: #bb5609 !important;
 }
 
@@ -32,7 +36,7 @@
 	background-color: #4aa5f6;
 	border: 0.4rem solid #7c643c;
 	width: 70rem;
-	margin-left: 5rem;
+	margin-left: 12rem;
 }
 
 .mapa path {
@@ -42,12 +46,12 @@
 	fill: #b2d163;
 }
 
-.mapa g image {
+.mapa image {
 	pointer-events: none;
 	width: 3.4rem;
 }
 
-.mapa g text {
+.mapa text {
 	stroke: darkslategrey;
 	stroke-width: 0.04rem;
 	pointer-events: none;

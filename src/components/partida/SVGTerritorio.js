@@ -1,5 +1,6 @@
 import React from 'react'
 import tropas from 'assets/tropas/tropas'
+import { MemorizedLinea } from './Linea'
 
 const SVGTerritorio = ({ location, index, props }) => {
 	console.log('rerender territorio')
@@ -46,18 +47,25 @@ const SVGTerritorio = ({ location, index, props }) => {
 			{/*
 				Poner estilos para que se vean las líneas	
 			*/}
-			{'centrosAdyacentes' in location &&
+			{/*'centrosAdyacentes' in location &&
 				location.centrosAdyacentes.map((centro, index) => (
-					<line
+					/*<line
 						key={`${location.id}-${index}`}
 						x1={location.coords.x}
 						y1={location.coords.y}
 						x2={centro.x}
 						y2={centro.y}
 						style={{ stroke: 'rgb(255, 255, 255)' }}
+					/>*/
+			/*<MemorizedLinea
+						key={`${location.id}-${index}`}
+						x1={location.coords.x}
+						y1={location.coords.y}
+						x2={centro.x}
+						y2={centro.y}
 					/>
-				))}
-			{'aspecto' in location && (
+				))*/}
+			{/*'aspecto' in location && (
 				<image
 					href={tropas[location.aspecto].img}
 					height="100px"
@@ -74,7 +82,7 @@ const SVGTerritorio = ({ location, index, props }) => {
 				>
 					{location.tropas}
 				</text>
-			)}
+			)*/}
 		</g>
 	)
 }
