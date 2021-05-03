@@ -23,14 +23,15 @@ const moverLegal = (origen, destino, territorios, locations) => {
 		if (frontera.length === 0) fallo = true
 		else {
 			let nodo = locations[frontera.pop()]
-			explorados.push(nodo.id)
+			explorados.push(parseInt(nodo.id))
 			nodo.conexiones.forEach((adyacente) => {
 				if (!explorados.includes(adyacente) && !frontera.includes(adyacente)) {
 					if (adyacente == destino) {
 						encontrado = true
 					} else if (
 						// Si el territorio actual pertenece al mismo jugador que el nodo padre
-						territorios[adyacente].jugador === territorios[nodo.id].jugador
+						territorios[adyacente].jugador ===
+						territorios[parseInt(nodo.id)].jugador
 					) {
 						frontera.push(adyacente)
 					}
@@ -85,6 +86,8 @@ export const ModalFormNumeroTropas = ({
 	} else if (estado.fase === FASES.FASE_MOVIMIENTO && !jugadorPosee) {
 		MensajeError = 'Los países de origen y destino deben pertenecer al jugador'
 	}
+
+	console.log('recalculo de error')
 
 	return (
 		<MDBModal isOpen={isOpen} toggle={toggle}>

@@ -73,7 +73,7 @@
 }
 
 .mapa path:hover {
-	filter: saturate(2) brightness(1);
+	filter: brightness(1.5);
 }
 .mapa path.jugador0 {
 	fill: #d55e00;
@@ -100,17 +100,17 @@
 }
 
 .origen_antiguo {
-	filter: hue-rotate(50deg);
+	filter: brightness(1.5);
 }
 
 .destino_antiguo {
-	filter: hue-rotate(50deg);
+	filter: brightness(1.5);
 }
 
 .origen {
-	filter: hue-rotate(150deg);
+	filter: brightness(1.5);
 }
 
 .destino {
-	filter: hue-rotate(150deg);
+	filter: brightness(1.5);
 }

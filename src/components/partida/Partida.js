@@ -65,7 +65,17 @@ export const Partida = () => {
 		let origen = -1
 		let destinos = []
 
-		if (estado.estadoInterno !== ESTADOS.CARGANDO) {
+		if (estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN) {
+			origen = obtenerOrigen(estado)
+			// Quitar los que te pertenecen
+			destinos = Mapa.locations[origen].conexiones
+		} else if (
+			estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN
+		) {
+			origen = obtenerOrigen(estado)
+			// Poner la función de explorados
+			destinos = Mapa.locations[origen].conexiones
+		} else if (estado.estadoInterno !== ESTADOS.CARGANDO) {
 			if ('ultimaJugada' in estado) {
 				let jugadaUltima = estado.ultimaJugada
 				if (estado.ultimaJugada.jugada === JUGADAS.REFUERZO) {
@@ -74,11 +84,6 @@ export const Partida = () => {
 					origenAntiguo = jugadaUltima.territorioOrigen.id
 					destinoAntiguo = jugadaUltima.territorioDestino.id
 				}
-			}
-
-			if (estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN) {
-				origen = obtenerOrigen(estado)
-				destinos = Mapa.locations[origen].conexiones
 			}
 		}
 
