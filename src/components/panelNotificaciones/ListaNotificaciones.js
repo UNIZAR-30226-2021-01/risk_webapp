@@ -4,14 +4,14 @@ import NotificacionAmistad from './NotificacionAmistad.js'
 import { MDBContainer, MDBListGroup, MDBListGroupItem } from 'mdbreact'
 import NotificacionSala from './NotificacionSala.js'
 import NotificacionTurno from './NotificacionTurno.js'
-
+import './ListaNotificaciones.css'
 /**
  * Muestra la lista de notificaciones recibida como parámetro.
  * @param {lista_de_notificaciones} notificaciones
  */
 const ListaNotificaciones = ({ notificaciones }) => {
 	return (
-		<MDBContainer className="mt-3">
+		<MDBContainer className="mt-3 fondo-lista-notis">
 			<MDBListGroup className="lista-notis">
 				{
 					//Los tipos son "Invitacion" y "Peticion de amistad"

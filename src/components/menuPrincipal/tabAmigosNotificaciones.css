@@ -28,7 +28,7 @@ ul.list-group.lista-amigos li.list-group-item.list-group-item-undefined {
 }
 
 .nav-link {
-	background-color: rgb(213, 94, 0);
+	background-color: #a84800;
 	color: #e0e0e0 !important;
 }
 
@@ -38,7 +38,7 @@ ul.list-group.lista-amigos li.list-group-item.list-group-item-undefined {
 }
 
 .active.nav-link {
-	background-color: #a84800 !important;
+	background-color: rgb(213, 94, 0) !important;
 }
 
 ul.nav-pills.nav-justified {

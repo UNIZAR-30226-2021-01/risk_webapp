@@ -343,6 +343,7 @@ export const Partida = () => {
 						jugadores={estado.jugadores}
 						jugadorTurno={estado.turnoJugador}
 					/>
+					<FasesPartida fase={estado.fase} />
 					<div className="d-flex flex-row align-items-center justify-content-center">
 						<div className="mapa">
 							<MemorizedSVGMap
@@ -373,7 +374,6 @@ export const Partida = () => {
 							</MDBRow>
 						</MDBCol>
 					</div>
-					<FasesPartida fase={estado.fase} />
 				</>
 			)}
 

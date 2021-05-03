@@ -4,43 +4,7 @@ import { MDBModal, MDBBtn, MDBModalHeader, MDBModalBody } from 'mdbreact'
 import { useForm } from 'react-hook-form'
 import { EntradaNumero } from 'components/sesion/entradasFormulario/EntradaNumero'
 import { FASES, obtenerDestino, obtenerOrigen } from './partidaEstados'
-
-/**
- * Comprueba si es legal mover las tropas de un país origen a un país destino.
- * Se debe comprobar previamente que origen y destino pertenecen al jugador
- * al que le toca en ese turno.
- * @param {int} origen id del país origen
- * @param {int} destino id del país destino
- * @param {array} territorios array "territorios" del estado
- * @param {array} locations array "locations" del Mapa Unido
- */
-const moverLegal = (origen, destino, territorios, locations) => {
-	let frontera = [origen]
-	let explorados = []
-	let encontrado = false
-	let fallo = false
-	while (!encontrado && !fallo) {
-		if (frontera.length === 0) fallo = true
-		else {
-			let nodo = locations[frontera.pop()]
-			explorados.push(parseInt(nodo.id))
-			nodo.conexiones.forEach((adyacente) => {
-				if (!explorados.includes(adyacente) && !frontera.includes(adyacente)) {
-					if (adyacente == destino) {
-						encontrado = true
-					} else if (
-						// Si el territorio actual pertenece al mismo jugador que el nodo padre
-						territorios[adyacente].jugador ===
-						territorios[parseInt(nodo.id)].jugador
-					) {
-						frontera.push(adyacente)
-					}
-				}
-			})
-		}
-	}
-	return encontrado
-}
+import { destinosMovimientos } from 'utils/mapa'
 
 export const ModalFormNumeroTropas = ({
 	isOpen,
@@ -54,15 +18,22 @@ export const ModalFormNumeroTropas = ({
 	// Si se está enviando un formulario
 	const [submitting, setSubmitting] = useState(false)
 	const [error, setErrors] = useState('')
+	//const [hayErrores, setHayErrores] = useState(false)
+	let hayErrores = false
 
 	const origen = locations[obtenerOrigen(estado)]
 	const destino = locations[obtenerDestino(estado)]
+	const destinos = destinosMovimientos(
+		parseInt(origen.id),
+		estado.territorios,
+		locations
+	)
 
 	// El jugador debe poseer, al menos, los países de origen y destino de las tropas
 	// en la fase de movimiento
 	const jugadorPosee =
-		estado.territorios[origen.id].jugador === estado.turnoJugador &&
-		estado.territorios[destino.id].jugador === estado.turnoJugador
+		estado.territorios[parseInt(origen.id)].jugador == estado.turnoJugador &&
+		estado.territorios[parseInt(destino.id)].jugador == estado.turnoJugador
 
 	let mensaje = `¿Cuántas tropas se envían de ${origen.name} a ${destino.name}? (máx. ${max})`
 	let MensajeError =
@@ -75,19 +46,29 @@ export const ModalFormNumeroTropas = ({
 		estado.fase === FASES.FASE_ATAQUE &&
 		!origen.conexiones.includes(parseInt(destino.id))
 	) {
+		//setHayErrores(true)
+		hayErrores = true
 		MensajeError =
 			'Los países de origen y destino del ataque deben estar unidos'
 	} else if (
-		estado.fase === FASES.FASE_MOVIMIENTO &&
-		!moverLegal(origen.id, destino.id, estado.territorios, locations)
+		estado.fase === FASES.FASE_ATAQUE &&
+		!estado.territorios[parseInt(origen.id)].jugador == estado.turnoJugador
 	) {
+		hayErrores = true
+		MensajeError = 'El país de origen debe pertenecer al jugador'
+	} else if (
+		estado.fase === FASES.FASE_MOVIMIENTO &&
+		!destinos.includes(parseInt(destino.id))
+	) {
+		//setHayErrores(true)
+		hayErrores = true
 		MensajeError =
 			'Los países de origen y destino deben estar conectados por países pertenecientes al jugador'
 	} else if (estado.fase === FASES.FASE_MOVIMIENTO && !jugadorPosee) {
+		//setHayErrores(true)
+		hayErrores = true
 		MensajeError = 'Los países de origen y destino deben pertenecer al jugador'
 	}
-
-	console.log('recalculo de error')
 
 	return (
 		<MDBModal isOpen={isOpen} toggle={toggle}>
@@ -97,7 +78,7 @@ export const ModalFormNumeroTropas = ({
 					id="registro"
 					onSubmit={handleSubmit((formData) => {
 						let n = parseInt(formData.n)
-						if (n > 0 && n <= max) {
+						if (n > 0 && n <= max && !hayErrores) {
 							setErrors('')
 							setSubmitting(true)
 							onSubmit(formData)

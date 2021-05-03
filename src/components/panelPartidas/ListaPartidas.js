@@ -21,7 +21,7 @@ export const ListaPartidas = ({ partidas }) => {
 			>
 				Crear sala
 			</MDBBtn>
-			<MDBContainer className="mt-3">
+			<MDBContainer className="mt-4 fondo-lista-partidas">
 				<MDBListGroup className="lista-partidas">
 					{partidas.map((partida) => (
 						<MDBListGroupItem key={partida.id.toString()}>

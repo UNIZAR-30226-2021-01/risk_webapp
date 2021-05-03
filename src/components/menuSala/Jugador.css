@@ -37,7 +37,7 @@
 }
 
 ul.list-group.lista-jugadores-sala {
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
-	max-height: 20rem;
+	max-height: 18.5rem;
 }
