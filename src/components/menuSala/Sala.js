@@ -24,6 +24,7 @@ import ListaJugadoresPartida from './ListaJugadoresPartida'
 import { socketAbierto, crearSala, aceptarSala, ping } from 'utils/SalaApi'
 import constants from 'utils/constants'
 import './Sala.css'
+import { Cargando } from 'components/partida/Cargando'
 
 const estadosInternos = {
 	CreandoFormulario: 'Creando formulario',
@@ -248,10 +249,7 @@ export const Sala = () => {
 				}}
 			>
 				<MDBModalBody className="d-flex justify-content-between">
-					<p>
-						{' '}
-						Te has desconectado. Comprueba tu conexión e inténtalo más tarde{' '}
-					</p>
+					<Cargando />
 				</MDBModalBody>
 				<MDBModalFooter>
 					<MDBBtn

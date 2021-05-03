@@ -10,7 +10,7 @@ export const SalaEncabezado = ({ datos }) => {
 	return (
 		<div
 			className="d-flex p-2 flex-row justify-content-between "
-			style={{ background: '#2bbbad', color: '#fff' }}
+			style={{ background: '#8e610c', color: '#fff' }}
 		>
 			<MDBCol className="m-0 d-flex justify-content-start align-items-center">
 				<h2 className="m-0 titulo-sala">{datos.nombrePartida}</h2>

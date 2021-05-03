@@ -33,6 +33,7 @@ import 'mdbreact/dist/css/mdb.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import { recargarUsuario } from 'utils/restAPI'
+import { Cargando } from 'components/partida/Cargando'
 
 /**
  * App contiene el router, header/footer y metadatos de la aplicación,
@@ -54,6 +55,7 @@ function App() {
 			let data = JSON.parse(user)
 			data.logged = true
 			setAuth(data)
+			setRecargando(false)
 			const nuestraInfo = {
 				idUsuario: data.usuario.id,
 				clave: data.usuario.clave,
@@ -79,21 +81,29 @@ function App() {
 
 	return (
 		<div className="App">
-			{!recargando && (
-				<>
-					<Head />
-					<AuthApi.Provider value={{ auth, setAuth }}>
-						<Router>
-							<div className="wrapper">
-								<Header />
-								<hr />
-								<Routes />
-							</div>
-							<Footer />
-						</Router>
-					</AuthApi.Provider>{' '}
-				</>
-			)}
+			<>
+				{recargando && (
+					<>
+						<Cargando />
+						<Footer />
+					</>
+				)}
+				{!recargando && (
+					<>
+						<Head />
+						<AuthApi.Provider value={{ auth, setAuth }}>
+							<Router>
+								<div className="wrapper">
+									<Header />
+									<hr />
+									<Routes />
+								</div>
+								<Footer />
+							</Router>
+						</AuthApi.Provider>{' '}
+					</>
+				)}
+			</>
 		</div>
 	)
 }

@@ -58,4 +58,7 @@ p.texto-noti-turno strong {
 
 .rechazar {
 	background-image: url(assets/UI/rechazar_grande.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+	box-shadow: black;
 }

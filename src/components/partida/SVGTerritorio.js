@@ -8,7 +8,7 @@ const SVGTerritorio = ({ location, index, props }) => {
 		typeof props.locationClassName === 'function'
 			? props.locationClassName(location, index)
 			: props.locationClassName
-	clases = clases + ` jugador${location.jugador}`
+	clases = clases + ` jugador${location.jugador}` + ' ' + location.clase
 
 	return (
 		<g

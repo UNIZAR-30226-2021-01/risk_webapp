@@ -21,6 +21,8 @@ export const ACCIONES = {
 	SELECCIONAR_DESTINO: 'SELECCIONAR_DESTINO',
 	SELECCIONAR_UNIDADES: 'SELECCIONAR_UNIDADES',
 
+	SELECCIONAR_TERRITORIO: 'SELECCIONAR_TERRITORIO',
+
 	ENVIAR_MENSAJE_REFUERZO: 'ENVIAR_MENSAJE_REFUERZO',
 	CONFIRMACION_REFUERZO: 'CONFIRMACION_REFUERZO',
 
@@ -313,7 +315,7 @@ function casosLocales(state, action) {
 				error: action.data.err,
 			}
 		}
-		case ACCIONES.SELECCIONAR_TROPAS: {
+		case ACCIONES.SELECCIONAR_TERRITORIO: {
 			if (tocaOrigen(state) || tocaDestino(state)) {
 				let datosActual = { ...state.datosJugadaActual }
 				if (tocaOrigen(state)) {

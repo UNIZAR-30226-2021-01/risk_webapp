@@ -41,6 +41,7 @@ Mapa.locations = Mapa.locations.map((location) => {
 	return {
 		...location,
 		coords: obtenerCentro(location),
+		clase: '',
 	}
 })
 /**
@@ -84,11 +85,32 @@ export const Partida = () => {
 		let locations = Mapa.locations.map((location, index) => {
 			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
 				let datosJugador = estado.jugadores[estado.territorios[index].jugador]
+
+				let intId = parseInt(location.id)
+				let clase = ''
+
+				/* Prueba clases destino colores
+				if (intId === origenAntiguo) {
+					clase = 'origen_antiguo'
+				} else if (intId === destinoAntiguo) {
+					clase = 'destino_antiguo'
+				} else if (intId === origen) {
+					clase = 'origen'
+				} else if (destinos.includes(intId)) {
+					clase = 'destino'
+				}
+
+				if (clase !== '') {
+					console.log(location.id, clase)
+				}
+				*/
+
 				return {
 					...location,
 					jugador: estado.territorios[index].jugador,
 					aspecto: datosJugador.aspecto,
 					tropas: estado.territorios[index].tropas,
+					clase: clase,
 				}
 			} else {
 				//Poder debug
@@ -96,12 +118,25 @@ export const Partida = () => {
 			}
 		})
 
+		/*
+		let origenAntiguo = -1
+		let destinoAntiguo = -1
+
+		let origen = -1
+		let destinos = []
+		*/
 		locations = locations.map((location) => {
 			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
 				let centrosAdyacentes = []
-				location.conexiones.forEach((adyacente) =>
-					centrosAdyacentes.push(locations[adyacente].coords)
-				)
+				location.conexiones.forEach((adyacente) => {
+					if (location.id === '40' && adyacente === 19) {
+						centrosAdyacentes.push({ x: 0, y: location.coords.y })
+					} else if (location.id === '19' && adyacente === 40) {
+						centrosAdyacentes.push({ x: 1024, y: location.coords.y })
+					} else {
+						centrosAdyacentes.push(locations[adyacente].coords)
+					}
+				})
 				return {
 					...location,
 					centrosAdyacentes: centrosAdyacentes,
@@ -225,7 +260,7 @@ export const Partida = () => {
 		(id) => {
 			console.log(estado, 'origen')
 			dispatch({
-				tipo: ACCIONES.SELECCIONAR_TROPAS,
+				tipo: ACCIONES.SELECCIONAR_TERRITORIO,
 				data: {
 					datosExtra: parseInt(id),
 				},
@@ -269,11 +304,12 @@ export const Partida = () => {
 		return maximoTropas
 	}
 
+	console.log(estado.estadoInterno, 'estado')
+
 	return (
 		<MDBContainer fluid>
 			<ErroresServer serverErrors={estado.error} />
 
-			<h1> Estado: {estado.estadoInterno} </h1>
 			<ModalReconectando isOpen={reconectando} />
 
 			{/* Poner bien los parámetros */}
