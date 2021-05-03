@@ -25,7 +25,7 @@ export const MemorizedSVGMap = React.memo(function SVGMap(props) {
 				/>
 			))}
 			{props.map.locations.map(
-				(location, index) =>
+				(location) =>
 					'centrosAdyacentes' in location &&
 					location.centrosAdyacentes.map((centro, index) => (
 						<MemorizedLinea

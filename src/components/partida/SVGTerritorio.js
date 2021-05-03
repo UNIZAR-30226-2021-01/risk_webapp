@@ -1,6 +1,4 @@
 import React from 'react'
-import tropas from 'assets/tropas/tropas'
-import { MemorizedLinea } from './Linea'
 
 const SVGTerritorio = ({ location, index, props }) => {
 	console.log('rerender territorio')

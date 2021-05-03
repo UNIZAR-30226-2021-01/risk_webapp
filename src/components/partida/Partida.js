@@ -33,7 +33,7 @@ import { ModalReconectando } from './ModalReconectando'
 import { ModalFormNumeroTropas } from './ModalFormNumeroTropas'
 import { Cargando } from './Cargando'
 import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
-import { obtenerCentro } from 'utils/mapa'
+import { obtenerCentro, destinosMovimientos } from 'utils/mapa'
 
 import { ping } from 'utils/SalaApi'
 
@@ -68,13 +68,33 @@ export const Partida = () => {
 		if (estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN) {
 			origen = obtenerOrigen(estado)
 			// Quitar los que te pertenecen
-			destinos = Mapa.locations[origen].conexiones
+			Mapa.locations[origen].conexiones.forEach((conexion) => {
+				if (
+					estado.territorios[origen].jugador !==
+					estado.territorios[conexion].jugador
+				) {
+					destinos.push(conexion)
+				}
+			})
+
+			console.log(origen)
+			console.log(destinos)
 		} else if (
 			estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN
 		) {
 			origen = obtenerOrigen(estado)
 			// Poner la función de explorados
-			destinos = Mapa.locations[origen].conexiones
+			destinos = destinosMovimientos(origen, estado.territorios, Mapa.locations)
+		} else if (
+			estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO
+		) {
+			origen = obtenerOrigen(estado)
+		} else if (
+			estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_DESTINO ||
+			estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO
+		) {
+			origen = obtenerOrigen(estado)
+			destinos = [obtenerDestino(estado)]
 		} else if (estado.estadoInterno !== ESTADOS.CARGANDO) {
 			if ('ultimaJugada' in estado) {
 				let jugadaUltima = estado.ultimaJugada
@@ -94,20 +114,15 @@ export const Partida = () => {
 				let intId = parseInt(location.id)
 				let clase = ''
 
-				if (intId === origenAntiguo) {
-					clase = 'origen_antiguo'
-				} else if (intId === destinoAntiguo) {
-					clase = 'destino_antiguo'
-				} else if (intId === origen) {
+				if (intId === origen) {
 					clase = 'origen'
 				} else if (destinos.includes(intId)) {
 					clase = 'destino'
+				} else if (intId === origenAntiguo) {
+					clase = 'origen_antiguo'
+				} else if (intId === destinoAntiguo) {
+					clase = 'destino_antiguo'
 				}
-
-				if (clase !== '') {
-					console.log(location.id, clase)
-				}
-
 				return {
 					...location,
 					jugador: estado.territorios[index].jugador,
@@ -121,13 +136,6 @@ export const Partida = () => {
 			}
 		})
 
-		/*
-		let origenAntiguo = -1
-		let destinoAntiguo = -1
-
-		let origen = -1
-		let destinos = []
-		*/
 		locations = locations.map((location) => {
 			if (estado.estadoInterno !== ESTADOS.CARGANDO) {
 				let centrosAdyacentes = []

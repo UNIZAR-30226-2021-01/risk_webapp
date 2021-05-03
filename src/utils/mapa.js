@@ -38,3 +38,32 @@ export const obtenerIdUbicacion = (event) => {
 export const obtenerNombreUbicacion = (event) => {
 	return event.target.attributes.name.value
 }
+
+/**
+ * Devuelve la lista de territorios a los que se puede mover.
+ * Se debe comprobar previamente que origen y destino pertenecen al jugador
+ * al que le toca en ese turno.
+ * @param {int} origen id del país origen
+ * @param {array} territorios array "territorios" del estado
+ * @param {array} locations array "locations" del Mapa Unido
+ */
+export const destinosMovimientos = (origen, territorios, locations) => {
+	let frontera = [origen]
+	let explorados = []
+	while (frontera.length !== 0) {
+		let nodo = locations[frontera.pop()]
+		explorados.push(parseInt(nodo.id))
+		nodo.conexiones.forEach((adyacente) => {
+			if (!explorados.includes(adyacente) && !frontera.includes(adyacente)) {
+				// Si el territorio actual pertenece al mismo jugador que el nodo padre
+				if (
+					territorios[adyacente].jugador ===
+					territorios[parseInt(nodo.id)].jugador
+				) {
+					frontera.push(adyacente)
+				}
+			}
+		})
+	}
+	return explorados
+}
