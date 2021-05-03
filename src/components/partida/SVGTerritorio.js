@@ -99,7 +99,8 @@ function territorioPropsAreEqual(prevTerritorio, nextTerritorio) {
 		prevTerritorio.location.jugador === nextTerritorio.location.jugador &&
 		prevTerritorio.location.name === nextTerritorio.location.name &&
 		prevTerritorio.location.path === nextTerritorio.location.path &&
-		prevTerritorio.location.tropas === nextTerritorio.location.tropas
+		prevTerritorio.location.tropas === nextTerritorio.location.tropas &&
+		prevTerritorio.location.clase === nextTerritorio.location.clase
 
 	const propIgual =
 		prevTerritorio.props.locationAriaLabel ===

@@ -89,7 +89,6 @@ export const Partida = () => {
 				let intId = parseInt(location.id)
 				let clase = ''
 
-				/* Prueba clases destino colores
 				if (intId === origenAntiguo) {
 					clase = 'origen_antiguo'
 				} else if (intId === destinoAntiguo) {
@@ -103,7 +102,6 @@ export const Partida = () => {
 				if (clase !== '') {
 					console.log(location.id, clase)
 				}
-				*/
 
 				return {
 					...location,
