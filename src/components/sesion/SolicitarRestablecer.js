@@ -1,44 +1,47 @@
 import React, { useState } from 'react'
 import { MDBContainer, MDBBtn } from 'mdbreact'
 import { useForm } from 'react-hook-form'
-import { EntradaClave } from './entradasFormulario/EntradaClave'
+import { EntradaCorreo } from './entradasFormulario/EntradaCorreo'
 import { ErroresServer } from './entradasFormulario/ErroresServer'
-import { useHistory, useParams } from 'react-router-dom'
-import { restablecerClave } from 'utils/restAPI'
-import hash from 'js-sha256'
+import { solicitarRestablecerClave } from 'utils/restAPI'
 import './formActualizar.css'
+import { OkServer } from './entradasFormulario/OkServer'
 
-export const RestablecerClave = () => {
-	const { token } = useParams()
-	const history = useHistory()
-
+export const SolicitarRestablecer = () => {
 	const { register, handleSubmit, errors } = useForm({ clave: '' })
 	const [serverErrors, setServerErrors] = useState('')
 	const [submitting, setSubmitting] = useState(false)
+	const [serverOk, setServerOk] = useState('')
 
 	return (
 		<MDBContainer id="cont-actualizar">
-			<h3> Introduzca la nueva contraseña</h3>
+			<h3>
+				Introduca su correo para solicitar el restablecimiento de la contraseña.
+			</h3>
 			<form
 				id="registro"
 				onSubmit={handleSubmit(async (formData) => {
 					setSubmitting(true)
 					let data = {
-						clave: hash(formData.clave),
-						token: token,
+						correo: formData.correo,
 					}
-					const dataServer = await restablecerClave(data)
+					const dataServer = await solicitarRestablecerClave(data)
 					setSubmitting(false)
 					if ('err' in dataServer) {
+						setServerOk('')
 						setServerErrors(dataServer.err)
 					} else {
-						history.push('/inicioSesion')
+						setServerOk(
+							'En breve le enviaremos un correo con las instrucciones para restablecer la contraseña.'
+						)
+						setServerErrors('')
 					}
 				})}
 			>
 				<ErroresServer serverErrors={serverErrors} />
-				<EntradaClave
-					titulo={'Nueva contraseña'}
+				<OkServer serverOk={serverOk} />
+				<EntradaCorreo
+					titulo={'Introduzca su correo:'}
 					register={register}
 					errors={errors}
 				/>

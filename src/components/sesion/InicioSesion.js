@@ -20,6 +20,9 @@ const InicioSesion = () => {
 			/>
 			<p>
 				Si no tienes cuenta, <Link to="/registro"> regístrate </Link>
+				<br />
+				¿Has olvidado tu contraseña?{' '}
+				<Link to="/solicitarRestablecer">Reestablézcala aquí. </Link>
 			</p>
 		</MDBContainer>
 	)
