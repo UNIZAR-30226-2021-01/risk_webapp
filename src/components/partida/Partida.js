@@ -30,6 +30,7 @@ import { ModalReconectando } from './ModalReconectando'
 import { ModalFormNumeroTropas } from './ModalFormNumeroTropas'
 import { Cargando } from './Cargando'
 import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
+import { ModalFinPartida } from './ModalFinPartida'
 import { obtenerCentro, destinosMovimientos } from 'utils/mapa'
 
 import { ping } from 'utils/SalaApi'
@@ -326,6 +327,14 @@ export const Partida = () => {
 				isOpen={reconectando}
 				error={estado.error ? estado.error : ''}
 			/>
+
+			{estado.estadoInterno === ESTADOS.FIN_PARTIDA && (
+				<ModalFinPartida
+					isOpen={estado.estadoInterno === ESTADOS.FIN_PARTIDA}
+					ganador={estado.jugadores[estado.datosFin.ganador].nombre}
+					riskos={estado.datosFin.riskos}
+				/>
+			)}
 
 			{/* Poner bien los parámetros */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (

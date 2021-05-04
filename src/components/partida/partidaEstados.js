@@ -31,6 +31,8 @@ export const ACCIONES = {
 
 	ENVIAR_MENSAJE_MOVIMIENTO: 'ENVIAR_MENSAJE_MOVIMIENTO',
 	CONFIRMACION_MOVIMIENTO: 'CONFIRMACION_MOVIMIENTO',
+
+	FIN_PARTIDA: 'FIN_PARTIDA',
 }
 
 export const MAPEO_TIPO_ACCIONES = {
@@ -40,6 +42,7 @@ export const MAPEO_TIPO_ACCIONES = {
 	a: ACCIONES.CONFIRMACION_ATAQUE,
 	m: ACCIONES.CONFIRMACION_MOVIMIENTO,
 	e: ACCIONES.ERROR,
+	t: ACCIONES.FIN_PARTIDA,
 }
 
 export const FASES = {
@@ -72,6 +75,8 @@ export const ESTADOS = {
 	ESPERANDO_CONFIRMACION_MOVIMIENTO: 'ESPERANDO CONFIRMACION MOVIMIENTO',
 
 	PASAR_TURNO: 'PASAR TURNO',
+
+	FIN_PARTIDA: 'FIN PARTIDA',
 }
 
 const FASE_ESTADO = [
@@ -356,6 +361,13 @@ function casosLocales(state, action) {
 				...state,
 				estadoInterno: estadoSigCambioFase(state.estadoInterno),
 				fase: state.fase + 1,
+			}
+		}
+		case ACCIONES.FIN_PARTIDA: {
+			return {
+				...state,
+				estadoInterno: ESTADOS.FIN_PARTIDA,
+				datosFin: action.data,
 			}
 		}
 	}
