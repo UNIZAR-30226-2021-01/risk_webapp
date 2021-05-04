@@ -34,7 +34,8 @@ export const Temporizador = ({ tiempoInicio, tiempoTurno }) => {
 				</MDBRow>
 				<MDBRow>
 					<h1 className="tiempoRestante">
-						{Math.ceil(segundosRestantes / 60)}:
+						{Math.ceil(segundosRestantes / 3600)}:
+						{Math.ceil(Math.ceil(segundosRestantes % 3600) / 60)}:
 						{Math.ceil(segundosRestantes % 60)}
 					</h1>
 				</MDBRow>

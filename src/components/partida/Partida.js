@@ -142,7 +142,7 @@ export const Partida = () => {
 						centrosAdyacentes.push({ x: 0, y: location.coords.y })
 					} else if (location.id === '19' && adyacente === 40) {
 						centrosAdyacentes.push({ x: 1024, y: location.coords.y })
-					} else {
+					} else if (parseInt(location.id) < adyacente) {
 						centrosAdyacentes.push(locations[adyacente].coords)
 					}
 				})
