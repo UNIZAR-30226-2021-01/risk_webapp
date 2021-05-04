@@ -66,6 +66,7 @@
 	stroke: rgba(255, 255, 255, 0.555);
 	stroke-width: 2;
 	fill: rgba(255, 255, 255, 0.155);
+	pointer-events: none;
 }
 
 .icono-jugador-partida {
