@@ -246,6 +246,7 @@ export const Partida = () => {
 		// websocket onclose event listener
 		ws.current.onclose = () => {
 			console.log(`Socket cerrado.`)
+			setReconectando(true)
 		}
 
 		// websocket onerror event listener
@@ -336,6 +337,7 @@ export const Partida = () => {
 					toggle={cancelarAccion}
 				/>
 			)}
+
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
 				<>

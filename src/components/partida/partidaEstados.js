@@ -402,7 +402,7 @@ function maquinaEstados(state, action) {
 			...action.data,
 		}
 	} else if (state.estadoInterno === ESTADOS.CARGANDO) {
-		throw 'Recibido algo que no es de datos completos mientras aún se está esperando'
+		return { ...state, error: action.data.err }
 	} else {
 		return casosLocales(state, action)
 	}
