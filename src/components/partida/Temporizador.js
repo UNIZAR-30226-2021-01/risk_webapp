@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { MDBContainer, MDBCol, MDBRow } from 'mdbreact'
+import './Temporizador.css'
 
 const calcularSegundosRestantes = (tiempoInicio, tiempoTurno) => {
 	const segundosTurno = tiempoTurno * 60
@@ -25,10 +27,18 @@ export const Temporizador = ({ tiempoInicio, tiempoTurno }) => {
 	}, [])
 
 	return (
-		<div>
-			<p>
-				{Math.ceil(segundosRestantes / 60)}:{Math.ceil(segundosRestantes % 60)}
-			</p>
-		</div>
+		<MDBContainer className="temporizador">
+			<MDBCol>
+				<MDBRow>
+					<h4>Tiempo restante:</h4>
+				</MDBRow>
+				<MDBRow>
+					<h1 className="tiempoRestante">
+						{Math.ceil(segundosRestantes / 60)}:
+						{Math.ceil(segundosRestantes % 60)}
+					</h1>
+				</MDBRow>
+			</MDBCol>
+		</MDBContainer>
 	)
 }

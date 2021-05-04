@@ -337,45 +337,55 @@ export const Partida = () => {
 			{/* Para que se vea el mapa */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
 				<>
-					<ListaJugadores
-						jugadores={estado.jugadores}
-						jugadorTurno={estado.turnoJugador}
-					/>
-					<Temporizador
-						tiempoInicio={estado.ultimoTurno}
-						tiempoTurno={estado.tiempoTurno}
-					/>
-					<FasesPartida fase={estado.fase} />
-					<div className="d-flex flex-row align-items-center justify-content-center">
-						<div className="mapa">
-							<MemorizedSVGMap
-								map={mapaUnido}
-								onLocationClick={clickEnUbicacion}
-							/>
-						</div>
-						<MDBCol>
-							<MDBRow>
-								<MDBBtn
-									onClick={cancelarAccion}
-									disabled={estado.estadoInterno === ESTADOS.turnoRival}
-									className="btn-cancelar"
-								>
-									{' '}
-									Cancelar
-								</MDBBtn>
-							</MDBRow>
-							<MDBRow>
-								<MDBBtn
-									onClick={pasarFase}
-									disabled={estado.estadoInterno === ESTADOS.turnoRival}
-									className="btn-pasar"
-								>
-									{' '}
-									Pasar fase
-								</MDBBtn>
-							</MDBRow>
+					<MDBRow>
+						<ListaJugadores
+							jugadores={estado.jugadores}
+							jugadorTurno={estado.turnoJugador}
+						/>
+					</MDBRow>
+					<MDBRow>
+						<MDBCol sm="9">
+							<FasesPartida fase={estado.fase} />
 						</MDBCol>
-					</div>
+						<MDBCol sm="2">
+							<Temporizador
+								tiempoInicio={estado.ultimoTurno}
+								tiempoTurno={estado.tiempoTurno}
+							/>
+						</MDBCol>
+					</MDBRow>
+					<MDBRow>
+						<div className="d-flex flex-row align-items-center justify-content-center">
+							<div className="mapa">
+								<MemorizedSVGMap
+									map={mapaUnido}
+									onLocationClick={clickEnUbicacion}
+								/>
+							</div>
+							<MDBCol>
+								<MDBRow>
+									<MDBBtn
+										onClick={cancelarAccion}
+										disabled={estado.estadoInterno === ESTADOS.turnoRival}
+										className="btn-cancelar"
+									>
+										{' '}
+										Cancelar
+									</MDBBtn>
+								</MDBRow>
+								<MDBRow>
+									<MDBBtn
+										onClick={pasarFase}
+										disabled={estado.estadoInterno === ESTADOS.turnoRival}
+										className="btn-pasar"
+									>
+										{' '}
+										Pasar fase
+									</MDBBtn>
+								</MDBRow>
+							</MDBCol>
+						</div>
+					</MDBRow>
 				</>
 			)}
 

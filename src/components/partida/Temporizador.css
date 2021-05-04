@@ -1,0 +1,20 @@
+.temporizador {
+	background: repeating-linear-gradient(
+		0deg,
+		#ebc486,
+		#ebc486 20px,
+		#f6d196 20px,
+		#f6d196 40px
+	);
+	border-radius: 1rem !important;
+	border-width: 0.1rem !important;
+	border-style: outset;
+	color: #444;
+	margin-left: 0rem;
+	margin-top: 2rem;
+}
+
+.tiempoRestante {
+	text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+	color: white;
+}
