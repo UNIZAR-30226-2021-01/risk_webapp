@@ -36,6 +36,7 @@ import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServe
 import { obtenerCentro, destinosMovimientos } from 'utils/mapa'
 
 import { ping } from 'utils/SalaApi'
+import { Temporizador } from './Temporizador'
 
 Mapa.locations = Mapa.locations.map((location) => {
 	return {
@@ -342,6 +343,10 @@ export const Partida = () => {
 					<ListaJugadores
 						jugadores={estado.jugadores}
 						jugadorTurno={estado.turnoJugador}
+					/>
+					<Temporizador
+						tiempoInicio={estado.ultimoTurno}
+						tiempoTurno={estado.tiempoTurno}
 					/>
 					<FasesPartida fase={estado.fase} />
 					<div className="d-flex flex-row align-items-center justify-content-center">
