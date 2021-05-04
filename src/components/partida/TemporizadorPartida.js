@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { MDBContainer, MDBCol, MDBRow } from 'mdbreact'
-import './Temporizador.css'
 
 const calcularSegundosRestantes = (tiempoInicio, tiempoTurno) => {
 	const segundosTurno = tiempoTurno * 60

@@ -33,7 +33,8 @@ import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServe
 import { obtenerCentro, destinosMovimientos } from 'utils/mapa'
 
 import { ping } from 'utils/SalaApi'
-import { Temporizador } from './Temporizador'
+import { Temporizador } from './TemporizadorPartida'
+import './Temporizador.css'
 
 Mapa.locations = Mapa.locations.map((location) => {
 	return {
@@ -42,6 +43,7 @@ Mapa.locations = Mapa.locations.map((location) => {
 		clase: '',
 	}
 })
+
 /**
  * Implementa una partida
  * @todo Intentar reconectarse

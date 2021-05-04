@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { MDBAlert, MDBBtn, MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 import AuthApi from 'utils/AuthApi'
 import { useHistory } from 'react-router-dom'
+import { Temporizador } from './Temporizador'
 
 /**
  * Representación de una partida en la lista de partidas,
@@ -12,6 +13,8 @@ export const PartidaMini = ({ datosPartida }) => {
 	const Auth = useContext(AuthApi)
 	const history = useHistory()
 	const rutaSala = '/partida/' + datosPartida.id.toString()
+	console.log(datosPartida, 'datosPartida')
+	console.log(datosPartida.tiempoTurno)
 
 	let turnoDisplay
 	if (Auth.auth.usuario.nombre === datosPartida.nombreTurnoActual) {
@@ -25,7 +28,7 @@ export const PartidaMini = ({ datosPartida }) => {
 		turnoDisplay = (
 			<p className="m-0">
 				{' '}
-				Turno de <strong>{datosPartida.nombreTurnoActual}</strong>
+				Turno de <strong>{datosPartida.nombreTurno}</strong>
 			</p>
 		)
 	}
@@ -49,6 +52,12 @@ export const PartidaMini = ({ datosPartida }) => {
 			</MDBRow>
 			<hr />
 			<MDBRow>{turnoDisplay}</MDBRow>
+			<MDBRow>
+				<Temporizador
+					tiempoInicio={datosPartida.ultimoTurno}
+					tiempoTurno={datosPartida.tiempoTurno}
+				/>
+			</MDBRow>
 		</MDBContainer>
 	)
 }
