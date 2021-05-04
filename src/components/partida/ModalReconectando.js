@@ -1,8 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { MDBBtn, MDBModal, MDBModalHeader, MDBModalBody } from 'mdbreact'
+import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
 
-export const ModalReconectando = ({ isOpen }) => {
+export const ModalReconectando = ({ isOpen, error }) => {
 	const history = useHistory()
 	return (
 		<MDBModal isOpen={isOpen} toggle={() => {}}>
@@ -10,6 +11,7 @@ export const ModalReconectando = ({ isOpen }) => {
 				Te has desconectado. Sal y vuelve a entrar o recarga.
 			</MDBModalHeader>
 			<MDBModalBody>
+				<ErroresServer serverErrors={error} />
 				<MDBBtn
 					onClick={() => {
 						history.push('/')

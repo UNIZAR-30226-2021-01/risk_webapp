@@ -322,7 +322,10 @@ export const Partida = () => {
 		<MDBContainer fluid>
 			<ErroresServer serverErrors={estado.error} />
 
-			<ModalReconectando isOpen={reconectando} />
+			<ModalReconectando
+				isOpen={reconectando}
+				error={estado.error ? estado.error : ''}
+			/>
 
 			{/* Poner bien los parámetros */}
 			{estado.estadoInterno !== ESTADOS.CARGANDO && (
