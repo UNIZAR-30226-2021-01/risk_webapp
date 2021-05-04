@@ -34,6 +34,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import { recargarUsuario } from 'utils/restAPI'
 import { Cargando } from 'components/partida/Cargando'
+import { RestablecerClave } from 'components/sesion/RestablecerClave'
 
 /**
  * App contiene el router, header/footer y metadatos de la aplicación,
@@ -118,6 +119,9 @@ const Routes = () => {
 		<Switch>
 			<Route path="/reglas">
 				<Reglas />
+			</Route>
+			<Route path="/restablecerClave/:token">
+				<RestablecerClave />
 			</Route>
 			<ProtectedLogin
 				path="/registro"

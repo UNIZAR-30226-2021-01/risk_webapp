@@ -11,15 +11,12 @@ import partidaEstado, {
 	JUGADAS,
 	ACCIONES,
 	MAPEO_TIPO_ACCIONES,
-	//FASES,
 	ESTADOS,
 	obtenerOrigen,
 	obtenerDestino,
 	refuerzosRestantes,
 	obtenerTropas,
 	tocaNumeroTropas,
-	//tocaOrigen,
-	//tocaDestino,
 } from './partidaEstados'
 import { MDBContainer, MDBBtn, MDBCol, MDBRow } from 'mdbreact'
 import { MemorizedSVGMap } from './SVGMap'

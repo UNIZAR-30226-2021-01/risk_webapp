@@ -174,8 +174,8 @@ export const obtenerPartidas = async (formData) => {
 /**
  * Hace una petición al server de comprar el objeto con los datos recibidos
  * como parámetro.
- * @param {datos_usuario} formData Contiene los datos necesarios para el registro
- * de un usuario en el servidor.
+ * @param {datos_usuario} formData Contiene los datos necesarios para la compra
+ * del objeto
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
@@ -190,5 +190,14 @@ export const comprarObjeto = async (formData) => {
  */
 export const crearSala = async (formData) => {
 	const data = await peticionQForm('crearSala', formData)
+	return data
+}
+/**
+ * Realiza una petición de restablecimiento de contraseña al servidor
+ * @param {*} formData Datos de clave y token
+ * @returns
+ */
+export const restablecerClave = async (formData) => {
+	const data = await peticionQForm('restablecerClave', formData)
 	return data
 }
