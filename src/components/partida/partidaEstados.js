@@ -425,6 +425,6 @@ export default function partidaEstado() {
 		estadoInterno: ESTADOS.CARGANDO,
 		fase: 0,
 		error: '',
-		datosJugadaActual: { origen: 0, destino: 1, tropas: 1 },
+		datosJugadaActual: { origen: 0, destino: 0, tropas: 1 },
 	})
 }

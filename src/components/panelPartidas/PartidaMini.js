@@ -17,7 +17,7 @@ export const PartidaMini = ({ datosPartida }) => {
 	console.log(datosPartida.tiempoTurno)
 
 	let turnoDisplay
-	if (Auth.auth.usuario.nombre === datosPartida.nombreTurnoActual) {
+	if (Auth.auth.usuario.nombre === datosPartida.nombreTurno) {
 		turnoDisplay = (
 			<MDBAlert color="success" className="m-0">
 				{' '}

@@ -78,23 +78,23 @@
 	filter: brightness(1.5);
 }
 .mapa path.jugador0 {
-	fill: #d55e00;
+	fill: #ff5959;
 }
 
 .mapa path.jugador1 {
-	fill: #0072b2;
+	fill: #269bff;
 }
 
 .mapa path.jugador2 {
-	fill: #dacb06;
+	fill: #ffb000;
 }
 
 .mapa path.jugador3 {
-	fill: #009e73;
+	fill: #00c9a7;
 }
 
 .mapa path.jugador4 {
-	fill: #cc79a7;
+	fill: #d47ead;
 }
 
 .mapa path.jugador5 {
@@ -102,11 +102,11 @@
 }
 
 .origen_antiguo {
-	filter: brightness(1.5);
+	filter: saturate(2);
 }
 
 .destino_antiguo {
-	filter: brightness(1.5);
+	filter: saturate(2);
 }
 
 .origen {

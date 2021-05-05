@@ -77,9 +77,6 @@ export const Partida = () => {
 					destinos.push(conexion)
 				}
 			})
-
-			console.log(origen)
-			console.log(destinos)
 		} else if (
 			estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN
 		) {
@@ -89,7 +86,8 @@ export const Partida = () => {
 		} else if (
 			estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO
 		) {
-			origen = obtenerOrigen(estado)
+			console.log('e')
+			destinos = [obtenerDestino(estado)]
 		} else if (
 			estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_DESTINO ||
 			estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_DESTINO

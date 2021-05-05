@@ -51,23 +51,23 @@ ul.list-group {
 */
 
 .list-group-item.jugador0 {
-	border-color: #d55e00;
+	border-color: #ff5959;
 }
 
 .list-group-item.jugador1 {
-	border-color: #0072b2;
+	border-color: #269bff;
 }
 
 .list-group-item.jugador2 {
-	border-color: #e69f00;
+	border-color: #ffb000;
 }
 
 .list-group-item.jugador3 {
-	border-color: #009e73;
+	border-color: #00c9a7;
 }
 
 .list-group-item.jugador4 {
-	border-color: #cc79a7;
+	border-color: #d47ead;
 }
 
 .list-group-item.jugador5 {
