@@ -23,7 +23,7 @@ export const Temporizador = ({ tiempoInicio, tiempoTurno }) => {
 		return () => {
 			clearInterval(interval)
 		}
-	}, [])
+	}, [tiempoInicio, tiempoTurno])
 
 	return (
 		<MDBContainer className="temporizador">
