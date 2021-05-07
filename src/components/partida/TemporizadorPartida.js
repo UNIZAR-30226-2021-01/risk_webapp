@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { MDBContainer, MDBCol, MDBRow } from 'mdbreact'
-
-const calcularSegundosRestantes = (tiempoInicio, tiempoTurno) => {
-	const segundosTurno = tiempoTurno * 60
-	const fechaInicio = new Date(tiempoInicio)
-	const fechaActual = new Date()
-	const diferenciaSegundos =
-		(fechaActual.getTime() - fechaInicio.getTime()) / 1000
-	return segundosTurno - diferenciaSegundos
-}
+import { calcularSegundosRestantes } from 'utils/tiempo'
 
 export const Temporizador = ({ tiempoInicio, tiempoTurno }) => {
 	const [segundosRestantes, setSegundosRestantes] = useState(0)

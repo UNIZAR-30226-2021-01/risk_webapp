@@ -156,6 +156,9 @@ export const Partida = () => {
 			}
 		})
 
+		//let totalX = window.innerWidth
+		//let totalY = window.innerHeight
+
 		let mapa = {
 			label: Mapa.label,
 			viewBox: Mapa.viewBox,
