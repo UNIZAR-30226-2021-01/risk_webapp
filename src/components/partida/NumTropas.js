@@ -2,13 +2,25 @@ import React from 'react'
 
 const NumTropas = ({ x, y, numTropas }) => {
 	return (
-		<text
-			style={{ fill: 'white', stroke: 'darkslategrey', strokeWidth: '0.05rem' }}
-			x={x + 25}
-			y={y + 10}
-		>
-			{numTropas}
-		</text>
+		<>
+			<foreignObject x={x + 12} y={y - 7} width="160" height="160">
+				<div
+					xmlns="http://www.w3.org/1999/xhtml"
+					className="fondo-numTropas"
+				></div>
+			</foreignObject>
+			<text
+				style={{
+					fill: 'white',
+					stroke: 'darkslategrey',
+					strokeWidth: '0.05rem',
+				}}
+				x={x + 17}
+				y={y + 10}
+			>
+				{numTropas}
+			</text>
+		</>
 	)
 }
 

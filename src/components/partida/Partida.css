@@ -70,6 +70,10 @@
 	pointer-events: none;
 }
 
+.mapa foreignObject {
+	pointer-events: none;
+}
+
 .icono-jugador-partida {
 	width: 3rem;
 }
@@ -115,4 +119,13 @@
 
 .destino {
 	filter: brightness(1.5);
+}
+
+div.fondo-numTropas {
+	width: 1.6rem;
+	height: 1.02rem;
+	background-color: #222;
+	border-top-right-radius: 1.6rem;
+	border-bottom-right-radius: 1.6rem;
+	border-bottom-left-radius: 1.2rem;
 }
