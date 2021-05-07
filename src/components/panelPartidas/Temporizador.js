@@ -28,9 +28,9 @@ export const Temporizador = ({ tiempoInicio, tiempoTurno }) => {
 		<>
 			<p>
 				Tiempo restante: {'  '}
-				{Math.ceil(segundosRestantes / 3600)}:
-				{Math.ceil(Math.ceil(segundosRestantes % 3600) / 60)}:
-				{Math.ceil(segundosRestantes % 60)}
+				{Math.floor(segundosRestantes / 3600)}:
+				{Math.floor(Math.floor(segundosRestantes % 3600) / 60)}:
+				{Math.floor(segundosRestantes % 60)}
 			</p>
 		</>
 	)
