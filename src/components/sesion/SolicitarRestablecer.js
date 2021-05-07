@@ -27,7 +27,7 @@ export const SolicitarRestablecer = () => {
 					}
 					const dataServer = await solicitarRestablecerClave(data)
 					setSubmitting(false)
-					if (dataServer.code === 0) {
+					if (dataServer.code !== 0) {
 						setServerOk('')
 						setServerErrors(dataServer.err)
 					} else {

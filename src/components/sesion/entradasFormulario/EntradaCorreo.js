@@ -11,15 +11,15 @@ export const EntradaCorreo = ({ register, errors }) => {
 		<>
 			<label htmlFor="correo" className="black-text">
 				{' '}
-				Correo electrónico
+				Correo electrónico (opcional)
 			</label>
 			<input
-				type="email"
+				type="text"
 				name="correo"
 				id="correo"
 				className="form-control"
 				placeholder="Correo"
-				ref={register({ required: 'Este campo no se puede dejar vacío.' })}
+				ref={register()}
 			/>
 
 			<ErroresCampo error={errors.correo} />
