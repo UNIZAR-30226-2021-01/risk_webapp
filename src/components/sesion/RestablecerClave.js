@@ -29,7 +29,7 @@ export const RestablecerClave = () => {
 					}
 					const dataServer = await restablecerClave(data)
 					setSubmitting(false)
-					if ('err' in dataServer) {
+					if (dataServer.code !== 0) {
 						setServerErrors(dataServer.err)
 					} else {
 						history.push('/inicioSesion')
