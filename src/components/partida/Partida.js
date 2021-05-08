@@ -36,6 +36,7 @@ import { obtenerCentro, destinosMovimientos } from 'utils/mapa'
 import { ping } from 'utils/SalaApi'
 import { Temporizador } from './TemporizadorPartida'
 import './Temporizador.css'
+import PanelDados from './PanelDados'
 
 Mapa.locations = Mapa.locations.map((location) => {
 	return {
@@ -62,6 +63,8 @@ export const Partida = () => {
 	const unirMapas = () => {
 		let origenAntiguo = -1
 		let destinoAntiguo = -1
+		let dadosOrigen = [-1]
+		let dadosDestino = [-1]
 
 		let origen = -1
 		let destinos = []
@@ -97,9 +100,14 @@ export const Partida = () => {
 		} else if (estado.estadoInterno !== ESTADOS.CARGANDO) {
 			if ('ultimaJugada' in estado) {
 				let jugadaUltima = estado.ultimaJugada
+
 				if (estado.ultimaJugada.jugada === JUGADAS.REFUERZO) {
 					origenAntiguo = jugadaUltima.territorio.id
 				} else {
+					if (jugadaUltima.jugada === JUGADAS.ATAQUE) {
+						dadosOrigen = jugadaUltima.dadosOrigen
+						dadosDestino = jugadaUltima.dadosDestino
+					}
 					origenAntiguo = jugadaUltima.territorioOrigen.id
 					destinoAntiguo = jugadaUltima.territorioDestino.id
 				}
@@ -167,6 +175,8 @@ export const Partida = () => {
 			origen: origen,
 			listaDestino: destinos,
 			locations: locations,
+			dadosOrigen: dadosOrigen,
+			dadosDestino: dadosDestino,
 		}
 		setMapaUnido(mapa)
 	}
@@ -322,8 +332,9 @@ export const Partida = () => {
 
 	return (
 		<MDBContainer fluid>
-			<ErroresServer serverErrors={estado.error} />
-
+			{estado.estadoInterno === ESTADOS.CARGANDO && (
+				<ErroresServer serverErrors={estado.error} />
+			)}
 			<ModalReconectando
 				isOpen={reconectando}
 				error={estado.error ? estado.error : ''}
@@ -360,8 +371,11 @@ export const Partida = () => {
 							jugadorTurno={estado.turnoJugador}
 						/>
 					</MDBRow>
-					<MDBRow>
-						<MDBCol sm="9">
+					<MDBRow className="d-flex justify-content-center">
+						<MDBCol
+							sm="7"
+							className="d-flex justify-content-center align-items-center"
+						>
 							<FasesPartida fase={estado.fase} />
 						</MDBCol>
 						<MDBCol sm="2">
@@ -372,36 +386,49 @@ export const Partida = () => {
 						</MDBCol>
 					</MDBRow>
 					<MDBRow>
-						<div className="d-flex flex-row align-items-center justify-content-center">
+						<MDBCol
+							md="2"
+							className="pr-0 d-flex flex-column align-items-center justify-content-center"
+						>
+							<ErroresServer serverErrors={estado.error} />
+							<PanelDados
+								dados_origen={mapaUnido.dadosOrigen}
+								dados_destino={mapaUnido.dadosDestino}
+							/>
+						</MDBCol>
+						<MDBCol
+							md="9"
+							className="d-flex justify-content-center align-items-center"
+						>
 							<div className="mapa">
 								<MemorizedSVGMap
 									map={mapaUnido}
 									onLocationClick={clickEnUbicacion}
 								/>
 							</div>
-							<MDBCol>
-								<MDBRow>
-									<MDBBtn
-										onClick={cancelarAccion}
-										disabled={estado.estadoInterno === ESTADOS.turnoRival}
-										className="btn-cancelar"
-									>
-										{' '}
-										Cancelar
-									</MDBBtn>
-								</MDBRow>
-								<MDBRow>
-									<MDBBtn
-										onClick={pasarFase}
-										disabled={estado.estadoInterno === ESTADOS.turnoRival}
-										className="btn-pasar"
-									>
-										{' '}
-										Pasar fase
-									</MDBBtn>
-								</MDBRow>
-							</MDBCol>
-						</div>
+						</MDBCol>
+						<MDBCol
+							md="1"
+							className="pl-0 d-flex flex-column justify-content-center align-content-center"
+						>
+							<MDBBtn
+								onClick={cancelarAccion}
+								disabled={estado.estadoInterno === ESTADOS.turnoRival}
+								className="btn-cancelar"
+							>
+								{' '}
+								Cancelar
+							</MDBBtn>
+
+							<MDBBtn
+								onClick={pasarFase}
+								disabled={estado.estadoInterno === ESTADOS.turnoRival}
+								className="btn-pasar"
+							>
+								{' '}
+								Pasar fase
+							</MDBBtn>
+						</MDBCol>
 					</MDBRow>
 				</>
 			)}

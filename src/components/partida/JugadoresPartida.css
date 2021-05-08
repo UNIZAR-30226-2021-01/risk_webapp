@@ -14,7 +14,6 @@ ul.list-group {
 	border-width: 0.3rem !important;
 	border-style: solid;
 	color: #444;
-	margin-bottom: 1rem;
 	width: 13rem;
 	font-size: 4rem;
 }
@@ -31,7 +30,6 @@ ul.list-group {
 	border-width: 0.6rem !important;
 	border-style: outset;
 	color: #444;
-	margin-bottom: 1rem;
 }
 
 /*
