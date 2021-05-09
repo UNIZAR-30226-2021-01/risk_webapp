@@ -196,7 +196,6 @@ export const crearSala = async (formData) => {
 /**
  * Realiza una petición de restablecimiento de contraseña al servidor
  * @param {*} formData Datos de clave y token
- * @returns
  */
 export const restablecerClave = async (formData) => {
 	const data = await peticionQForm('restablecerClave', formData)
@@ -206,9 +205,17 @@ export const restablecerClave = async (formData) => {
 /**
  * Realiza una petición de solicitud de restablecimiento de contraseña al servidor
  * @param {*} formData Datos de clave y token
- * @returns
  */
 export const solicitarRestablecerClave = async (formData) => {
 	const data = await peticionQForm('olvidoClave', formData)
+	return data
+}
+
+/**
+ * Realiza una petición de eliminación de cuenta al servidor
+ * @param {*} formData Datos de usuario y clave
+ */
+export const borrarCuenta = async (formData) => {
+	const data = await peticionQForm('borrarCuenta', formData)
 	return data
 }

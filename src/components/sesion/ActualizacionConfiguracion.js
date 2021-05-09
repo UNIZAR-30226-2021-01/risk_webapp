@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import FormActualizar from './FormActualizar.js'
+import { useHistory } from 'react-router-dom'
 import constants from 'utils/constants.js'
 import AuthApi from 'utils/AuthApi'
 import Cookies from 'js-cookie'
@@ -7,6 +8,7 @@ import qs from 'qs'
 import { MDBContainer } from 'mdbreact'
 import { obtenerCredenciales } from 'utils/usuarioVO'
 import { recargarUsuarioServer } from 'utils/AuthServer'
+import { MDBBtn } from 'mdbreact'
 import './formCuenta.css'
 
 /**
@@ -15,6 +17,7 @@ import './formCuenta.css'
  */
 const ActualizacionConfiguracion = () => {
 	const Auth = useContext(AuthApi)
+	const history = useHistory()
 
 	const [values, setValues] = useState(Auth.auth.usuario)
 
@@ -114,6 +117,14 @@ const ActualizacionConfiguracion = () => {
 				//iconos={Auth.auth.iconos}
 				//aspectos={Auth.auth.aspectos}
 			/>
+
+			<MDBBtn
+				onClick={() => {
+					history.push('/eliminarCuenta')
+				}}
+			>
+				Eliminar cuenta
+			</MDBBtn>
 		</MDBContainer>
 	)
 }

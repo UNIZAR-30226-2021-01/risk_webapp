@@ -36,6 +36,7 @@ import { recargarUsuario } from 'utils/restAPI'
 import { Cargando } from 'components/partida/Cargando'
 import { RestablecerClave } from 'components/sesion/RestablecerClave'
 import { SolicitarRestablecer } from 'components/sesion/SolicitarRestablecer'
+import { EliminarCuenta } from 'components/sesion/EliminarCuenta'
 
 /**
  * App contiene el router, header/footer y metadatos de la aplicación,
@@ -161,6 +162,11 @@ const Routes = () => {
 				path="/menuPrincipal"
 				auth={Auth.auth.logged}
 				component={MenuPrincipal}
+			/>
+			<ProtectedRoute
+				path="/eliminarCuenta"
+				auth={Auth.auth.logged}
+				component={EliminarCuenta}
 			/>
 			<ProtectedRoute
 				path="/"
