@@ -21,20 +21,22 @@ export const ModalFinPartida = ({ isOpen, ganador, riskos }) => {
 			</MDBModalHeader>
 			<MDBModalBody>
 				{obtenerInfoUsuario(Auth).nombre === ganador && (
-					<MDBAlert color="success">
+					<>
+						<MDBAlert color="success">
+							<p>
+								<strong>¡Enhorabuena, has dominado el mundo!</strong>
+							</p>
+						</MDBAlert>
 						<p>
-							<strong>¡Enhorabuena, has dominado el mundo!</strong>
+							<strong>Has ganado {riskos} riskos.</strong>
 						</p>
-					</MDBAlert>
+					</>
 				)}
 				{obtenerInfoUsuario(Auth).nombre !== ganador && (
 					<p>
 						<strong>El ganador es: {ganador}.</strong>
 					</p>
 				)}
-				<p>
-					<strong>Has ganado {riskos} riskos.</strong>
-				</p>
 				<em> {getRandomQuote()} - Sun Tzu</em>
 				<MDBBtn
 					onClick={() => {
