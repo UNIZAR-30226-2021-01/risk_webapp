@@ -151,13 +151,13 @@ export const Sala = () => {
 
 		// websocket onclose event listener
 		ws.current.onclose = () => {
+			setModal(true)
 			console.log(`Socket cerrado.`)
 		}
 
 		// websocket onerror event listener
 		ws.current.onerror = (err) => {
 			console.error('Socket encountered error: ', err.message, 'Closing socket')
-			setModal(true)
 			ws.current.close()
 		}
 

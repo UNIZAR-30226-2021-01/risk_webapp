@@ -24,7 +24,7 @@ export const MenuSalas = () => {
 	}, [])
 
 	return (
-		<MDBContainer>
+		<MDBContainer className="cont-estandar d-flex align-items-center flex-column">
 			<h2 className="text-center mb-1"> Partidas en curso </h2>
 			<ListaPartidas partidas={partidas} />
 		</MDBContainer>

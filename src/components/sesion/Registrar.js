@@ -20,10 +20,11 @@ const Registrar = () => {
 				makePetition={registrarse}
 				siValido={registrarseLocal}
 			/>
-			<p>
-				{' '}
-				Si ya tienes cuenta, <Link to="/inicioSesion">inicia sesión</Link>
-			</p>
+			<MDBContainer className="cont-estandar d-flex align-items-center flex-column">
+				<p>
+					Si ya tienes cuenta, <Link to="/inicioSesion">inicia sesión</Link>
+				</p>
+			</MDBContainer>
 		</MDBContainer>
 	)
 }

@@ -18,12 +18,14 @@ const InicioSesion = () => {
 				submitText="Aceptar"
 				makePetition={inicioSesion}
 			/>
-			<p>
-				Si no tienes cuenta, <Link to="/registro"> regístrate </Link>
-				<br />
-				¿Has olvidado tu contraseña?{' '}
-				<Link to="/solicitarRestablecer">Reestablézcala aquí. </Link>
-			</p>
+			<MDBContainer className="cont-estandar d-flex align-items-center flex-column">
+				<p>
+					Si no tienes cuenta, <Link to="/registro"> regístrate </Link>
+					<br />
+					¿Has olvidado tu contraseña?{' '}
+					<Link to="/solicitarRestablecer">Reestablézcala aquí. </Link>
+				</p>
+			</MDBContainer>
 		</MDBContainer>
 	)
 }
