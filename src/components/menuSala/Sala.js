@@ -24,12 +24,15 @@ import ListaJugadoresPartida from './ListaJugadoresPartida'
 import { socketAbierto, crearSala, aceptarSala, ping } from 'utils/SalaApi'
 import constants from 'utils/constants'
 import './Sala.css'
-import { Cargando } from 'components/partida/Cargando'
 
 const estadosInternos = {
 	CreandoFormulario: 'Creando formulario',
 	EsperandoRespuestaFormulario: 'Esperando respuesta creación formulario',
 	EsperandoInicio: 'Esperando inicio de partida',
+}
+
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 /**
@@ -52,6 +55,8 @@ export const Sala = () => {
 
 	// Websocket de la conexión, en current va
 	const ws = useRef(undefined)
+	const url = useRef(undefined)
+	const enviado = useRef(false)
 
 	/**
 	 * 1: Creando sala
@@ -59,14 +64,12 @@ export const Sala = () => {
 	 * 3: Cargando (probablemente no necesario, solo para mientras el ws.current está roto)
 	 */
 	const [estadoPag, setEstadoPag] = useState('3')
-	const [modal, setModal] = useState(true)
+	const [modal, setModal] = useState(false)
 
 	// Indica si se es el host o no
 	const [soyHost, setSoyHost] = useState(false)
 
 	const [serverErrors, setServerErrors] = useState('')
-
-	let url = ''
 
 	// Jugadores ya conectados
 	const [salaInfo, setSalaInfo] = useState({
@@ -81,7 +84,7 @@ export const Sala = () => {
 	useEffect(() => {
 		let interval
 		if (id === 'undefined') {
-			url = 'crearSala'
+			url.current = 'crearSala'
 			interval = setInterval(async () => {
 				fetchAmigos()
 			}, constants.REFRESH_TIME)
@@ -91,24 +94,26 @@ export const Sala = () => {
 			estadoInterno.current = estadosInternos.CreandoFormulario
 			//setEstadoInterno(estadosInternos.CreandoFormulario)
 		} else {
-			url = 'aceptarSala'
+			url.current = 'aceptarSala'
 			setSoyHost(false)
 			setEstadoPag('2')
 			estadoInterno.current = estadosInternos.EsperandoInicio
 			//setEstadoInterno(estadosInternos.EsperandoInicio)
+			connect()
 		}
 
-		console.log(url)
+		console.log(url.current)
 		console.log('id: ', id)
 
-		connect()
 		let intervalPing = setInterval(() => {
-			ping(ws.current)
+			if (enviado.current) {
+				ping(ws.current)
+			}
 		}, constants.TIEMPO_PING)
 
 		return () => {
 			console.log(ws.current, 'Desmontando ws')
-			if (url === 'crearSala') {
+			if (url.current === 'crearSala') {
 				clearInterval(interval)
 			}
 			clearInterval(intervalPing)
@@ -137,7 +142,7 @@ export const Sala = () => {
 	// Si se cae la conexión, el server te tira, por lo que no hay que intentar
 	// reconectar
 	const connect = () => {
-		ws.current = new WebSocket(`${constants.BASER_WS_URL}${url}`)
+		ws.current = new WebSocket(`${constants.BASER_WS_URL}${url.current}`)
 
 		// websocket onopen event listener
 		ws.current.onopen = () => {
@@ -168,6 +173,7 @@ export const Sala = () => {
 			// Caso error
 			if (data._tipoMensaje === 'e') {
 				setServerErrors(data.err)
+				console.log(data, 'err')
 				// Caso mensaje de datos
 				if (
 					estadoInterno.current === estadosInternos.EsperandoRespustaFormulario
@@ -209,8 +215,17 @@ export const Sala = () => {
 		history.push(dirPartida)
 	}
 
-	const crearSalaLocal = (formData) => {
-		if (socketAbierto(ws.current)) {
+	const crearSalaLocal = async (formData) => {
+		connect()
+		let i = 0
+		while (!socketAbierto(ws.current) && i < 100) {
+			await sleep(100)
+			i++
+		}
+		if (i >= 100) {
+			console.log('Reintentos excedidos')
+			setModal(true)
+		} else {
 			setSalaInfo({
 				...salaInfo,
 				tiempoTurno: formData.tiempoTurno,
@@ -221,8 +236,7 @@ export const Sala = () => {
 
 			console.log(estadoInterno, 'plz')
 			crearSala(Auth, ws.current, formData)
-		} else {
-			console.log(ws.current.readyState, 'Estado del socket')
+			enviado.current = true
 		}
 	}
 
@@ -237,7 +251,7 @@ export const Sala = () => {
 	// Poner cada Tab en un componente distinto?
 	return (
 		<MDBContainer>
-			<ErroresServer serverErrors={serverErrors} />
+			{estadoPag === '2' && <ErroresServer serverErrors={serverErrors} />}
 			{/*  Mover a otro componente
 			El modal debería ser mientras se espera un mensaje, no por si se cae.
 			Si se cae, se debería redirigir al menú principal tras mostrar un modal de
@@ -249,7 +263,7 @@ export const Sala = () => {
 				}}
 			>
 				<MDBModalBody className="d-flex justify-content-between">
-					<Cargando />
+					<ErroresServer serverErrors={serverErrors} />
 				</MDBModalBody>
 				<MDBModalFooter>
 					<MDBBtn

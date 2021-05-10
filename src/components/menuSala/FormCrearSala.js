@@ -22,7 +22,7 @@ export const FormCrearSala = ({ enviarSolicitud }) => {
 					formData.tiempoTurno = parseInt(formData.tiempoTurno)
 
 					setSubmitting(true)
-					enviarSolicitud(formData)
+					await enviarSolicitud(formData)
 					setSubmitting(false)
 				})}
 			>

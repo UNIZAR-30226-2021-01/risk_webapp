@@ -93,7 +93,7 @@ export const FormRegistro = ({
 	)
 }
 
-FormRegistro.PropTypes = {
+FormRegistro.propTypes = {
 	/**
 	 * Valores por defecto del formulario.
 	 */
