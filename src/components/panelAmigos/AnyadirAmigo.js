@@ -28,7 +28,7 @@ export const AnyadirAmigo = () => {
 					Añadir amigo
 				</MDBBtn>
 			</div>
-			<MDBModal isOpen={isOpen}>
+			<MDBModal isOpen={isOpen} toggle={toggle}>
 				<MDBModalHeader toggle={toggle}>Añadir amigo</MDBModalHeader>
 				<MDBCol middle={true}>
 					<MDBModalBody>
