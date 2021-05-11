@@ -23,18 +23,12 @@ module.exports = {
 	styleguideDir: 'docs',
 	title: 'Documentación de la aplicación web del proyecto.',
 	usageMode: 'expand',
+	ignore: ['**/partidaEstados.js'],
 	sections: [
 		{
 			name: 'Introducción',
 			content: 'docs/introduccion.md',
 		},
-		/*
-		{
-			name: 'App',
-			description: 'Componente raíz de la aplicación',
-			componentes: ['src/App.js'],
-		},
-		*/
 		{
 			name: 'Componentes de la aplicación',
 			description:
@@ -42,6 +36,11 @@ module.exports = {
 			//exampleMode: 'expand',
 			components: 'src/components/*.js',
 			sections: [
+				{
+					name: 'App',
+					description: 'Componente raíz de la aplicación.',
+					components: 'src/App.js',
+				},
 				{
 					name: 'Menú principal',
 					description: 'Componentes básicos del menú principal.',
@@ -96,12 +95,6 @@ module.exports = {
 					components: 'src/components/tienda/*.js',
 				},
 			],
-		},
-		{
-			name: 'Librerías javascript',
-			description:
-				'Librerías propias desarrolladas para parte de la lógica de la aplicación.',
-			components: 'src/utils/*.js',
 		},
 	],
 }
