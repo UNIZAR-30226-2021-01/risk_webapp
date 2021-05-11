@@ -1,4 +1,9 @@
 /**
+ * Contiene funciones útiles para el manejo del tiempo y el tiempo de turno.
+ * @module tiempo
+ */
+
+/**
  * Dados un tiempo inicio y un tiempo de turno, devuelve la diferencia de
  * tiempo en segundos respecto al instante actual.
  * @param {string} tiempoInicio Instante de inicio del turno en ISO8601

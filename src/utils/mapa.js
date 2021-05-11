@@ -1,6 +1,12 @@
 import { svgPathProperties } from 'svg-path-properties'
 
 /**
+ * Contiene unas cuantas funciones útiles para el manejo de un mapa del
+ * risk.
+ * @module mapa
+ */
+
+/**
  * Dada una localización delimitada por sus puntos (svg), devuelve
  * el centro de estos puntos.
  * @param {svg_path} location Ubicación svg

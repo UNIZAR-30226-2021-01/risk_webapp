@@ -1,0 +1,17 @@
+
+{
+	"source": {
+		"include": ["src/utils", "src/assets", "src/components/partida/partidaEstados.js"]
+	},
+	"sourceType": "module",
+	"opts": {
+		"encoding": "utf8",
+		"destination": "./docsPrueba/",
+		"recurse": true
+	},
+	"templates": {
+		"cleverLinks": false,
+		"monospaceLinks": false
+	}
+}
+

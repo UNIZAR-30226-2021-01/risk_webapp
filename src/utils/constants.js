@@ -1,4 +1,9 @@
 /**
+ * Constantes de la aplicación
+ * @module constants
+ */
+
+/**
  * Constantes que se usan en la aplicación
  * @public
  */

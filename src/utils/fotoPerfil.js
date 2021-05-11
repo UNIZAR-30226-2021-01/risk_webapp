@@ -1,6 +1,11 @@
 export const rutaIcono = 'assets/iconos/'
 export const rutaAspecto = 'assets/aspectos/'
 export const extension = '.png'
+/**
+ * Implementa la lógica para la actualización de una foto en
+ * la configuración de un usuario.
+ * @module fotoPerfil
+ */
 
 /**
  * Obtiene el siguiente hacia la dirección pasada como

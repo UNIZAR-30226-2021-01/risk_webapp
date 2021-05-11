@@ -1,6 +1,12 @@
 import { obtenerCredenciales } from './usuarioVO'
 
 /**
+ * Contiene el envío de los mensajes necesarios pro ws para comunicarse
+ * con el servidor.
+ * @module SalaApi
+ */
+
+/**
  * Dado un websocket, devuelve si está abierto.
  * @param {*} ws Websocket a verificar
  * @returns True si y solo si ws es un websocket y está abierto

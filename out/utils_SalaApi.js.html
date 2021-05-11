@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils/SalaApi.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils/SalaApi.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { obtenerCredenciales } from './usuarioVO'
+
+/**
+ * Dado un websocket, devuelve si está abierto.
+ * @param {*} ws Websocket a verificar
+ * @returns True si y solo si ws es un websocket y está abierto
+ */
+export const socketAbierto = (ws) => {
+	return ws !== undefined &amp;&amp; ws.readyState === WebSocket.OPEN
+}
+
+/**
+ * Envía el mensaje de crear sala con los credenciales de Auth.
+ * @param {*} Auth Auth del contexto
+ * @param {*} ws Websocket por el que enviar el mensaje
+ * @param {*} formData Valores necesarios de información para crear la sala (sin credenciales)
+ */
+export const crearSala = (Auth, ws, formData) => {
+	formData = {
+		...formData,
+		...obtenerCredenciales(Auth),
+	}
+	console.log(formData, 'Envío crear sala')
+	ws.send(JSON.stringify(formData))
+}
+
+/**
+ * Envia el mensaje de envío de aceptar sala con los credenciales de Auth.
+ * @param {*} Auth Auth del contexto
+ * @param {*} ws Websocket por el que enviar el mensaje
+ * @param {*} id Id de la sala a unirse
+ */
+export const aceptarSala = (Auth, ws, id) => {
+	const data = {
+		...obtenerCredenciales(Auth),
+		idSala: id,
+	}
+	ws.send(JSON.stringify(data))
+}
+
+/**
+ * Manda un ping por el websocket tras verificar que existe y que no está cerrado
+ * @param {*} ws Websocket por el que enviar el ping
+ */
+export const ping = (ws) => {
+	if (ws &amp;&amp; ws.readyState !== WebSocket.CLOSED) {
+		ws.send(JSON.stringify({ tipo: 'Ping' }))
+	}
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#ACCIONES">ACCIONES</a></li><li><a href="global.html#aceptarSala">aceptarSala</a></li><li><a href="global.html#AuthApi">AuthApi</a></li><li><a href="global.html#borrarCuenta">borrarCuenta</a></li><li><a href="global.html#borrarNotiTurno">borrarNotiTurno</a></li><li><a href="global.html#calcularSegundosRestantes">calcularSegundosRestantes</a></li><li><a href="global.html#casosLocales">casosLocales</a></li><li><a href="global.html#comprarObjeto">comprarObjeto</a></li><li><a href="global.html#constants">constants</a></li><li><a href="global.html#crearSala">crearSala</a></li><li><a href="global.html#credenciales">credenciales</a></li><li><a href="global.html#decisionPeticion">decisionPeticion</a></li><li><a href="global.html#destinosMovimientos">destinosMovimientos</a></li><li><a href="global.html#eliminarAmigo">eliminarAmigo</a></li><li><a href="global.html#estadoACambioFase">estadoACambioFase</a></li><li><a href="global.html#estadoPrevio">estadoPrevio</a></li><li><a href="global.html#ESTADOS">ESTADOS</a></li><li><a href="global.html#estadoSigCambioFase">estadoSigCambioFase</a></li><li><a href="global.html#estadoSiguienteSeleccionarLocalizacion">estadoSiguienteSeleccionarLocalizacion</a></li><li><a href="global.html#estadoSiguienteSeleccionarUnidades">estadoSiguienteSeleccionarUnidades</a></li><li><a href="global.html#FASE_ESTADO">FASE_ESTADO</a></li><li><a href="global.html#FASES">FASES</a></li><li><a href="global.html#inicioSesion">inicioSesion</a></li><li><a href="global.html#JUGADAS">JUGADAS</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#MAPEO_TIPO_ACCIONES">MAPEO_TIPO_ACCIONES</a></li><li><a href="global.html#maquinaEstados">maquinaEstados</a></li><li><a href="global.html#obtenerAmigos">obtenerAmigos</a></li><li><a href="global.html#obtenerAspectosDisponibles">obtenerAspectosDisponibles</a></li><li><a href="global.html#obtenerAspectosTienda">obtenerAspectosTienda</a></li><li><a href="global.html#obtenerCentro">obtenerCentro</a></li><li><a href="global.html#obtenerCredenciales">obtenerCredenciales</a></li><li><a href="global.html#obtenerDestino">obtenerDestino</a></li><li><a href="global.html#obtenerDir">obtenerDir</a></li><li><a href="global.html#obtenerIconosDisponibles">obtenerIconosDisponibles</a></li><li><a href="global.html#obtenerIconosTienda">obtenerIconosTienda</a></li><li><a href="global.html#obtenerIdUbicacion">obtenerIdUbicacion</a></li><li><a href="global.html#obtenerIdUsuario">obtenerIdUsuario</a></li><li><a href="global.html#obtenerNombreUbicacion">obtenerNombreUbicacion</a></li><li><a href="global.html#obtenerNotificaciones">obtenerNotificaciones</a></li><li><a href="global.html#obtenerOrigen">obtenerOrigen</a></li><li><a href="global.html#obtenerPartidas">obtenerPartidas</a></li><li><a href="global.html#obtenerPrevio">obtenerPrevio</a></li><li><a href="global.html#obtenerRutaAspecto">obtenerRutaAspecto</a></li><li><a href="global.html#obtenerRutaIcono">obtenerRutaIcono</a></li><li><a href="global.html#obtenerSiguiente">obtenerSiguiente</a></li><li><a href="global.html#obtenerTropas">obtenerTropas</a></li><li><a href="global.html#peticionQForm">peticionQForm</a></li><li><a href="global.html#ping">ping</a></li><li><a href="global.html#recargarUsuario">recargarUsuario</a></li><li><a href="global.html#recargarUsuarioServer">recargarUsuarioServer</a></li><li><a href="global.html#rechazarPartida">rechazarPartida</a></li><li><a href="global.html#refuerzosRestantes">refuerzosRestantes</a></li><li><a href="global.html#registrarse">registrarse</a></li><li><a href="global.html#registrarseLocal">registrarseLocal</a></li><li><a href="global.html#restablecerClave">restablecerClave</a></li><li><a href="global.html#socketAbierto">socketAbierto</a></li><li><a href="global.html#solicitarRestablecerClave">solicitarRestablecerClave</a></li><li><a href="global.html#solicitudAmistad">solicitudAmistad</a></li><li><a href="global.html#tocaDestino">tocaDestino</a></li><li><a href="global.html#tocaNumeroTropas">tocaNumeroTropas</a></li><li><a href="global.html#tocaOrigen">tocaOrigen</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue May 11 2021 21:21:13 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

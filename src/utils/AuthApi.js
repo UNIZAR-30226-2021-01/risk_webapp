@@ -3,6 +3,12 @@ import Cookies from 'js-cookie'
 import constants from './constants.js'
 
 /**
+ * API de autenticación del usuario en local, usando
+ * los contextos de React.
+ * @module AuthApi
+ */
+
+/**
  * AuthApi es el contexto de loggeo de la aplicación,
  * aquí accederán el resto de componentes.
  * @public

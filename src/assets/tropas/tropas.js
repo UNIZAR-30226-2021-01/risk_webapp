@@ -12,6 +12,14 @@ import aspecto10 from './aspecto_10.png'
 import aspecto11 from './aspecto_11.png'
 import aspecto12 from './aspecto_12.png'
 
+/**
+ * Aspectos de tropas del risk.
+ * @module tropas
+ */
+
+/**
+ * Array con par {img, title} de las tropas.
+ */
 export default [
 	{ img: aspecto0, title: 'aspecto' },
 	{ img: aspecto1, title: 'aspecto' },

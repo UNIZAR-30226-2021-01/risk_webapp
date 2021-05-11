@@ -1,3 +1,11 @@
+/**
+ * Módulo con citas de Sun Tzu.
+ * @module quotes
+ */
+
+/**
+ * Array de citas de Sun Tzu.
+ */
 export const quotes = [
 	'“Appear weak when you are strong, and strong when you are weak.”',
 	'“The supreme art of war is to subdue the enemy without fighting.”',
@@ -11,6 +19,9 @@ export const quotes = [
 	'“There is no instance of a nation benefitting from prolonged warfare.”',
 ]
 
+/**
+ * @returns Cita aleatoria de quotes.
+ */
 export function getRandomQuote() {
 	return quotes[Math.floor(Math.random() * quotes.length)]
 }

@@ -12,6 +12,14 @@ import icono10 from './10.png'
 import icono11 from './11.png'
 import icono12 from './12.png'
 
+/**
+ * Aspectos de iconos del risk.
+ * @module iconos
+ */
+
+/**
+ * Array con par {img, title} de iconos.
+ */
 export default [
 	{ img: icono0, title: 'icono' },
 	{ img: icono1, title: 'icono' },
