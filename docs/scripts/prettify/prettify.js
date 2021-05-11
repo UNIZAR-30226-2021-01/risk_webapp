@@ -505,7 +505,8 @@ window.PR_SHOULD_USE_CONTINUATION = !0
 			'alias,and,begin,case,class,def,defined,elsif,end,ensure,false,in,module,next,nil,not,or,redo,rescue,retry,self,super,then,true,undef,unless,until,when,yield,BEGIN,END',
 		],
 		v = [v, 'case,done,elif,esac,eval,fi,function,in,local,set,then,until'],
-		K = /^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\d*)/,
+		K =
+			/^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\d*)/,
 		N = /\S/,
 		O = u({
 			keywords: [
