@@ -6,7 +6,7 @@
 	"sourceType": "module",
 	"opts": {
 		"encoding": "utf8",
-		"destination": "./docsPrueba/",
+		"destination": "./docs/jsdoc/",
 		"recurse": true
 	},
 	"templates": {

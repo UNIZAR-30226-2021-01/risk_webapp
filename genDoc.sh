@@ -10,8 +10,6 @@
 
 
 npx styleguidist build
-#cd docs
-#mv index.html index.md
-#sed -i '1d' index.md
+jsdoc -c jsdoc.config.json
 
 
