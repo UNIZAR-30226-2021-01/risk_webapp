@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { ErroresServer } from 'components/sesion/entradasFormulario/ErroresServer'
 import { MDBModal, MDBBtn, MDBModalHeader, MDBModalBody } from 'mdbreact'
 import { useForm } from 'react-hook-form'
@@ -6,6 +7,10 @@ import { EntradaNumero } from 'components/sesion/entradasFormulario/EntradaNumer
 import { FASES, obtenerDestino, obtenerOrigen } from './partidaEstados'
 import { destinosMovimientos } from 'utils/mapa'
 
+/**
+ * Modal que representa el número de tropas a enviar a un territorio,
+ * ya sea de un refuerzo, ataque o movimiento.
+ */
 export const ModalFormNumeroTropas = ({
 	isOpen,
 	locations,
@@ -105,4 +110,14 @@ export const ModalFormNumeroTropas = ({
 			<ErroresServer serverErrors={error} />
 		</MDBModal>
 	)
+}
+
+// TERMINAR
+ModalFormNumeroTropas.propTypes = {
+	isOpen: PropTypes.bool,
+	locations: PropTypes.arrayOf(PropTypes.shape({})),
+	max: PropTypes.number,
+	estado: PropTypes.string,
+	onSubmit: PropTypes.string,
+	toggle: PropTypes.func,
 }

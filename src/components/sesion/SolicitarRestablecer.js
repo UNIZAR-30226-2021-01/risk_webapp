@@ -7,6 +7,10 @@ import { solicitarRestablecerClave } from 'utils/restAPI'
 import './formActualizar.css'
 import { OkServer } from './entradasFormulario/OkServer'
 
+/**
+ * Muestra un formulario para solicitar restablecer una cuenta dado un correo.
+ * No se permite mediante el nombre de usuario de la cuenta.
+ */
 export const SolicitarRestablecer = () => {
 	const { register, handleSubmit, errors } = useForm({ clave: '' })
 	const [serverErrors, setServerErrors] = useState('')

@@ -8,6 +8,10 @@ import { restablecerClave } from 'utils/restAPI'
 import hash from 'js-sha256'
 import './formActualizar.css'
 
+/**
+ * Muestra un formulario para establecer la nueva contraseña en una cuenta
+ * dado un token recibido como parámetro en la URL.
+ */
 export const RestablecerClave = () => {
 	const { token } = useParams()
 	const history = useHistory()

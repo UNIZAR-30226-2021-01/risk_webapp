@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { getRandomQuote } from 'assets/quotes'
 import { obtenerInfoUsuario } from 'utils/usuarioVO'
@@ -11,6 +12,10 @@ import {
 } from 'mdbreact'
 import AuthApi from 'utils/AuthApi'
 
+/**
+ * Modal de fin de partida, enseña los riskos obtenidos si eres
+ * el ganador de la partida y siempre una cita de Sun Tzu.
+ */
 export const ModalFinPartida = ({ isOpen, ganador, riskos }) => {
 	const Auth = useContext(AuthApi)
 	const history = useHistory()
@@ -48,6 +53,23 @@ export const ModalFinPartida = ({ isOpen, ganador, riskos }) => {
 			</MDBModalBody>
 		</MDBModal>
 	)
+}
+
+ModalFinPartida.propTypes = {
+	/**
+	 * Determina si está abierto o no el modal.
+	 */
+	isOpen: PropTypes.bool,
+
+	/**
+	 * Nombre del ganador.
+	 */
+	ganador: PropTypes.string,
+
+	/**
+	 * Riskos obtenidos por el ganador.
+	 */
+	riskos: PropTypes.number,
 }
 
 ModalFinPartida.defaultProps = {

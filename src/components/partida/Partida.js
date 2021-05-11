@@ -47,8 +47,16 @@ Mapa.locations = Mapa.locations.map((location) => {
 })
 
 /**
- * Implementa una partida
- * @todo Intentar reconectarse
+ * Implementa una partida de Risk, muestra los jugadores que están en ella
+ * y el turno del actual, el estado dentro del turno actual, si se
+ * está reforzando, atacando o moviendo.
+ * Respecto a la información mostrada de la última jugada, si es un ataque
+ * se mostrarán los resultados de las tiradas de los dados y los
+ * territorios afectados.
+ * En el mapa se mostrará la información de quién es cada territorio,
+ * mediante colores en cada territorio, y el número de tropas en cada uno
+ * de estos. Los territorios afectados por la última jugada tienen su color
+ * alterado y aquellos por la jugada actual también pero de otra manera.
  */
 export const Partida = () => {
 	const Auth = useContext(AuthApi)

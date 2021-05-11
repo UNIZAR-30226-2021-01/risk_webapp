@@ -9,6 +9,10 @@ import { MDBContainer, MDBBtn, MDBRow, MDBCol } from 'mdbreact'
 import { EntradaClave } from './entradasFormulario/EntradaClave'
 import { ErroresServer } from './entradasFormulario/ErroresServer'
 
+/**
+ * Formulario para la eliminación de la cuenta. Pide de nuevo la contraseña
+ * del usuario para verificar la eliminación de esta.
+ */
 export const EliminarCuenta = () => {
 	const Auth = useContext(AuthApi)
 
@@ -25,6 +29,11 @@ export const EliminarCuenta = () => {
 
 	return (
 		<MDBContainer id="cont-inicio">
+			<p>
+				{' '}
+				¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es
+				irreversible.
+			</p>
 			<MDBRow className="d-flex align-items-center flex-column">
 				<MDBCol md="6">
 					<form

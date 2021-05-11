@@ -1,11 +1,17 @@
 import { useReducer } from 'react'
 
+/**
+ * Jugadas posibles a realizar.
+ */
 export const JUGADAS = {
 	REFUERZO: 'REFUERZO',
 	ATAQUE: 'ATAQUE',
 	MOVIMIENTO: 'MOVIMIENTO',
 }
 
+/**
+ * Acciones posibles a realizar.
+ */
 export const ACCIONES = {
 	ERROR: 'ERROR',
 	ERROR_GLOBAL: 'ERROR_GLOBAL',
@@ -35,6 +41,10 @@ export const ACCIONES = {
 	FIN_PARTIDA: 'FIN_PARTIDA',
 }
 
+/**
+ * Tabla de mapeo de las acciones obtenidas por el servidor a las de
+ * gestión por este módulo para desacoplar.
+ */
 export const MAPEO_TIPO_ACCIONES = {
 	p: ACCIONES.DATOS_COMPLETOS_PARTIDA,
 	f: ACCIONES.CONFIRMACION_CAMBIO_FASE,
@@ -45,12 +55,18 @@ export const MAPEO_TIPO_ACCIONES = {
 	t: ACCIONES.FIN_PARTIDA,
 }
 
+/**
+ * Fases de un turno.
+ */
 export const FASES = {
 	FASE_REFUERZOS: 1,
 	FASE_ATAQUE: 2,
 	FASE_MOVIMIENTO: 3,
 }
 
+/**
+ * Estados de la partida.
+ */
 export const ESTADOS = {
 	CARGANDO: 'CARGANDO',
 	TURNO_RIVAL: 'TURNO_RIVAL',
@@ -79,6 +95,9 @@ export const ESTADOS = {
 	FIN_PARTIDA: 'FIN PARTIDA',
 }
 
+/**
+ * Fase en la que se está dentro del estado.
+ */
 const FASE_ESTADO = [
 	ESTADOS.CARGANDO,
 	ESTADOS.FASE_DE_REFUERZOS,
@@ -86,18 +105,38 @@ const FASE_ESTADO = [
 	ESTADOS.FASE_DE_MOVIMIENTO,
 ]
 
+/**
+ * Wrapper que devuelve el origen de la jugada actual.
+ * @param {estado} estado Estado de la partida
+ * @returns Origen de la jugada actual
+ */
 export function obtenerOrigen(estado) {
 	return estado.datosJugadaActual.origen
 }
 
+/**
+ * Wrapper que devuelve el destino de la jugada actual.
+ * @param {estado} estado Estado de la partida
+ * @returns Destino de la jugada actual
+ */
 export function obtenerDestino(estado) {
 	return estado.datosJugadaActual.destino
 }
 
+/**
+ * Wrapper que devuelve el origen de la jugada actual.
+ * @param {estado} estado Estado de la partida
+ * @returns Origen de la jugada actual
+ */
 export function obtenerTropas(estado) {
 	return estado.datosJugadaActual.tropas
 }
 
+/**
+ * Devuelve si toca seleccionar origen.
+ * @param {estado} estado Estado de la partida
+ * @returns True si y solo si toca seleccionar origen
+ */
 export function tocaOrigen(estado) {
 	return (
 		estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE ||
@@ -105,6 +144,11 @@ export function tocaOrigen(estado) {
 	)
 }
 
+/**
+ * Devuelve si toca seleccionar destino.
+ * @param {estado} estado Estado de la partida
+ * @returns True si y solo si toca seleccionar destino
+ */
 export function tocaDestino(estado) {
 	return (
 		estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN ||
@@ -113,6 +157,11 @@ export function tocaDestino(estado) {
 	)
 }
 
+/**
+ * Devuelve si toca seleccionar el número de tropas.
+ * @param {estado} estado Estado de la partida
+ * @returns True si y solo si toca seleccionar el número de tropas
+ */
 export function tocaNumeroTropas(estado) {
 	return (
 		estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO ||
@@ -121,6 +170,11 @@ export function tocaNumeroTropas(estado) {
 	)
 }
 
+/**
+ * Devuelve el estado previo al actual.
+ * @param {estado} estado Estado de la partida
+ * @returns Estado correspondiente
+ */
 function estadoPrevio(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO:
@@ -153,7 +207,11 @@ function estadoPrevio(estado) {
 	}
 }
 
-//Considerar lanzar excepciones para debuggear
+/**
+ * Devuelve el estado siguiente al actual tras seleccionar localización.
+ * @param {estado} estado Estado de la partida
+ * @returns Estado correspondiente
+ */
 function estadoSiguienteSeleccionarLocalizacion(estado) {
 	console.log('!')
 	switch (estado) {
@@ -173,6 +231,11 @@ function estadoSiguienteSeleccionarLocalizacion(estado) {
 	}
 }
 
+/**
+ * Devuelve el estado siguiente a seleccionar unidades.
+ * @param {estado} estado Estado de la partida
+ * @returns Estado correspondiente
+ */
 function estadoSiguienteSeleccionarUnidades(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS_SELECCIONADO_DESTINO:
@@ -186,6 +249,11 @@ function estadoSiguienteSeleccionarUnidades(estado) {
 	}
 }
 
+/**
+ * Devuelve el estado siguiente tras comenzar un cambio de fase.
+ * @param {estado} estado Estado de la partida
+ * @returns Estado correspondiente
+ */
 function estadoACambioFase(estado) {
 	switch (estado) {
 		case ESTADOS.FASE_DE_REFUERZOS:
@@ -209,6 +277,11 @@ function estadoACambioFase(estado) {
 	}
 }
 
+/**
+ * Devuelve el estado siguiente tras terminar un cambio de fase.
+ * @param {estado} estado Estado de la partida
+ * @returns Estado correspondiente
+ */
 function estadoSigCambioFase(estado) {
 	switch (estado) {
 		case ESTADOS.CAMBIO_DE_FASE_A_ATAQUE:
@@ -253,10 +326,21 @@ function usarRefuerzos(state, action) {
 	console.log(state.jugadores)
 }
 
+/**
+ * Dado un estado, devuelve el estado de refuerzos restantes.
+ * @param {estado} state Estado de la partida
+ * @returns Número de refuerzos restantes
+ */
 export function refuerzosRestantes(state) {
 	return state.jugadores[state.turnoJugador].refuerzos
 }
 
+/**
+ * Casos locales de las distintas acciones.
+ * @param {estado} state Estado de la partida
+ * @param {action} action Acción realizada
+ * @returns Estado actualizado
+ */
 function casosLocales(state, action) {
 	switch (action.tipo) {
 		case ACCIONES.CONFIRMACION_REFUERZO: {
@@ -394,6 +478,13 @@ function casosLocales(state, action) {
 		el mensaje que mande el server
 	}
 */
+
+/**
+ * Maquina de estados de la partida.
+ * @param {estado} state Estado de la partida
+ * @param {action} action Acción realizada
+ * @returns Estado actualizado
+ */
 function maquinaEstados(state, action) {
 	if ('data' in action && '_tipoMensaje' in action.data) {
 		delete action.data._tipoMensaje
@@ -420,6 +511,10 @@ function maquinaEstados(state, action) {
 	}
 }
 
+/**
+ * Hook para react que maneja el estado de la partida.
+ * @returns Estado de la partida y el dispatcher
+ */
 export default function partidaEstado() {
 	return useReducer(maquinaEstados, {
 		estadoInterno: ESTADOS.CARGANDO,

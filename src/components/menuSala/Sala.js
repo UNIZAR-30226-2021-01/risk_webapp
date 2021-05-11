@@ -38,6 +38,8 @@ function sleep(ms) {
 /**
  * Lógica y vista de una sala, gestiona la creación de la sala y
  * la vista de esta hasta que comienza la partida.
+ * Contiene un estado que indica si se está creando o si se está dentro
+ * de esta.
  */
 export const Sala = () => {
 	const Auth = useContext(AuthApi)
