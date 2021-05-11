@@ -4,7 +4,7 @@ import { svgPathProperties } from 'svg-path-properties'
  * Dada una localización delimitada por sus puntos (svg), devuelve
  * el centro de estos puntos.
  * @param {svg_path} location Ubicación svg
- * @returns {x, y} Centro
+ * @returns {*} Centro {x,y}
  */
 export const obtenerCentro = (location) => {
 	let pts = new svgPathProperties(location.path)

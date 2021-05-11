@@ -1,3 +1,10 @@
+/**
+ * Dados un tiempo inicio y un tiempo de turno, devuelve la diferencia de
+ * tiempo en segundos respecto al instante actual.
+ * @param {string} tiempoInicio Instante de inicio del turno en ISO8601
+ * @param {number} tiempoTurno Tiempo de turno en minutos
+ * @returns Segundos restantes del turno
+ */
 export const calcularSegundosRestantes = (tiempoInicio, tiempoTurno) => {
 	const segundosTurno = tiempoTurno * 60
 	const fechaInicio = new Date(tiempoInicio)
