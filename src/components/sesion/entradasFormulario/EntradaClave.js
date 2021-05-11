@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ErroresCampo from './ErroresCampo'
 
 /**
- * EntradaClave es un campo de formulario para la clave
+ * EntradaClave es un campo de formulario para la clave.
  * @param {string} titulo Etiqueta para la clave
  * @param {form} register Formulario al que pertenece
  * @param {errors_form} errors Errores del registro
