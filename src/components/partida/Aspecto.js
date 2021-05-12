@@ -4,16 +4,12 @@ import tropas from 'assets/tropas/tropas'
 import tropasColor from 'assets/tropas/tropasColor'
 import './Aspecto.css'
 
-<<<<<<< HEAD
-const Aspecto = ({ x, y, numAspecto, jugador }) => {
-	console.log(tropasColor[numAspecto].img, 'aspecto')
-=======
 /**
  * Aspecto de un jugador dentro de la partida que se
  * muestra sobre los territorios que perten a dicho jugador.
  */
-const Aspecto = ({ x, y, numAspecto }) => {
->>>>>>> 0554b0dfb0c8fa3622c139f488eca93aac4b8697
+const Aspecto = ({ x, y, numAspecto, jugador }) => {
+	console.log(tropasColor[numAspecto].img, 'aspecto')
 	return (
 		<>
 			<image
@@ -62,4 +58,9 @@ Aspecto.propTypes = {
 	 * Identificador numérico del aspecto dentro del juego
 	 */
 	numAspecto: PropTypes.number,
+
+	/**
+	 * Id dentro de partida del jugador, para el color de la tropa.
+	 */
+	jugador: PropTypes.number,
 }
