@@ -3,7 +3,12 @@ import React from 'react'
 import { dados_rojos, dados_blancos } from '../../assets/dados/dados'
 import dado_overlay from '../../assets/dados/dado_overlay.png'
 import './PanelDados.css'
+import PropTypes from 'prop-types'
 
+/**
+ * Panel que muestra los dados de los resultados en las jugadas
+ * de ataque de una partida.
+ */
 export const PanelDados = ({ dados_origen, dados_destino }) => {
 	console.log('Indice', dados_origen.indexOf(-1))
 	return (
@@ -43,3 +48,16 @@ export const PanelDados = ({ dados_origen, dados_destino }) => {
 }
 
 export default PanelDados
+
+PanelDados.propTypes = {
+	/**
+	 * Vector de los dados obtenidos en la jugada
+	 * correspondientes al país de origen
+	 */
+	dados_origen: PropTypes.arrayOf(PropTypes.number),
+	/**
+	 * Vector con los dados obtenidos en la jugada
+	 * correspondientes al país de destino
+	 */
+	dados_destino: PropTypes.arrayOf(PropTypes.number),
+}

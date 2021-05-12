@@ -114,10 +114,31 @@ export const ModalFormNumeroTropas = ({
 
 // TERMINAR
 ModalFormNumeroTropas.propTypes = {
+	/**
+	 * Determina si está abierto o no el modal.
+	 */
 	isOpen: PropTypes.bool,
+	/**
+	 * Lista de localizaciones del mapa
+	 */
 	locations: PropTypes.arrayOf(PropTypes.shape({})),
+	/**
+	 * Número máximo de tropas a desplazar del
+	 * territorio de origen al territorio destino
+	 * o con las que reforzar el territorio escogido.
+	 */
 	max: PropTypes.number,
+	/**
+	 * Estado de la partida
+	 */
 	estado: PropTypes.string,
+	/**
+	 * Función a ejecutar al aceptar la acción del modal
+	 */
 	onSubmit: PropTypes.string,
+	/**
+	 * Función para cambiar el estado del modal entre
+	 * abierto y cerrado
+	 */
 	toggle: PropTypes.func,
 }

@@ -1,6 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './FasesPartida.css'
 
+/**
+ * Flechas que representan las distintas fases de un turno
+ * (fase de refuerzos, de ataque y de movimiento). Cuando el
+ * turno se encuentra en una fase, la flecha correspondiente
+ * se marca con un borde blanco y un tono más claro de gris.
+ */
 const FasesPartida = ({ fase }) => {
 	let clases = ['', '', '']
 
@@ -65,3 +72,13 @@ const FasesPartida = ({ fase }) => {
 }
 
 export default FasesPartida
+
+FasesPartida.propTypes = {
+	/**
+	 * identificador numérico de la fase
+	 * 1 - refuerzos
+	 * 2 - ataque
+	 * 3 - movimiento
+	 */
+	fase: PropTypes.number,
+}
