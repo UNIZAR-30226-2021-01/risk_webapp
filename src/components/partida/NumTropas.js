@@ -1,5 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
+/**
+ * Número de tropas de un jugador dentro de un territorio
+ */
 const NumTropas = ({ x, y, numTropas }) => {
 	return (
 		<>
@@ -35,3 +39,18 @@ function numTropasPropsAreEqual(prevTropas, nextTropas) {
 export default NumTropas
 
 export const MemorizedNumTropas = React.memo(NumTropas, numTropasPropsAreEqual)
+
+NumTropas.propTypes = {
+	/**
+	 * Posición del contador de tropas en el eje X del SVG
+	 */
+	x: PropTypes.number,
+	/**
+	 * Posición del contador de tropas en el eje Y del SVG
+	 */
+	y: PropTypes.number,
+	/**
+	 * Número de tropas a mostrar en el contador
+	 */
+	numTropas: PropTypes.number,
+}

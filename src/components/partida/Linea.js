@@ -1,5 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
+/**
+ * Linea SVG que une los centros de dos territorios conectados
+ */
 const Linea = ({ x1, y1, x2, y2 }) => {
 	return (
 		<line
@@ -28,3 +32,25 @@ function lineaPropsAreEqual(prevLinea, nextLinea) {
 export default Linea
 
 export const MemorizedLinea = React.memo(Linea, lineaPropsAreEqual)
+
+Linea.PropTypes = {
+	/**
+	 * Posición del centro de uno de los territorios en el eje X del SVG
+	 */
+	x1: PropTypes.number,
+
+	/**
+	 * Posición del centro del segundo de territorio en el eje X del SVG
+	 */
+	x2: PropTypes.number,
+
+	/**
+	 * Posición del centro de uno de los territorios en el eje Y del SVG
+	 */
+	y1: PropTypes.number,
+
+	/**
+	 * Posición del centro del segundo de territorio en el eje Y del SVG
+	 */
+	y2: PropTypes.number,
+}

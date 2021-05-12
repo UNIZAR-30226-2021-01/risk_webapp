@@ -1,10 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import tropas from 'assets/tropas/tropas'
 import tropasColor from 'assets/tropas/tropasColor'
 import './Aspecto.css'
 
+<<<<<<< HEAD
 const Aspecto = ({ x, y, numAspecto, jugador }) => {
 	console.log(tropasColor[numAspecto].img, 'aspecto')
+=======
+/**
+ * Aspecto de un jugador dentro de la partida que se
+ * muestra sobre los territorios que perten a dicho jugador.
+ */
+const Aspecto = ({ x, y, numAspecto }) => {
+>>>>>>> 0554b0dfb0c8fa3622c139f488eca93aac4b8697
 	return (
 		<>
 			<image
@@ -37,3 +46,20 @@ function aspectoPropsAreEqual(prevAspecto, nextAspecto) {
 export default Aspecto
 
 export const MemorizedAspecto = React.memo(Aspecto, aspectoPropsAreEqual)
+
+Aspecto.propTypes = {
+	/**
+	 * Posición del aspecto sobre el eje X del SVG
+	 */
+	x: PropTypes.number,
+
+	/**
+	 * Posición del aspecto sobre el eje Y del SVG
+	 */
+	y: PropTypes.number,
+
+	/**
+	 * Identificador numérico del aspecto dentro del juego
+	 */
+	numAspecto: PropTypes.number,
+}
