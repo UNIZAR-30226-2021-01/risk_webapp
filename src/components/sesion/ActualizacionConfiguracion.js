@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom'
 import constants from 'utils/constants.js'
 import AuthApi from 'utils/AuthApi'
 import Cookies from 'js-cookie'
+import qs from 'qs'
 import { MDBContainer } from 'mdbreact'
 import { obtenerCredenciales } from 'utils/usuarioVO'
 import { recargarUsuarioServer } from 'utils/AuthServer'
 import { MDBBtn } from 'mdbreact'
 import './formCuenta.css'
-import { actualizarConfiguracion } from 'utils/restAPI.js'
 
 /**
  * ActualizacionConfiguracion, si la actualización es correcta actualiza las
@@ -34,12 +34,20 @@ const ActualizacionConfiguracion = () => {
 	 * @param {nuevos_datos} formData Valores recogidos en el formulario
 	 */
 	const actualizarCampo = async (oldValues, campo, formData) => {
+		const url = `${constants.BASE_SERVER_URL}personalizarUsuario`
 		const nuevoValor = formData[campo]
+		let options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		}
 		let cuerpo = obtenerCredenciales(Auth)
 		cuerpo.nuevoDato = nuevoValor
 		cuerpo.tipo = ucFirst(campo)
 		console.log(oldValues.usuario[campo], '=?', nuevoValor)
 		if (oldValues.usuario[campo] !== nuevoValor) {
+			options.body = qs.stringify(cuerpo)
 			console.log(
 				'Peticion de cambio de:',
 				campo,
@@ -48,7 +56,8 @@ const ActualizacionConfiguracion = () => {
 				'=>',
 				nuevoValor
 			)
-			const data = await actualizarConfiguracion(cuerpo)
+			const res = await fetch(url, options)
+			const data = await res.json()
 			console.log(data)
 			if (data.code !== 0) {
 				return data
@@ -74,10 +83,7 @@ const ActualizacionConfiguracion = () => {
 	const actualizarServer = async (formData) => {
 		let oldValues = Auth.auth
 		console.log(formData)
-		let tags = ['nombre', 'correo', 'recibeCorreos', 'icono', 'aspecto']
-		if (formData.correo === '') {
-			tags = ['nombre', 'recibeCorreos', 'correo', 'icono', 'aspecto']
-		}
+		const tags = ['nombre', 'correo', 'recibeCorreos', 'icono', 'aspecto']
 		formData.icono = parseInt(formData.icono)
 		formData.aspecto = parseInt(formData.aspecto)
 

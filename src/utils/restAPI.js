@@ -67,18 +67,6 @@ export const recargarUsuario = async (formData) => {
 }
 
 /**
- * Hace una petición al server de cambio del dato en cuestión con los datos
- * recibidos como parámetro.
- * @param {datos_usuario} formData Contiene los datos necesarios para el cambio del
- * dato de un usuario en el servidor.
- * @returns Respuesta recibida a la petición de registro en JSON.
- * @public
- */
-export const actualizarConfiguracion = async (formData) => {
-	const data = await peticionQForm('personalizarUsuario', formData)
-	return data
-}
-/**
  * Hace una petición al server de solicitud de amistad con los datos recibidos
  * como parámetro.
  * @param {datos_usuario} formData Contiene los datos necesarios para el registro
