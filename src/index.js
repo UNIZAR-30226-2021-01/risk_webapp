@@ -4,6 +4,11 @@ import './index.css'
 import App from './App'
 
 /**
+ * Quitado modo debug
+ */
+console.log = () => {}
+
+/**
  * Renderiza la aplicación
  * @requires App.js
  */
