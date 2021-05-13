@@ -35,7 +35,8 @@ function aspectoPropsAreEqual(prevAspecto, nextAspecto) {
 	return (
 		prevAspecto.x === nextAspecto.x &&
 		prevAspecto.y === nextAspecto.y &&
-		prevAspecto.numAspecto === nextAspecto.numAspecto
+		prevAspecto.numAspecto === nextAspecto.numAspecto &&
+		prevAspecto.jugador === nextAspecto.jugador
 	)
 }
 

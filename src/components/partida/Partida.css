@@ -105,11 +105,11 @@
 }
 
 .origen_antiguo {
-	filter: saturate(2);
+	filter: grayscale(75%);
 }
 
 .destino_antiguo {
-	filter: saturate(2);
+	filter: grayscale(75%);
 }
 
 .origen {
