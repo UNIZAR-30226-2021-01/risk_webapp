@@ -15,13 +15,20 @@ const ListaJugadores = ({ jugadores, jugadorTurno }) => {
 		<MDBListGroup className="jugadores-en-partida d-flex flex-row justify-content-around">
 			{jugadores.map((jugador, index) => {
 				let clasesJugador = `jugador-en-partida jugador${index}`
+				if (!jugador.sigueVivo) clasesJugador = clasesJugador + ' eliminado'
 				if (index === jugadorTurno) clasesJugador = clasesJugador + ' esSuTurno'
 				return (
 					<MDBListGroupItem
 						key={jugador.id.toString()}
-						className={clasesJugador}
+						className={
+							'd-flex justify-content-center align-items-center  ' +
+							clasesJugador
+						}
 					>
-						<JugadorPartida jugador={jugador} />
+						<JugadorPartida
+							jugador={jugador}
+							esSuTurno={index === jugadorTurno}
+						/>
 					</MDBListGroupItem>
 				)
 			})}

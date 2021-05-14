@@ -21,10 +21,7 @@ export const PanelDados = ({ dados_origen, dados_destino }) => {
 						<MDBCol key={`${index}-origen`}>
 							<div className="dado-origen">
 								<img src={dado_overlay} className="marco-dado-partida" />
-								<img
-									src={dados_blancos[dado - 1].img}
-									className="dado-partida"
-								/>
+								<img src={dados_rojos[dado - 1].img} className="dado-partida" />
 							</div>
 						</MDBCol>
 					))}
@@ -37,7 +34,7 @@ export const PanelDados = ({ dados_origen, dados_destino }) => {
 					{dados_destino.map((dado, index) => (
 						<MDBCol className="dado-destino" key={`${index}-destino`}>
 							<img src={dado_overlay} className="marco-dado-partida" />
-							<img src={dados_rojos[dado - 1].img} className="dado-partida" />
+							<img src={dados_blancos[dado - 1].img} className="dado-partida" />
 						</MDBCol>
 					))}
 				</MDBRow>
