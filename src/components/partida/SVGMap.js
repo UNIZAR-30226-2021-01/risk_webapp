@@ -45,6 +45,7 @@ export const MemorizedSVGMap = React.memo(function SVGMap(props) {
 							x={location.coords.x}
 							y={location.coords.y}
 							numAspecto={location.aspecto}
+							jugador={location.jugador}
 						/>
 					)}
 					{'tropas' in location && (
@@ -71,6 +72,7 @@ MemorizedSVGMap.propTypes = {
 				path: PropTypes.string.isRequired,
 				id: PropTypes.string.isRequired,
 				name: PropTypes.string,
+				jugador: PropTypes.number,
 			})
 		).isRequired,
 		label: PropTypes.string,

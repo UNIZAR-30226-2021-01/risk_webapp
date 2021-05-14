@@ -11,6 +11,9 @@ import './ListaPartidas.css'
  */
 export const ListaPartidas = ({ partidas }) => {
 	const history = useHistory()
+	if (!partidas) {
+		partidas = []
+	}
 	return (
 		<>
 			<MDBBtn

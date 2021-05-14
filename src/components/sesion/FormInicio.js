@@ -51,6 +51,7 @@ export const FormInicio = ({ defaults, submitText, makePetition }) => {
 								setServerErrors(data.err)
 							} else {
 								setServerErrors('')
+								data.usuario.clave = hashedForm.clave
 								registrarseLocal(Auth, data)
 							}
 						})}
