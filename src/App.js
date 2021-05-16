@@ -58,7 +58,6 @@ function App() {
 			let data = JSON.parse(user)
 			data.logged = true
 			setAuth(data)
-			setRecargando(false)
 			const nuestraInfo = {
 				idUsuario: data.usuario.id,
 				clave: data.usuario.clave,
@@ -70,9 +69,10 @@ function App() {
 				setAuth(constants.NULL_VALUES)
 			} else {
 				dataServer.logged = true
-				dataServer.clave = nuestraInfo.clave
+				dataServer.usuario.clave = nuestraInfo.clave
 				setAuth(dataServer)
 			}
+			setRecargando(false)
 		} else {
 			setAuth(constants.NULL_VALUES)
 		}

@@ -4,6 +4,7 @@ import { ListaPartidas } from './ListaPartidas'
 import { obtenerPartidas } from 'utils/restAPI'
 import AuthApi from 'utils/AuthApi'
 import { obtenerCredenciales } from 'utils/usuarioVO'
+import constants from 'utils/constants'
 
 /**
  * Muestra el menú de salas de la aplicación y la lista
@@ -14,13 +15,22 @@ export const MenuSalas = () => {
 
 	const [partidas, setPartidas] = useState([])
 
-	useEffect(() => {
-		async function setData() {
-			const formData = obtenerCredenciales(Auth)
-			const dataPartidas = await obtenerPartidas(formData)
+	async function setData() {
+		const formData = obtenerCredenciales(Auth)
+		const dataPartidas = await obtenerPartidas(formData)
+		if ('partidas' in dataPartidas) {
 			setPartidas(dataPartidas.partidas)
 		}
+	}
+
+	useEffect(() => {
 		setData()
+		const interval = setInterval(async () => {
+			setData()
+		}, constants.REFRESH_TIME)
+		return () => {
+			clearInterval(interval)
+		}
 	}, [])
 
 	return (

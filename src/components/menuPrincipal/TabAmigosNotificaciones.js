@@ -50,7 +50,9 @@ export const TabAmigosNotificaciones = () => {
 		]
 		*/
 		//setAmigos(amigosPrueba)
-		setAmigos(dataAmigos.amigos)
+		if ('amigos' in dataAmigos) {
+			setAmigos(dataAmigos.amigos)
+		}
 	}
 
 	const fetchNotis = async () => {
@@ -70,10 +72,14 @@ export const TabAmigosNotificaciones = () => {
 		]
 		setNotis(notisPrueba)
 		*/
-		setNotis(dataNotis.notificaciones)
+		if ('notificaciones' in dataNotis) {
+			setNotis(dataNotis.notificaciones)
+		}
 	}
 
 	useEffect(() => {
+		fetchAmigos()
+		fetchNotis()
 		const interval = setInterval(async () => {
 			fetchAmigos()
 			fetchNotis()
