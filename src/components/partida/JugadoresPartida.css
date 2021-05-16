@@ -11,7 +11,7 @@ ul.list-group {
 		#f6d196 40px
 	);
 	border-radius: 1rem !important;
-	border-width: 0.3rem !important;
+	border-width: 0.4rem !important;
 	border-style: solid;
 	color: #444;
 	width: 13rem;
@@ -31,22 +31,6 @@ ul.list-group {
 	border-style: outset;
 	color: #444;
 }
-
-/*
-.jugadores-en-partida {
-	background: repeating-linear-gradient(
-		0deg,
-		#ebc486,
-		#ebc486 20px,
-		#f6d196 20px,
-		#f6d196 40px
-	);
-	border-radius: 1rem !important;
-	border-width: 0.1rem !important;
-	border-style: outset;
-	color: #444;
-}
-*/
 
 .list-group-item.jugador0 {
 	border-color: #ff5959;
@@ -72,15 +56,36 @@ ul.list-group {
 	border-color: #f2f2f2;
 }
 
-.jugador-en-partida .icono-marco-jugador,
-.jugador-en-partida .aspecto-jugador {
-	position: absolute;
-	width: 3.5rem;
+.list-group-item.eliminado {
+	border-color: #666;
 }
 
-.jugador-en-partida .icono-jugador-partida,
-.jugador-en-partida .aspecto-fondo-jugador {
+.list-group-item.eliminado div.col-md-7 {
+	color: #666;
+}
+
+.list-group-item.eliminado div.col-md-4 img {
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+
+.icono-partida-cinta {
+	width: 3.6rem;
+	height: 3.6rem;
+	position: relative;
+}
+
+.jugador-en-partida .icono-jugador-partida {
 	width: 3.5rem;
+	position: absolute;
+}
+
+img.cinta-turno {
+	width: 3.9rem;
+	transform: rotate(180deg);
+	position: absolute;
+	bottom: -0.15rem;
+	right: -0.1rem;
 }
 
 .btn-default.btn.Ripple-parent.mt-1 {
