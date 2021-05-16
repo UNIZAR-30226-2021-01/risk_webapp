@@ -70,6 +70,7 @@ function App() {
 				setAuth(constants.NULL_VALUES)
 			} else {
 				dataServer.logged = true
+				dataServer.clave = nuestraInfo.clave
 				setAuth(dataServer)
 			}
 		} else {
