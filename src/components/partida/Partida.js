@@ -37,6 +37,7 @@ import { ping } from 'utils/SalaApi'
 import { Temporizador } from './TemporizadorPartida'
 import './Temporizador.css'
 import PanelDados from './PanelDados'
+import { IndicacionTurno } from './IndicacionTurno'
 
 Mapa.locations = Mapa.locations.map((location) => {
 	return {
@@ -398,11 +399,11 @@ export const Partida = () => {
 							md="2"
 							className="pr-0 d-flex flex-column align-items-center justify-content-center"
 						>
-							<ErroresServer serverErrors={estado.error} />
-							<PanelDados
-								dados_origen={mapaUnido.dadosOrigen}
-								dados_destino={mapaUnido.dadosDestino}
-							/>
+							{!estado.error && (
+								<IndicacionTurno estado={ESTADOS.FASE_DE_ATAQUE} />
+							)}
+							{estado.error && <ErroresServer serverErrors={estado.error} />}
+							<PanelDados dados_origen={[]} dados_destino={[]} />
 						</MDBCol>
 						<MDBCol
 							md="9"
