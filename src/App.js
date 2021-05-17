@@ -86,6 +86,7 @@ function App() {
 	return (
 		<div className="App">
 			<>
+				<Head />
 				{recargando && (
 					<>
 						<Cargando />
@@ -94,7 +95,6 @@ function App() {
 				)}
 				{!recargando && (
 					<>
-						<Head />
 						<AuthApi.Provider value={{ auth, setAuth }}>
 							<Router>
 								<div className="wrapper">
