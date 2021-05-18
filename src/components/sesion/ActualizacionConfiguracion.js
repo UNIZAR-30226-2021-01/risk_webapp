@@ -88,7 +88,8 @@ const ActualizacionConfiguracion = () => {
 			}
 		}
 
-		if (formData.cambioClave) {
+		console.log('cambioClave', formData.cambioClave)
+		if (formData.cambioClave === true) {
 			let data = await actualizarCampo(oldValues, 'clave', formData)
 			if (data.code !== 0) {
 				return data
