@@ -48,6 +48,7 @@ export const SolicitarRestablecer = () => {
 					titulo={'Introduzca su correo:'}
 					register={register}
 					errors={errors}
+					label="Correo electrónico"
 				/>
 				<div className="text-center mt-4">
 					<MDBBtn type="submit" disabled={submitting}>

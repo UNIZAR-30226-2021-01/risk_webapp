@@ -6,12 +6,15 @@ import ErroresCampo from './ErroresCampo'
  * EntradaCorreo es un campo de formulario para el correo que
  * verifica que lo introducido tenga forma de correo.
  */
-export const EntradaCorreo = ({ register, errors }) => {
+export const EntradaCorreo = ({
+	register,
+	errors,
+	label = 'Correo electrónico (opcional)',
+}) => {
 	return (
 		<>
 			<label htmlFor="correo" className="black-text">
-				{' '}
-				Correo electrónico (opcional)
+				{label}
 			</label>
 			<input
 				type="text"
@@ -37,4 +40,9 @@ EntradaCorreo.propTypes = {
 	 * Errores del formulario correspondiente.
 	 */
 	errors: PropTypes.any,
+
+	/**
+	 * Cadena que se mostrará
+	 */
+	label: PropTypes.string,
 }
