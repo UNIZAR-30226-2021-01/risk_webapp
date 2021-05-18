@@ -69,7 +69,6 @@ function App() {
 				setAuth(constants.NULL_VALUES)
 			} else {
 				dataServer.logged = true
-				dataServer.usuario.clave = nuestraInfo.clave
 				setAuth(dataServer)
 			}
 			setRecargando(false)

@@ -37,7 +37,8 @@ export const peticionQForm = async (route, formData) => {
  */
 export const inicioSesion = async (formData) => {
 	console.log(formData)
-	const data = await peticionQForm('iniciarSesion', formData)
+	let data = await peticionQForm('iniciarSesion', formData)
+	data.usuario.clave = formData.clave
 	console.log(data)
 	return data
 }
@@ -50,7 +51,8 @@ export const inicioSesion = async (formData) => {
  * @public
  */
 export const registrarse = async (formData) => {
-	const data = await peticionQForm('registrar', formData)
+	let data = await peticionQForm('registrar', formData)
+	data.usuario.clave = formData.clave
 	return data
 }
 
@@ -62,7 +64,8 @@ export const registrarse = async (formData) => {
  * @public
  */
 export const recargarUsuario = async (formData) => {
-	const data = await peticionQForm('recargarUsuario', formData)
+	let data = await peticionQForm('recargarUsuario', formData)
+	data.usuario.clave = formData.clave
 	return data
 }
 

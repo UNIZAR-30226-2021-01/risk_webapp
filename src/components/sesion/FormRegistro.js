@@ -59,7 +59,6 @@ export const FormRegistro = ({
 								setServerErrors(data.err)
 							} else {
 								setServerErrors('')
-								data.usuario.clave = hashedForm.clave
 								siValido(Auth, data)
 							}
 						})}
