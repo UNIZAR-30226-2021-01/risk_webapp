@@ -407,7 +407,6 @@ export const Partida = () => {
 								dados_origen={mapaUnido.dadosOrigen}
 								dados_destino={mapaUnido.dadosDestino}
 							/>
-							{estado.error && <ErroresServer serverErrors={estado.error} />}
 						</MDBCol>
 						<MDBCol
 							md="9"
