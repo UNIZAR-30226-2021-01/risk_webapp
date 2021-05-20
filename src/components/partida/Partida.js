@@ -399,11 +399,15 @@ export const Partida = () => {
 							md="2"
 							className="pr-0 d-flex flex-column align-items-center justify-content-center"
 						>
+							<ErroresServer serverErrors={estado.error} />
 							{!estado.error && (
-								<IndicacionTurno estado={ESTADOS.FASE_DE_ATAQUE} />
+								<IndicacionTurno estado={estado.estadoInterno} />
 							)}
+							<PanelDados
+								dados_origen={mapaUnido.dadosOrigen}
+								dados_destino={mapaUnido.dadosDestino}
+							/>
 							{estado.error && <ErroresServer serverErrors={estado.error} />}
-							<PanelDados dados_origen={[]} dados_destino={[]} />
 						</MDBCol>
 						<MDBCol
 							md="9"
