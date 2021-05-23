@@ -9,7 +9,7 @@
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Objeto con la información del usuario
  */
-export const obtenerInfoUsuario = (Auth) => {
+export function obtenerInfoUsuario(Auth) {
 	return Auth.auth.usuario
 }
 
@@ -18,7 +18,7 @@ export const obtenerInfoUsuario = (Auth) => {
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Objeto con (idUsuario, clave) del usuario
  */
-export const obtenerCredenciales = (Auth) => {
+export function obtenerCredenciales(Auth) {
 	return {
 		idUsuario: Auth.auth.usuario.id,
 		clave: Auth.auth.usuario.clave,
@@ -30,7 +30,7 @@ export const obtenerCredenciales = (Auth) => {
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Id del usuario
  */
-export const obtenerIdUsuario = (Auth) => {
+export function obtenerIdUsuario(Auth) {
 	return Auth.auth.usuario.id
 }
 
@@ -39,7 +39,7 @@ export const obtenerIdUsuario = (Auth) => {
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Lista de iconos del usuario
  */
-export const obtenerIconosDisponibles = (Auth) => {
+export function obtenerIconosDisponibles(Auth) {
 	return Auth.auth.iconos
 }
 
@@ -48,7 +48,7 @@ export const obtenerIconosDisponibles = (Auth) => {
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Lista de iconos de la tienda
  */
-export const obtenerIconosTienda = (Auth) => {
+export function obtenerIconosTienda(Auth) {
 	return Auth.auth.tiendaIconos
 }
 
@@ -57,7 +57,7 @@ export const obtenerIconosTienda = (Auth) => {
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Lista de aspectos del usuario
  */
-export const obtenerAspectosDisponibles = (Auth) => {
+export function obtenerAspectosDisponibles(Auth) {
 	return Auth.auth.aspectos
 }
 
@@ -66,6 +66,6 @@ export const obtenerAspectosDisponibles = (Auth) => {
  * @param {contexto} Auth Contexto de la aplicación
  * @returns Lista de aspectos de la tienda
  */
-export const obtenerAspectosTienda = (Auth) => {
+export function obtenerAspectosTienda(Auth) {
 	return Auth.auth.tiendaAspectos
 }

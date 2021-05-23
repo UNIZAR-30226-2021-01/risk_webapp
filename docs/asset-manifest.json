@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.e7297911.chunk.css",
-    "main.js": "/build/main.ecc354d3.js",
+    "main.css": "/static/css/main.309e78e6.chunk.css",
+    "main.js": "/build/main.435e7589.js",
     "runtime-main.js": "/build/bundle.3527ec54.js",
     "static/css/2.62db2684.chunk.css": "/static/css/2.62db2684.chunk.css",
-    "build/2.44ce0837.js": "/build/2.44ce0837.js",
-    "build/2.44ce0837.js.LICENSE.txt": "/build/2.44ce0837.js.LICENSE.txt",
+    "build/2.7f1754c2.js": "/build/2.7f1754c2.js",
+    "build/2.7f1754c2.js.LICENSE.txt": "/build/2.7f1754c2.js.LICENSE.txt",
     "index.html": "/index.html",
     "static/css/2.62db2684.chunk.css.map": "/static/css/2.62db2684.chunk.css.map",
-    "static/css/main.e7297911.chunk.css.map": "/static/css/main.e7297911.chunk.css.map",
+    "static/css/main.309e78e6.chunk.css.map": "/static/css/main.309e78e6.chunk.css.map",
     "static/media/3.88b52747.png": "/static/media/3.88b52747.png",
     "static/media/4.c0bde7f6.png": "/static/media/4.c0bde7f6.png",
     "static/media/6.e0f3d871.png": "/static/media/6.e0f3d871.png",
@@ -22,8 +22,8 @@
   "entrypoints": [
     "build/bundle.3527ec54.js",
     "static/css/2.62db2684.chunk.css",
-    "build/2.44ce0837.js",
-    "static/css/main.e7297911.chunk.css",
-    "build/main.ecc354d3.js"
+    "build/2.7f1754c2.js",
+    "static/css/main.309e78e6.chunk.css",
+    "build/main.435e7589.js"
   ]
 }

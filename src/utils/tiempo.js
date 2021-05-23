@@ -10,7 +10,7 @@
  * @param {number} tiempoTurno Tiempo de turno en minutos
  * @returns Segundos restantes del turno
  */
-export const calcularSegundosRestantes = (tiempoInicio, tiempoTurno) => {
+export function calcularSegundosRestantes(tiempoInicio, tiempoTurno) {
 	const segundosTurno = tiempoTurno * 60
 	const fechaInicio = new Date(tiempoInicio)
 	const fechaActual = new Date()

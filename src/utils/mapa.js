@@ -12,7 +12,7 @@ import { svgPathProperties } from 'svg-path-properties'
  * @param {svg_path} location Ubicación svg
  * @returns {*} Centro {x,y}
  */
-export const obtenerCentro = (location) => {
+export function obtenerCentro(location) {
 	let pts = new svgPathProperties(location.path)
 	let coords = {
 		x: 0,
@@ -32,7 +32,7 @@ export const obtenerCentro = (location) => {
  * @param {evento} event
  * @returns Id de la ubicación
  */
-export const obtenerIdUbicacion = (event) => {
+export function obtenerIdUbicacion(event) {
 	return event.target.attributes.id.value
 }
 
@@ -41,7 +41,7 @@ export const obtenerIdUbicacion = (event) => {
  * @param {evento} event
  * @returns Nombre de la ubicación
  */
-export const obtenerNombreUbicacion = (event) => {
+export function obtenerNombreUbicacion(event) {
 	return event.target.attributes.name.value
 }
 
@@ -53,7 +53,7 @@ export const obtenerNombreUbicacion = (event) => {
  * @param {array} territorios array "territorios" del estado
  * @param {array} locations array "locations" del Mapa Unido
  */
-export const destinosMovimientos = (origen, territorios, locations) => {
+export function destinosMovimientos(origen, territorios, locations) {
 	let frontera = [origen]
 	let explorados = []
 	while (frontera.length !== 0) {

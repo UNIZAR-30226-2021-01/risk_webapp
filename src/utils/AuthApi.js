@@ -22,7 +22,7 @@ export const AuthApi = React.createContext()
  * @param data Datos a registrar localmente
  * @public
  */
-export const registrarseLocal = (Auth, data) => {
+export function registrarseLocal(Auth, data) {
 	console.log(data, 'log')
 	data.logged = true
 	Auth.setAuth(data)
@@ -35,7 +35,7 @@ export const registrarseLocal = (Auth, data) => {
  * @returns false
  * @public
  */
-export const logOut = (Auth) => {
+export function logOut(Auth) {
 	Auth.setAuth(constants.NULL_VALUES)
 	Cookies.remove(constants.COOKIE_USER)
 	return false
@@ -48,7 +48,7 @@ export const logOut = (Auth) => {
  * @returns Objeto con (idUsuario, clave) del usuario
  * @public
  */
-export const credenciales = (Auth) => {
+export function credenciales(Auth) {
 	return {
 		idUsuario: Auth.auth.usuario.id,
 		clave: Auth.auth.usuario.clave,

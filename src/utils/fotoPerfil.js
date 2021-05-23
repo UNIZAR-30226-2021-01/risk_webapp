@@ -36,7 +36,7 @@ const obtenerDir = (disponibles, actual, dir) => {
  * @param {int} actual Id del objeto actual
  * @returns id
  */
-export const obtenerPrevio = (disponibles, actual) => {
+export function obtenerPrevio(disponibles, actual) {
 	return obtenerDir(disponibles, actual, -1)
 }
 
@@ -46,20 +46,20 @@ export const obtenerPrevio = (disponibles, actual) => {
  * @param {int} actual Id del objeto actual
  * @returns id
  */
-export const obtenerSiguiente = (disponibles, actual) => {
+export function obtenerSiguiente(disponibles, actual) {
 	return obtenerDir(disponibles, actual, +1)
 }
 
 /**
  * @deprecated
  */
-export const obtenerRutaAspecto = (img) => {
+export function obtenerRutaAspecto(img) {
 	return rutaAspecto + img.toString() + extension
 }
 
 /**
  * @deprecated
  */
-export const obtenerRutaIcono = (img) => {
+export function obtenerRutaIcono(img) {
 	return rutaIcono + img.toString() + extension
 }

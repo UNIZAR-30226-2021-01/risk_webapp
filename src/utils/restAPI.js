@@ -14,7 +14,7 @@ import qs from 'qs'
  * Cada ruta espera una configuración distinta de parámetros que se le pasarán mediante formData.
  * @returns Respuesta recibida del servidor en formato JSON.
  */
-export const peticionQForm = async (route, formData) => {
+export async function peticionQForm(route, formData) {
 	const url = `${constants.BASE_SERVER_URL}${route}`
 	const options = {
 		method: 'POST',
@@ -35,7 +35,7 @@ export const peticionQForm = async (route, formData) => {
  * @returns Respuesta recibida a la petición de inicio de sesión en JSON.
  * @public
  */
-export const inicioSesion = async (formData) => {
+export async function inicioSesion(formData) {
 	console.log(formData)
 	let data = await peticionQForm('iniciarSesion', formData)
 	if ('clave' in formData && 'usuario' in data) {
@@ -52,7 +52,7 @@ export const inicioSesion = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const registrarse = async (formData) => {
+export async function registrarse(formData) {
 	let data = await peticionQForm('registrar', formData)
 	if ('clave' in formData && 'usuario' in data) {
 		data.usuario.clave = formData.clave
@@ -67,7 +67,7 @@ export const registrarse = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const recargarUsuario = async (formData) => {
+export async function recargarUsuario(formData) {
 	let data = await peticionQForm('recargarUsuario', formData)
 	if ('clave' in formData && 'usuario' in data) {
 		data.usuario.clave = formData.clave
@@ -83,7 +83,7 @@ export const recargarUsuario = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const actualizarConfiguracion = async (formData) => {
+export async function actualizarConfiguracion(formData) {
 	const data = await peticionQForm('personalizarUsuario', formData)
 	return data
 }
@@ -95,7 +95,7 @@ export const actualizarConfiguracion = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON
  * @public
  */
-export const solicitudAmistad = async (formData) => {
+export async function solicitudAmistad(formData) {
 	const data = await peticionQForm('enviarSolicitudAmistad', formData)
 	return data
 }
@@ -107,7 +107,7 @@ export const solicitudAmistad = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const eliminarAmigo = async (formData) => {
+export async function eliminarAmigo(formData) {
 	formData.decision = 'Borrar'
 	const data = await peticionQForm('gestionAmistad', formData)
 	return data
@@ -121,7 +121,7 @@ export const eliminarAmigo = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const obtenerAmigos = async (formData) => {
+export async function obtenerAmigos(formData) {
 	const data = await peticionQForm('amigos', formData)
 	if (data.amigos === null) {
 		data.amigos = []
@@ -137,7 +137,7 @@ export const obtenerAmigos = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const obtenerNotificaciones = async (formData) => {
+export async function obtenerNotificaciones(formData) {
 	const data = await peticionQForm('notificaciones', formData)
 	if (data.notificaciones === null) {
 		data.notificaciones = []
@@ -152,7 +152,7 @@ export const obtenerNotificaciones = async (formData) => {
  * @returns Respuesta recibida a la decisión de la petición en formato JSON.
  * @public
  */
-export const decisionPeticion = async (formData) => {
+export async function decisionPeticion(formData) {
 	const data = await peticionQForm('gestionAmistad', formData)
 	return data
 }
@@ -163,7 +163,7 @@ export const decisionPeticion = async (formData) => {
  * rechazar una invitación a una partida
  * @returns respuesta recibida de la petición en formato JSON
  */
-export const rechazarPartida = async (formData) => {
+export async function rechazarPartida(formData) {
 	const data = await peticionQForm('rechazarPartida', formData)
 	return data
 }
@@ -174,7 +174,7 @@ export const rechazarPartida = async (formData) => {
  * borrar una notificación de turno en partida
  * @returns respuesta recibida de la petición en formato JSON
  */
-export const borrarNotiTurno = async (formData) => {
+export async function borrarNotiTurno(formData) {
 	const data = await peticionQForm('borrarNotificacionTurno', formData)
 	return data
 }
@@ -187,7 +187,7 @@ export const borrarNotiTurno = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const obtenerPartidas = async (formData) => {
+export async function obtenerPartidas(formData) {
 	const data = await peticionQForm('partidas', formData)
 	if (data.partidas === null) {
 		data.partidas = []
@@ -205,7 +205,7 @@ export const obtenerPartidas = async (formData) => {
  * @returns Respuesta recibida a la petición de registro en JSON.
  * @public
  */
-export const comprarObjeto = async (formData) => {
+export async function comprarObjeto(formData) {
 	const data = await peticionQForm('comprar', formData)
 	return data
 }
@@ -214,7 +214,7 @@ export const comprarObjeto = async (formData) => {
  * @deprecated
  * @public
  */
-export const crearSala = async (formData) => {
+export async function crearSala(formData) {
 	const data = await peticionQForm('crearSala', formData)
 	return data
 }
@@ -223,7 +223,7 @@ export const crearSala = async (formData) => {
  * Realiza una petición de restablecimiento de contraseña al servidor
  * @param {*} formData Datos de clave y token
  */
-export const restablecerClave = async (formData) => {
+export async function restablecerClave(formData) {
 	const data = await peticionQForm('restablecerClave', formData)
 	return data
 }
@@ -232,7 +232,7 @@ export const restablecerClave = async (formData) => {
  * Realiza una petición de solicitud de restablecimiento de contraseña al servidor
  * @param {*} formData Datos de clave y token
  */
-export const solicitarRestablecerClave = async (formData) => {
+export async function solicitarRestablecerClave(formData) {
 	const data = await peticionQForm('olvidoClave', formData)
 	return data
 }
@@ -241,7 +241,7 @@ export const solicitarRestablecerClave = async (formData) => {
  * Realiza una petición de eliminación de cuenta al servidor
  * @param {*} formData Datos de usuario y clave
  */
-export const borrarCuenta = async (formData) => {
+export async function borrarCuenta(formData) {
 	const data = await peticionQForm('borrarCuenta', formData)
 	return data
 }

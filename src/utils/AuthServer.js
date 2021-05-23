@@ -15,7 +15,7 @@ import { recargarUsuario } from './restAPI'
  * @param {contexto} Auth
  * @public
  */
-export const recargarUsuarioServer = async (Auth) => {
+export async function recargarUsuarioServer(Auth) {
 	console.log(Auth)
 	const nuestraInfo = obtenerCredenciales(Auth)
 	const data = await recargarUsuario(nuestraInfo)

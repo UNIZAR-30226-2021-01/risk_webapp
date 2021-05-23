@@ -134,12 +134,20 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<h4 class="name" id=".destinosMovimientos"><span class="type-signature">(static, constant) </span>destinosMovimientos<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".destinosMovimientos"><span class="type-signature">(static) </span>destinosMovimientos<span class="signature">(origen, territorios, locations)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
@@ -147,6 +155,107 @@
     Devuelve la lista de territorios a los que se puede mover.Se debe comprobar previamente que origen y destino pertenecen al jugadoral que le toca en ese turno.
 </div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>origen</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">id del país origen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>territorios</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array "territorios" del estado</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>locations</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">array "locations" del Mapa Unido</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -198,10 +307,30 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
             
-<h4 class="name" id=".obtenerCentro"><span class="type-signature">(static, constant) </span>obtenerCentro<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".obtenerCentro"><span class="type-signature">(static) </span>obtenerCentro<span class="signature">(location)</span><span class="type-signature"> &rarr; {*}</span></h4>
+    
+
+    
 
 
 
@@ -209,6 +338,61 @@
     Dada una localización delimitada por sus puntos (svg), devuelveel centro de estos puntos.
 </div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>location</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">svg_path</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Ubicación svg</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -260,10 +444,52 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Centro {x,y}
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">*</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".obtenerIdUbicacion"><span class="type-signature">(static, constant) </span>obtenerIdUbicacion<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".obtenerIdUbicacion"><span class="type-signature">(static) </span>obtenerIdUbicacion<span class="signature">(event)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
@@ -271,6 +497,61 @@
     Devuelve el id de la ubicación del evento
 </div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">evento</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -322,10 +603,40 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Id de la ubicación
+</div>
+
+
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".obtenerNombreUbicacion"><span class="type-signature">(static, constant) </span>obtenerNombreUbicacion<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".obtenerNombreUbicacion"><span class="type-signature">(static) </span>obtenerNombreUbicacion<span class="signature">(event)</span><span class="type-signature"></span></h4>
+    
+
+    
 
 
 
@@ -333,6 +644,61 @@
     Devuelve el nombre de la ubicación del evento
 </div>
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">evento</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -384,9 +750,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
+<div class="param-desc">
+    Nombre de la ubicación
+</div>
+
+
+
     
 
+
+
+
+
+        
     
 
     
@@ -408,7 +796,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue May 18 2021 20:31:33 GMT+0200 (Central European Summer Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon May 24 2021 00:33:59 GMT+0200 (Central European Summer Time)
 </footer>
 
 <script> prettyPrint(); </script>
