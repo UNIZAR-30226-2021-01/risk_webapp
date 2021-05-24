@@ -244,6 +244,7 @@ export const Sala = () => {
 
 	const aceptarSalaLocal = (id) => {
 		if (socketAbierto(ws.current)) {
+			enviado.current = true
 			aceptarSala(Auth, ws.current, id)
 		} else {
 			console.log(ws.current.readyState, 'Estado del socket')
