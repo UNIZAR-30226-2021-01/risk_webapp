@@ -46,6 +46,7 @@ export const ModalFinPartida = ({ isOpen, ganador, riskos }) => {
 				<MDBBtn
 					onClick={() => {
 						history.push('/')
+						window.location.reload()
 					}}
 				>
 					Volver al menú principal

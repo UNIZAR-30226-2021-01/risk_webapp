@@ -1,4 +1,5 @@
 import { useReducer } from 'react'
+import { destinosMovimientos } from 'utils/mapa'
 /**
  * Implementa la la parte lógica interna de una partida, la máquina
  * de estados de esta.
@@ -160,6 +161,62 @@ export function tocaDestino(estado) {
 		estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN ||
 		estado.estadoInterno === ESTADOS.FASE_DE_REFUERZOS
 	)
+}
+
+function obtenerIdUsuarioEnPartida(estado, idJugador) {
+	let idMio = -1
+	for (let i = 0; i < estado.territorios.length; i++) {
+		if (estado.jugadores[estado.territorios[i].jugador].id === idJugador) {
+			idMio = estado.territorios[i].jugador
+		}
+	}
+	return idMio
+}
+
+/**
+ * @param {estado} estado Estado de la partida
+ * @param {action} action Acción asociada
+ * Devuelve si es correcto el territorio marcado como origen
+ */
+export function correctoOrigen(estado, action) {
+	return (
+		estado.territorios[action.data.datosExtra].jugador ===
+		obtenerIdUsuarioEnPartida(estado, action.idJugador)
+	)
+}
+
+/**
+ * @param {estado} estado Estado de la partida
+ * @param {action} action Acción asociada
+ * Devuelve si es correcto el territorio marcado como destino
+ */
+export function correctoDestino(estado, action) {
+	console.log(action.idJugador, 'idJugador')
+	let idMio = obtenerIdUsuarioEnPartida(estado, action.idJugador)
+	console.log(idMio, 'idmio')
+	let idTerritorio = action.data.datosExtra
+	if (estado.estadoInterno === ESTADOS.FASE_DE_MOVIMIENTO_SELECCIONADO_ORIGEN) {
+		let locations = action.data.locations
+		let destinosValidos = destinosMovimientos(
+			obtenerOrigen(estado),
+			estado.territorios,
+			locations
+		)
+		return destinosValidos.includes(idTerritorio)
+	} else if (
+		estado.estadoInterno === ESTADOS.FASE_DE_ATAQUE_SELECCIONADO_ORIGEN
+	) {
+		let conexiones = action.data.locations[obtenerOrigen(estado)].conexiones
+		console.log(conexiones, 'conexiones')
+		console.log(idTerritorio)
+		return (
+			conexiones.includes(idTerritorio) &&
+			estado.territorios[idTerritorio].jugador !== idMio
+		)
+	} else {
+		console.log(estado.territorios[action.data.datosExtra].jugador, 'jugador')
+		return estado.territorios[action.data.datosExtra].jugador === idMio
+	}
 }
 
 /**
@@ -410,7 +467,10 @@ function casosLocales(state, action) {
 			}
 		}
 		case ACCIONES.SELECCIONAR_TERRITORIO: {
-			if (tocaOrigen(state) || tocaDestino(state)) {
+			if (
+				(tocaOrigen(state) && correctoOrigen(state, action)) ||
+				(tocaDestino(state) && correctoDestino(state, action))
+			) {
 				let datosActual = { ...state.datosJugadaActual }
 				if (tocaOrigen(state)) {
 					datosActual.origen = action.data.datosExtra

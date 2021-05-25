@@ -6,7 +6,7 @@ import App from './App'
 /**
  * Quitado modo debug
  */
-console.log = () => {}
+//console.log = () => {}
 
 /**
  * Renderiza la aplicación

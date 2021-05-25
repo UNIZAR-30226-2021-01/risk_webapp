@@ -292,10 +292,13 @@ export const Partida = () => {
 	const clickEnUbicacion = useCallback(
 		(id) => {
 			console.log(estado, 'origen')
+			let idInt = parseInt(id)
 			dispatch({
 				tipo: ACCIONES.SELECCIONAR_TERRITORIO,
+				idJugador: obtenerIdUsuario(Auth),
 				data: {
-					datosExtra: parseInt(id),
+					datosExtra: idInt,
+					locations: Mapa.locations,
 				},
 			})
 			// Destino
