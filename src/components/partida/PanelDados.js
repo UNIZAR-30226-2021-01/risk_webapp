@@ -14,7 +14,7 @@ export const PanelDados = ({ dados_origen, dados_destino }) => {
 	return (
 		<MDBContainer className="mt-3 fondo-dados-partida pb-4 d-flex flex-column align-items-center">
 			<h1>RESULTADOS</h1>
-			<h2>Origen</h2>
+			<h2>Atacante</h2>
 			{dados_origen.indexOf(-1) == -1 && (
 				<MDBRow>
 					{dados_origen.map((dado, index) => (
@@ -28,7 +28,7 @@ export const PanelDados = ({ dados_origen, dados_destino }) => {
 				</MDBRow>
 			)}
 			{dados_origen.indexOf(-1) != -1 && <p>Esperando resultados</p>}
-			<h2>Destino</h2>
+			<h2>Defensor</h2>
 			{dados_destino.indexOf(-1) == -1 && (
 				<MDBRow>
 					{dados_destino.map((dado, index) => (
